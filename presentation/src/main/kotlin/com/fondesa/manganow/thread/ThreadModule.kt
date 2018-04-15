@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.activity
+package com.fondesa.manganow.thread
 
-import com.fondesa.manganow.manga.list.MangaListActivity
-import com.fondesa.manganow.manga.list.MangaListModule
-import com.fondesa.manganow.splash.SplashActivity
-import com.fondesa.manganow.splash.SplashModule
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import dagger.Provides
+import kotlinx.coroutines.experimental.android.UI
+import kotlin.coroutines.experimental.CoroutineContext
 
 @Module
-interface ActivityBuilderModule {
+class ThreadModule {
 
-    @ContributesAndroidInjector(modules = [SplashModule::class])
-    fun bindSplashActivity(): SplashActivity
-
-    @ContributesAndroidInjector(modules = [MangaListModule::class])
-    fun bindMangaListActivity(): MangaListActivity
+    @Provides
+    fun provideUiContext(): CoroutineContext = UI
 }

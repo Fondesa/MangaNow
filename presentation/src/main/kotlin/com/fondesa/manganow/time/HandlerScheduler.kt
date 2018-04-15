@@ -1,11 +1,12 @@
 package com.fondesa.manganow.time
 
 import android.os.Handler
+import javax.inject.Inject
 
 /**
  * Implementation of [Scheduler] that uses an Android [Handler] to schedule a task.
  */
-class HandlerScheduler : Scheduler {
+class HandlerScheduler @Inject constructor() : Scheduler {
 
     private var handler: Handler? = null
 

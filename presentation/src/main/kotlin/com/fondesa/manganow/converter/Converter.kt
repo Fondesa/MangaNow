@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.activity
+package com.fondesa.manganow.converter
 
-import com.fondesa.manganow.manga.list.MangaListActivity
-import com.fondesa.manganow.manga.list.MangaListModule
-import com.fondesa.manganow.splash.SplashActivity
-import com.fondesa.manganow.splash.SplashModule
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+/**
+ * Used to convert a value of type [FromType] to a value of type [ToType].
+ *
+ * @param FromType type of the value that must be converted.
+ * @param ToType type of the value after the conversion.
+ */
+interface Converter<in FromType, out ToType> {
 
-@Module
-interface ActivityBuilderModule {
-
-    @ContributesAndroidInjector(modules = [SplashModule::class])
-    fun bindSplashActivity(): SplashActivity
-
-    @ContributesAndroidInjector(modules = [MangaListModule::class])
-    fun bindMangaListActivity(): MangaListActivity
+    /**
+     * Convert the value [value] to a value of type [ToType].
+     *
+     * @param value value that must be converted.
+     * @return value after the conversion.
+     */
+    fun convert(value: FromType): ToType
 }

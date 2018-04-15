@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.activity
+package com.fondesa.manganow.converter
 
-import com.fondesa.manganow.manga.list.MangaListActivity
-import com.fondesa.manganow.manga.list.MangaListModule
-import com.fondesa.manganow.splash.SplashActivity
-import com.fondesa.manganow.splash.SplashModule
+import dagger.Binds
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 
 @Module
-interface ActivityBuilderModule {
+interface ConverterModule {
 
-    @ContributesAndroidInjector(modules = [SplashModule::class])
-    fun bindSplashActivity(): SplashActivity
-
-    @ContributesAndroidInjector(modules = [MangaListModule::class])
-    fun bindMangaListActivity(): MangaListActivity
+    @Binds
+    fun provideThrowableConverter(converter: ThrowableConverter): Converter<Throwable, String>
 }

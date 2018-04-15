@@ -29,7 +29,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module(includes = [MangaListModule.UseCases::class])
 interface MangaListModule {
 
     @Binds
