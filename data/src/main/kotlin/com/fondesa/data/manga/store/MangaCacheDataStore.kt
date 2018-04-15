@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.feature.manga.repository
+package com.fondesa.data.manga.store
 
-import com.fondesa.domain.feature.manga.model.Manga
+import com.fondesa.domain.manga.model.Manga
 
-interface MangaRepository {
+interface MangaCacheDataStore {
 
-    suspend fun getList(): List<Manga>
+    suspend fun get(): List<Manga>
+
+    suspend fun save(mangaList: List<Manga>)
+
+    suspend fun isValid(): Boolean
 }

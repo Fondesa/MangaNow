@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.feature.manga.usecase
+package com.fondesa.domain.manga.usecase
 
-import com.fondesa.domain.feature.manga.model.Manga
-import com.fondesa.domain.feature.manga.repository.MangaRepository
+import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.manga.repository.MangaRepository
 import com.fondesa.domain.usecase.UseCase
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Deferred

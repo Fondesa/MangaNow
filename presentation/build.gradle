@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -32,8 +33,20 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$versions.androidSupport"
 
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+
     testImplementation "junit:junit:$versions.jUnit"
 
     androidTestImplementation "com.android.support.test:runner:$versions.androidTestRunner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
+
+    // Used to monitor the memory leaks in the app.
+    // On the debug version it will install an additional apk with information on leaks.
+    // The dependency that ends with "-no-op" disables the leak monitoring.
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary"
+    androidTestImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary"
 }

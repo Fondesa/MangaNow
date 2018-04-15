@@ -14,24 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.feature.manga.model
+package com.fondesa.domain.manga.repository
 
-/**
- *
- */
-class Manga(
-    val id: Long,
-    val alias: String,
-    val author: String? = null,
-    val description: String? = null,
-    val hits: Int = 0,
-    val imageUrl: String?,
-    val yearOfRelease: Int? = null,
-    val status: Status = Status.UNKNOWN,
-    val title: String
-) {
+import com.fondesa.domain.manga.model.Manga
 
-    enum class Status {
-        UNKNOWN, DROPPED, ON_GOING, FINISHED
-    }
+interface MangaRepository {
+
+    suspend fun getList(): List<Manga>
 }

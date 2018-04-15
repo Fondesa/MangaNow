@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.feature.manga.store
+package com.fondesa.manganow.manga.list
 
-import com.fondesa.domain.feature.manga.model.Manga
+import com.fondesa.data.remote.client.HttpClient
+import com.fondesa.data.remote.client.RemoteClient
+import dagger.Module
 
-interface MangaCacheDataStore {
+@Module
+interface MangaListModule {
 
-    suspend fun get(): List<Manga>
-
-    suspend fun save(mangaList: List<Manga>)
-
-    suspend fun isValid(): Boolean
 }

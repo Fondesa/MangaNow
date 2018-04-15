@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.feature.manga.repository
+package com.fondesa.data.manga.repository
 
-import com.fondesa.data.feature.manga.store.MangaCacheDataStore
-import com.fondesa.data.feature.manga.store.MangaRemoteDataStore
-import com.fondesa.domain.feature.manga.model.Manga
-import com.fondesa.domain.feature.manga.repository.MangaRepository
+import com.fondesa.data.manga.store.MangaCacheDataStore
+import com.fondesa.data.manga.store.MangaRemoteDataStore
+import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.manga.repository.MangaRepository
 import javax.inject.Inject
 
 class DefaultMangaRepository @Inject constructor(

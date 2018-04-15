@@ -14,12 +14,12 @@ android {
 }
 
 dependencies {
-    implementation project(":domain")
+    api project(":domain")
 
-    implementation "javax.inject:javax.inject:$versions.javaxInject"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
-    implementation "com.google.code.gson:gson:$versions.gson"
-    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+    api "javax.inject:javax.inject:$versions.javaxInject"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+    api "com.google.code.gson:gson:$versions.gson"
+    api "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
 }
 
 sourceCompatibility = "1.7"

@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow
+package com.fondesa.data.manga.store
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import com.fondesa.domain.manga.model.Manga
 
-class MainActivity : AppCompatActivity() {
+interface MangaRemoteDataStore {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+    suspend fun get(): List<Manga>
 }
