@@ -14,25 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.strategy
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.fondesa.data.database.Database
+import com.fondesa.data.database.statement.Vacuum
+import javax.inject.Inject
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
+/**
+ * Default implementation of [ErrorStrategy] that will attempt to rebuild
+ * the database file when a corruption occurs.
+ */
+class DefaultErrorStrategy @Inject constructor() : ErrorStrategy {
 
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    override fun onCorruption(database: Database) {
+        val vacuum = Vacuum.create()
+        // Attempt to rebuild the database file.
+        database.compile(vacuum).execute()
+    }
 }

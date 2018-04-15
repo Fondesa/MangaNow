@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+/**
+ * Used to manage the creation and the access to a [Database].
+ * The close method is not provided to have the connection always opened.
+ * In this way, the database can be accessed directly without checking if it's opened or closed.
+ */
+interface DatabaseClient {
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
+    /**
+     * Creates the [Database] and opens the connection to it.
+     */
+    fun createDatabase()
 
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    /**
+     * Get the [Database] instance created through [createDatabase].
+     * The [Database] connection must be opened in order to use it.
+     */
+    fun getDatabase(): Database
 }

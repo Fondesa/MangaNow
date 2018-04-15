@@ -16,10 +16,12 @@
 
 package com.fondesa.data.manga.store
 
+import com.fondesa.data.remote.client.RemoteClient
 import com.fondesa.domain.manga.model.Manga
 import javax.inject.Inject
 
-class DefaultMangaRemoteDataStore @Inject constructor(): MangaRemoteDataStore {
+class DefaultMangaRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :
+    MangaRemoteDataStore {
     override suspend fun get(): List<Manga> {
         TODO("not implemented")
     }

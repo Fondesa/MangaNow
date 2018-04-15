@@ -40,10 +40,6 @@ class HttpClient @Inject constructor(
     private val connectivityManager: ConnectivityManager
 ) : RemoteClient {
 
-    companion object {
-        private val CONNECTION_TIMEOUT_SECONDS = if (BuildConfig.DEBUG) 15L else 30L
-    }
-
     private val httpClient: OkHttpClient
 
     init {
@@ -80,7 +76,7 @@ class HttpClient @Inject constructor(
         val requestBuilder = Request.Builder()
             .url(url)
             .headers(Headers.of(task.headers()))
-            .method(task.method().name, body)
+            .method(task.method().value, body)
 
         task.tag()?.let {
             requestBuilder.tag(it)
@@ -133,5 +129,9 @@ class HttpClient @Inject constructor(
 
         // Build the url.
         return urlBuilder.build()
+    }
+
+    companion object {
+        private val CONNECTION_TIMEOUT_SECONDS = if (BuildConfig.DEBUG) 15L else 30L
     }
 }

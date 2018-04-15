@@ -14,25 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.extension
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
-
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
-
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
-}
+/**
+ * Creates an array adding an array of the same type to the original element.
+ *
+ * @param array array of the same type of the original element that must be added.
+ * @return an array containing the original element and the elements of the given [array].
+ */
+inline fun <reified T> T.plusArray(array: Array<out T>) = arrayOf(this).plus(array)

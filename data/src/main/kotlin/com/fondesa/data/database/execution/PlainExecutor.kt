@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.execution
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import android.database.sqlite.SQLiteStatement
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
+/**
+ * Type of [CompiledExecutor] that could only execute a [SQLiteStatement].
+ *
+ * @property stmt [SQLiteStatement] that can be executed.
+ * @property executeBlock block that must be called to execute the [SQLiteStatement].
+ */
+class PlainExecutor<out ExecutionType>(
+    stmt: SQLiteStatement,
+    private inline val executeBlock: (SQLiteStatement) -> ExecutionType
+) : CompiledExecutor<ExecutionType>(stmt) {
 
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    override fun execute(): ExecutionType = executeBlock(stmt)
 }

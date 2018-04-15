@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.structure
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+/**
+ * Interface used to define the SQLite database structure.
+ */
+interface Graph {
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
-
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    /**
+     * Defines the tables that must be created when the database is created.
+     *
+     * @return list of tables used in this SQLite database.
+     */
+    fun getTables(): Array<Table>
 }

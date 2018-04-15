@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.clause
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+/**
+ * Raw SQLite expression with the arguments that will be bound in the compiled statement.
+ *
+ * @param raw the raw text that expressing the query.
+ * @param args the arguments that will be bound in the compiled statement.
+ */
+class RawExpression(val raw: String, vararg val args: String) : Expression {
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
+    override fun raw(): String = raw
 
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    override fun args(): Array<out String> = args
 }

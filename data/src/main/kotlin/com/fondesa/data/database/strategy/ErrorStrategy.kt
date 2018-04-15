@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.strategy
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.fondesa.data.database.Database
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
+/**
+ * Used to define an action to take when database corruption is detected.
+ */
+interface ErrorStrategy {
 
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    /**
+     * Invoked when database corruption is detected.
+     *
+     * @param database [Database] object representing the database on which corruption
+     * is detected.
+     */
+    fun onCorruption(database: Database)
 }

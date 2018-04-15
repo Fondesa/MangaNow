@@ -82,7 +82,31 @@ interface RemoteTask {
      */
     fun tag(): Any? = null
 
-    enum class Method {
-        GET, POST, PUT, DELETE, PATCH
+    enum class Method(val value: String) {
+
+        /**
+         * Specifies a GET method.
+         */
+        GET("GET"),
+
+        /**
+         * Specifies a POST method.
+         */
+        POST("POST"),
+
+        /**
+         * Specifies a PUT method.
+         */
+        PUT("PUT"),
+
+        /**
+         * Specifies a DELETE method.
+         */
+        DELETE("DELETE"),
+
+        /**
+         * Specifies a PATCH method.
+         */
+        PATCH("PATCH")
     }
 }

@@ -14,25 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.execution
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.fondesa.data.database.statement.Statement
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
+/**
+ * Define a [Statement] that can be closed after its execution.
+ */
+interface Closeable {
 
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    /**
+     * Close the [Statement] and releases any reference to it.
+     * If the [Statement] is already closed then invoking this method has no effect.
+     */
+    fun close()
 }

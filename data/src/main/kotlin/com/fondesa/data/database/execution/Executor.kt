@@ -14,25 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.execution
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.fondesa.data.database.statement.Statement
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
+/**
+ * Defines the execution of a [Statement].
+ *
+ * @param T return type after the execution.
+ */
+interface Executor<out T> {
 
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+    /**
+     * Executes the statement and return the execution's result.
+     *
+     * @return result after the execution.
+     */
+    fun execute(): T
 }

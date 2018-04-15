@@ -14,25 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.data.database.extension
 
-import android.app.Application
-import android.content.Context
-import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import android.database.sqlite.SQLiteProgram
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class])
-class AppModule {
-
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+/**
+ * Given an array of String [args], this method binds all of them in one single call.
+ *
+ * @param args the String array of bind args, none of which must be null.
+ * @param gap the gap used to bind the arguments from a specific index one-based.
+ */
+fun SQLiteProgram.bindAllArgsAsStrings(args: Array<out String>, gap: Int) {
+    args.forEachIndexed { index, arg ->
+        bindString(gap + index + 1, arg)
+    }
 }
