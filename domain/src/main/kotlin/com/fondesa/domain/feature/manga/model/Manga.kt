@@ -14,20 +14,24 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow
-
-import org.junit.Test
-
-import org.junit.Assert.*
+package com.fondesa.domain.feature.manga.model
 
 /**
- * Example local unit test, which will execute on the development machine (host).
  *
- * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+class Manga(
+    val id: Long,
+    val alias: String,
+    val author: String? = null,
+    val description: String? = null,
+    val hits: Int = 0,
+    val imageUrl: String?,
+    val yearOfRelease: Int? = null,
+    val status: Status = Status.UNKNOWN,
+    val title: String
+) {
+
+    enum class Status {
+        UNKNOWN, DROPPED, ON_GOING, FINISHED
     }
 }

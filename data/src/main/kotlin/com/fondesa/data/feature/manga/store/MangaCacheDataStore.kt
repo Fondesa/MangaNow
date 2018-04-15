@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow
+package com.fondesa.data.feature.manga.store
 
-import org.junit.Test
+import com.fondesa.domain.feature.manga.model.Manga
 
-import org.junit.Assert.*
+interface MangaCacheDataStore {
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+    suspend fun get(): List<Manga>
+
+    suspend fun save(mangaList: List<Manga>)
+
+    suspend fun isValid(): Boolean
 }

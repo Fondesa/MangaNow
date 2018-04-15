@@ -3,6 +3,7 @@ buildscript {
             androidPlugin: '3.1.1',
             androidSupport: '27.1.1',
             androidTestRunner: '1.0.1',
+            coroutines: '0.22.5',
             espresso: '3.0.1',
             javaxInject: '1',
             jUnit: '4.12',

@@ -4,7 +4,10 @@ dependencies {
     implementation "javax.inject:javax.inject:$versions.javaxInject"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
 }
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+kotlin.experimental.coroutines "enable"

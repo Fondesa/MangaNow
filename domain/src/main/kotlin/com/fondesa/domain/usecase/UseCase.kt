@@ -14,20 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow
+package com.fondesa.domain.usecase
 
-import org.junit.Test
+import kotlinx.coroutines.experimental.Deferred
 
-import org.junit.Assert.*
+interface UseCase<out Result, in Params> {
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+    fun execute(params: Params): Deferred<Result>
 }
