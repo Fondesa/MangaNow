@@ -18,7 +18,7 @@ package com.fondesa.data.feature.manga.store
 
 import com.fondesa.domain.feature.manga.model.Manga
 
-interface MangaCloudDataStore {
+interface MangaRemoteDataStore {
 
     suspend fun get(): List<Manga>
 }
