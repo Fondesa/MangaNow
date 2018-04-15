@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.store
+package com.fondesa.manganow.time
 
-import com.fondesa.data.remote.client.RemoteClient
-import com.fondesa.domain.manga.model.Manga
-import javax.inject.Inject
+import dagger.Binds
+import dagger.Module
 
-class DefaultMangaRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :
-    MangaRemoteDataStore {
-    override suspend fun get(): List<Manga> {
-        TODO("not implemented")
-    }
+@Module
+interface TimeModule {
+
+    @Binds
+    fun provideScheduler(scheduler: HandlerScheduler): Scheduler
 }

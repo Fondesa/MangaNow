@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.store
+package com.fondesa.domain.category.usecase
 
-import com.fondesa.data.remote.client.RemoteClient
-import com.fondesa.data.store.RemoteDataStore
-import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.category.model.Category
+import com.fondesa.domain.category.repository.CategoryRepository
+import com.fondesa.domain.usecase.UseCase
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
-class MangaRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :
-    RemoteDataStore<List<Manga>> {
-    override suspend fun get(): List<Manga> {
-        TODO("not implemented")
-    }
+class GetCategoryList @Inject constructor(private val repository: CategoryRepository) :
+    UseCase<List<Category>, Unit> {
+
+    override fun execute(params: Unit): Deferred<List<Category>> =
+        async(CommonPool) {
+            repository.getList()
+        }
 }

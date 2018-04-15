@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.store
+package com.fondesa.domain.sortorder.repository
 
-import com.fondesa.domain.manga.model.Manga
-import javax.inject.Inject
+import com.fondesa.domain.sortorder.model.SortOrder
 
-class DefaultMangaCacheDataStore @Inject constructor() : MangaCacheDataStore {
+interface SortOrderRepository {
 
-    override suspend fun get(): List<Manga> {
-        TODO("not implemented")
-    }
-
-    override suspend fun save(mangaList: List<Manga>) {
-        TODO("not implemented")
-    }
-
-    override suspend fun isValid(): Boolean {
-        TODO("not implemented")
-    }
+    suspend fun getList(): List<SortOrder>
 }

@@ -16,13 +16,21 @@
 
 package com.fondesa.data.manga.store
 
+import com.fondesa.data.store.CacheDataStore
 import com.fondesa.domain.manga.model.Manga
+import javax.inject.Inject
 
-interface MangaCacheDataStore {
+class MangaCacheDataStore @Inject constructor(): CacheDataStore<List<Manga>> {
 
-    suspend fun get(): List<Manga>
+    override suspend fun get(): List<Manga> {
+        TODO("not implemented")
+    }
 
-    suspend fun save(mangaList: List<Manga>)
+    override suspend fun save(mangaList: List<Manga>) {
+        TODO("not implemented")
+    }
 
-    suspend fun isValid(): Boolean
+    override suspend fun isValid(): Boolean {
+        TODO("not implemented")
+    }
 }

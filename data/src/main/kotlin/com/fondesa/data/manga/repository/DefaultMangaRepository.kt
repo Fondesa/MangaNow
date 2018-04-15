@@ -16,15 +16,15 @@
 
 package com.fondesa.data.manga.repository
 
-import com.fondesa.data.manga.store.MangaCacheDataStore
-import com.fondesa.data.manga.store.MangaRemoteDataStore
+import com.fondesa.data.store.CacheDataStore
+import com.fondesa.data.store.RemoteDataStore
 import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
 import javax.inject.Inject
 
 class DefaultMangaRepository @Inject constructor(
-    private val remoteDataStore: MangaRemoteDataStore,
-    private val cacheDataStore: MangaCacheDataStore
+    private val remoteDataStore: @JvmSuppressWildcards RemoteDataStore<List<Manga>>,
+    private val cacheDataStore: @JvmSuppressWildcards CacheDataStore<List<Manga>>
 ) : MangaRepository {
 
     override suspend fun getList(): List<Manga> = if (cacheDataStore.isValid()) {

@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.store
+package com.fondesa.data.sortorder.repository
 
-import com.fondesa.data.remote.client.RemoteClient
+import com.fondesa.data.store.CacheDataStore
 import com.fondesa.data.store.RemoteDataStore
-import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import javax.inject.Inject
 
-class MangaRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :
-    RemoteDataStore<List<Manga>> {
-    override suspend fun get(): List<Manga> {
-        TODO("not implemented")
+class DefaultSortOrderRepository @Inject constructor(
+    private val remoteDataStore: @JvmSuppressWildcards RemoteDataStore<List<SortOrder>>,
+    private val cacheDataStore: @JvmSuppressWildcards CacheDataStore<List<SortOrder>>
+) : SortOrderRepository {
+
+    override suspend fun getList(): List<SortOrder> = if (cacheDataStore.isValid()) {
+        cacheDataStore.get()
+    } else {
+        remoteDataStore.get()
     }
 }

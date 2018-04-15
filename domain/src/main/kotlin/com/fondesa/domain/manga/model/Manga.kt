@@ -19,7 +19,7 @@ package com.fondesa.domain.manga.model
 /**
  *
  */
-class Manga(
+data class Manga(
     val id: Long,
     val alias: String,
     val author: String? = null,

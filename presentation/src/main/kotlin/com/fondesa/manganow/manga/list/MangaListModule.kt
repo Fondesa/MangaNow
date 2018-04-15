@@ -17,10 +17,10 @@
 package com.fondesa.manganow.manga.list
 
 import com.fondesa.data.manga.repository.DefaultMangaRepository
-import com.fondesa.data.manga.store.DefaultMangaCacheDataStore
-import com.fondesa.data.manga.store.DefaultMangaRemoteDataStore
 import com.fondesa.data.manga.store.MangaCacheDataStore
 import com.fondesa.data.manga.store.MangaRemoteDataStore
+import com.fondesa.data.store.CacheDataStore
+import com.fondesa.data.store.RemoteDataStore
 import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
 import com.fondesa.domain.manga.usecase.GetMangaList
@@ -41,12 +41,6 @@ interface MangaListModule {
     @Binds
     fun provideMangaRepository(repository: DefaultMangaRepository): MangaRepository
 
-    @Binds
-    fun provideMangaCacheDataStore(store: DefaultMangaCacheDataStore): MangaCacheDataStore
-
-    @Binds
-    fun provideMangaRemoteDataStore(store: DefaultMangaRemoteDataStore): MangaRemoteDataStore
-
     @Module
     class UseCases {
 
@@ -54,5 +48,11 @@ interface MangaListModule {
 
         @Provides
         fun provideGetMangaList(useCase: GetMangaList): UseCase<List<Manga>, Unit> = useCase
+
+        @Provides
+        fun provideMangaCacheDataStore(store: MangaCacheDataStore): CacheDataStore<List<Manga>> = store
+
+        @Provides
+        fun provideMangaRemoteDataStore(store: MangaRemoteDataStore): RemoteDataStore<List<Manga>> = store
     }
 }
