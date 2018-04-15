@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.manganow.presenter
 
-import android.os.Bundle
-import android.widget.Toast
-import com.fondesa.data.remote.connectivity.ConnectivityManager
-import com.fondesa.manganow.R
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
-
-class MangaListActivity : DaggerAppCompatActivity(), MangaListContract.View {
-
-    @Inject
-    lateinit var presenter: MangaListContract.Presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
+/**
+ * Exception thrown when the presenter is trying to access a view that is not attached.
+ *
+ * @param msg optional message defining the reason the view is not attached.
+ */
+class ViewNotAttachedException(msg: String = "The view is not attached to the presenter.") : Exception(msg)

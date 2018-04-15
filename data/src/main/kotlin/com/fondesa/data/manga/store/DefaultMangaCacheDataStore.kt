@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.data.manga.store
 
-import android.os.Bundle
-import android.widget.Toast
-import com.fondesa.data.remote.connectivity.ConnectivityManager
-import com.fondesa.manganow.R
-import dagger.android.support.DaggerAppCompatActivity
+import com.fondesa.domain.manga.model.Manga
 import javax.inject.Inject
 
-class MangaListActivity : DaggerAppCompatActivity(), MangaListContract.View {
+class DefaultMangaCacheDataStore @Inject constructor() : MangaCacheDataStore {
 
-    @Inject
-    lateinit var presenter: MangaListContract.Presenter
+    override suspend fun get(): List<Manga> {
+        TODO("not implemented")
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override suspend fun save(mangaList: List<Manga>) {
+        TODO("not implemented")
+    }
+
+    override suspend fun isValid(): Boolean {
+        TODO("not implemented")
     }
 }

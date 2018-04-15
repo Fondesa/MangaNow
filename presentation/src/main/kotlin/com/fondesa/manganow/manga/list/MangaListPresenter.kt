@@ -16,20 +16,13 @@
 
 package com.fondesa.manganow.manga.list
 
-import android.os.Bundle
-import android.widget.Toast
-import com.fondesa.data.remote.connectivity.ConnectivityManager
-import com.fondesa.manganow.R
-import dagger.android.support.DaggerAppCompatActivity
+import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.usecase.UseCase
+import com.fondesa.manganow.presenter.AbstractPresenter
 import javax.inject.Inject
 
-class MangaListActivity : DaggerAppCompatActivity(), MangaListContract.View {
-
-    @Inject
-    lateinit var presenter: MangaListContract.Presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+class MangaListPresenter @Inject constructor(
+    private val getMangaListUseCase: @JvmSuppressWildcards UseCase<List<Manga>, Unit>
+) : AbstractPresenter<MangaListContract.View>(),
+    MangaListContract.Presenter {
 }

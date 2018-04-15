@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.data.manga.store
 
-import android.os.Bundle
-import android.widget.Toast
-import com.fondesa.data.remote.connectivity.ConnectivityManager
-import com.fondesa.manganow.R
-import dagger.android.support.DaggerAppCompatActivity
+import com.fondesa.domain.manga.model.Manga
 import javax.inject.Inject
 
-class MangaListActivity : DaggerAppCompatActivity(), MangaListContract.View {
-
-    @Inject
-    lateinit var presenter: MangaListContract.Presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+class DefaultMangaRemoteDataStore @Inject constructor(): MangaRemoteDataStore {
+    override suspend fun get(): List<Manga> {
+        TODO("not implemented")
     }
 }

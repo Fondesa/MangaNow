@@ -16,20 +16,24 @@
 
 package com.fondesa.manganow.manga.list
 
-import android.os.Bundle
-import android.widget.Toast
-import com.fondesa.data.remote.connectivity.ConnectivityManager
-import com.fondesa.manganow.R
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
+import com.fondesa.manganow.presenter.BasePresenter
 
-class MangaListActivity : DaggerAppCompatActivity(), MangaListContract.View {
+/**
+ * Used to specify the contract between the view and the presenter for the manga list section.
+ */
+object MangaListContract {
 
-    @Inject
-    lateinit var presenter: MangaListContract.Presenter
+    /**
+     * Specify the view methods for the manga list section.
+     */
+    interface View {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    }
+
+    /**
+     * Specify the presenter methods for the manga list section linked to [View].
+     */
+    interface Presenter : BasePresenter<View> {
+
     }
 }

@@ -24,6 +24,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 interface ActivityBuilderModule {
 
-    @ContributesAndroidInjector(modules = [(MangaListModule::class)])
+    @ContributesAndroidInjector(modules = [MangaListModule::class, MangaListModule.UseCases::class])
     fun bindMangaListActivity(): MangaListActivity
 }

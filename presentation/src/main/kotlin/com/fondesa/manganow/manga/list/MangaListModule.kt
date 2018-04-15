@@ -16,11 +16,43 @@
 
 package com.fondesa.manganow.manga.list
 
-import com.fondesa.data.remote.client.HttpClient
-import com.fondesa.data.remote.client.RemoteClient
+import com.fondesa.data.manga.repository.DefaultMangaRepository
+import com.fondesa.data.manga.store.DefaultMangaCacheDataStore
+import com.fondesa.data.manga.store.DefaultMangaRemoteDataStore
+import com.fondesa.data.manga.store.MangaCacheDataStore
+import com.fondesa.data.manga.store.MangaRemoteDataStore
+import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.manga.repository.MangaRepository
+import com.fondesa.domain.manga.usecase.GetMangaList
+import com.fondesa.domain.usecase.UseCase
+import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 @Module
 interface MangaListModule {
 
+    @Binds
+    fun providePresenter(presenter: MangaListPresenter): MangaListContract.Presenter
+
+    @Binds
+    fun provideView(view: MangaListActivity): MangaListContract.View
+
+    @Binds
+    fun provideMangaRepository(repository: DefaultMangaRepository): MangaRepository
+
+    @Binds
+    fun provideMangaCacheDataStore(store: DefaultMangaCacheDataStore): MangaCacheDataStore
+
+    @Binds
+    fun provideMangaRemoteDataStore(store: DefaultMangaRemoteDataStore): MangaRemoteDataStore
+
+    @Module
+    class UseCases {
+
+        //TODO: probably remove this checking: https://github.com/google/dagger/issues/1143
+
+        @Provides
+        fun provideGetMangaList(useCase: GetMangaList): UseCase<List<Manga>, Unit> = useCase
+    }
 }
