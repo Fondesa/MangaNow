@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.thread
+package com.fondesa.data.thread
 
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch

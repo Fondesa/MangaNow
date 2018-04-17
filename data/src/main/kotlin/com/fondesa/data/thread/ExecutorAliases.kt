@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.thread
-
-import javax.inject.Inject
-import kotlin.coroutines.experimental.CoroutineContext
+package com.fondesa.data.thread
 
 /**
- * Factory used to create a [CoroutinesExecutor.Builder].
+ * Defines a lambda which returns a generic result.
  *
- * @param uiContext [CoroutineContext] used to invoke the callbacks on the UI thread.
+ * @param T the result's type.
  */
-class CoroutinesExecutorFactory @Inject constructor(private val uiContext: CoroutineContext) :
-    ExecutorFactory {
+typealias ExecutionBlock<T> = suspend () -> T
 
-    override fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T> =
-        CoroutinesExecutor.Builder(uiContext, executionBlock)
-}
+/**
+ * Defines a lambda which will be invoked with a previously returned result as parameter.
+ *
+ * @param T the parameter's type.
+ */
+typealias CompletedBlock<T> = (T) -> Unit
+
+/**
+ * Defines a lambda which will be invoked with a [Throwable] as parameter.
+ */
+typealias ErrorBlock = (Throwable) -> Unit

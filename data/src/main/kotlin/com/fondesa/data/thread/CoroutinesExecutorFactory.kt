@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.thread
+package com.fondesa.data.thread
+
+import javax.inject.Inject
+import kotlin.coroutines.experimental.CoroutineContext
 
 /**
- * Used to manage a pool of [Executor] and release them in a centralized way.
+ * Factory used to create a [CoroutinesExecutor.Builder].
+ *
+ * @param uiContext [CoroutineContext] used to invoke the callbacks on the UI thread.
  */
-interface ExecutorPool {
+class CoroutinesExecutorFactory @Inject constructor(private val uiContext: CoroutineContext) :
+    ExecutorFactory {
 
-    /**
-     * Adds an [Executor] to the pool.
-     *
-     * @param executor [Executor] which must be added.
-     */
-    fun add(executor: Executor)
-
-    /**
-     * Cancel all [Executor]s in the pool and release their references.
-     */
-    fun release()
+    override fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T> =
+        CoroutinesExecutor.Builder(uiContext, executionBlock)
 }

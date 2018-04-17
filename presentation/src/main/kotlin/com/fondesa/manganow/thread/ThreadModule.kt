@@ -16,6 +16,10 @@
 
 package com.fondesa.manganow.thread
 
+import com.fondesa.data.thread.CoroutinesExecutorFactory
+import com.fondesa.data.thread.ExecutorFactory
+import com.fondesa.data.thread.ExecutorPool
+import com.fondesa.data.thread.ListExecutorPool
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.experimental.android.UI

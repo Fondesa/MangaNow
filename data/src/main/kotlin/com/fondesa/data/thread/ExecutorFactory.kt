@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.thread
+package com.fondesa.data.thread
 
 /**
- * Defines a lambda which returns a generic result.
- *
- * @param T the result's type.
+ * Factory used to create an [Executor.Builder].
  */
-typealias ExecutionBlock<T> = suspend () -> T
+interface ExecutorFactory {
 
-/**
- * Defines a lambda which will be invoked with a previously returned result as parameter.
- *
- * @param T the parameter's type.
- */
-typealias CompletedBlock<T> = (T) -> Unit
-
-/**
- * Defines a lambda which will be invoked with a [Throwable] as parameter.
- */
-typealias ErrorBlock = (Throwable) -> Unit
+    /**
+     * Creates an [Executor.Builder].
+     *
+     * @param executionBlock block used to execute the operation.
+     * @param T the type of the operation's output which will be returned to the optional [CompletedBlock].
+     * @return new instance of an [Executor.Builder].
+     */
+    fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T>
+}

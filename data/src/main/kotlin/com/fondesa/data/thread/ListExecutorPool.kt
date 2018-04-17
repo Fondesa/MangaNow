@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.thread
+package com.fondesa.data.thread
+
+import javax.inject.Inject
 
 /**
- * Factory used to create an [Executor.Builder].
+ * Implementation of [ExecutorPool] which uses a [List] to handle the pool.
  */
-interface ExecutorFactory {
+class ListExecutorPool @Inject constructor() : ExecutorPool {
 
-    /**
-     * Creates an [Executor.Builder].
-     *
-     * @param executionBlock block used to execute the operation.
-     * @param T the type of the operation's output which will be returned to the optional [CompletedBlock].
-     * @return new instance of an [Executor.Builder].
-     */
-    fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T>
+    private val executors = mutableListOf<Executor>()
+
+    override fun add(executor: Executor) {
+        executors.add(executor)
+    }
+
+    override fun release() {
+        executors.forEach { it.cancel() }
+        executors.clear()
+    }
 }
