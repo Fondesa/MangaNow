@@ -16,21 +16,20 @@
 
 package com.fondesa.manganow.thread
 
-import dagger.Module
-import dagger.Provides
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+/**
+ * Used to manage a pool of [Executor] and release them in a centralized way.
+ */
+interface ExecutorPool {
 
-@Module
-class ThreadModule {
+    /**
+     * Adds an [Executor] to the pool.
+     *
+     * @param executor [Executor] which must be added.
+     */
+    fun add(executor: Executor)
 
-    @Provides
-    fun provideUiCoroutinesContext(): CoroutineContext = UI
-
-    @Provides
-    fun provideExecutorBuilderFactory(factory: CoroutinesExecutorFactory): ExecutorFactory =
-        factory
-
-    @Provides
-    fun provideExecutorPool(pool: ListExecutorPool): ExecutorPool = pool
+    /**
+     * Cancel all [Executor]s in the pool and release their references.
+     */
+    fun release()
 }

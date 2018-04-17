@@ -22,6 +22,8 @@ import com.fondesa.domain.usecase.UseCase
 import com.fondesa.manganow.converter.Converter
 import com.fondesa.manganow.presenter.AbstractPresenter
 import com.fondesa.manganow.thread.ExecutorFactory
+import com.fondesa.manganow.thread.ExecutorPool
+import com.fondesa.manganow.thread.execute
 import com.fondesa.manganow.time.Scheduler
 import javax.inject.Inject
 
@@ -32,7 +34,8 @@ class SplashPresenter @Inject constructor(
     private val getSortOrderListUseCase: @JvmSuppressWildcards UseCase<List<SortOrder>, Unit>,
     private val scheduler: Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
-    private val executorFactory: ExecutorFactory
+    private val executorFactory: ExecutorFactory,
+    private val executorPool: ExecutorPool
 ) : AbstractPresenter<SplashContract.View>(),
     SplashContract.Presenter {
 
@@ -52,7 +55,8 @@ class SplashPresenter @Inject constructor(
     override fun detachView() {
         // Release the scheduler.
         scheduler.release()
-        //TODO: cancel the tasks
+        // Release the executors.
+        executorPool.release()
         super.detachView()
     }
 
@@ -74,14 +78,14 @@ class SplashPresenter @Inject constructor(
         view.hideErrorMessage()
         view.showProgressIndicator()
 
-        // Create and load the task used to download the categories.
+        // Create and load the executor used to load the categories.
         executorFactory
             .create {
                 getSortOrderListUseCase.execute(Unit)
             }
             .completed(::onSortOrdersLoadCompleted)
             .error(::onSortOrdersLoadFailed)
-            .load()
+            .execute(executorPool)
     }
 
     private fun onCategoriesLoadCompleted(categories: Array<Category>) {

@@ -81,12 +81,5 @@ interface Executor {
         fun error(errorBlock: ErrorBlock): Builder<T> = apply {
             this.errorBlock = errorBlock
         }
-
-        /**
-         * Method used to create an [Executor] and execute it immediately.
-         *
-         * @return the [Executor] built with the blocks added in this builder.
-         */
-        fun load(): Executor = build().apply { execute() }
     }
 }

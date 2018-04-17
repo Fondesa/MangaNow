@@ -16,21 +16,21 @@
 
 package com.fondesa.manganow.thread
 
-import dagger.Module
-import dagger.Provides
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import javax.inject.Inject
 
-@Module
-class ThreadModule {
+/**
+ * Implementation of [ExecutorPool] which uses a [List] to handle the pool.
+ */
+class ListExecutorPool @Inject constructor() : ExecutorPool {
 
-    @Provides
-    fun provideUiCoroutinesContext(): CoroutineContext = UI
+    private val executors = mutableListOf<Executor>()
 
-    @Provides
-    fun provideExecutorBuilderFactory(factory: CoroutinesExecutorFactory): ExecutorFactory =
-        factory
+    override fun add(executor: Executor) {
+        executors.add(executor)
+    }
 
-    @Provides
-    fun provideExecutorPool(pool: ListExecutorPool): ExecutorPool = pool
+    override fun release() {
+        executors.forEach { it.cancel() }
+        executors.clear()
+    }
 }
