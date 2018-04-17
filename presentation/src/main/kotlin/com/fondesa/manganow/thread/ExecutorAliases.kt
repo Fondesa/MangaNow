@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.usecase
+package com.fondesa.manganow.thread
 
-import com.fondesa.domain.category.model.Category
-import com.fondesa.domain.category.repository.CategoryRepository
-import com.fondesa.domain.usecase.UseCase
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.async
-import javax.inject.Inject
+/**
+ * Defines a lambda which returns a generic result.
+ *
+ * @param T the result's type.
+ */
+typealias ExecutionBlock<T> = suspend () -> T
 
-class GetCategoryList @Inject constructor(private val repository: CategoryRepository) :
-    UseCase<List<Category>, Unit> {
+/**
+ * Defines a lambda which will be invoked with a previously returned result as parameter.
+ *
+ * @param T the parameter's type.
+ */
+typealias CompletedBlock<T> = (T) -> Unit
 
-    override suspend fun execute(params: Unit): List<Category> =
-        async(CommonPool) {
-            repository.getList()
-        }.await()
-}
+/**
+ * Defines a lambda which will be invoked with a [Throwable] as parameter.
+ */
+typealias ErrorBlock = (Throwable) -> Unit

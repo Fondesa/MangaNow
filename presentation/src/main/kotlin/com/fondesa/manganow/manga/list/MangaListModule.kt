@@ -27,9 +27,8 @@ import com.fondesa.domain.manga.usecase.GetMangaList
 import com.fondesa.domain.usecase.UseCase
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 
-@Module(includes = [MangaListModule.UseCases::class])
+@Module
 interface MangaListModule {
 
     @Binds
@@ -41,18 +40,12 @@ interface MangaListModule {
     @Binds
     fun provideMangaRepository(repository: DefaultMangaRepository): MangaRepository
 
-    @Module
-    class UseCases {
+    @Binds
+    fun provideGetMangaList(useCase: GetMangaList): UseCase<List<Manga>, Unit>
 
-        //TODO: probably remove this checking: https://github.com/google/dagger/issues/1143
+    @Binds
+    fun provideMangaCacheDataStore(store: MangaCacheDataStore): CacheDataStore<List<Manga>>
 
-        @Provides
-        fun provideGetMangaList(useCase: GetMangaList): UseCase<List<Manga>, Unit> = useCase
-
-        @Provides
-        fun provideMangaCacheDataStore(store: MangaCacheDataStore): CacheDataStore<List<Manga>> = store
-
-        @Provides
-        fun provideMangaRemoteDataStore(store: MangaRemoteDataStore): RemoteDataStore<List<Manga>> = store
-    }
+    @Binds
+    fun provideMangaRemoteDataStore(store: MangaRemoteDataStore): RemoteDataStore<List<Manga>>
 }

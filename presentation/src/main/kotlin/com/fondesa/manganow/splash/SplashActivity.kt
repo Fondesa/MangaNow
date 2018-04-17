@@ -55,7 +55,7 @@ class SplashActivity : BaseActivity<FullScreenViewManager>(),
 
     override fun onPause() {
         super.onPause()
-        // Disallow the navigation if the app goes to background.
+        // Disallow the navigation if the app goes to create.
         presenter.allowNavigation(false)
     }
 

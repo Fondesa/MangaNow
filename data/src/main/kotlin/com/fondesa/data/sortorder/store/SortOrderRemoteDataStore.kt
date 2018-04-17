@@ -22,7 +22,7 @@ import com.fondesa.domain.sortorder.model.SortOrder
 import javax.inject.Inject
 
 class SortOrderRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :
-    RemoteDataStore<List<SortOrder>> {
+    RemoteDataStore<List<@JvmSuppressWildcards SortOrder>> {
     override suspend fun get(): List<SortOrder> {
         TODO("not implemented")
     }

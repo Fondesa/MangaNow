@@ -4,13 +4,13 @@ import android.os.Handler
 import java.util.*
 
 /**
- * Used to schedule a task that will be executed after a certain period of time.
+ * Used to schedule a task which will be executed after a certain period of time.
  * The [Scheduler] is only a layer to avoid the direct usage of [Handler] or [Timer].
  */
 interface Scheduler {
 
     /**
-     * Schedules a task that will be executed after a certain period of time.
+     * Schedules a task which will be executed after a certain period of time.
      *
      * @param time amount of time after which the task must be executed.
      * @param block task that must be executed.

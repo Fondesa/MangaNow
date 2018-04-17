@@ -22,7 +22,7 @@ import com.fondesa.domain.manga.model.Manga
 import javax.inject.Inject
 
 class MangaRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :
-    RemoteDataStore<List<Manga>> {
+    RemoteDataStore<List<@JvmSuppressWildcards Manga>> {
     override suspend fun get(): List<Manga> {
         TODO("not implemented")
     }

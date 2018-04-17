@@ -29,9 +29,8 @@ import com.fondesa.manganow.converter.ConverterModule
 import com.fondesa.manganow.time.TimeModule
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 
-@Module(includes = [SplashModule.UseCases::class, TimeModule::class, ConverterModule::class])
+@Module(includes = [TimeModule::class, ConverterModule::class])
 interface SplashModule {
 
     @Binds
@@ -43,21 +42,12 @@ interface SplashModule {
     @Binds
     fun provideSortOrderRepository(repository: DefaultSortOrderRepository): SortOrderRepository
 
-    @Module
-    class UseCases {
+    @Binds
+    fun provideGetSortOrderList(useCase: GetSortOrderList): UseCase<List<SortOrder>, Unit>
 
-        //TODO: probably remove this checking: https://github.com/google/dagger/issues/1143
+    @Binds
+    fun provideSortOrderCacheDataStore(store: SortOrderCacheDataStore): CacheDataStore<List<SortOrder>>
 
-        @Provides
-        fun provideGetSortOrderList(useCase: GetSortOrderList): UseCase<List<SortOrder>, Unit> =
-            useCase
-
-        @Provides
-        fun provideSortOrderCacheDataStore(store: SortOrderCacheDataStore): CacheDataStore<List<SortOrder>> =
-            store
-
-        @Provides
-        fun provideSortOrderRemoteDataStore(store: SortOrderRemoteDataStore): RemoteDataStore<List<SortOrder>> =
-            store
-    }
+    @Binds
+    fun provideSortOrderRemoteDataStore(store: SortOrderRemoteDataStore): RemoteDataStore<List<SortOrder>>
 }

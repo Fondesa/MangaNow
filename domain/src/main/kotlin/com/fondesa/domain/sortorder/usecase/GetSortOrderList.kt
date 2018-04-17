@@ -25,10 +25,10 @@ import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
 class GetSortOrderList @Inject constructor(private val repository: SortOrderRepository) :
-    UseCase<List<SortOrder>, Unit> {
+    UseCase<List<@JvmSuppressWildcards SortOrder>, Unit> {
 
-    override fun execute(params: Unit): Deferred<List<SortOrder>> =
+    override suspend fun execute(params: Unit): List<SortOrder> =
         async(CommonPool) {
             repository.getList()
-        }
+        }.await()
 }

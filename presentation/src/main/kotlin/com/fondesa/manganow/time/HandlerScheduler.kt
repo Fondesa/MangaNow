@@ -4,7 +4,7 @@ import android.os.Handler
 import javax.inject.Inject
 
 /**
- * Implementation of [Scheduler] that uses an Android [Handler] to schedule a task.
+ * Implementation of [Scheduler] which uses an Android [Handler] to schedule a task.
  */
 class HandlerScheduler @Inject constructor() : Scheduler {
 
@@ -15,7 +15,7 @@ class HandlerScheduler @Inject constructor() : Scheduler {
             // Initialize the handler if not initialized before.
             handler = Handler()
         }
-        // post delay the block.
+        // Post delay the lambda.
         handler?.postDelayed(block, time)
     }
 

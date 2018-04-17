@@ -20,7 +20,8 @@ import com.fondesa.data.store.CacheDataStore
 import com.fondesa.domain.manga.model.Manga
 import javax.inject.Inject
 
-class MangaCacheDataStore @Inject constructor(): CacheDataStore<List<Manga>> {
+class MangaCacheDataStore @Inject constructor() :
+    CacheDataStore<List<@JvmSuppressWildcards Manga>> {
 
     override suspend fun get(): List<Manga> {
         TODO("not implemented")

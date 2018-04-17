@@ -21,10 +21,9 @@ import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.usecase.UseCase
 import com.fondesa.manganow.converter.Converter
 import com.fondesa.manganow.presenter.AbstractPresenter
+import com.fondesa.manganow.thread.ExecutorFactory
 import com.fondesa.manganow.time.Scheduler
-import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
-import kotlin.coroutines.experimental.CoroutineContext
 
 /**
  * Default implementation of [SplashContract.Presenter] for the splash section.
@@ -33,7 +32,7 @@ class SplashPresenter @Inject constructor(
     private val getSortOrderListUseCase: @JvmSuppressWildcards UseCase<List<SortOrder>, Unit>,
     private val scheduler: Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
-    private val uiContext: CoroutineContext
+    private val executorFactory: ExecutorFactory
 ) : AbstractPresenter<SplashContract.View>(),
     SplashContract.Presenter {
 
@@ -76,16 +75,13 @@ class SplashPresenter @Inject constructor(
         view.showProgressIndicator()
 
         // Create and load the task used to download the categories.
-        launch(uiContext) {
-            val sortOrderList = getSortOrderListUseCase.execute(Unit)
-
-            try {
-                onSortOrdersLoadCompleted(sortOrderList.await())
-            } catch (t: Throwable) {
-                t.printStackTrace()
-                onSortOrdersLoadFailed(t)
+        executorFactory
+            .create {
+                getSortOrderListUseCase.execute(Unit)
             }
-        }
+            .completed(::onSortOrdersLoadCompleted)
+            .error(::onSortOrdersLoadFailed)
+            .load()
     }
 
     private fun onCategoriesLoadCompleted(categories: Array<Category>) {

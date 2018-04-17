@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.usecase
+package com.fondesa.manganow.thread
 
-import com.fondesa.domain.category.model.Category
-import com.fondesa.domain.category.repository.CategoryRepository
-import com.fondesa.domain.usecase.UseCase
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.async
-import javax.inject.Inject
+/**
+ * Factory used to create an [Executor.Builder].
+ */
+interface ExecutorFactory {
 
-class GetCategoryList @Inject constructor(private val repository: CategoryRepository) :
-    UseCase<List<Category>, Unit> {
-
-    override suspend fun execute(params: Unit): List<Category> =
-        async(CommonPool) {
-            repository.getList()
-        }.await()
+    /**
+     * Creates an [Executor.Builder].
+     *
+     * @param executionBlock block used to execute the operation.
+     * @param T the type of the operation's output which will be returned to the optional [CompletedBlock].
+     * @return new instance of an [Executor.Builder].
+     */
+    fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T>
 }

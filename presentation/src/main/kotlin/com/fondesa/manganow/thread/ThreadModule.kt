@@ -25,5 +25,9 @@ import kotlin.coroutines.experimental.CoroutineContext
 class ThreadModule {
 
     @Provides
-    fun provideUiContext(): CoroutineContext = UI
+    fun provideUiCoroutinesContext(): CoroutineContext = UI
+
+    @Provides
+    fun provideExecutorBuilderFactory(factory: CoroutinesExecutorFactory): ExecutorFactory =
+        factory
 }

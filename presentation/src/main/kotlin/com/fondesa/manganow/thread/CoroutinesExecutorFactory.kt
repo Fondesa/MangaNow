@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.usecase
+package com.fondesa.manganow.thread
 
-import com.fondesa.domain.category.model.Category
-import com.fondesa.domain.category.repository.CategoryRepository
-import com.fondesa.domain.usecase.UseCase
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
+import kotlin.coroutines.experimental.CoroutineContext
 
-class GetCategoryList @Inject constructor(private val repository: CategoryRepository) :
-    UseCase<List<Category>, Unit> {
+/**
+ * Factory used to create a [CoroutinesExecutor.Builder].
+ *
+ * @param uiContext [CoroutineContext] used to invoke the callbacks on the UI thread.
+ */
+class CoroutinesExecutorFactory @Inject constructor(private val uiContext: CoroutineContext) :
+    ExecutorFactory {
 
-    override suspend fun execute(params: Unit): List<Category> =
-        async(CommonPool) {
-            repository.getList()
-        }.await()
+    override fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T> =
+        CoroutinesExecutor.Builder(uiContext, executionBlock)
 }

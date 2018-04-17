@@ -20,15 +20,14 @@ import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
 import com.fondesa.domain.usecase.UseCase
 import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
 class GetMangaList @Inject constructor(private val repository: MangaRepository) :
-    UseCase<List<Manga>, Unit> {
+    UseCase<List<@JvmSuppressWildcards Manga>, Unit> {
 
-    override fun execute(params: Unit): Deferred<List<Manga>> =
+    override suspend fun execute(params: Unit): List<Manga> =
         async(CommonPool) {
             repository.getList()
-        }
+        }.await()
 }

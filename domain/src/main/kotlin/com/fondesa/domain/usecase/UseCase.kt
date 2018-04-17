@@ -16,9 +16,7 @@
 
 package com.fondesa.domain.usecase
 
-import kotlinx.coroutines.experimental.Deferred
-
 interface UseCase<out Result, in Params> {
 
-    fun execute(params: Params): Deferred<Result>
+    suspend fun execute(params: Params): Result
 }
