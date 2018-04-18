@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.thread
+package com.fondesa.manganow.execution
+
+import javax.inject.Inject
 
 /**
- * Defines a lambda which returns a generic result.
- *
- * @param T the result's type.
+ * Implementation of [ExecutorPool] which uses a [List] to handle the pool.
  */
-typealias ExecutionBlock<T> = suspend () -> T
+class ListExecutorPool @Inject constructor() : ExecutorPool {
 
-/**
- * Defines a lambda which will be invoked with a previously returned result as parameter.
- *
- * @param T the parameter's type.
- */
-typealias CompletedBlock<T> = (T) -> Unit
+    private val executors = mutableListOf<Executor>()
 
-/**
- * Defines a lambda which will be invoked with a [Throwable] as parameter.
- */
-typealias ErrorBlock = (Throwable) -> Unit
+    override fun add(executor: Executor) {
+        executors.add(executor)
+    }
+
+    override fun release() {
+        executors.forEach { it.cancel() }
+        executors.clear()
+    }
+}

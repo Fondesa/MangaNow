@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.thread
+package com.fondesa.manganow.execution
 
 /**
  * Used to execute an operation.

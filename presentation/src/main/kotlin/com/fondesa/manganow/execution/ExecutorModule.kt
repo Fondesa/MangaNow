@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.thread
+package com.fondesa.manganow.execution
 
-import javax.inject.Inject
-import kotlin.coroutines.experimental.CoroutineContext
+import dagger.Binds
+import dagger.Module
 
-/**
- * Factory used to create a [CoroutinesExecutor.Builder].
- *
- * @param uiContext [CoroutineContext] used to invoke the callbacks on the UI thread.
- */
-class CoroutinesExecutorFactory @Inject constructor(private val uiContext: CoroutineContext) :
-    ExecutorFactory {
+@Module(includes = [CoroutinesModule::class])
+interface ExecutorModule {
 
-    override fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T> =
-        CoroutinesExecutor.Builder(uiContext, executionBlock)
+    @Binds
+    fun provideExecutorBuilderFactory(factory: CoroutinesExecutorFactory): ExecutorFactory
+
+    @Binds
+    fun provideExecutorPool(pool: ListExecutorPool): ExecutorPool
 }

@@ -16,9 +16,9 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.data.thread.ExecutorFactory
-import com.fondesa.data.thread.ExecutorPool
-import com.fondesa.data.thread.execute
+import com.fondesa.manganow.execution.ExecutorFactory
+import com.fondesa.manganow.execution.ExecutorPool
+import com.fondesa.manganow.execution.execute
 import com.fondesa.domain.category.model.Category
 import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.usecase.UseCase

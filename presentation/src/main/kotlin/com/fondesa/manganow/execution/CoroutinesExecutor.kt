@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.thread
+package com.fondesa.manganow.execution
 
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
@@ -79,6 +79,11 @@ class CoroutinesExecutor<T>(
     ) : Executor.Builder<T>(executionBlock) {
 
         override fun build(): Executor =
-            CoroutinesExecutor(uiContext, executionBlock, completedBlock, errorBlock)
+            CoroutinesExecutor(
+                uiContext,
+                executionBlock,
+                completedBlock,
+                errorBlock
+            )
     }
 }

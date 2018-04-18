@@ -20,13 +20,13 @@ import android.app.Application
 import android.content.Context
 import com.fondesa.manganow.database.DatabaseModule
 import com.fondesa.manganow.remote.RemoteModule
-import com.fondesa.manganow.thread.ThreadModule
+import com.fondesa.manganow.execution.ExecutorModule
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class, ThreadModule::class])
+@Module(includes = [RemoteModule::class, DatabaseModule::class, ExecutorModule::class])
 class AppModule {
 
     @Singleton

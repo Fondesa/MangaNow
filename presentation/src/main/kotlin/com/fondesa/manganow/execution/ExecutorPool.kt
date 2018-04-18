@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.thread
+package com.fondesa.manganow.execution
 
 /**
- * Factory used to create an [Executor.Builder].
+ * Used to manage a pool of [Executor] and release them in a centralized way.
  */
-interface ExecutorFactory {
+interface ExecutorPool {
 
     /**
-     * Creates an [Executor.Builder].
+     * Adds an [Executor] to the pool.
      *
-     * @param executionBlock block used to execute the operation.
-     * @param T the type of the operation's output which will be returned to the optional [CompletedBlock].
-     * @return new instance of an [Executor.Builder].
+     * @param executor [Executor] which must be added.
      */
-    fun <T> create(executionBlock: ExecutionBlock<T>): Executor.Builder<T>
+    fun add(executor: Executor)
+
+    /**
+     * Cancel all [Executor]s in the pool and release their references.
+     */
+    fun release()
 }
