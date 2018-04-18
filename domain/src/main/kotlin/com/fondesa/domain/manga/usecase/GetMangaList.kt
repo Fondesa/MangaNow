@@ -20,6 +20,7 @@ import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
 import com.fondesa.domain.usecase.UseCase
 import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
@@ -30,4 +31,8 @@ class GetMangaList @Inject constructor(private val repository: MangaRepository) 
         async(CommonPool) {
             repository.getList()
         }.await()
+}
+
+fun <T>asyncAwait(block: suspend CoroutineScope.() -> T) {
+    async(CommonPool, block = block)
 }

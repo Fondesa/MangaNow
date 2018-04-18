@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.execution
+package com.fondesa.thread.execution
 
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
 import kotlin.coroutines.experimental.CoroutineContext
 
 /**
- * Implementation of [Executor] which uses Kotlin's coroutines.
+ * Implementation of [Executor] which uses Kotlin's coroutines and dispatches
+ * the callbacks on the UI thread.
  *
  * @param uiContext [CoroutineContext] used to invoke the callbacks on the UI thread.
  * @param executionBlock [ExecutionBlock] obtained from an [Executor.Builder].

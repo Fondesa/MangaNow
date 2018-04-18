@@ -1,10 +1,10 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    compile project(':thread')
     compile "javax.inject:javax.inject:$versions.javaxInject"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
 }
 
 sourceCompatibility = "1.7"

@@ -16,6 +16,10 @@
 
 package com.fondesa.manganow.execution
 
+import com.fondesa.thread.execution.CoroutinesExecutorFactory
+import com.fondesa.thread.execution.ExecutorFactory
+import com.fondesa.thread.execution.ExecutorPool
+import com.fondesa.thread.execution.ListExecutorPool
 import dagger.Binds
 import dagger.Module
 

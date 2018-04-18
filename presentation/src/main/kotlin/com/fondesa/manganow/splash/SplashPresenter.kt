@@ -16,15 +16,15 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.manganow.execution.ExecutorFactory
-import com.fondesa.manganow.execution.ExecutorPool
-import com.fondesa.manganow.execution.execute
 import com.fondesa.domain.category.model.Category
 import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.usecase.UseCase
 import com.fondesa.manganow.converter.Converter
 import com.fondesa.manganow.presenter.AbstractPresenter
 import com.fondesa.manganow.time.Scheduler
+import com.fondesa.thread.execution.ExecutorFactory
+import com.fondesa.thread.execution.ExecutorPool
+import com.fondesa.thread.execution.execute
 import javax.inject.Inject
 
 /**

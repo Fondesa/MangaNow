@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.execution
+package com.fondesa.thread.execution
 
 /**
  * Used to create an [Executor] and execute it immediately.
