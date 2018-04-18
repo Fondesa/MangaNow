@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+/**
+ * Used to manage the creation and the access to a [Database].
+ * The close method is not provided to have the connection always opened.
+ * In this way, the database can be accessed directly without checking if it's opened or closed.
+ */
+interface DatabaseClient {
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+    /**
+     * Creates the [Database] and opens the connection to it.
+     */
+    fun createDatabase()
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    /**
+     * Get the [Database] instance created through [createDatabase].
+     * The [Database] connection must be opened in order to use it.
+     */
+    fun getDatabase(): Database
 }

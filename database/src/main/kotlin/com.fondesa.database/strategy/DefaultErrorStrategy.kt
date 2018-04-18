@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.strategy
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import com.fondesa.database.Database
+import com.fondesa.database.statement.Vacuum
+import javax.inject.Inject
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+/**
+ * Default implementation of [ErrorStrategy] that will attempt to rebuild
+ * the database file when a corruption occurs.
+ */
+class DefaultErrorStrategy @Inject constructor() : ErrorStrategy {
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    override fun onCorruption(database: Database) {
+        val vacuum = Vacuum.create()
+        // Attempt to rebuild the database file.
+        database.compile(vacuum).execute()
+    }
 }

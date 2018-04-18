@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.injection
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import javax.inject.Qualifier
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
-
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
-}
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DatabaseInfo

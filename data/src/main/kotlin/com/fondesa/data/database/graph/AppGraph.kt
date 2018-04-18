@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.data.database.graph
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import com.fondesa.database.structure.Graph
+import com.fondesa.database.structure.Table
+import javax.inject.Inject
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+class AppGraph @Inject constructor() : Graph {
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    override fun getTables(): Array<Table> = arrayOf()
 }

@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.extension
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
-
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
-
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
-}
+/**
+ * Creates an array adding an array of the same type to the original element.
+ *
+ * @param array array of the same type of the original element that must be added.
+ * @return an array containing the original element and the elements of the given [array].
+ */
+inline fun <reified T> T.plusArray(array: Array<out T>) = arrayOf(this).plus(array)

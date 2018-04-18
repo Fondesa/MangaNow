@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.clause
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+/**
+ * Raw SQLite expression with the arguments that will be bound in the compiled statement.
+ *
+ * @param raw the raw text that expressing the query.
+ * @param args the arguments that will be bound in the compiled statement.
+ */
+class RawExpression(val raw: String, vararg val args: String) : Expression {
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+    override fun raw(): String = raw
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    override fun args(): Array<out String> = args
 }

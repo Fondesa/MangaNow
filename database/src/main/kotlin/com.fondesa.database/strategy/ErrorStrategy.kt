@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.strategy
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import com.fondesa.database.Database
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+/**
+ * Used to define an action to take when database corruption is detected.
+ */
+interface ErrorStrategy {
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    /**
+     * Invoked when database corruption is detected.
+     *
+     * @param database [Database] object representing the database on which corruption
+     * is detected.
+     */
+    fun onCorruption(database: Database)
 }

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.extension
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import android.database.sqlite.SQLiteProgram
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
-
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+/**
+ * Given an array of String [args], this method binds all of them in one single call.
+ *
+ * @param args the String array of bind args, none of which must be null.
+ * @param gap the gap used to bind the arguments from a specific index one-based.
+ */
+fun SQLiteProgram.bindAllArgsAsStrings(args: Array<out String>, gap: Int) {
+    args.forEachIndexed { index, arg ->
+        bindString(gap + index + 1, arg)
+    }
 }

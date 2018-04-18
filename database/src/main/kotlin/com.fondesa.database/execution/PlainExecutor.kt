@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.execution
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import android.database.sqlite.SQLiteStatement
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+/**
+ * Type of [CompiledExecutor] that could only execute a [SQLiteStatement].
+ *
+ * @property stmt [SQLiteStatement] that can be executed.
+ * @property executeBlock block that must be called to execute the [SQLiteStatement].
+ */
+class PlainExecutor<out ExecutionType>(
+    stmt: SQLiteStatement,
+    private inline val executeBlock: (SQLiteStatement) -> ExecutionType
+) : CompiledExecutor<ExecutionType>(stmt) {
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    override fun execute(): ExecutionType = executeBlock(stmt)
 }

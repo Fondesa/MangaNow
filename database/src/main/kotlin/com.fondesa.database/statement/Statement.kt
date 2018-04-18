@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.statement
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import com.fondesa.database.Database
+import com.fondesa.database.execution.Executor
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+/**
+ * Defines a statement that could be executed through a [Executor].
+ * The statement will be compiled inside the [Database].
+ *
+ * @param E the type of the [Executor] used to execute the compiled statement.
+ */
+interface Statement<out E : Executor<*>> {
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    /**
+     * Create the [Executor] that will execute this statement.
+     *
+     * @return instance of [Executor] that will execute this statement.
+     */
+    fun createExecutor(): E
 }
+

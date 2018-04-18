@@ -16,9 +16,7 @@
 
 package com.fondesa.manganow.application
 
-import com.fondesa.data.database.DatabaseClient
-import com.fondesa.data.remote.client.RemoteClient
-import com.google.gson.Gson
+import com.fondesa.database.DatabaseClient
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

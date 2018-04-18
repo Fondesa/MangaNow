@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.execution
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import com.fondesa.database.statement.Statement
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
+/**
+ * Define a [Statement] that can be closed after its execution.
+ */
+interface Closeable {
 
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    /**
+     * Close the [Statement] and releases any reference to it.
+     * If the [Statement] is already closed then invoking this method has no effect.
+     */
+    fun close()
 }

@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.database
+package com.fondesa.database.structure
 
-import com.fondesa.database.DatabaseClient
-import com.fondesa.database.SQLiteClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+/**
+ * Interface used to define the SQLite database structure.
+ */
+interface Graph {
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
-
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    /**
+     * Defines the tables that must be created when the database is created.
+     *
+     * @return list of tables used in this SQLite database.
+     */
+    fun getTables(): Array<Table>
 }
