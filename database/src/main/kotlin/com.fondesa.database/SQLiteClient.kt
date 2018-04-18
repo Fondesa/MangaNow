@@ -20,7 +20,7 @@ import android.content.Context
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteException
 import android.util.Log
-import com.fondesa.database.injection.DatabaseInfo
+import com.fondesa.database.injection.SQLiteDatabaseInfo
 import com.fondesa.database.statement.CreateTable
 import com.fondesa.database.statement.Pragma
 import com.fondesa.database.strategy.ErrorStrategy
@@ -45,8 +45,8 @@ import javax.inject.Inject
  */
 class SQLiteClient @Inject constructor(
     private val context: Context,
-    @DatabaseInfo private val name: String,
-    @DatabaseInfo private val version: Int,
+    @SQLiteDatabaseInfo private val name: String,
+    @SQLiteDatabaseInfo private val version: Int,
     private val graph: Graph,
     private val upgradeStrategy: UpgradeStrategy,
     private val errorStrategy: ErrorStrategy

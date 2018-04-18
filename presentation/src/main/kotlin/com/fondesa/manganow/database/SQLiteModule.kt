@@ -17,7 +17,7 @@
 package com.fondesa.manganow.database
 
 import com.fondesa.data.database.graph.AppGraph
-import com.fondesa.database.injection.DatabaseInfo
+import com.fondesa.database.injection.SQLiteDatabaseInfo
 import com.fondesa.database.strategy.DefaultErrorStrategy
 import com.fondesa.database.strategy.DefaultUpgradeStrategy
 import com.fondesa.database.strategy.ErrorStrategy
@@ -38,11 +38,11 @@ class SQLiteModule {
     @Provides
     fun provideGraph(graph: AppGraph): Graph = graph
 
-    @DatabaseInfo
+    @SQLiteDatabaseInfo
     @Provides
     fun provideName(): String = "app_db"
 
-    @DatabaseInfo
+    @SQLiteDatabaseInfo
     @Provides
     fun provideVersion(): Int = 1
 }
