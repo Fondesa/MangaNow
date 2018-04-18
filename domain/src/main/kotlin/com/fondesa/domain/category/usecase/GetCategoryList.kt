@@ -19,15 +19,13 @@ package com.fondesa.domain.category.usecase
 import com.fondesa.domain.category.model.Category
 import com.fondesa.domain.category.repository.CategoryRepository
 import com.fondesa.domain.usecase.UseCase
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.async
+import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
 class GetCategoryList @Inject constructor(private val repository: CategoryRepository) :
     UseCase<List<Category>, Unit> {
 
-    override suspend fun execute(params: Unit): List<Category> =
-        async(CommonPool) {
-            repository.getList()
-        }.await()
+    override suspend fun execute(params: Unit): List<Category> = asyncAwait {
+        repository.getList()
+    }
 }

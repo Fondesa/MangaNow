@@ -43,7 +43,7 @@ import javax.inject.Inject
  * @param upgradeStrategy strategy used to migrate the database on version upgrade.
  * @param errorStrategy strategy used to launch actions when database is corrupted.
  */
-class SQLiteClient @Inject constructor(
+open class SQLiteClient @Inject constructor(
     private val context: Context,
     @SQLiteDatabaseInfo private val name: String,
     @SQLiteDatabaseInfo private val version: Int,
@@ -140,7 +140,7 @@ class SQLiteClient @Inject constructor(
      *
      * @param database current instance of [Database].
      */
-    private fun onConfigure(database: Database) {
+    open fun onConfigure(database: Database) {
         // By default, foreign keys are disabled. They must be enabled if they are used.
         database.compile(Pragma.write("foreign_keys", true)).execute(close = true)
     }
@@ -153,7 +153,7 @@ class SQLiteClient @Inject constructor(
      *
      * @param database current instance of [Database].
      */
-    private fun onCreate(database: Database) {
+    open fun onCreate(database: Database) {
         // Creates tables contained in the graph.
         graph.getTables().forEach {
             database.compile(CreateTable.of(it)).execute(close = true)
@@ -169,7 +169,7 @@ class SQLiteClient @Inject constructor(
      * @param oldVersion previous version of the schema.
      * @param newVersion new version of the schema.
      */
-    private fun onUpgrade(database: Database, oldVersion: Int, newVersion: Int) {
+    open fun onUpgrade(database: Database, oldVersion: Int, newVersion: Int) {
         // Delegates the upgrade to the MigrationStrategy.
         upgradeStrategy.onUpgrade(database, oldVersion, newVersion, graph)
     }
@@ -180,7 +180,7 @@ class SQLiteClient @Inject constructor(
      *
      * @param database current instance of [Database].
      */
-    private fun onPostCreate(database: Database) {
+    open fun onPostCreate(database: Database) {
         // Empty by default.
     }
 
@@ -203,14 +203,11 @@ class SQLiteClient @Inject constructor(
      *
      * @param database current instance of [Database].
      */
-    private fun onOpen(database: Database) {
+    open fun onOpen(database: Database) {
         // Empty by default.
     }
 
     companion object {
         private val TAG = SQLiteClient::class.java.simpleName
-
-        const val NAME = "sqlite.db.name"
-        const val VERSION = "sqlite.db.version"
     }
 }

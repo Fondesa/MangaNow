@@ -19,16 +19,13 @@ package com.fondesa.domain.sortorder.usecase
 import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.fondesa.domain.usecase.UseCase
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.async
+import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
 class GetSortOrderList @Inject constructor(private val repository: SortOrderRepository) :
     UseCase<List<@JvmSuppressWildcards SortOrder>, Unit> {
 
-    override suspend fun execute(params: Unit): List<SortOrder> =
-        async(CommonPool) {
-            repository.getList()
-        }.await()
+    override suspend fun execute(params: Unit): List<SortOrder> = asyncAwait {
+        repository.getList()
+    }
 }
