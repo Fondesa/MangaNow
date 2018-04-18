@@ -14,20 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.connectivity
+package com.fondesa.remote.connectivity
 
-import android.content.Context
-import javax.inject.Inject
+interface ConnectivityManager {
 
-class DefaultConnectivityManager @Inject constructor(private val context: Context) :
-    ConnectivityManager {
-
-    private val connectivityManager by lazy {
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
-    }
-
-    override fun isConnected(): Boolean {
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo?.isConnectedOrConnecting ?: false
-    }
+    fun isConnected(): Boolean
 }

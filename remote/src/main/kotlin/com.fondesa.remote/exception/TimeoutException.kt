@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.exception
+package com.fondesa.remote.exception
 
 /**
- * Exception thrown when the connection to the network isn't available.
+ * Exception thrown when the request goes in timeout.
  */
-class ConnectivityException : Exception("Connectivity not available.")
+class TimeoutException : Exception("Timeout occurred.")

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.exception
+package com.fondesa.remote.exception
 
 /**
  * Exception thrown if an error occurs when the response (of a WS request) is received.

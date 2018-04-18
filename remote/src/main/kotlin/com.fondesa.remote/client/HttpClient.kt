@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.client
+package com.fondesa.remote.client
 
-import com.fondesa.data.BuildConfig
-import com.fondesa.data.remote.connectivity.ConnectivityManager
-import com.fondesa.data.remote.exception.ConnectivityException
-import com.fondesa.data.remote.exception.ResponseException
-import com.fondesa.data.remote.exception.TimeoutException
-import com.fondesa.data.remote.task.RemoteTask
+import com.fondesa.remote.BuildConfig
+import com.fondesa.remote.connectivity.ConnectivityManager
+import com.fondesa.remote.exception.ConnectivityException
+import com.fondesa.remote.exception.ResponseException
+import com.fondesa.remote.exception.TimeoutException
+import com.fondesa.remote.task.RemoteTask
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import okhttp3.*

@@ -14,21 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.client
-
-import com.fondesa.data.remote.task.RemoteTask
-import com.google.gson.JsonElement
+package com.fondesa.remote.exception
 
 /**
- * Used to specify the behavior of the application to load an incoming task.
+ * Exception thrown when the connection to the network isn't available.
  */
-interface RemoteClient {
-
-    /**
-     * Loads a [RemoteTask] calling the WS and converts its response to a [JsonElement].
-     *
-     * @param task task containing the request's configurations.
-     * @return json returned from the WS.
-     */
-    fun load(task: RemoteTask): JsonElement
-}
+class ConnectivityException : Exception("Connectivity not available.")

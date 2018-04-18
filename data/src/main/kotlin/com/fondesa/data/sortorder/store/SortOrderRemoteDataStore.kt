@@ -16,9 +16,9 @@
 
 package com.fondesa.data.sortorder.store
 
-import com.fondesa.data.remote.client.RemoteClient
 import com.fondesa.data.store.RemoteDataStore
 import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.remote.client.RemoteClient
 import javax.inject.Inject
 
 class SortOrderRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :

@@ -17,8 +17,6 @@
 package com.fondesa.manganow.manga.list
 
 import android.os.Bundle
-import android.widget.Toast
-import com.fondesa.data.remote.connectivity.ConnectivityManager
 import com.fondesa.manganow.R
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject

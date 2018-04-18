@@ -16,10 +16,10 @@
 
 package com.fondesa.manganow.remote
 
-import com.fondesa.data.remote.client.HttpClient
-import com.fondesa.data.remote.client.RemoteClient
-import com.fondesa.data.remote.connectivity.ConnectivityManager
-import com.fondesa.data.remote.connectivity.DefaultConnectivityManager
+import com.fondesa.remote.client.HttpClient
+import com.fondesa.remote.client.RemoteClient
+import com.fondesa.remote.connectivity.ConnectivityManager
+import com.fondesa.remote.connectivity.DefaultConnectivityManager
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

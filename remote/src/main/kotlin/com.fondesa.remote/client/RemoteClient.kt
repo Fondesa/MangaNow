@@ -14,9 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.exception
+package com.fondesa.remote.client
+
+import com.fondesa.remote.task.RemoteTask
+import com.google.gson.JsonElement
 
 /**
- * Exception thrown when the request goes in timeout.
+ * Used to specify the behavior of the application to load an incoming task.
  */
-class TimeoutException : Exception("Timeout occurred.")
+interface RemoteClient {
+
+    /**
+     * Loads a [RemoteTask] calling the WS and converts its response to a [JsonElement].
+     *
+     * @param task task containing the request's configurations.
+     * @return json returned from the WS.
+     */
+    fun load(task: RemoteTask): JsonElement
+}

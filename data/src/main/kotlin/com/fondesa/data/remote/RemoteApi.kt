@@ -1,6 +1,6 @@
 package com.fondesa.data.remote
 
-import com.fondesa.data.remote.task.RemoteTask
+import com.fondesa.remote.task.RemoteTask
 import com.google.gson.JsonElement
 
 /**
