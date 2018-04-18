@@ -94,11 +94,11 @@ class QueryExecutor<R : DatabaseReader>(private val cursor: Cursor, val reader: 
 
         /**
          * Transform each record returned from the query to a mapped element using a [DatabaseReader].
-         * This can be useful to obtain all records in an array without looping on them manually.
+         * This can be useful to obtain all records in a list without looping on them manually.
          *
          * @param block block of code that must be execute for each record.
          */
-        inline fun <reified T> map(crossinline block: Handler<R>.(R) -> T): Array<T> {
+        inline fun <reified T> map(crossinline block: Handler<R>.(R) -> T): List<T> {
             val list = mutableListOf<T>()
             executeReading {
                 if (cursor.moveToFirst()) {
@@ -108,7 +108,7 @@ class QueryExecutor<R : DatabaseReader>(private val cursor: Cursor, val reader: 
                     } while (cursor.moveToNext())
                 }
             }
-            return list.toTypedArray()
+            return list.toList()
         }
 
         /**
