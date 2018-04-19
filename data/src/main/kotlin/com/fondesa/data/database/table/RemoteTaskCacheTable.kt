@@ -21,6 +21,7 @@ import com.fondesa.database.structure.IntegerColumnBuilder
 import com.fondesa.database.structure.Table
 import com.fondesa.database.structure.TextColumnBuilder
 
+@com.fondesa.database.annotations.Table
 class RemoteTaskCacheTable : Table {
 
     override fun getName() = NAME

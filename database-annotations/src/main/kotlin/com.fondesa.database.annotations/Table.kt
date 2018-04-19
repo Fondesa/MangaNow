@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.database.graph
+package com.fondesa.database.annotations
 
-import com.fondesa.database.structure.Graph
-import com.fondesa.database.structure.Table
-import javax.inject.Inject
-
-class AppGraph @Inject constructor() : Graph {
-
-    override fun getTables(): Array<Table> = arrayOf()
-}
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.BINARY)
+annotation class Table

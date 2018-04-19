@@ -16,15 +16,17 @@
 
 package com.fondesa.manganow.database
 
-import com.fondesa.data.database.graph.AppGraph
 import com.fondesa.database.injection.SQLiteDatabaseInfo
 import com.fondesa.database.strategy.DefaultErrorStrategy
 import com.fondesa.database.strategy.DefaultUpgradeStrategy
 import com.fondesa.database.strategy.ErrorStrategy
 import com.fondesa.database.strategy.UpgradeStrategy
 import com.fondesa.database.structure.Graph
+import com.fondesa.database.structure.Table
 import dagger.Module
 import dagger.Provides
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Module
 class SQLiteModule {
@@ -35,8 +37,9 @@ class SQLiteModule {
     @Provides
     fun provideErrorStrategy(strategy: DefaultErrorStrategy): ErrorStrategy = strategy
 
+    @Singleton
     @Provides
-    fun provideGraph(graph: AppGraph): Graph = graph
+    fun provideGraph(graph: ToBeRemovedGraph): Graph = graph
 
     @SQLiteDatabaseInfo
     @Provides
@@ -44,5 +47,11 @@ class SQLiteModule {
 
     @SQLiteDatabaseInfo
     @Provides
-    fun provideVersion(): Int = 1
+    fun provideVersion(): Int = 26
+
+    class ToBeRemovedGraph @Inject constructor(): Graph {
+        override fun getTables(): Array<Table> {
+            return emptyArray()
+        }
+    }
 }

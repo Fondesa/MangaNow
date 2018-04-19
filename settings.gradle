@@ -1,5 +1,7 @@
 include ':data'
 include ':database'
+include ':database-annotations'
+include ':database-processor'
 include ':domain'
 include ':presentation'
 include ':remote'
