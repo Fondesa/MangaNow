@@ -18,4 +18,4 @@ package com.fondesa.database.annotations
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.BINARY)
-annotation class Table
+annotation class AddToGraph

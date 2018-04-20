@@ -40,8 +40,6 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
 
-    kapt project(':database-processor')
-
     testImplementation "junit:junit:$versions.jUnit"
 
     androidTestImplementation "com.android.support.test:runner:$versions.androidTestRunner"

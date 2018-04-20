@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.database
 
+import com.fondesa.data.database.AppGraph
 import com.fondesa.database.injection.SQLiteDatabaseInfo
 import com.fondesa.database.strategy.DefaultErrorStrategy
 import com.fondesa.database.strategy.DefaultUpgradeStrategy
@@ -39,7 +40,7 @@ class SQLiteModule {
 
     @Singleton
     @Provides
-    fun provideGraph(graph: ToBeRemovedGraph): Graph = graph
+    fun provideGraph(graph: AppGraph): Graph = graph
 
     @SQLiteDatabaseInfo
     @Provides
@@ -47,9 +48,9 @@ class SQLiteModule {
 
     @SQLiteDatabaseInfo
     @Provides
-    fun provideVersion(): Int = 26
+    fun provideVersion(): Int = 27
 
-    class ToBeRemovedGraph @Inject constructor(): Graph {
+    class ToBeRemovedGraph @Inject constructor() : Graph {
         override fun getTables(): Array<Table> {
             return emptyArray()
         }

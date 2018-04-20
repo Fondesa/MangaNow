@@ -16,11 +16,13 @@
 
 package com.fondesa.data.database.table
 
+import com.fondesa.database.annotations.AddToGraph
 import com.fondesa.database.structure.Column
 import com.fondesa.database.structure.IntegerColumnBuilder
 import com.fondesa.database.structure.Table
 import com.fondesa.database.structure.TextColumnBuilder
 
+@AddToGraph
 class SortOrderTable : Table {
 
     override fun getName() = NAME
