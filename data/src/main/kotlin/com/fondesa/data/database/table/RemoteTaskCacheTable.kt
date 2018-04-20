@@ -16,14 +16,13 @@
 
 package com.fondesa.data.database.table
 
-import com.fondesa.database.annotations.AddToGraph
+import com.fondesa.database.annotations.IntegerColumnSpec
+import com.fondesa.database.annotations.Table
 import com.fondesa.database.structure.Column
 import com.fondesa.database.structure.IntegerColumnBuilder
-import com.fondesa.database.structure.Table
 import com.fondesa.database.structure.TextColumnBuilder
 
-@AddToGraph
-class RemoteTaskCacheTable : Table {
+class RemoteTaskCacheTable : com.fondesa.database.structure.Table {
 
     override fun getName() = NAME
 
@@ -37,3 +36,19 @@ class RemoteTaskCacheTable : Table {
         val COL_PATH = TextColumnBuilder(NAME, "task_path").unique().build()
     }
 }
+
+
+@Table("example_table")
+object ExampleTableSpec {
+
+    @com.fondesa.database.annotations.Column
+    val COL_ID = IntegerColumnSpec("id").primaryKey()
+}
+
+//fun getColumns(): List<Column<*>> {
+//    val columns = mutableListOf<Column<*>>()
+//    lateinit var COL_ID: ColumnSpec<*>
+//
+////    columns.add(Column("", COL_ID.name, Column.Type.TEXT, ))
+//    return columns
+//}

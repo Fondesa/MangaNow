@@ -16,7 +16,8 @@
 
 package com.fondesa.database.processor.step
 
-import com.fondesa.database.annotations.AddToGraph
+import com.fondesa.database.annotations.Column
+import com.fondesa.database.annotations.Table
 import com.google.common.collect.SetMultimap
 import com.squareup.kotlinpoet.*
 import java.io.File
@@ -34,35 +35,92 @@ class AddToGraphProcessingStep(
     messenger: Messager
 ) : BasicProcessingStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
 
-    override fun filter() = arrayOf(AddToGraph::class)
+    private val tableElement = elementUtil.getTypeElement(DB_TABLE_CLASS.canonicalName)
+
+    override fun filter() = arrayOf(Table::class)
 
     override fun process(elementsByAnnotation: SetMultimap<KClass<out Annotation>, Element>) {
-        val tableElement = elementUtil.getTypeElement(DB_TABLE_CLASS.canonicalName)
         // Get all elements which must be added to the graph.
-        val addToGraphElements = elementsByAnnotation[AddToGraph::class]
+        val addToGraphElements = elementsByAnnotation[Table::class]
         // Filter for valid elements.
-        val validTableElements = addToGraphElements.filter { elem ->
-            val valid = typeUtil.isAssignable(elem.asType(), tableElement.asType())
-            if (!valid) {
-                // The annotations are processed by this processor but an error is thrown.
-                throw ProcessingException(
-                    "You have to use a ${tableElement.qualifiedName}" +
-                            " for the annotation ${AddToGraph::class.java.name}", elem
-                )
-            }
-            valid
+//        val validTableElements = addToGraphElements.filter { elem ->
+//            val valid = typeUtil.isAssignable(elem.asType(), tableElement.asType())
+//            if (!valid) {
+//                // The annotations are processed by this processor but an error is thrown.
+//                throw ProcessingException(
+//                    "You have to use a ${tableElement.qualifiedName}" +
+//                            " for the annotation ${Table::class.java.name}", elem
+//                )
+//            }
+//            valid
+//        }
+//
+        val tableClassNames = addToGraphElements.map {
+            generateTable(it)
         }
         // Generate the graph with the processed elements.
-        generateGraph(validTableElements)
+        generateGraph(tableClassNames)
     }
 
-    private fun generateGraph(tableElements: List<Element>) {
-        val graphElement = elementUtil.getTypeElement(DB_GRAPH_CLASS.canonicalName)
+    private fun generateTable(element: Element): ClassName {
+        val tableAnnotation = element.getAnnotation(Table::class.java)
+        val name = tableAnnotation.value
+
+        val simpleName = element.simpleName
+        val packageName = elementUtil.getPackageOf(element).toString()
+        val className = ClassName(packageName, "Lyra$simpleName")
+
+        val tableFunctions = tableElement.enclosedElements
+            .filterIsInstance<ExecutableElement>()
+
+        val overrideFunction = { functionName: String ->
+            // Get the declaration of the function in the interface.
+            val interfaceFun = tableFunctions.first { it.simpleName.toString() == functionName }
+            FunSpec.overriding(interfaceFun)
+        }
+
+        val contentBuilder = TypeSpec.classBuilder(className)
+            // It will implement the interface and its methods.
+            .addSuperinterface(tableElement.asType().asTypeName())
+//
+        val getNameFunction = overrideFunction("getName")
+            .returns(String::class)
+            .addCode("return %S", name)
+            .build()
+
+        contentBuilder.addFunction(getNameFunction)
+
+        // Generate the body of the function.
+        val getColumnsBodyBuilder = CodeBlock.builder()
+            .addStatement("val columns = mutableListOf<%T<*>>()", DB_COLUMN_CLASS)
+
+        element.enclosedElements.filter {
+            it.getAnnotation(Column::class.java) != null
+        }.forEach {
+            // Columns which must be included.
+        }
+
+        getColumnsBodyBuilder.addStatement("return columns.toTypedArray()")
 
         // Get the declaration of the function in the interface.
-        val getTablesInterfaceFun = graphElement.enclosedElements
-            .filterIsInstance<ExecutableElement>()
-            .first { it.simpleName.toString() == "getTables" }
+        val getColumnsFunction = overrideFunction("getColumns")
+            .addCode(getColumnsBodyBuilder.build())
+            .build()
+
+        contentBuilder.addFunction(getColumnsFunction)
+
+        val file = FileSpec.builder(
+            className.packageName(),
+            className.simpleName()
+        ).addType(contentBuilder.build())
+            .build()
+
+        file.writeToKaptGeneratedDir()
+        return className
+    }
+
+    private fun generateGraph(tableClassNames: List<ClassName>) {
+        val graphElement = elementUtil.getTypeElement(DB_GRAPH_CLASS.canonicalName)
 
         val contentBuilder = TypeSpec.classBuilder(GENERATED_GRAPH_CLASS)
             // It will implement the interface and its methods.
@@ -75,11 +133,16 @@ class AddToGraphProcessingStep(
         contentBuilder.primaryConstructor(constructor)
 
         // Generate all the placeholders.
-        val placeholder = tableElements.joinToString { "%T()" }
-        // Generate the body of the method.
+        val placeholder = tableClassNames.joinToString { "%T()" }
+        // Generate the body of the  // Generate the body of the method.
         val getTablesBody = CodeBlock.builder()
-            .addStatement("return arrayOf($placeholder)", *tableElements.toTypedArray())
+            .addStatement("return arrayOf($placeholder)", *tableClassNames.toTypedArray())
             .build()
+
+        // Get the declaration of the function in the interface.
+        val getTablesInterfaceFun = graphElement.enclosedElements
+            .filterIsInstance<ExecutableElement>()
+            .first { it.simpleName.toString() == "getTables" }
 
         val getTablesFunction = FunSpec.overriding(getTablesInterfaceFun)
             .addCode(getTablesBody)
@@ -99,6 +162,7 @@ class AddToGraphProcessingStep(
     companion object {
         private val JAVAX_INJECT_CLASS = ClassName("javax.inject", "Inject")
 
+        private val DB_COLUMN_CLASS = ClassName("com.fondesa.database.structure", "Column")
         private val DB_TABLE_CLASS = ClassName("com.fondesa.database.structure", "Table")
         private val DB_GRAPH_CLASS = ClassName("com.fondesa.database.structure", "Graph")
 
