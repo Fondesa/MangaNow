@@ -28,7 +28,7 @@ import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 import kotlin.reflect.KClass
 
-abstract class BaseStep(
+abstract class BasicProcessingStep(
     private val kaptGeneratedDir: File,
     protected val elementUtil: Elements,
     protected val typeUtil: Types,

@@ -27,12 +27,12 @@ import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 import kotlin.reflect.KClass
 
-class AddToGraphStep(
+class AddToGraphProcessingStep(
     kaptGeneratedDir: File,
     elementUtil: Elements,
     typeUtil: Types,
     messenger: Messager
-) : BaseStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
+) : BasicProcessingStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
 
     override fun filter() = arrayOf(AddToGraph::class)
 
