@@ -17,7 +17,7 @@
 package com.fondesa.database.processor
 
 import com.fondesa.database.processor.extension.printError
-import com.fondesa.database.processor.step.AddToGraphProcessingStep
+import com.fondesa.database.processor.step.StructureProcessingStep
 import com.google.auto.common.BasicAnnotationProcessor
 import com.google.auto.service.AutoService
 import java.io.File
@@ -50,7 +50,7 @@ class DatabaseProcessor : BasicAnnotationProcessor() {
         }
 
         return listOf(
-            AddToGraphProcessingStep(
+            StructureProcessingStep(
                 kaptGeneratedDir,
                 elementUtil,
                 typeUtil,

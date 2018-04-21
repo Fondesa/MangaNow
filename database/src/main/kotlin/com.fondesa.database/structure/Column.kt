@@ -16,6 +16,7 @@
 
 package com.fondesa.database.structure
 
+import com.fondesa.database.annotations.*
 import com.fondesa.database.structure.Column.Type
 
 /**
@@ -51,80 +52,6 @@ class Column<out ValueType>(
      */
     val alias = tableName + SEPARATOR + name
 
-    /**
-     * Builder used to create a column in a table.
-     *
-     * @param tableName name of the table that contains this column.
-     * @param name name of the column.
-     * @param type type of the column (one of [Type]).
-     */
-    open class Builder<ValueType>(
-        private val tableName: String,
-        private val name: String,
-        private val type: Type
-    ) {
-
-        private var isPrimaryKey: Boolean = false
-        private var isUnique: Boolean = false
-        private var isNotNull: Boolean = false
-        private var defaultValue: ValueType? = null
-
-        /**
-         * Sets this column as primary key.
-         * Automatically this column will be not null also if SQLite supports it for legacy builds.
-         * A SQLite from can't use more than one primary key, so, if in the same [Table] there's more
-         * than one column used as primary key, the primary key will be composite.
-         */
-        fun primaryKey() = apply {
-            isPrimaryKey = true
-            notNull()
-        }
-
-        /**
-         * Sets this column as unique.
-         * Automatically this column will be not null also if SQLite supports it for legacy builds.
-         * A SQLite from can use more than one unique column.
-         */
-        fun unique() = apply {
-            isUnique = true
-            notNull()
-        }
-
-        /**
-         * Sets this column as not null.
-         * If the column is set as not null and a null value is inserted, it will result as an exception.
-         */
-        fun notNull() = apply { isNotNull = true }
-
-        /**
-         * Default value to use when it isn't set explicitly.
-         * This value can't be null.
-         *
-         * @param defaultValue value set as default in this column when it isn't bound manually.
-         */
-        fun defaultValue(defaultValue: ValueType) = apply { this.defaultValue = defaultValue }
-
-        /**
-         * Creates an instance of [Column] using the parameters of this [Builder].
-         * This method will additionally check if the parameters set on this [Builder] are valid.
-         *
-         * @return instance of [Column].
-         */
-        fun build(): Column<ValueType> {
-            if (tableName.contains(SEPARATOR) || name.contains(SEPARATOR))
-                throw IllegalArgumentException("The character \"$SEPARATOR\" isn't allowed on column's or table's name.")
-
-            return Column(
-                tableName,
-                name,
-                type,
-                isPrimaryKey,
-                isUnique,
-                isNotNull,
-                defaultValue
-            )
-        }
-    }
 
     enum class Type(val value: String) {
 
@@ -158,29 +85,23 @@ class Column<out ValueType>(
         const val ROW_ID_NAME = "rowid"
 
         private const val SEPARATOR = '@'
+
+        fun <T> fromSpec(tableName: String, spec: ColumnSpec<T>): Column<T> {
+            val type = when(spec) {
+                is RealColumnSpec -> Type.REAL
+                is IntegerColumnSpec-> Type.INTEGER
+                is TextColumnSpec -> Type.TEXT
+                is BlobColumnSpec -> Type.BLOB
+            }
+            return Column(
+                tableName,
+                spec.name,
+                type,
+                spec.isPrimaryKey,
+                spec.isUnique,
+                spec.isNotNull,
+                spec.defaultValue
+            )
+        }
     }
 }
-
-/**
- * Builder used to create a floating-point column in a table.
- */
-class RealColumnBuilder(table: String, name: String) :
-    Column.Builder<Double>(table, name, Column.Type.REAL)
-
-/**
- * Builder used to create an integer or a boolean column in a table.
- */
-class IntegerColumnBuilder(table: String, name: String) :
-    Column.Builder<Long>(table, name, Column.Type.INTEGER)
-
-/**
- * Builder used to create a string column in a table.
- */
-class TextColumnBuilder(table: String, name: String) :
-    Column.Builder<String>(table, name, Column.Type.TEXT)
-
-/**
- * Builder used to create a byte array column in a table.
- */
-class BlobColumnBuilder(table: String, name: String) :
-    Column.Builder<ByteArray>(table, name, Column.Type.BLOB)

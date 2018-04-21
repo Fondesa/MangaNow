@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.database.annotations
+package com.fondesa.database.processor.extension
 
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.BINARY)
-annotation class Table(val value: String, val withRowId: Boolean = true)
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.ParameterizedTypeName
+import com.squareup.kotlinpoet.TypeName
+
+fun ClassName.asParameterizedTypeName(vararg typeParams: TypeName) =
+    ParameterizedTypeName.get(this, *typeParams)

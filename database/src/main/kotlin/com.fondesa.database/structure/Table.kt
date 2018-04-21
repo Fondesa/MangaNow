@@ -47,9 +47,8 @@ interface Table {
      * For example, it could be useful in a many-to-many relationship to avoid an autoincrement id
      * when the primary key is defined as a composite primary key of two ids.
      * This method will take effects only on api >= 21.
-     * DEFAULT: true
      *
      * @return true if the table must use the inner autoincrement *rowId column
      */
-    fun withRowId(): Boolean = true
+    fun withRowId(): Boolean
 }

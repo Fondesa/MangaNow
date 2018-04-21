@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.database.annotations
+package com.fondesa.database.processor.extension
 
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.BINARY)
-annotation class Table(val value: String, val withRowId: Boolean = true)
+import javax.lang.model.element.Element
+import javax.lang.model.element.ExecutableElement
+
+fun Element.functions(): List<ExecutableElement> =
+    enclosedElements.filterIsInstance<ExecutableElement>()
+
+fun Element.functionWithName(name: String) = functions().first { it.simpleName.toString() == name }

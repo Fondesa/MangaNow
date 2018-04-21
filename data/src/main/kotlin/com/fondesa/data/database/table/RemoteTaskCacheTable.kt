@@ -16,37 +16,46 @@
 
 package com.fondesa.data.database.table
 
-import com.fondesa.database.annotations.IntegerColumnSpec
-import com.fondesa.database.annotations.Table
-import com.fondesa.database.structure.Column
-import com.fondesa.database.structure.IntegerColumnBuilder
-import com.fondesa.database.structure.TextColumnBuilder
+import com.fondesa.database.annotations.*
 
-class RemoteTaskCacheTable : com.fondesa.database.structure.Table {
-
-    override fun getName() = NAME
-
-    override fun getColumns(): Array<Column<*>> = arrayOf(COL_ID, COL_PATH, COL_DATE_MS)
-
-    companion object {
-        const val NAME = "remote_task_cache"
-
-        val COL_ID = IntegerColumnBuilder(NAME, "id").primaryKey().build()
-        val COL_DATE_MS = IntegerColumnBuilder(NAME, "date_ms").notNull().build()
-        val COL_PATH = TextColumnBuilder(NAME, "task_path").unique().build()
-    }
-}
+//class RemoteTaskCacheTable : com.fondesa.database.structure.Table {
+//
+//    override fun getName() = NAME
+//
+//    override fun getColumns(): Array<Column> = arrayOf(COL_ID, COL_PATH, COL_DATE_MS)
+//
+//    companion object {
+//        const val NAME = "remote_task_cache"
+//
+//        val COL_ID = IntegerColumnBuilder(NAME, "id").primaryKey().build()
+//        val COL_DATE_MS = IntegerColumnBuilder(NAME, "date_ms").notNull().build()
+//        val COL_PATH = TextColumnBuilder(NAME, "task_path").unique().build()
+//    }
+//}
 
 
-@Table("example_table")
+@Table("example_table", withRowId = true)
 object ExampleTableSpec {
 
-    @com.fondesa.database.annotations.Column
+    @Column
     val COL_ID = IntegerColumnSpec("id").primaryKey()
+
+    @Column
+    val COL_CIAO = RealColumnSpec("ciao").primaryKey()
 }
 
-//fun getColumns(): List<Column<*>> {
-//    val columns = mutableListOf<Column<*>>()
+@Table("ciao_table", withRowId = true)
+object CiaoTableSpec {
+
+    @Column
+    val COL_SAF = BlobColumnSpec("saf").primaryKey()
+
+    @Column
+    val COL_KOT = TextColumnSpec("EX").primaryKey()
+}
+
+//fun getColumns(): List<Column> {
+//    val columns = mutableListOf<Column>()
 //    lateinit var COL_ID: ColumnSpec<*>
 //
 ////    columns.add(Column("", COL_ID.name, Column.Type.TEXT, ))

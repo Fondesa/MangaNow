@@ -23,7 +23,7 @@ package com.fondesa.database.annotations
  * @param name name of the column.
  * @param type type of the column (one of [Type]).
  */
-open class ColumnSpec<ValueType>(
+sealed class ColumnSpec<ValueType>(
     val name: String,
     val type: Type
 ) {
