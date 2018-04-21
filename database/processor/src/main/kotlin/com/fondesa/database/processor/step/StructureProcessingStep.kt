@@ -17,6 +17,7 @@
 package com.fondesa.database.processor.step
 
 import com.fondesa.database.annotations.Column
+import com.fondesa.database.annotations.ForeignKey
 import com.fondesa.database.annotations.Table
 import com.fondesa.database.processor.extension.*
 import com.google.common.base.CaseFormat
@@ -25,6 +26,8 @@ import com.squareup.kotlinpoet.*
 import java.io.File
 import javax.annotation.processing.Messager
 import javax.lang.model.element.Element
+import javax.lang.model.element.TypeElement
+import javax.lang.model.type.TypeMirror
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 import kotlin.reflect.KClass
@@ -36,15 +39,18 @@ class StructureProcessingStep(
     messenger: Messager
 ) : BasicProcessingStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
 
-    private val graphElement by lazy { elementUtil.getTypeElement(GRAPH_CLASS.canonicalName) }
+    private val graphElement by lazyTypeElement(GRAPH_CLASS)
 
-    private val tableElement by lazy { elementUtil.getTypeElement(TABLE_CLASS.canonicalName) }
+    private val tableElement by lazyTypeElement(TABLE_CLASS)
 
-    private val columnSpecElement by lazy { elementUtil.getTypeElement(COLUMN_CONFIG_CLASS.canonicalName) }
-    private val erasedColumnSpecType by lazy { typeUtil.erasure(columnSpecElement.asType()) }
+    private val foreignKeyElement by lazyTypeElement(FOREIGN_KEY_CLASS)
+    private val foreignKeyConfigElement by lazyTypeElement(FOREIGN_KEY_CONFIG_CLASS)
 
-    private val columnElement by lazy { elementUtil.getTypeElement(COLUMN_CLASS.canonicalName) }
-    private val erasedColumnType by lazy { typeUtil.erasure(columnElement.asType()) }
+    private val columnConfigElement by lazyTypeElement(COLUMN_CONFIG_CLASS)
+    private val erasedColumnConfigType by lazyErasedType(columnConfigElement)
+
+    private val columnElement by lazyTypeElement(COLUMN_CLASS)
+    private val erasedColumnType by lazyErasedType(columnElement)
 
     override fun filter() = arrayOf(Table::class)
 
@@ -158,6 +164,62 @@ class StructureProcessingStep(
 
         contentBuilder.addFunction(getColumnsFunction)
 
+        val foreignKeyType = foreignKeyElement.asType()
+
+        val getForeignKeysBodyBuilder = CodeBlock.builder()
+            .addStatement("val list = mutableListOf<%T>()", foreignKeyType)
+
+        tableElement.enclosedElements.filter {
+            it.getAnnotation(ForeignKey::class.java) != null
+        }.forEach { fkElement ->
+            val elementType = fkElement.asType()
+            if (!typeUtil.isAssignable(elementType, foreignKeyConfigElement.asType())) {
+                throw ProcessingException(
+                    "It must be a ${foreignKeyConfigElement.qualifiedName}",
+                    fkElement
+                )
+            }
+            var destinationType: TypeMirror? = null
+            fkElement.annotationMirrors.forEach {
+                it.elementValues.forEach {
+                    if (it.key.simpleName.toString() == "destination") {
+                        destinationType = it.value.value as TypeMirror
+                    }
+                }
+            }
+            val destinationTableType = destinationType ?: throw ProcessingException(
+                "An error occurred retrieving the destination of this element",
+                fkElement
+            )
+            val destinationTableElement =
+                elementUtil.getTypeElement(destinationTableType.asTypeName().toString())
+            val destinationTableAnnotation =
+                destinationTableElement.getAnnotation(Table::class.java)
+                        ?: throw ProcessingException(
+                            "The class ${destinationTableElement.qualifiedName}" +
+                                    " must be annotate with ${Table::class.java.name}",
+                            destinationTableElement
+                        )
+
+            getForeignKeysBodyBuilder.addStatement(
+                "list.add(%T.fromConfig(%S, %T.%N))",
+                foreignKeyType,
+                destinationTableAnnotation.name,
+                tableElement.asType(),
+                fkElement.simpleName.toString()
+            )
+        }
+
+        getForeignKeysBodyBuilder.addStatement("return list.toTypedArray()")
+
+        // Get the declaration of the function in the interface.
+        val getForeignKeysFunction =
+            FunSpec.overriding(this.tableElement.functionWithName("getForeignKeys"))
+                .addCode(getForeignKeysBodyBuilder.build())
+                .build()
+
+        contentBuilder.addFunction(getForeignKeysFunction)
+
         val file = FileSpec.builder(
             className.packageName(),
             className.simpleName()
@@ -175,9 +237,9 @@ class StructureProcessingStep(
         definition: Column
     ): PropertySpec {
         val elementType = columnElement.asType()
-        if (!typeUtil.isAssignable(typeUtil.erasure(elementType), erasedColumnSpecType)) {
+        if (!typeUtil.isAssignable(typeUtil.erasure(elementType), erasedColumnConfigType)) {
             throw ProcessingException(
-                "It must be a ${columnSpecElement.qualifiedName}",
+                "It must be a ${columnConfigElement.qualifiedName}",
                 columnElement
             )
         }
@@ -206,10 +268,20 @@ class StructureProcessingStep(
             .build()
     }
 
+    private fun lazyTypeElement(className: ClassName) =
+        lazy { elementUtil.getTypeElement(className.canonicalName) }
+
+    private fun lazyErasedType(element: TypeElement) =
+        lazy { typeUtil.erasure(element.asType()) }
+
     companion object {
         private val JAVAX_INJECT_CLASS = ClassName("javax.inject", "Inject")
 
-        private val COLUMN_CONFIG_CLASS = ClassName("com.fondesa.database.structure", "ColumnConfig")
+        private val COLUMN_CONFIG_CLASS =
+            ClassName("com.fondesa.database.structure", "ColumnConfig")
+        private val FOREIGN_KEY_CONFIG_CLASS =
+            ClassName("com.fondesa.database.structure", "ForeignKeyConfig")
+        private val FOREIGN_KEY_CLASS = ClassName("com.fondesa.database.structure", "ForeignKey")
         private val COLUMN_CLASS = ClassName("com.fondesa.database.structure", "Column")
         private val TABLE_CLASS = ClassName("com.fondesa.database.structure", "Table")
         private val GRAPH_CLASS = ClassName("com.fondesa.database.structure", "Graph")

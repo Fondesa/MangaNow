@@ -35,11 +35,10 @@ interface Table {
 
     /**
      * Defines the foreign keys of this table to relate it to other tables.
-     * DEFAULT: none
      *
      * @return all foreign keys that starts from this table.
      */
-    fun getForeignKeys(): Array<ForeignKey> = emptyArray()
+    fun getForeignKeys(): Array<ForeignKey>
 
     /**
      * Specify if this table must use the inner autoincrement *rowId column of SQLite.
