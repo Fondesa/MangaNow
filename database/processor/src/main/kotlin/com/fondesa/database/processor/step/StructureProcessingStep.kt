@@ -35,9 +35,12 @@ class StructureProcessingStep(
     messenger: Messager
 ) : BasicProcessingStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
 
-    private val tableElement by lazy { elementUtil.getTypeElement(DB_TABLE_CLASS.canonicalName) }
+    private val tableElement by lazy { elementUtil.getTypeElement(TABLE_CLASS.canonicalName) }
 
-    private val columnElement by lazy { elementUtil.getTypeElement(DB_COLUMN_CLASS.canonicalName) }
+    private val columnSpecElement by lazy { elementUtil.getTypeElement(COLUMN_SPEC_CLASS.canonicalName) }
+    private val erasedColumnSpecType by lazy { typeUtil.erasure(columnSpecElement.asType()) }
+
+    private val columnElement by lazy { elementUtil.getTypeElement(COLUMN_CLASS.canonicalName) }
     private val erasedColumnType by lazy { typeUtil.erasure(columnElement.asType()) }
 
     override fun filter() = arrayOf(TableDefinition::class)
@@ -52,94 +55,8 @@ class StructureProcessingStep(
         generateGraph(tableClassNames)
     }
 
-    private fun generateTable(element: Element): ClassName {
-        val tableAnnotation = element.getAnnotation(TableDefinition::class.java)
-        val tableName = tableAnnotation.value
-        val tableWithRowId = tableAnnotation.withRowId
-
-        val simpleName = element.simpleName
-        val packageName = elementUtil.getPackageOf(element).toString()
-        val className = ClassName(packageName, "Lyra$simpleName")
-
-        val contentBuilder = TypeSpec.classBuilder(className)
-            // It will implement the interface and its methods.
-            .addSuperinterface(tableElement.asType().asTypeName())
-
-        val getNameFunction = FunSpec.overriding(tableElement.functionWithName("getName"))
-            .returns(String::class)
-            .addCode("return %S", tableName)
-            .build()
-
-        contentBuilder.addFunction(getNameFunction)
-
-        val withRowIdFunction = FunSpec.overriding(tableElement.functionWithName("withRowId"))
-            .returns(Boolean::class)
-            .addCode("return %L", tableWithRowId)
-            .build()
-
-        contentBuilder.addFunction(withRowIdFunction)
-
-        val companionObjectBuilder = TypeSpec.companionObjectBuilder()
-
-        val columnsArray = element.enclosedElements.map {
-            it to it.getAnnotation(ColumnDefinition::class.java)
-        }.filter { (_, definition) ->
-            definition != null
-        }.joinToString { (elem, definition) ->
-            val definitionName = definition!!.value
-            val columnName = elem.simpleName.toString()
-            val elementType = elem.asType()
-            val elementArgs = elementType.genericArguments()
-            val argument = if (elementArgs.isEmpty()) {
-                typeUtil.directSupertypes(elementType).first().genericArgument()
-            } else {
-                elementArgs.first()
-            }
-            val argumentType = argument.asTypeName().convertToKotlinType()
-
-            val columnTypename = columnElement.asClassName()
-                .asParameterizedTypeName(argumentType)
-
-            val property = PropertySpec.builder(columnName, columnTypename)
-                .initializer(
-                    "%T.fromSpec(%S, %S, %T.%N)",
-                    erasedColumnType,
-                    tableName,
-                    definitionName,
-                    element.asType(),
-                    columnName
-                )
-                .build()
-
-            companionObjectBuilder.addProperty(property)
-            columnName
-        }
-
-        // Generate the body of the function.
-        val getColumnsBodyBuilder = CodeBlock.builder()
-            .addStatement("return arrayOf(%N)", columnsArray)
-
-        contentBuilder.companionObject(companionObjectBuilder.build())
-
-        // Get the declaration of the function in the interface.
-        val getColumnsFunction = FunSpec.overriding(tableElement.functionWithName("getColumns"))
-            .addCode(getColumnsBodyBuilder.build())
-            .build()
-
-        contentBuilder.addFunction(getColumnsFunction)
-
-        val file = FileSpec.builder(
-            className.packageName(),
-            className.simpleName()
-        ).addType(contentBuilder.build())
-            .build()
-
-        file.writeToKaptGeneratedDir()
-        return className
-    }
-
     private fun generateGraph(tableClassNames: List<ClassName>) {
-        val graphElement = elementUtil.getTypeElement(DB_GRAPH_CLASS.canonicalName)
+        val graphElement = elementUtil.getTypeElement(GRAPH_CLASS.canonicalName)
 
         val contentBuilder = TypeSpec.classBuilder(GENERATED_GRAPH_CLASS)
             // It will implement the interface and its methods.
@@ -173,12 +90,121 @@ class StructureProcessingStep(
         file.writeToKaptGeneratedDir()
     }
 
+    private fun generateTable(tableElement: Element): ClassName {
+        val tableAnnotation = tableElement.getAnnotation(TableDefinition::class.java)
+        val tableName = tableAnnotation.value
+        val tableWithRowId = tableAnnotation.withRowId
+
+        val tableElementSimpleName = tableElement.simpleName
+        val packageName = elementUtil.getPackageOf(tableElement).toString()
+        val className = ClassName(packageName, "Lyra$tableElementSimpleName")
+
+        val contentBuilder = TypeSpec.classBuilder(className)
+            // It will implement the interface and its methods.
+            .addSuperinterface(this.tableElement.asType().asTypeName())
+
+        val getNameFunction = FunSpec.overriding(this.tableElement.functionWithName("getName"))
+            .returns(String::class)
+            .addCode("return %S", tableName)
+            .build()
+
+        contentBuilder.addFunction(getNameFunction)
+
+        val withRowIdFunction = FunSpec.overriding(this.tableElement.functionWithName("withRowId"))
+            .returns(Boolean::class)
+            .addCode("return %L", tableWithRowId)
+            .build()
+
+        contentBuilder.addFunction(withRowIdFunction)
+
+        val companionObjectBuilder = TypeSpec.companionObjectBuilder()
+
+        val columnsArray = tableElement.enclosedElements.map {
+            it to it.getAnnotation(ColumnDefinition::class.java)
+        }.filter { (_, definition) ->
+            definition != null
+        }.joinToString { (columnElement, definition) ->
+            val columnProperty = generateColumnProperty(
+                tableElement,
+                tableName,
+                columnElement,
+                definition!!
+            )
+            // Add the property to the companion object.
+            companionObjectBuilder.addProperty(columnProperty)
+            // Return the name of the new property.
+            columnProperty.name
+        }
+
+        // Generate the body of the function.
+        val getColumnsBodyBuilder = CodeBlock.builder()
+            .addStatement("return arrayOf(%N)", columnsArray)
+
+        contentBuilder.companionObject(companionObjectBuilder.build())
+
+        // Get the declaration of the function in the interface.
+        val getColumnsFunction =
+            FunSpec.overriding(this.tableElement.functionWithName("getColumns"))
+                .addCode(getColumnsBodyBuilder.build())
+                .build()
+
+        contentBuilder.addFunction(getColumnsFunction)
+
+        val file = FileSpec.builder(
+            className.packageName(),
+            className.simpleName()
+        ).addType(contentBuilder.build())
+            .build()
+
+        file.writeToKaptGeneratedDir()
+        return className
+    }
+
+    private fun generateColumnProperty(
+        tableElement: Element,
+        tableName: String,
+        columnElement: Element,
+        definition: ColumnDefinition
+    ): PropertySpec {
+        val elementType = columnElement.asType()
+        if (!typeUtil.isAssignable(typeUtil.erasure(elementType), erasedColumnSpecType)) {
+            throw ProcessingException(
+                "It must be a ${columnSpecElement.qualifiedName}",
+                columnElement
+            )
+        }
+        val definitionName = definition.value
+        val columnName = columnElement.simpleName.toString()
+        val elementArgs = elementType.genericArguments()
+        val argument = if (elementArgs.isEmpty()) {
+            typeUtil.directSupertypes(elementType).first().genericArgument()
+        } else {
+            elementArgs.first()
+        }
+        val argumentType = argument.asTypeName().convertToKotlinType()
+
+        val columnTypename = this.columnElement.asClassName()
+            .asParameterizedTypeName(argumentType)
+
+        return PropertySpec.builder(columnName, columnTypename)
+            .initializer(
+                "%T.fromSpec(%S, %S, %T.%N)",
+                erasedColumnType,
+                tableName,
+                definitionName,
+                tableElement.asType(),
+                columnName
+            )
+            .build()
+    }
+
     companion object {
         private val JAVAX_INJECT_CLASS = ClassName("javax.inject", "Inject")
 
-        private val DB_COLUMN_CLASS = ClassName("com.fondesa.database.structure", "Column")
-        private val DB_TABLE_CLASS = ClassName("com.fondesa.database.structure", "Table")
-        private val DB_GRAPH_CLASS = ClassName("com.fondesa.database.structure", "Graph")
+        private val COLUMN_SPEC_CLASS = ClassName("com.fondesa.database.structure", "ColumnSpec")
+        private val COLUMN_CLASS = ClassName("com.fondesa.database.structure", "Column")
+        private val TABLE_CLASS = ClassName("com.fondesa.database.structure", "Table")
+        private val GRAPH_CLASS = ClassName("com.fondesa.database.structure", "Graph")
 
         private val GENERATED_GRAPH_CLASS = ClassName("com.fondesa.data.database", "AppGraph")
     }
