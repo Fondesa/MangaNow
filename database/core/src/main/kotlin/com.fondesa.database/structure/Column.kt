@@ -16,7 +16,6 @@
 
 package com.fondesa.database.structure
 
-import com.fondesa.database.annotations.*
 import com.fondesa.database.structure.Column.Type
 
 /**

@@ -16,14 +16,14 @@ android {
 
 dependencies {
     api project(":domain")
-    api project(":database")
+    api project(":database:core")
     api project(":remote")
 
     api "javax.inject:javax.inject:$versions.javaxInject"
     api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
     api "com.google.code.gson:gson:$versions.gson"
 
-    kapt project(':database-processor')
+    kapt project(':database:processor')
 }
 
 sourceCompatibility = "1.7"

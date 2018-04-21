@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.database.annotations
+package com.fondesa.database.structure
 
 /**
  * Builder used to create a column in a table.

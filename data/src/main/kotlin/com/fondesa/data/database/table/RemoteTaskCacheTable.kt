@@ -16,9 +16,14 @@
 
 package com.fondesa.data.database.table
 
-import com.fondesa.database.annotations.*
+import com.fondesa.database.annotations.ColumnDefinition
+import com.fondesa.database.annotations.TableDefinition
+import com.fondesa.database.structure.BlobColumnSpec
+import com.fondesa.database.structure.IntegerColumnSpec
+import com.fondesa.database.structure.RealColumnSpec
+import com.fondesa.database.structure.TextColumnSpec
 
-//class RemoteTaskCacheTable : com.fondesa.database.structure.Table {
+//class RemoteTaskCacheTable : Table {
 //
 //    override fun getName() = NAME
 //
