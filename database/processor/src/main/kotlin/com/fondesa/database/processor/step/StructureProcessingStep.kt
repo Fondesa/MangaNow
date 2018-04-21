@@ -19,6 +19,7 @@ package com.fondesa.database.processor.step
 import com.fondesa.database.annotations.ColumnDefinition
 import com.fondesa.database.annotations.TableDefinition
 import com.fondesa.database.processor.extension.*
+import com.google.common.base.CaseFormat
 import com.google.common.collect.SetMultimap
 import com.squareup.kotlinpoet.*
 import java.io.File
@@ -34,6 +35,8 @@ class StructureProcessingStep(
     typeUtil: Types,
     messenger: Messager
 ) : BasicProcessingStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
+
+    private val graphElement by lazy { elementUtil.getTypeElement(GRAPH_CLASS.canonicalName) }
 
     private val tableElement by lazy { elementUtil.getTypeElement(TABLE_CLASS.canonicalName) }
 
@@ -56,8 +59,6 @@ class StructureProcessingStep(
     }
 
     private fun generateGraph(tableClassNames: List<ClassName>) {
-        val graphElement = elementUtil.getTypeElement(GRAPH_CLASS.canonicalName)
-
         val contentBuilder = TypeSpec.classBuilder(GENERATED_GRAPH_CLASS)
             // It will implement the interface and its methods.
             .addSuperinterface(graphElement.asType().asTypeName())
@@ -95,9 +96,9 @@ class StructureProcessingStep(
         val tableName = tableAnnotation.value
         val tableWithRowId = tableAnnotation.withRowId
 
-        val tableElementSimpleName = tableElement.simpleName
         val packageName = elementUtil.getPackageOf(tableElement).toString()
-        val className = ClassName(packageName, "Lyra$tableElementSimpleName")
+        val generatedTableName = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableName)
+        val className = ClassName(packageName, "${generatedTableName}Table")
 
         val contentBuilder = TypeSpec.classBuilder(className)
             // It will implement the interface and its methods.

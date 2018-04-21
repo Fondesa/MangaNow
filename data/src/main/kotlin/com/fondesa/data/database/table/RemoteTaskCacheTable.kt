@@ -39,7 +39,7 @@ import com.fondesa.database.structure.TextColumnSpec
 //}
 
 
-@TableDefinition("example_table", withRowId = true)
+@TableDefinition("example", withRowId = true)
 object ExampleTableSpec {
 
     @ColumnDefinition("id")
@@ -49,7 +49,7 @@ object ExampleTableSpec {
     val COL_CIAO = RealColumnSpec.primaryKey()
 }
 
-@TableDefinition("ciao_table", withRowId = false)
+@TableDefinition("ciao", withRowId = false)
 object CiaoTableSpec {
 
     @ColumnDefinition("saf")
