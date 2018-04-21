@@ -18,7 +18,6 @@ package com.fondesa.database.statement
 
 import android.os.Build
 import com.fondesa.database.execution.PlainExecutor
-import com.fondesa.database.extension.interpolateWith
 import com.fondesa.database.extension.isNullOrEmpty
 import com.fondesa.database.extension.plusArray
 import com.fondesa.database.statement.base.SQLiteCompiledStatement
@@ -179,13 +178,13 @@ object CreateTable {
             }
             if (primaryKeys.isNotEmpty()) {
                 sql.append(",PRIMARY KEY(")
-                    .append(primaryKeys.interpolateWith(','))
+                    .append(primaryKeys.joinToString())
                     .append(')')
             }
 
             if (uniqueKeys.isNotEmpty()) {
                 sql.append(",UNIQUE(")
-                    .append(uniqueKeys.interpolateWith(','))
+                    .append(uniqueKeys.joinToString())
                     .append(')')
             }
 
@@ -194,13 +193,12 @@ object CreateTable {
                 val foreignKeys = foreignKeys!!
                 sql.append(',')
                 foreignKeys.forEachIndexed { index, key ->
-                    val toColumns = key.toColumns
                     sql.append("FOREIGN KEY(")
-                        .append(key.fromColumns.interpolateWith(',') { it.name })
+                        .append(key.fromColumns.joinToString())
                         .append(") REFERENCES ")
-                        .append(toColumns.first().tableName)
+                        .append(key.toTable)
                         .append('(')
-                        .append(toColumns.interpolateWith(',') { it.name })
+                        .append(key.toColumns.joinToString())
                         .append(')')
 
                     key.conflictStrategies.forEach { (clause, action) ->

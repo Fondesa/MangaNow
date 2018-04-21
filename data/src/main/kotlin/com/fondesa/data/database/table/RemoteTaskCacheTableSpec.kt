@@ -17,7 +17,9 @@
 package com.fondesa.data.database.table
 
 import com.fondesa.database.annotations.ColumnDefinition
+import com.fondesa.database.annotations.ForeignKeyDefinition
 import com.fondesa.database.annotations.TableDefinition
+import com.fondesa.database.structure.ForeignKey
 import com.fondesa.database.structure.IntegerColumnSpec
 import com.fondesa.database.structure.RealColumnSpec
 import com.fondesa.database.structure.TextColumnSpec
@@ -33,4 +35,10 @@ object RemoteTaskCacheTableSpec {
 
     @ColumnDefinition("task_path")
     val COL_PATH = TextColumnSpec.unique()
+
+    @ForeignKeyDefinition(SortOrderTableSpec::class)
+    val FROM_ID_TO_NAME = ForeignKey.spec()
+        .from("id")
+        .to("ciao")
+
 }

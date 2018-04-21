@@ -22,8 +22,7 @@ package com.fondesa.database.structure
  * @param name name of the column.
  * @param type type of the column (one of [Type]).
  */
-sealed class ColumnSpec<ValueType> {
-
+sealed class ColumnSpec<ValueType>(val type: Column.Type) {
     var isPrimaryKey: Boolean = false
     var isUnique: Boolean = false
     var isNotNull: Boolean = false
@@ -68,19 +67,19 @@ sealed class ColumnSpec<ValueType> {
 /**
  * Builder used to create a floating-point column in a table.
  */
-object RealColumnSpec : ColumnSpec<Double>()
+object RealColumnSpec : ColumnSpec<Double>(Column.Type.REAL)
 
 /**
  * Builder used to create an integer or a boolean column in a table.
  */
-object IntegerColumnSpec : ColumnSpec<Long>()
+object IntegerColumnSpec : ColumnSpec<Long>(Column.Type.INTEGER)
 
 /**
  * Builder used to create a string column in a table.
  */
-object TextColumnSpec : ColumnSpec<String>()
+object TextColumnSpec : ColumnSpec<String>(Column.Type.TEXT)
 
 /**
  * Builder used to create a byte array column in a table.
  */
-object BlobColumnSpec : ColumnSpec<ByteArray>()
+object BlobColumnSpec : ColumnSpec<ByteArray>(Column.Type.BLOB)

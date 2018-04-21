@@ -20,51 +20,62 @@ import com.fondesa.database.extension.isNullOrEmpty
 
 /**
  * Used to define a foreign key in a SQLite from.
- * The [ForeignKey] is built with [ForeignKey.Builder].
+ * The [ForeignKey] is built with [ForeignKey.Definition].
  *
  * @param fromColumns columns' name of the child table.
  * @param toColumns columns' name of the parent table referenced by the child table.
  * @param conflictStrategies list of strategies used when a conflict is found.
  */
 class ForeignKey private constructor(
-    val fromColumns: Array<out Column<*>>,
-    val toColumns: Array<out Column<*>>,
+    val fromColumns: Array<out String>,
+    val toTable: String,
+    val toColumns: Array<out String>,
     val conflictStrategies: Array<ForeignKey.ConflictStrategy>
 ) {
 
     companion object {
 
-        /**
-         * Creates a [Builder] used to create a [ForeignKey].
-         *
-         * @return instance of [Builder].
-         */
-        fun from(vararg column: Column<*>): Builder =
-            Builder().from(*column)
+        fun spec() = Definition()
+
+        fun fromDefinition(tableName:String,definition: Definition): ForeignKey {
+            if (definition.fromColumns.isNullOrEmpty())
+                throw IllegalArgumentException("You have to specify the start columns with from() method.")
+
+            if (definition.toColumns.isNullOrEmpty())
+                throw IllegalArgumentException("You have to specify the destination columns with to() method.")
+
+            if (definition.fromColumns!!.size != definition.toColumns!!.size)
+                throw IllegalArgumentException("The foreign key columns must be mapped 1 to 1.")
+
+            return ForeignKey(definition.fromColumns!!,
+                tableName,
+                definition.toColumns!!,
+                definition.strategies.toTypedArray())
+        }
     }
 
     /**
      * Used to build a [ForeignKey] and specify its properties.
      */
-    class Builder {
-        private var fromColumns: Array<out Column<*>>? = null
-        private var toColumns: Array<out Column<*>>? = null
-        private val strategies = mutableListOf<ConflictStrategy>()
+    class Definition {
+        internal var fromColumns: Array<out String>? = null
+        internal var toColumns: Array<out String>? = null
+        internal val strategies = mutableListOf<ConflictStrategy>()
 
         /**
          * Defines the columns of the child table used in this foreign key.
          *
          * @param columns columns' name of the child table.
          */
-        fun from(vararg columns: Column<*>) = apply { fromColumns = columns }
+        fun from(vararg columnNames: String) = apply { fromColumns = columnNames }
 
         /**
          * Defines the parent table and the columns of the table referenced by the child table.
          *
          * @param columns columns' name of the parent table referenced by the child table.
          */
-        fun to(vararg columns: Column<*>) = apply {
-            toColumns = columns
+        fun to(vararg columnNames: String) = apply {
+            toColumns = columnNames
         }
 
         /**
@@ -91,35 +102,6 @@ class ForeignKey private constructor(
                 strategies.remove(previousStrategy)
             }
             strategies.add(ConflictStrategy(clause, action))
-        }
-
-        /**
-         * Build a [ForeignKey] with its properties.
-         *
-         * @return build [ForeignKey].
-         */
-        fun build(): ForeignKey {
-            if (fromColumns.isNullOrEmpty())
-                throw IllegalArgumentException("You have to specify the start columns with from() method.")
-
-            if (toColumns.isNullOrEmpty())
-                throw IllegalArgumentException("You have to specify the destination columns with to() method.")
-
-            if (fromColumns!!.size != toColumns!!.size)
-                throw IllegalArgumentException("The foreign key columns must be mapped 1 to 1.")
-
-            columnsOfSameTable(fromColumns!!)
-            columnsOfSameTable(toColumns!!)
-
-            return ForeignKey(fromColumns!!, toColumns!!, strategies.toTypedArray())
-        }
-
-        private fun columnsOfSameTable(columns: Array<out Column<*>>) {
-            val table = columns.first().tableName
-            columns.forEach {
-                if (it.tableName != table)
-                    throw IllegalArgumentException("The columns of the same foreign key must have the same table")
-            }
         }
     }
 

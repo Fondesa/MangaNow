@@ -89,23 +89,14 @@ class Column<out ValueType>(
             tableName: String,
             columnName: String,
             spec: ColumnSpec<T>
-        ): Column<T> {
-            val type = when (spec) {
-                RealColumnSpec -> Type.REAL
-                IntegerColumnSpec -> Type.INTEGER
-                TextColumnSpec -> Type.TEXT
-                BlobColumnSpec -> Type.BLOB
-            }
-
-            return Column(
-                tableName,
-                columnName,
-                type,
-                spec.isPrimaryKey,
-                spec.isUnique,
-                spec.isNotNull,
-                spec.defaultValue
-            )
-        }
+        ): Column<T> = Column(
+            tableName,
+            columnName,
+            spec.type,
+            spec.isPrimaryKey,
+            spec.isUnique,
+            spec.isNotNull,
+            spec.defaultValue
+        )
     }
 }
