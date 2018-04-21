@@ -16,29 +16,26 @@
 
 package com.fondesa.data.database.table
 
-import com.fondesa.database.annotations.ColumnDefinition
-import com.fondesa.database.annotations.ForeignKeyDefinition
-import com.fondesa.database.annotations.TableDefinition
-import com.fondesa.database.structure.ForeignKey
-import com.fondesa.database.structure.IntegerColumnSpec
-import com.fondesa.database.structure.RealColumnSpec
-import com.fondesa.database.structure.TextColumnSpec
+import com.fondesa.database.annotations.Column
+import com.fondesa.database.annotations.ForeignKey
+import com.fondesa.database.annotations.Table
+import com.fondesa.database.structure.ForeignKeyConfig
+import com.fondesa.database.structure.RealColumnConfig
+import com.fondesa.database.structure.TextColumnConfig
 
-@TableDefinition("remote_task_cache")
+@Table("remote_task_cache")
 object RemoteTaskCacheTableSpec {
 
-    @ColumnDefinition("id")
-    val COL_ID = IntegerColumnSpec.primaryKey()
+    @Column("id")
+    val COL_ID = RealColumnConfig
 
-    @ColumnDefinition("date_ms")
-    val COL_DATE_MS = RealColumnSpec.notNull()
+    @Column("date_ms")
+    val COL_DATE_MS = RealColumnConfig.notNull()
 
-    @ColumnDefinition("task_path")
-    val COL_PATH = TextColumnSpec.unique()
+    @Column("task_path")
+    val COL_PATH = TextColumnConfig.unique()
 
-    @ForeignKeyDefinition(SortOrderTableSpec::class)
-    val FROM_ID_TO_NAME = ForeignKey.spec()
-        .from("id")
-        .to("ciao")
+    @ForeignKey(SortOrderTableSpec::class)
+    val FROM_ID_TO_NAME = ForeignKeyConfig.from("id").to("ciao")
 
 }

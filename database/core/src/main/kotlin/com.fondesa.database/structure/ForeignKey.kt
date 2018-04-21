@@ -16,8 +16,6 @@
 
 package com.fondesa.database.structure
 
-import com.fondesa.database.extension.isNullOrEmpty
-
 /**
  * Used to define a foreign key in a SQLite from.
  * The [ForeignKey] is built with [ForeignKey.Definition].
@@ -27,91 +25,30 @@ import com.fondesa.database.extension.isNullOrEmpty
  * @param conflictStrategies list of strategies used when a conflict is found.
  */
 class ForeignKey private constructor(
-    val fromColumns: Array<out String>,
-    val toTable: String,
-    val toColumns: Array<out String>,
-    val conflictStrategies: Array<ForeignKey.ConflictStrategy>
+    internal val fromColumns: Array<out String>,
+    internal val toTable: String,
+    internal val toColumns: Array<out String>,
+    internal val conflictStrategies: Array<ForeignKey.ConflictStrategy>
 ) {
 
     companion object {
 
-        fun spec() = Definition()
+        fun fromConfig(tableName: String, config: ForeignKeyConfig): ForeignKey {
+            val fromColumns = config.fromColumns
+            val toColumns = config.toColumns
+                    ?: throw IllegalArgumentException("You have to specify the destination columns with to() method.")
 
-        fun fromDefinition(tableName:String,definition: Definition): ForeignKey {
-            if (definition.fromColumns.isNullOrEmpty())
-                throw IllegalArgumentException("You have to specify the start columns with from() method.")
-
-            if (definition.toColumns.isNullOrEmpty())
-                throw IllegalArgumentException("You have to specify the destination columns with to() method.")
-
-            if (definition.fromColumns!!.size != definition.toColumns!!.size)
+            if (fromColumns.size != toColumns.size)
                 throw IllegalArgumentException("The foreign key columns must be mapped 1 to 1.")
 
-            return ForeignKey(definition.fromColumns!!,
+            return ForeignKey(
+                fromColumns,
                 tableName,
-                definition.toColumns!!,
-                definition.strategies.toTypedArray())
+                toColumns,
+                config.strategies.toTypedArray()
+            )
         }
     }
-
-    /**
-     * Used to build a [ForeignKey] and specify its properties.
-     */
-    class Definition {
-        internal var fromColumns: Array<out String>? = null
-        internal var toColumns: Array<out String>? = null
-        internal val strategies = mutableListOf<ConflictStrategy>()
-
-        /**
-         * Defines the columns of the child table used in this foreign key.
-         *
-         * @param columns columns' name of the child table.
-         */
-        fun from(vararg columnNames: String) = apply { fromColumns = columnNames }
-
-        /**
-         * Defines the parent table and the columns of the table referenced by the child table.
-         *
-         * @param columns columns' name of the parent table referenced by the child table.
-         */
-        fun to(vararg columnNames: String) = apply {
-            toColumns = columnNames
-        }
-
-        /**
-         * Defines the action that must take place when the ON UPDATE clause must be propagated.
-         *
-         * @param action SQLite action invoked when a record in the parent table is updated.
-         */
-        fun onUpdate(action: Action) = apply {
-            addStrategy(Clause.UPDATE, action)
-        }
-
-        /**
-         * Defines the action that must take place when the ON DELETE clause must be propagated.
-         *
-         * @param action SQLite action invoked when a record in the parent table is deleted.
-         */
-        fun onDelete(action: Action) = apply {
-            addStrategy(Clause.DELETE, action)
-        }
-
-        private fun addStrategy(clause: Clause, action: Action) {
-            val previousStrategy = strategies.find { it.clause == clause }
-            if (previousStrategy != null) {
-                strategies.remove(previousStrategy)
-            }
-            strategies.add(ConflictStrategy(clause, action))
-        }
-    }
-
-    /**
-     * Define the strategy to use when a conflict is found.
-     *
-     * @param clause update or delete clause.
-     * @param action SQLite action invoked when a record in the parent table is updated/deleted.
-     */
-    data class ConflictStrategy(val clause: Clause, val action: Action)
 
     enum class Clause(val value: String) {
 
@@ -162,4 +99,12 @@ class ForeignKey private constructor(
          */
         CASCADE("cascade")
     }
+
+    /**
+     * Define the strategy to use when a conflict is found.
+     *
+     * @param clause update or delete clause.
+     * @param action SQLite action invoked when a record in the parent table is updated/deleted.
+     */
+    internal data class ConflictStrategy(val clause: Clause, val action: Action)
 }

@@ -16,20 +16,20 @@
 
 package com.fondesa.data.database.table
 
-import com.fondesa.database.annotations.ColumnDefinition
-import com.fondesa.database.annotations.TableDefinition
-import com.fondesa.database.structure.IntegerColumnSpec
-import com.fondesa.database.structure.TextColumnSpec
+import com.fondesa.database.annotations.Column
+import com.fondesa.database.annotations.Table
+import com.fondesa.database.structure.IntegerColumnConfig
+import com.fondesa.database.structure.TextColumnConfig
 
-@TableDefinition("sort_order")
+@Table("sort_order")
 object SortOrderTableSpec {
 
-    @ColumnDefinition("id")
-    val COL_ID = IntegerColumnSpec.primaryKey()
+    @Column("id")
+    val COL_ID = IntegerColumnConfig.primaryKey()
 
-    @ColumnDefinition("name")
-    val COL_NAME = TextColumnSpec.unique()
+    @Column("name")
+    val COL_NAME = TextColumnConfig.unique()
 
-    @ColumnDefinition("priority")
-    val COL_PRIORITY = IntegerColumnSpec.unique()
+    @Column("priority")
+    val COL_PRIORITY = IntegerColumnConfig.unique()
 }

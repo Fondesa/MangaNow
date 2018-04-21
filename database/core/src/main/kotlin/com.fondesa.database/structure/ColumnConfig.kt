@@ -19,14 +19,13 @@ package com.fondesa.database.structure
 /**
  * Builder used to create a column in a table.
  *
- * @param name name of the column.
- * @param type type of the column (one of [Type]).
+ * @param type type of the column (one of [Column.Type]).
  */
-sealed class ColumnSpec<ValueType>(val type: Column.Type) {
-    var isPrimaryKey: Boolean = false
-    var isUnique: Boolean = false
-    var isNotNull: Boolean = false
-    var defaultValue: ValueType? = null
+sealed class ColumnConfig<ValueType>(val type: Column.Type) {
+    internal var isPrimaryKey: Boolean = false
+    internal var isUnique: Boolean = false
+    internal var isNotNull: Boolean = false
+    internal var defaultValue: ValueType? = null
 
     /**
      * Sets this column as primary key.
@@ -67,19 +66,19 @@ sealed class ColumnSpec<ValueType>(val type: Column.Type) {
 /**
  * Builder used to create a floating-point column in a table.
  */
-object RealColumnSpec : ColumnSpec<Double>(Column.Type.REAL)
+object RealColumnConfig : ColumnConfig<Double>(Column.Type.REAL)
 
 /**
  * Builder used to create an integer or a boolean column in a table.
  */
-object IntegerColumnSpec : ColumnSpec<Long>(Column.Type.INTEGER)
+object IntegerColumnConfig : ColumnConfig<Long>(Column.Type.INTEGER)
 
 /**
  * Builder used to create a string column in a table.
  */
-object TextColumnSpec : ColumnSpec<String>(Column.Type.TEXT)
+object TextColumnConfig : ColumnConfig<String>(Column.Type.TEXT)
 
 /**
  * Builder used to create a byte array column in a table.
  */
-object BlobColumnSpec : ColumnSpec<ByteArray>(Column.Type.BLOB)
+object BlobColumnConfig : ColumnConfig<ByteArray>(Column.Type.BLOB)

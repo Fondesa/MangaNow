@@ -32,13 +32,13 @@ import com.fondesa.database.structure.Column.Type
  * @param ValueType type of the value that will be inserted in the column
  */
 class Column<out ValueType>(
-    val tableName: String,
+    tableName: String,
     val name: String,
-    val type: Type,
-    val isPrimaryKey: Boolean,
-    val isUnique: Boolean,
-    val isNotNull: Boolean,
-    val defaultValue: ValueType?
+    internal val type: Type,
+    internal val isPrimaryKey: Boolean,
+    internal val isUnique: Boolean,
+    internal val isNotNull: Boolean,
+    internal val defaultValue: ValueType?
 ) {
 
     /**
@@ -50,7 +50,6 @@ class Column<out ValueType>(
      * Default alias of the column used in reading.
      */
     val alias = tableName + SEPARATOR + name
-
 
     enum class Type(val value: String) {
 
@@ -85,18 +84,18 @@ class Column<out ValueType>(
 
         private const val SEPARATOR = '@'
 
-        fun <T> fromSpec(
+        fun <T> fromConfig(
             tableName: String,
             columnName: String,
-            spec: ColumnSpec<T>
+            config: ColumnConfig<T>
         ): Column<T> = Column(
             tableName,
             columnName,
-            spec.type,
-            spec.isPrimaryKey,
-            spec.isUnique,
-            spec.isNotNull,
-            spec.defaultValue
+            config.type,
+            config.isPrimaryKey,
+            config.isUnique,
+            config.isNotNull,
+            config.defaultValue
         )
     }
 }

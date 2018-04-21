@@ -16,8 +16,8 @@
 
 package com.fondesa.database.processor.step
 
-import com.fondesa.database.annotations.ColumnDefinition
-import com.fondesa.database.annotations.TableDefinition
+import com.fondesa.database.annotations.Column
+import com.fondesa.database.annotations.Table
 import com.fondesa.database.processor.extension.*
 import com.google.common.base.CaseFormat
 import com.google.common.collect.SetMultimap
@@ -40,17 +40,17 @@ class StructureProcessingStep(
 
     private val tableElement by lazy { elementUtil.getTypeElement(TABLE_CLASS.canonicalName) }
 
-    private val columnSpecElement by lazy { elementUtil.getTypeElement(COLUMN_SPEC_CLASS.canonicalName) }
+    private val columnSpecElement by lazy { elementUtil.getTypeElement(COLUMN_CONFIG_CLASS.canonicalName) }
     private val erasedColumnSpecType by lazy { typeUtil.erasure(columnSpecElement.asType()) }
 
     private val columnElement by lazy { elementUtil.getTypeElement(COLUMN_CLASS.canonicalName) }
     private val erasedColumnType by lazy { typeUtil.erasure(columnElement.asType()) }
 
-    override fun filter() = arrayOf(TableDefinition::class)
+    override fun filter() = arrayOf(Table::class)
 
     override fun process(elementsByAnnotation: SetMultimap<KClass<out Annotation>, Element>) {
         // Get all elements which must be added to the graph.
-        val tableElements = elementsByAnnotation[TableDefinition::class]
+        val tableElements = elementsByAnnotation[Table::class]
         val tableClassNames = tableElements.map {
             generateTable(it)
         }
@@ -92,8 +92,8 @@ class StructureProcessingStep(
     }
 
     private fun generateTable(tableElement: Element): ClassName {
-        val tableAnnotation = tableElement.getAnnotation(TableDefinition::class.java)
-        val tableName = tableAnnotation.value
+        val tableAnnotation = tableElement.getAnnotation(Table::class.java)
+        val tableName = tableAnnotation.name
         val tableWithRowId = tableAnnotation.withRowId
 
         val packageName = elementUtil.getPackageOf(tableElement).toString()
@@ -128,7 +128,7 @@ class StructureProcessingStep(
         contentBuilder.addFunction(withRowIdFunction)
 
         val columnsArray = tableElement.enclosedElements.map {
-            it to it.getAnnotation(ColumnDefinition::class.java)
+            it to it.getAnnotation(Column::class.java)
         }.filter { (_, definition) ->
             definition != null
         }.joinToString { (columnElement, definition) ->
@@ -172,7 +172,7 @@ class StructureProcessingStep(
         tableElement: Element,
         tableNamePropertyName: String,
         columnElement: Element,
-        definition: ColumnDefinition
+        definition: Column
     ): PropertySpec {
         val elementType = columnElement.asType()
         if (!typeUtil.isAssignable(typeUtil.erasure(elementType), erasedColumnSpecType)) {
@@ -181,7 +181,7 @@ class StructureProcessingStep(
                 columnElement
             )
         }
-        val definitionName = definition.value
+        val definitionName = definition.name
         val columnName = columnElement.simpleName.toString()
         val elementArgs = elementType.genericArguments()
         val argument = if (elementArgs.isEmpty()) {
@@ -196,7 +196,7 @@ class StructureProcessingStep(
 
         return PropertySpec.builder(columnName, columnTypename)
             .initializer(
-                "%T.fromSpec(%L, %S, %T.%N)",
+                "%T.fromConfig(%L, %S, %T.%N)",
                 erasedColumnType,
                 tableNamePropertyName,
                 definitionName,
@@ -209,7 +209,7 @@ class StructureProcessingStep(
     companion object {
         private val JAVAX_INJECT_CLASS = ClassName("javax.inject", "Inject")
 
-        private val COLUMN_SPEC_CLASS = ClassName("com.fondesa.database.structure", "ColumnSpec")
+        private val COLUMN_CONFIG_CLASS = ClassName("com.fondesa.database.structure", "ColumnConfig")
         private val COLUMN_CLASS = ClassName("com.fondesa.database.structure", "Column")
         private val TABLE_CLASS = ClassName("com.fondesa.database.structure", "Table")
         private val GRAPH_CLASS = ClassName("com.fondesa.database.structure", "Graph")

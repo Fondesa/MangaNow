@@ -20,4 +20,4 @@ import kotlin.reflect.KClass
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.BINARY)
-annotation class ForeignKeyDefinition(val destination: KClass<*>)
+annotation class ForeignKey(val destination: KClass<*>)
