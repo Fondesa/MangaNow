@@ -16,17 +16,20 @@
 
 package com.fondesa.data.database.table
 
-//class SortOrderTable : Table {
-//
-//    override fun getName() = NAME
-//
-//    override fun getColumns(): Array<Column> = arrayOf(COL_ID, COL_NAME, COL_PRIORITY)
-//
-//    companion object {
-//        const val NAME = "sort_orders"
-//
-//        val COL_ID = IntegerColumnBuilder(NAME, "id").primaryKey().build()
-//        val COL_NAME = TextColumnBuilder(NAME, "name").unique().build()
-//        val COL_PRIORITY = IntegerColumnBuilder(NAME, "priority").build()
-//    }
-//}
+import com.fondesa.database.annotations.ColumnDefinition
+import com.fondesa.database.annotations.TableDefinition
+import com.fondesa.database.structure.IntegerColumnSpec
+import com.fondesa.database.structure.TextColumnSpec
+
+@TableDefinition("sort_order")
+object SortOrderTableSpec {
+
+    @ColumnDefinition("id")
+    val COL_ID = IntegerColumnSpec.primaryKey()
+
+    @ColumnDefinition("name")
+    val COL_NAME = TextColumnSpec.unique()
+
+    @ColumnDefinition("priority")
+    val COL_PRIORITY = IntegerColumnSpec.unique()
+}

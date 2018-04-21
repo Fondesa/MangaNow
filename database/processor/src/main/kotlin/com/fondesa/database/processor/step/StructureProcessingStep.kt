@@ -104,9 +104,18 @@ class StructureProcessingStep(
             // It will implement the interface and its methods.
             .addSuperinterface(this.tableElement.asType().asTypeName())
 
+        val tableNameProperty = PropertySpec.builder("NAME", String::class)
+            .initializer("%S", tableName)
+            .build()
+
+        val tableNamePropertyName = tableNameProperty.name
+
+        val companionObjectBuilder = TypeSpec.companionObjectBuilder()
+            .addProperty(tableNameProperty)
+
         val getNameFunction = FunSpec.overriding(this.tableElement.functionWithName("getName"))
             .returns(String::class)
-            .addCode("return %S", tableName)
+            .addCode("return %L", tableNamePropertyName)
             .build()
 
         contentBuilder.addFunction(getNameFunction)
@@ -118,8 +127,6 @@ class StructureProcessingStep(
 
         contentBuilder.addFunction(withRowIdFunction)
 
-        val companionObjectBuilder = TypeSpec.companionObjectBuilder()
-
         val columnsArray = tableElement.enclosedElements.map {
             it to it.getAnnotation(ColumnDefinition::class.java)
         }.filter { (_, definition) ->
@@ -127,7 +134,7 @@ class StructureProcessingStep(
         }.joinToString { (columnElement, definition) ->
             val columnProperty = generateColumnProperty(
                 tableElement,
-                tableName,
+                tableNamePropertyName,
                 columnElement,
                 definition!!
             )
@@ -163,7 +170,7 @@ class StructureProcessingStep(
 
     private fun generateColumnProperty(
         tableElement: Element,
-        tableName: String,
+        tableNamePropertyName: String,
         columnElement: Element,
         definition: ColumnDefinition
     ): PropertySpec {
@@ -189,9 +196,9 @@ class StructureProcessingStep(
 
         return PropertySpec.builder(columnName, columnTypename)
             .initializer(
-                "%T.fromSpec(%S, %S, %T.%N)",
+                "%T.fromSpec(%L, %S, %T.%N)",
                 erasedColumnType,
-                tableName,
+                tableNamePropertyName,
                 definitionName,
                 tableElement.asType(),
                 columnName
