@@ -34,30 +34,22 @@ import com.fondesa.database.annotations.*
 //}
 
 
-@Table("example_table", withRowId = true)
+@TableDefinition("example_table", withRowId = true)
 object ExampleTableSpec {
 
-    @Column
-    val COL_ID = IntegerColumnSpec("id").primaryKey()
+    @ColumnDefinition("id")
+    val COL_ID = IntegerColumnSpec
 
-    @Column
-    val COL_CIAO = RealColumnSpec("ciao").primaryKey()
+    @ColumnDefinition("ciao")
+    val COL_CIAO = RealColumnSpec.primaryKey()
 }
 
-@Table("ciao_table", withRowId = true)
+@TableDefinition("ciao_table", withRowId = false)
 object CiaoTableSpec {
 
-    @Column
-    val COL_SAF = BlobColumnSpec("saf").primaryKey()
+    @ColumnDefinition("saf")
+    val COL_SAF = BlobColumnSpec.primaryKey()
 
-    @Column
-    val COL_KOT = TextColumnSpec("EX").primaryKey()
+    @ColumnDefinition("jhj")
+    val COL_KOT = TextColumnSpec.primaryKey()
 }
-
-//fun getColumns(): List<Column> {
-//    val columns = mutableListOf<Column>()
-//    lateinit var COL_ID: ColumnSpec<*>
-//
-////    columns.add(Column("", COL_ID.name, Column.Type.TEXT, ))
-//    return columns
-//}

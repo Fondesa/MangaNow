@@ -86,16 +86,21 @@ class Column<out ValueType>(
 
         private const val SEPARATOR = '@'
 
-        fun <T> fromSpec(tableName: String, spec: ColumnSpec<T>): Column<T> {
-            val type = when(spec) {
-                is RealColumnSpec -> Type.REAL
-                is IntegerColumnSpec-> Type.INTEGER
-                is TextColumnSpec -> Type.TEXT
-                is BlobColumnSpec -> Type.BLOB
+        fun <T> fromSpec(
+            tableName: String,
+            columnName: String,
+            spec: ColumnSpec<T>
+        ): Column<T> {
+            val type = when (spec) {
+                RealColumnSpec -> Type.REAL
+                IntegerColumnSpec -> Type.INTEGER
+                TextColumnSpec -> Type.TEXT
+                BlobColumnSpec -> Type.BLOB
             }
+
             return Column(
                 tableName,
-                spec.name,
+                columnName,
                 type,
                 spec.isPrimaryKey,
                 spec.isUnique,

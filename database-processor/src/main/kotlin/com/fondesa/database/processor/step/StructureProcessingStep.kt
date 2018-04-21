@@ -16,12 +16,9 @@
 
 package com.fondesa.database.processor.step
 
-import com.fondesa.database.annotations.Column
-import com.fondesa.database.annotations.Table
-import com.fondesa.database.processor.extension.asParameterizedTypeName
-import com.fondesa.database.processor.extension.convertToKotlinType
-import com.fondesa.database.processor.extension.functionWithName
-import com.fondesa.database.processor.extension.genericArgument
+import com.fondesa.database.annotations.ColumnDefinition
+import com.fondesa.database.annotations.TableDefinition
+import com.fondesa.database.processor.extension.*
 import com.google.common.collect.SetMultimap
 import com.squareup.kotlinpoet.*
 import java.io.File
@@ -30,7 +27,6 @@ import javax.lang.model.element.Element
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 import kotlin.reflect.KClass
-
 
 class StructureProcessingStep(
     kaptGeneratedDir: File,
@@ -44,12 +40,12 @@ class StructureProcessingStep(
     private val columnElement by lazy { elementUtil.getTypeElement(DB_COLUMN_CLASS.canonicalName) }
     private val erasedColumnType by lazy { typeUtil.erasure(columnElement.asType()) }
 
-    override fun filter() = arrayOf(Table::class)
+    override fun filter() = arrayOf(TableDefinition::class)
 
     override fun process(elementsByAnnotation: SetMultimap<KClass<out Annotation>, Element>) {
         // Get all elements which must be added to the graph.
-        val addToGraphElements = elementsByAnnotation[Table::class]
-        val tableClassNames = addToGraphElements.map {
+        val tableElements = elementsByAnnotation[TableDefinition::class]
+        val tableClassNames = tableElements.map {
             generateTable(it)
         }
         // Generate the graph with the processed elements.
@@ -57,7 +53,7 @@ class StructureProcessingStep(
     }
 
     private fun generateTable(element: Element): ClassName {
-        val tableAnnotation = element.getAnnotation(Table::class.java)
+        val tableAnnotation = element.getAnnotation(TableDefinition::class.java)
         val tableName = tableAnnotation.value
         val tableWithRowId = tableAnnotation.withRowId
 
@@ -85,23 +81,31 @@ class StructureProcessingStep(
 
         val companionObjectBuilder = TypeSpec.companionObjectBuilder()
 
-        val columnsArray = element.enclosedElements.filter {
-            it.getAnnotation(Column::class.java) != null
-        }.joinToString {
-            // Columns which must be included.
-            val columnName = it.simpleName.toString()
-            val argumentType = it.asType().genericArgument()
-                .asTypeName()
-                .convertToKotlinType()
+        val columnsArray = element.enclosedElements.map {
+            it to it.getAnnotation(ColumnDefinition::class.java)
+        }.filter { (_, definition) ->
+            definition != null
+        }.joinToString { (elem, definition) ->
+            val definitionName = definition!!.value
+            val columnName = elem.simpleName.toString()
+            val elementType = elem.asType()
+            val elementArgs = elementType.genericArguments()
+            val argument = if (elementArgs.isEmpty()) {
+                typeUtil.directSupertypes(elementType).first().genericArgument()
+            } else {
+                elementArgs.first()
+            }
+            val argumentType = argument.asTypeName().convertToKotlinType()
 
             val columnTypename = columnElement.asClassName()
                 .asParameterizedTypeName(argumentType)
 
             val property = PropertySpec.builder(columnName, columnTypename)
                 .initializer(
-                    "%T.fromSpec(%S, %T.%N)",
+                    "%T.fromSpec(%S, %S, %T.%N)",
                     erasedColumnType,
                     tableName,
+                    definitionName,
                     element.asType(),
                     columnName
                 )

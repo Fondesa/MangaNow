@@ -16,6 +16,6 @@
 
 package com.fondesa.database.annotations
 
-@Target(AnnotationTarget.FIELD)
+@Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.BINARY)
-annotation class Column
+annotation class TableDefinition(val value: String, val withRowId: Boolean = true)

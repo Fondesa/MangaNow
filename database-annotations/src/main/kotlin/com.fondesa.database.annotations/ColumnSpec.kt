@@ -19,14 +19,10 @@ package com.fondesa.database.annotations
 /**
  * Builder used to create a column in a table.
  *
- * @param tableName name of the table that contains this column.
  * @param name name of the column.
  * @param type type of the column (one of [Type]).
  */
-sealed class ColumnSpec<ValueType>(
-    val name: String,
-    val type: Type
-) {
+sealed class ColumnSpec<ValueType> {
 
     var isPrimaryKey: Boolean = false
     var isUnique: Boolean = false
@@ -36,7 +32,7 @@ sealed class ColumnSpec<ValueType>(
     /**
      * Sets this column as primary key.
      * Automatically this column will be not null also if SQLite supports it for legacy builds.
-     * A SQLite from can't use more than one primary key, so, if in the same [Table] there's more
+     * A SQLite from can't use more than one primary key, so, if in the same [TableDefinition] there's more
      * than one column used as primary key, the primary key will be composite.
      */
     fun primaryKey() = apply {
@@ -67,63 +63,24 @@ sealed class ColumnSpec<ValueType>(
      * @param defaultValue value set as default in this column when it isn't bound manually.
      */
     fun defaultValue(defaultValue: ValueType) = apply { this.defaultValue = defaultValue }
-
-
-    enum class Type(val value: String) {
-
-        /**
-         * This type allows signed integer values, stored in 1, 2, 3, 4, 6, or 8 bytes,
-         * depending on the magnitude of the value.
-         */
-        INTEGER("integer"),
-
-        /**
-         * This type allows floating point values, stored as 8-byte IEEE floating point numbers.
-         */
-        REAL("real"),
-
-        /**
-         * This type allows strings, stored using the database encoding (UTF-8, UTF-16BE or UTF-16LE).
-         */
-        TEXT("text"),
-
-        /**
-         * This type allows blobs of data, stored exactly as it was input.
-         */
-        BLOB("blob")
-    }
-
-    companion object {
-
-        /**
-         * Name of the inner autoincrement column of SQLite.
-         */
-        const val ROW_ID_NAME = "rowid"
-
-        private const val SEPARATOR = '@'
-    }
 }
 
 /**
  * Builder used to create a floating-point column in a table.
  */
-class RealColumnSpec(name: String) :
-    ColumnSpec<Double>(name, ColumnSpec.Type.REAL)
+object RealColumnSpec : ColumnSpec<Double>()
 
 /**
  * Builder used to create an integer or a boolean column in a table.
  */
-class IntegerColumnSpec(name: String) :
-    ColumnSpec<Long>(name, ColumnSpec.Type.INTEGER)
+object IntegerColumnSpec : ColumnSpec<Long>()
 
 /**
  * Builder used to create a string column in a table.
  */
-class TextColumnSpec(name: String) :
-    ColumnSpec<String>(name, ColumnSpec.Type.TEXT)
+object TextColumnSpec : ColumnSpec<String>()
 
 /**
  * Builder used to create a byte array column in a table.
  */
-class BlobColumnSpec(name: String) :
-    ColumnSpec<ByteArray>(name, ColumnSpec.Type.BLOB)
+object BlobColumnSpec : ColumnSpec<ByteArray>()
