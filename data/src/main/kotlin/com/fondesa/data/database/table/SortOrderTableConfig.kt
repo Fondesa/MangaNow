@@ -22,7 +22,7 @@ import com.fondesa.database.structure.IntegerColumnConfig
 import com.fondesa.database.structure.TextColumnConfig
 
 @Table("sort_order")
-object SortOrderTableSpec {
+object SortOrderTableConfig {
 
     @Column("id")
     val COL_ID = IntegerColumnConfig.primaryKey()

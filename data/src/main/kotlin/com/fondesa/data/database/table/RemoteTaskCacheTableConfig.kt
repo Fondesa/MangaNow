@@ -24,7 +24,7 @@ import com.fondesa.database.structure.RealColumnConfig
 import com.fondesa.database.structure.TextColumnConfig
 
 @Table("remote_task_cache")
-object RemoteTaskCacheTableSpec {
+object RemoteTaskCacheTableConfig {
 
     @Column("id")
     val COL_ID = RealColumnConfig
@@ -35,7 +35,7 @@ object RemoteTaskCacheTableSpec {
     @Column("task_path")
     val COL_PATH = TextColumnConfig.unique()
 
-    @ForeignKey(SortOrderTableSpec::class)
+    @ForeignKey(SortOrderTableConfig::class)
     val FROM_ID_TO_NAME = ForeignKeyConfig.from("id").to("ciao")
 
 }
