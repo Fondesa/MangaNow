@@ -39,8 +39,8 @@ class ForeignKeyConfig private constructor(internal val fromColumns: Array<out S
      *
      * @param action SQLite action invoked when a record in the parent table is updated.
      */
-    fun onUpdate(action: ForeignKey.Action) = apply {
-        addStrategy(ForeignKey.Clause.UPDATE, action)
+    fun onUpdate(action: ForeignKeyAction) = apply {
+        addStrategy(ForeignKeyClause.UPDATE, action)
     }
 
     /**
@@ -48,11 +48,11 @@ class ForeignKeyConfig private constructor(internal val fromColumns: Array<out S
      *
      * @param action SQLite action invoked when a record in the parent table is deleted.
      */
-    fun onDelete(action: ForeignKey.Action) = apply {
-        addStrategy(ForeignKey.Clause.DELETE, action)
+    fun onDelete(action: ForeignKeyAction) = apply {
+        addStrategy(ForeignKeyClause.DELETE, action)
     }
 
-    private fun addStrategy(clause: ForeignKey.Clause, action: ForeignKey.Action) {
+    private fun addStrategy(clause: ForeignKeyClause, action: ForeignKeyAction) {
         val previousStrategy = strategies.find { it.clause == clause }
         if (previousStrategy != null) {
             strategies.remove(previousStrategy)

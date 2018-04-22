@@ -17,7 +17,65 @@
 package com.fondesa.data.serialization
 
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
+
+/**
+ * Helper val used to parse a [JsonPrimitive] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableJsonPrimitive: JsonPrimitive?
+    get() = if (this == null || isJsonNull) null else asJsonPrimitive
+
+/**
+ * Helper val used to parse a [JsonObject] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableJsonObject: JsonObject?
+    get() = if (this == null || isJsonNull) null else asJsonObject
+
+/**
+ * Helper val used to parse a [JsonArray] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableJsonArray: JsonArray?
+    get() = if (this == null || isJsonNull) null else asJsonArray
+
+/**
+ * Helper val used to parse a [Boolean] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableBoolean: Boolean?
+    get() = asNullableJsonPrimitive?.asBoolean
+
+/**
+ * Helper val used to parse a [Int] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableInt: Int?
+    get() = asNullableJsonPrimitive?.asInt
+
+/**
+ * Helper val used to parse a [Long] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableLong: Long?
+    get() = asNullableJsonPrimitive?.asLong
+
+/**
+ * Helper val used to parse a [Double] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableDouble: Double?
+    get() = asNullableJsonPrimitive?.asDouble
+
+/**
+ * Helper val used to parse a [String] from a [JsonElement].
+ * The value is null if the [JsonElement] is null.
+ */
+val JsonElement?.asNullableString: String?
+    get() = asNullableJsonPrimitive?.asString
 
 inline fun <T> JsonArray.mapJsonObject(transform: (JsonObject) -> T): List<T> = map {
     transform(it.asJsonObject)

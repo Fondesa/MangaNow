@@ -23,8 +23,6 @@ object RemoteApi {
      * Default values used in the body of the requests or in query string.
      */
     object Values {
-        const val DEFAULT_PAGE = 1
-        const val DEFAULT_PAGE_SIZE = 25
     }
 
     /**
@@ -33,6 +31,7 @@ object RemoteApi {
     object Path {
         const val CATEGORIES = "categories"
         const val SORT_ORDERS = "sortorders"
+        const val LATEST = "latest"
         const val MANGA_LIST = "mangalist"
     }
 
@@ -44,24 +43,35 @@ object RemoteApi {
 
         fun sortOrders(): RemoteTask = Task.Get(Path.SORT_ORDERS)
 
-        fun mangaList(
-            sortOrder: SortOrder? = null,
-            textFilter: String? = null,
-            page: Int = Values.DEFAULT_PAGE,
-            pageSize: Int = Values.DEFAULT_PAGE_SIZE
-        ): RemoteTask {
+        fun latest(page: Int, pageSize: Int): RemoteTask {
+            val queryParams = queryMap {
+                put(Key.PAGE, page.toString())
+                put(Key.PAGE_SIZE, pageSize.toString())
+            }
+            return Task.Get(Path.LATEST, queryParams)
+        }
 
-            val queryParams = mutableMapOf<String, String>()
-            sortOrder?.let {
-                queryParams[Key.SORT_ORDER_ID] = it.id.toString()
+        fun mangaList(
+            page: Int,
+            pageSize: Int,
+            sortOrder: SortOrder? = null,
+            textFilter: String? = null
+        ): RemoteTask {
+            val queryParams = queryMap {
+                put(Key.PAGE, page.toString())
+                put(Key.PAGE_SIZE, pageSize.toString())
+                sortOrder?.let {
+                    put(Key.SORT_ORDER_ID, it.id.toString())
+                }
+                textFilter?.let {
+                    put(Key.TEXT_FILTER, it)
+                }
             }
-            textFilter?.let {
-                queryParams[Key.TEXT_FILTER] = it
-            }
-            queryParams[Key.PAGE] = page.toString()
-            queryParams[Key.PAGE_SIZE] = pageSize.toString()
             return Task.Get(Path.MANGA_LIST, queryParams)
         }
+
+        private fun queryMap(values: MutableMap<String, String>.() -> Unit) =
+            mutableMapOf<String, String>().apply(values)
     }
 
     /**

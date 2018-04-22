@@ -50,61 +50,14 @@ class ForeignKey private constructor(
         }
     }
 
-    enum class Clause(val value: String) {
-
-        /**
-         * This clause is used to define an action that must be invoked on the child table
-         * when a record of the parent table is deleted.
-         */
-        DELETE("on delete"),
-
-        /**
-         * This clause is used to define an action that must be invoked on the child table
-         * when a record of the parent table is updated.
-         */
-        UPDATE("on update")
-    }
-
-    enum class Action(val value: String) {
-
-        /**
-         * This action means that when a parent key is modified or deleted from the database,
-         * no special action is taken.
-         */
-        NONE("no action"),
-
-        /**
-         * This action means that the application is prohibited from deleting or modifying (depending on the clause)
-         * a parent key when there exists one or more child keys mapped to it.
-         * The difference between the effect of a restrict action and normal foreign key constraint enforcement is
-         * that the restrict action processing happens as soon as the field is updated.
-         */
-        RESTRICT("restrict"),
-
-        /**
-         * This actions means that when a parent key is deleted or modified (depending on the clause),
-         * the child key columns of all rows in the child table that mapped to the parent key are set to null values.
-         */
-        SET_NULL("set null"),
-
-        /**
-         * This actions means that when a parent key is deleted or modified (depending on the clause),
-         * the child key columns of all rows in the child table that mapped to the parent key are set to default values.
-         */
-        SET_DEFAULT("set default"),
-
-        /**
-         * This actions means that each row in the child table that was associated with the deleted/updated
-         * parent row is also deleted/updated.
-         */
-        CASCADE("cascade")
-    }
-
     /**
      * Define the strategy to use when a conflict is found.
      *
      * @param clause update or delete clause.
      * @param action SQLite action invoked when a record in the parent table is updated/deleted.
      */
-    internal data class ConflictStrategy(val clause: Clause, val action: Action)
+    internal data class ConflictStrategy(
+        val clause: ForeignKeyClause,
+        val action: ForeignKeyAction
+    )
 }

@@ -14,27 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.manga.model
+package com.fondesa.database.structure
 
-/**
- *
- */
-data class Manga(
-    val id: Long,
-    val alias: String,
-    val author: String? = null,
-    val description: String? = null,
-    val hits: Int = 0,
-    val imageUrl: String?,
-    val yearOfRelease: Int? = null,
-    val status: Status = Status.UNKNOWN,
-    val title: String
-) {
+enum class ForeignKeyClause(val value: String) {
 
-    enum class Status(val value: Long) {
-        UNKNOWN(-1),
-        DROPPED(0),
-        ON_GOING(1),
-        FINISHED(2)
-    }
+    /**
+     * This clause is used to define an action that must be invoked on the child table
+     * when a record of the parent table is deleted.
+     */
+    DELETE("on delete"),
+
+    /**
+     * This clause is used to define an action that must be invoked on the child table
+     * when a record of the parent table is updated.
+     */
+    UPDATE("on update")
 }
