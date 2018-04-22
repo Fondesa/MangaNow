@@ -17,9 +17,13 @@
 package com.fondesa.manganow.splash
 
 import com.fondesa.data.cache.Cache
+import com.fondesa.data.remote.loader.DefaultRemoteLoader
+import com.fondesa.data.remote.loader.RemoteLoader
+import com.fondesa.data.serialization.FromJsonConverter
 import com.fondesa.data.sortorder.cache.SortOrderCache
+import com.fondesa.data.sortorder.converter.SortOrderJsonConverter
 import com.fondesa.data.sortorder.repository.DefaultSortOrderRepository
-import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
 import com.fondesa.domain.usecase.UseCase
@@ -38,11 +42,17 @@ interface SplashModule {
     fun provideView(view: SplashActivity): SplashContract.View
 
     @Binds
-    fun provideSortOrderCache(cache: SortOrderCache): Cache<List<SortOrder>>
+    fun provideSortOrderJsonConverter(converter: SortOrderJsonConverter): FromJsonConverter<SortOrderList>
+
+    @Binds
+    fun provideSortOrderRemoteLoader(loader: @JvmSuppressWildcards DefaultRemoteLoader<SortOrderList>): RemoteLoader<SortOrderList>
+
+    @Binds
+    fun provideSortOrderCache(cache: SortOrderCache): Cache<SortOrderList>
 
     @Binds
     fun provideSortOrderRepository(repository: DefaultSortOrderRepository): SortOrderRepository
 
     @Binds
-    fun provideGetSortOrderList(useCase: GetSortOrderList): UseCase<List<SortOrder>, Unit>
+    fun provideGetSortOrderList(useCase: GetSortOrderList): UseCase<SortOrderList, Unit>
 }

@@ -16,10 +16,10 @@
 
 package com.fondesa.manganow.splash
 
+import com.fondesa.data.converter.Converter
 import com.fondesa.domain.category.model.Category
-import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.usecase.UseCase
-import com.fondesa.manganow.converter.Converter
 import com.fondesa.manganow.presenter.AbstractPresenter
 import com.fondesa.manganow.time.Scheduler
 import com.fondesa.thread.execution.ExecutorFactory
@@ -31,7 +31,7 @@ import javax.inject.Inject
  * Default implementation of [SplashContract.Presenter] for the splash section.
  */
 class SplashPresenter @Inject constructor(
-    private val getSortOrderListUseCase: @JvmSuppressWildcards UseCase<List<SortOrder>, Unit>,
+    private val getSortOrderListUseCase: @JvmSuppressWildcards UseCase<SortOrderList, Unit>,
     private val scheduler: Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
     private val executorFactory: ExecutorFactory,
@@ -100,7 +100,7 @@ class SplashPresenter @Inject constructor(
         manageOnLoadFailed(e)
     }
 
-    private fun onSortOrdersLoadCompleted(sortOrders: List<SortOrder>) {
+    private fun onSortOrdersLoadCompleted(sortOrders: SortOrderList) {
         if (!isViewAttached())
             return
 

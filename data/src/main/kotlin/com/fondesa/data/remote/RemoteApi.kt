@@ -24,13 +24,14 @@ object RemoteApi {
      * Constant paths appended to the base url.
      */
     object Path {
+        const val SORT_ORDERS = "sortorders"
     }
 
     /**
      * Wrapper containing built-in requests to use through the application lifetime.
      */
     object Request {
-
+        fun sortOrders(): RemoteTask = Task.Get(Path.SORT_ORDERS)
     }
 
     /**
@@ -84,7 +85,7 @@ object RemoteApi {
 
             override fun scheme() = "http"
 
-            override fun host() = "192.168.0.105"
+            override fun host() = "192.168.1.4"
 
             override fun path() = "api/${apiPath()}"
 

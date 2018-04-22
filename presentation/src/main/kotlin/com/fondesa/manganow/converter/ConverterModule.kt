@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.converter
 
+import com.fondesa.data.converter.Converter
 import dagger.Binds
 import dagger.Module
 

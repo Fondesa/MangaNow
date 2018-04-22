@@ -22,18 +22,19 @@ import com.fondesa.database.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.statement.Insert
 import com.fondesa.database.statement.Select
+import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.model.SortOrder
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SortOrderCache @Inject constructor(client: DatabaseClient) :
-    SQLiteCache<List<@JvmSuppressWildcards SortOrder>>(client) {
+    SQLiteCache<SortOrderList>(client) {
 
     override val expirationTimeMs: Long = TimeUnit.MINUTES.toMillis(5)
 
     override val remoteTaskPath: String = "sort_orders"
 
-    override fun get(cacheId: Long): List<SortOrder> =
+    override fun get(cacheId: Long): SortOrderList =
         database.compile(Statements.selectSortOrders())
             .execute()
             .map {
@@ -44,7 +45,7 @@ class SortOrderCache @Inject constructor(client: DatabaseClient) :
                 )
             }
 
-    override fun put(cacheId: Long, item: List<SortOrder>) {
+    override fun put(cacheId: Long, item: SortOrderList) {
         val sortExecutor = database.compile(Statements.insertSortOrder())
         item.forEach {
             sortExecutor.bindLong(SortOrderTable.COL_ID, it.id)

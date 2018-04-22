@@ -18,6 +18,7 @@ package com.fondesa.manganow.converter
 
 import android.content.Context
 import android.support.annotation.StringRes
+import com.fondesa.data.converter.Converter
 import com.fondesa.manganow.R
 import com.fondesa.remote.exception.ConnectivityException
 import com.fondesa.remote.exception.TimeoutException

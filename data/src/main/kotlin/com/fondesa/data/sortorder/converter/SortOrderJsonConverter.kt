@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.sortorder.usecase
+package com.fondesa.data.sortorder.converter
 
+import com.fondesa.data.serialization.FromJsonConverter
+import com.fondesa.data.serialization.mapJsonObject
 import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.domain.usecase.UseCase
-import com.fondesa.thread.extension.asyncAwait
+import com.fondesa.domain.sortorder.model.SortOrder
+import com.google.gson.JsonElement
 import javax.inject.Inject
 
-class GetSortOrderList @Inject constructor(private val repository: SortOrderRepository) :
-    UseCase<SortOrderList, Unit> {
+class SortOrderJsonConverter @Inject constructor() : FromJsonConverter<SortOrderList> {
 
-    override suspend fun execute(params: Unit): SortOrderList = asyncAwait {
-        repository.getList()
+    override fun convert(value: JsonElement): SortOrderList = value.asJsonArray.mapJsonObject {
+        SortOrder(
+            id = it["id"].asLong,
+            name = it["name"].asString,
+            priority = it["priority"].asInt
+        )
     }
 }

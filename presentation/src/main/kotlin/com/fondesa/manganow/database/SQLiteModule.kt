@@ -48,7 +48,7 @@ class SQLiteModule {
 
     @SQLiteDatabaseInfo
     @Provides
-    fun provideVersion(): Int = 27
+    fun provideVersion(): Int = 1
 
     class ToBeRemovedGraph @Inject constructor() : Graph {
         override fun getTables(): Array<Table> {

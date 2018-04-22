@@ -14,21 +14,8 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.converter
+package com.fondesa.domain.sortorder
 
-/**
- * Used to convert a value of type [FromType] to a value of type [ToType].
- *
- * @param FromType type of the value that must be converted.
- * @param ToType type of the value after the conversion.
- */
-interface Converter<in FromType, out ToType> {
+import com.fondesa.domain.sortorder.model.SortOrder
 
-    /**
-     * Convert the value [value] to a value of type [ToType].
-     *
-     * @param value value that must be converted.
-     * @return value after the conversion.
-     */
-    fun convert(value: FromType): ToType
-}
+typealias SortOrderList = List<@JvmSuppressWildcards SortOrder>

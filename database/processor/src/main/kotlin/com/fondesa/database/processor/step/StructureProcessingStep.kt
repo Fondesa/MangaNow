@@ -164,53 +164,58 @@ class StructureProcessingStep(
 
         contentBuilder.addFunction(getColumnsFunction)
 
-        val foreignKeyType = foreignKeyElement.asType()
-
-        val getForeignKeysBodyBuilder = CodeBlock.builder()
-            .addStatement("val list = mutableListOf<%T>()", foreignKeyType)
-
-        tableElement.enclosedElements.filter {
+        val annotatedWithForeignKeys = tableElement.enclosedElements.filter {
             it.getAnnotation(ForeignKey::class.java) != null
-        }.forEach { fkElement ->
-            val elementType = fkElement.asType()
-            if (!typeUtil.isAssignable(elementType, foreignKeyConfigElement.asType())) {
-                throw ProcessingException(
-                    "It must be a ${foreignKeyConfigElement.qualifiedName}",
-                    fkElement
-                )
-            }
-            var destinationType: TypeMirror? = null
-            fkElement.annotationMirrors.forEach {
-                it.elementValues.forEach {
-                    if (it.key.simpleName.toString() == "destination") {
-                        destinationType = it.value.value as TypeMirror
+        }
+        val getForeignKeysBodyBuilder = CodeBlock.builder()
+
+        if (annotatedWithForeignKeys.isEmpty()) {
+            getForeignKeysBodyBuilder.addStatement("return emptyArray()")
+        } else {
+            val foreignKeyType = foreignKeyElement.asType()
+
+            getForeignKeysBodyBuilder.addStatement("val list = mutableListOf<%T>()", foreignKeyType)
+
+            annotatedWithForeignKeys.forEach { fkElement ->
+                val elementType = fkElement.asType()
+                if (!typeUtil.isAssignable(elementType, foreignKeyConfigElement.asType())) {
+                    throw ProcessingException(
+                        "It must be a ${foreignKeyConfigElement.qualifiedName}",
+                        fkElement
+                    )
+                }
+                var destinationType: TypeMirror? = null
+                fkElement.annotationMirrors.forEach {
+                    it.elementValues.forEach {
+                        if (it.key.simpleName.toString() == "destination") {
+                            destinationType = it.value.value as TypeMirror
+                        }
                     }
                 }
+                val destinationTableType = destinationType ?: throw ProcessingException(
+                    "An error occurred retrieving the destination of this element",
+                    fkElement
+                )
+                val destinationTableElement =
+                    elementUtil.getTypeElement(destinationTableType.asTypeName().toString())
+                val destinationTableAnnotation =
+                    destinationTableElement.getAnnotation(Table::class.java)
+                            ?: throw ProcessingException(
+                                "The class ${destinationTableElement.qualifiedName}" +
+                                        " must be annotate with ${Table::class.java.name}",
+                                destinationTableElement
+                            )
+
+                getForeignKeysBodyBuilder.addStatement(
+                    "list.add(%T.fromConfig(%S, %T.%N))",
+                    foreignKeyType,
+                    destinationTableAnnotation.name,
+                    tableElement.asType(),
+                    fkElement.simpleName.toString()
+                )
             }
-            val destinationTableType = destinationType ?: throw ProcessingException(
-                "An error occurred retrieving the destination of this element",
-                fkElement
-            )
-            val destinationTableElement =
-                elementUtil.getTypeElement(destinationTableType.asTypeName().toString())
-            val destinationTableAnnotation =
-                destinationTableElement.getAnnotation(Table::class.java)
-                        ?: throw ProcessingException(
-                            "The class ${destinationTableElement.qualifiedName}" +
-                                    " must be annotate with ${Table::class.java.name}",
-                            destinationTableElement
-                        )
-
-            getForeignKeysBodyBuilder.addStatement(
-                "list.add(%T.fromConfig(%S, %T.%N))",
-                foreignKeyType,
-                destinationTableAnnotation.name,
-                tableElement.asType(),
-                fkElement.simpleName.toString()
-            )
+            getForeignKeysBodyBuilder.addStatement("return list.toTypedArray()")
         }
-
-        getForeignKeysBodyBuilder.addStatement("return list.toTypedArray()")
 
         // Get the declaration of the function in the interface.
         val getForeignKeysFunction =

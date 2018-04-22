@@ -16,7 +16,6 @@
 
 package com.fondesa.database.clause
 
-import com.fondesa.database.extension.interpolateWith
 import com.fondesa.database.extension.plusArray
 import com.fondesa.database.structure.Column
 
@@ -53,9 +52,9 @@ object Order {
 
     private fun raw(type: Type, columns: Array<out Column<*>>): String {
         return StringBuilder("ORDER BY ")
-            .append(columns.interpolateWith(',') { it.fullName })
+            .append(columns.joinToString { it.fullName })
             .append(' ')
-            .append(type)
+            .append(type.value)
             .toString()
     }
 

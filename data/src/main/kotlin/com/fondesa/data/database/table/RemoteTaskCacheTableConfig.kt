@@ -17,9 +17,8 @@
 package com.fondesa.data.database.table
 
 import com.fondesa.database.annotations.Column
-import com.fondesa.database.annotations.ForeignKey
 import com.fondesa.database.annotations.Table
-import com.fondesa.database.structure.ForeignKeyConfig
+import com.fondesa.database.structure.IntegerColumnConfig
 import com.fondesa.database.structure.RealColumnConfig
 import com.fondesa.database.structure.TextColumnConfig
 
@@ -27,15 +26,11 @@ import com.fondesa.database.structure.TextColumnConfig
 object RemoteTaskCacheTableConfig {
 
     @Column("id")
-    val COL_ID = RealColumnConfig
+    val COL_ID = IntegerColumnConfig.primaryKey()
 
     @Column("date_ms")
     val COL_DATE_MS = RealColumnConfig.notNull()
 
     @Column("task_path")
     val COL_PATH = TextColumnConfig.unique()
-
-    @ForeignKey(SortOrderTableConfig::class)
-    val FROM_ID_TO_NAME = ForeignKeyConfig.from("id").to("ciao")
-
 }

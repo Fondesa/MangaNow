@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.sortorder.usecase
+package com.fondesa.data.remote.loader
 
-import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.domain.usecase.UseCase
-import com.fondesa.thread.extension.asyncAwait
+import com.fondesa.data.serialization.FromJsonConverter
+import com.fondesa.remote.client.RemoteClient
+import com.fondesa.remote.task.RemoteTask
 import javax.inject.Inject
 
-class GetSortOrderList @Inject constructor(private val repository: SortOrderRepository) :
-    UseCase<SortOrderList, Unit> {
+class DefaultRemoteLoader<out T> @Inject constructor(
+    private val remoteClient: RemoteClient,
+    private val converter: @JvmSuppressWildcards FromJsonConverter<T>
+) : RemoteLoader<T> {
 
-    override suspend fun execute(params: Unit): SortOrderList = asyncAwait {
-        repository.getList()
+    override fun load(task: RemoteTask): T {
+        val json = remoteClient.load(task)
+        return converter.convert(json)
     }
 }

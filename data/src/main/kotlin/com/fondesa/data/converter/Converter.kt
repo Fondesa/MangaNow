@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.sortorder.usecase
+package com.fondesa.data.converter
 
-import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.domain.usecase.UseCase
-import com.fondesa.thread.extension.asyncAwait
-import javax.inject.Inject
+/**
+ * Used to convert a value of type [FromType] to a value of type [ToType].
+ *
+ * @param FromType type of the value that must be converted.
+ * @param ToType type of the value after the conversion.
+ */
+interface Converter<in FromType, out ToType> {
 
-class GetSortOrderList @Inject constructor(private val repository: SortOrderRepository) :
-    UseCase<SortOrderList, Unit> {
-
-    override suspend fun execute(params: Unit): SortOrderList = asyncAwait {
-        repository.getList()
-    }
+    /**
+     * Convert the value [value] to a value of type [ToType].
+     *
+     * @param value value that must be converted.
+     * @return value after the conversion.
+     */
+    fun convert(value: FromType): ToType
 }

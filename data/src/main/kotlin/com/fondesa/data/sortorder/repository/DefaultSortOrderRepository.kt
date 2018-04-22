@@ -17,23 +17,26 @@
 package com.fondesa.data.sortorder.repository
 
 import com.fondesa.data.cache.Cache
-import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.data.remote.RemoteApi
+import com.fondesa.data.remote.loader.RemoteLoader
+import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.remote.client.RemoteClient
 import javax.inject.Inject
 
 class DefaultSortOrderRepository @Inject constructor(
-    private val cache: @JvmSuppressWildcards Cache<List<SortOrder>>,
-    private val remoteClient: RemoteClient
+    private val remoteLoader: @JvmSuppressWildcards RemoteLoader<SortOrderList>,
+    private val cache: @JvmSuppressWildcards Cache<SortOrderList>
 ) : SortOrderRepository {
 
-    override suspend fun getList(): List<SortOrder> = if (cache.isValid()) {
+    override suspend fun getList(): SortOrderList = if (cache.isValid()) {
         cache.get()
     } else {
-        cache.get()
-    }
-
-    override suspend fun saveList(sortOrders: List<SortOrder>) {
-        cache.put(sortOrders)
+        val task = RemoteApi.Request.sortOrders()
+        remoteLoader.load(task).also {
+            cache.put(it)
+        }
     }
 }
+
+
+
