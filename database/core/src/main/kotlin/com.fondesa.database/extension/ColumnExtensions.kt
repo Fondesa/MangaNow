@@ -175,7 +175,7 @@ fun Column<*>.between(first: Column<*>, second: Column<*>) =
  * @param values values used for the matching. If the values are strings, the values mustn't be wrapped in quotes
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.`in`(vararg values: Any) = ColumnExpression(
+fun Column<*>.within(vararg values: Any) = ColumnExpression(
     this,
     " IN (" + values.joinToString { "?" } + ")",
     *values.map { wrap(it) }.toTypedArray()
@@ -188,7 +188,7 @@ fun Column<*>.`in`(vararg values: Any) = ColumnExpression(
  * @param columns [Column]s containing values used for the matching.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.`in`(vararg columns: Column<*>) =
+fun Column<*>.within(vararg columns: Column<*>) =
     ColumnExpression(this, " IN (" + columns.joinToString { it.fullName } + ")")
 
 /**
@@ -198,7 +198,7 @@ fun Column<*>.`in`(vararg columns: Column<*>) =
  * @param values values used for the matching. If the values are strings, the values mustn't be wrapped in quotes
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.notIn(vararg values: Any) = ColumnExpression(
+fun Column<*>.notWithin(vararg values: Any) = ColumnExpression(
     this,
     " NOT IN (" + values.joinToString { "?" } + ")",
     *values.map { wrap(it) }.toTypedArray()
@@ -211,7 +211,7 @@ fun Column<*>.notIn(vararg values: Any) = ColumnExpression(
  * @param columns [Column]s containing values used for the matching.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.notIn(vararg columns: Column<*>) =
+fun Column<*>.notWithin(vararg columns: Column<*>) =
     ColumnExpression(this, " NOT IN (" + columns.joinToString { it.fullName } + ")")
 
 private fun wrap(value: Any): String {
