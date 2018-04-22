@@ -16,20 +16,24 @@
 
 package com.fondesa.data.sortorder.repository
 
-import com.fondesa.data.store.CacheDataStore
-import com.fondesa.data.store.RemoteDataStore
+import com.fondesa.data.cache.Cache
 import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
+import com.fondesa.remote.client.RemoteClient
 import javax.inject.Inject
 
 class DefaultSortOrderRepository @Inject constructor(
-    private val remoteDataStore: @JvmSuppressWildcards RemoteDataStore<List<SortOrder>>,
-    private val cacheDataStore: @JvmSuppressWildcards CacheDataStore<List<SortOrder>>
+    private val cache: @JvmSuppressWildcards Cache<List<SortOrder>>,
+    private val remoteClient: RemoteClient
 ) : SortOrderRepository {
 
-    override suspend fun getList(): List<SortOrder> = if (cacheDataStore.isValid()) {
-        cacheDataStore.get()
+    override suspend fun getList(): List<SortOrder> = if (cache.isValid()) {
+        cache.get()
     } else {
-        remoteDataStore.get()
+        cache.get()
+    }
+
+    override suspend fun saveList(sortOrders: List<SortOrder>) {
+        cache.put(sortOrders)
     }
 }

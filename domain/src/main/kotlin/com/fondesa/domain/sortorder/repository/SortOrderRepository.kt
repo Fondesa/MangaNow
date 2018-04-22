@@ -21,4 +21,6 @@ import com.fondesa.domain.sortorder.model.SortOrder
 interface SortOrderRepository {
 
     suspend fun getList(): List<SortOrder>
+
+    suspend fun saveList(sortOrders: List<SortOrder>)
 }

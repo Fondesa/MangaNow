@@ -24,9 +24,8 @@ import com.fondesa.database.extension.equalTo
 import com.fondesa.database.extension.majorThan
 import com.fondesa.database.statement.Insert
 import com.fondesa.database.statement.Select
-import javax.inject.Inject
 
-abstract class SQLiteCache<T> @Inject constructor(client: DatabaseClient) : Cache<T> {
+abstract class SQLiteCache<T>(client: DatabaseClient) : Cache<T> {
 
     protected val database by lazy { client.getDatabase() }
 

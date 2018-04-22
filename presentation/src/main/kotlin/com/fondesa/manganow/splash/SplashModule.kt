@@ -16,11 +16,9 @@
 
 package com.fondesa.manganow.splash
 
+import com.fondesa.data.cache.Cache
+import com.fondesa.data.sortorder.cache.SortOrderCache
 import com.fondesa.data.sortorder.repository.DefaultSortOrderRepository
-import com.fondesa.data.sortorder.store.SortOrderCacheDataStore
-import com.fondesa.data.sortorder.store.SortOrderRemoteDataStore
-import com.fondesa.data.store.CacheDataStore
-import com.fondesa.data.store.RemoteDataStore
 import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
@@ -40,14 +38,11 @@ interface SplashModule {
     fun provideView(view: SplashActivity): SplashContract.View
 
     @Binds
+    fun provideSortOrderCache(cache: SortOrderCache): Cache<List<SortOrder>>
+
+    @Binds
     fun provideSortOrderRepository(repository: DefaultSortOrderRepository): SortOrderRepository
 
     @Binds
     fun provideGetSortOrderList(useCase: GetSortOrderList): UseCase<List<SortOrder>, Unit>
-
-    @Binds
-    fun provideSortOrderCacheDataStore(store: SortOrderCacheDataStore): CacheDataStore<List<SortOrder>>
-
-    @Binds
-    fun provideSortOrderRemoteDataStore(store: SortOrderRemoteDataStore): RemoteDataStore<List<SortOrder>>
 }

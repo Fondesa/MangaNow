@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SortOrderCache @Inject constructor(client: DatabaseClient) :
-    SQLiteCache<List<SortOrder>>(client) {
+    SQLiteCache<List<@JvmSuppressWildcards SortOrder>>(client) {
 
     override val expirationTimeMs: Long = TimeUnit.MINUTES.toMillis(5)
 
