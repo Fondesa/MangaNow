@@ -17,7 +17,7 @@
 package com.fondesa.manganow.splash
 
 import com.fondesa.data.converter.Converter
-import com.fondesa.domain.category.model.Category
+import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.usecase.UseCase
 import com.fondesa.manganow.presenter.AbstractPresenter
@@ -31,6 +31,7 @@ import javax.inject.Inject
  * Default implementation of [SplashContract.Presenter] for the splash section.
  */
 class SplashPresenter @Inject constructor(
+    private val getCategoryListUseCase: @JvmSuppressWildcards UseCase<CategoryList, Unit>,
     private val getSortOrderListUseCase: @JvmSuppressWildcards UseCase<SortOrderList, Unit>,
     private val scheduler: Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
@@ -81,23 +82,25 @@ class SplashPresenter @Inject constructor(
         // Create and load the executor used to load the categories.
         executorFactory
             .create {
-                getSortOrderListUseCase.execute(Unit)
+                getCategoryListUseCase.execute(Unit)
             }
-            .completed(::onSortOrdersLoadCompleted)
-            .error(::onSortOrdersLoadFailed)
+            .completed(::onCategoriesLoadCompleted)
+            .error(::onLoadFailed)
             .execute(executorPool)
     }
 
-    private fun onCategoriesLoadCompleted(categories: Array<Category>) {
+    private fun onCategoriesLoadCompleted(categories: CategoryList) {
         if (!isViewAttached())
             return
 
-        // Create and load the task used to download the sort orders.
-        //TODO:
-    }
-
-    private fun onCategoriesLoadFailed(e: Exception) {
-        manageOnLoadFailed(e)
+        // Create and load the executor used to load the sort orders.
+        executorFactory
+            .create {
+                getSortOrderListUseCase.execute(Unit)
+            }
+            .completed(::onSortOrdersLoadCompleted)
+            .error(::onLoadFailed)
+            .execute(executorPool)
     }
 
     private fun onSortOrdersLoadCompleted(sortOrders: SortOrderList) {
@@ -121,16 +124,7 @@ class SplashPresenter @Inject constructor(
         }
     }
 
-    private fun onSortOrdersLoadFailed(t: Throwable) {
-        manageOnLoadFailed(t)
-    }
-
-    private fun executeNavigation() {
-        view.hideProgressIndicator()
-        view.navigateToMainScreen()
-    }
-
-    private fun manageOnLoadFailed(t: Throwable) {
+    private fun onLoadFailed(t: Throwable) {
         if (!isViewAttached())
             return
 
@@ -139,6 +133,11 @@ class SplashPresenter @Inject constructor(
         val msg = throwableConverter.convert(t)
         view.showErrorMessage(msg)
         view.showRetryButton()
+    }
+
+    private fun executeNavigation() {
+        view.hideProgressIndicator()
+        view.navigateToMainScreen()
     }
 
     companion object {

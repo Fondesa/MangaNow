@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.repository
+package com.fondesa.data.category.database
 
-import com.fondesa.domain.category.CategoryList
+import com.fondesa.database.annotations.Column
+import com.fondesa.database.annotations.Table
+import com.fondesa.database.structure.IntegerColumnConfig
+import com.fondesa.database.structure.TextColumnConfig
 
-interface CategoryRepository {
+@Table("category")
+object CategoryTableConfig {
 
-    suspend fun getList(): CategoryList
+    @Column("id")
+    val COL_ID = IntegerColumnConfig.primaryKey()
+
+    @Column("name")
+    val COL_NAME = TextColumnConfig.unique()
 }

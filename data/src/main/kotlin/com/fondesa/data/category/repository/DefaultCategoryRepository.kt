@@ -14,18 +14,29 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.usecase
+package com.fondesa.data.category.repository
 
+import com.fondesa.data.cache.Cache
+import com.fondesa.data.remote.RemoteApi
+import com.fondesa.data.remote.loader.RemoteLoader
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
-import com.fondesa.domain.usecase.UseCase
-import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
-class GetCategoryList @Inject constructor(private val repository: CategoryRepository) :
-    UseCase<CategoryList, Unit> {
+class DefaultCategoryRepository @Inject constructor(
+    private val remoteLoader: @JvmSuppressWildcards RemoteLoader<CategoryList>,
+    private val cache: @JvmSuppressWildcards Cache<CategoryList>
+) : CategoryRepository {
 
-    override suspend fun execute(params: Unit): CategoryList = asyncAwait {
-        repository.getList()
+    override suspend fun getList(): CategoryList = if (cache.isValid()) {
+        cache.get()
+    } else {
+        val task = RemoteApi.Request.categories()
+        remoteLoader.load(task).also {
+            cache.put(it)
+        }
     }
 }
+
+
+

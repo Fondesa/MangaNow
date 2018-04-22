@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.repository
+package com.fondesa.domain.category
 
-import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.category.model.Category
 
-interface CategoryRepository {
-
-    suspend fun getList(): CategoryList
-}
+typealias CategoryList = List<@JvmSuppressWildcards Category>

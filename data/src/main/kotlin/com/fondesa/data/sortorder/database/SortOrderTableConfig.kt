@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.database.table
+package com.fondesa.data.sortorder.database
 
 import com.fondesa.database.annotations.Column
 import com.fondesa.database.annotations.Table

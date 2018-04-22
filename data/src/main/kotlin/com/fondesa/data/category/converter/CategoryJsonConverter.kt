@@ -14,11 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.repository
+package com.fondesa.data.category.converter
 
+import com.fondesa.data.serialization.FromJsonConverter
+import com.fondesa.data.serialization.mapJsonObject
 import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.category.model.Category
+import com.google.gson.JsonElement
+import javax.inject.Inject
 
-interface CategoryRepository {
+class CategoryJsonConverter @Inject constructor() : FromJsonConverter<CategoryList> {
 
-    suspend fun getList(): CategoryList
+    override fun convert(value: JsonElement): CategoryList = value.asJsonArray.mapJsonObject {
+        Category(
+            id = it["id"].asLong,
+            name = it["name"].asString
+        )
+    }
 }

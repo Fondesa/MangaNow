@@ -17,7 +17,7 @@
 package com.fondesa.data.sortorder.cache
 
 import com.fondesa.data.cache.SQLiteCache
-import com.fondesa.data.database.table.SortOrderTable
+import com.fondesa.data.sortorder.database.SortOrderTable
 import com.fondesa.database.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.statement.Insert
@@ -30,7 +30,7 @@ import javax.inject.Inject
 class SortOrderCache @Inject constructor(client: DatabaseClient) :
     SQLiteCache<SortOrderList>(client) {
 
-    override val expirationTimeMs: Long = TimeUnit.MINUTES.toMillis(5)
+    override val expirationTimeMs: Long = TimeUnit.DAYS.toMillis(7)
 
     override val remoteTaskPath: String = "sort_orders"
 

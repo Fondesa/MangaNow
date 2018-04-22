@@ -17,12 +17,18 @@
 package com.fondesa.manganow.splash
 
 import com.fondesa.data.cache.Cache
+import com.fondesa.data.category.cache.CategoryCache
+import com.fondesa.data.category.converter.CategoryJsonConverter
+import com.fondesa.data.category.repository.DefaultCategoryRepository
 import com.fondesa.data.remote.loader.DefaultRemoteLoader
 import com.fondesa.data.remote.loader.RemoteLoader
 import com.fondesa.data.serialization.FromJsonConverter
 import com.fondesa.data.sortorder.cache.SortOrderCache
 import com.fondesa.data.sortorder.converter.SortOrderJsonConverter
 import com.fondesa.data.sortorder.repository.DefaultSortOrderRepository
+import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.category.repository.CategoryRepository
+import com.fondesa.domain.category.usecase.GetCategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
@@ -40,6 +46,21 @@ interface SplashModule {
 
     @Binds
     fun provideView(view: SplashActivity): SplashContract.View
+
+    @Binds
+    fun provideCategoryJsonConverter(converter: CategoryJsonConverter): FromJsonConverter<CategoryList>
+
+    @Binds
+    fun provideCategoryRemoteLoader(loader: @JvmSuppressWildcards DefaultRemoteLoader<CategoryList>): RemoteLoader<CategoryList>
+
+    @Binds
+    fun provideCategoryCache(cache: CategoryCache): Cache<CategoryList>
+
+    @Binds
+    fun provideCategoryRepository(repository: DefaultCategoryRepository): CategoryRepository
+
+    @Binds
+    fun provideGetCategoryList(useCase: GetCategoryList): UseCase<CategoryList, Unit>
 
     @Binds
     fun provideSortOrderJsonConverter(converter: SortOrderJsonConverter): FromJsonConverter<SortOrderList>

@@ -16,7 +16,6 @@
 
 package com.fondesa.data.cache
 
-import com.fondesa.data.database.table.RemoteTaskCacheTable
 import com.fondesa.database.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.extension.and
