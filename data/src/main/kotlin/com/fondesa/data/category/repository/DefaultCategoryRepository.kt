@@ -16,24 +16,26 @@
 
 package com.fondesa.data.category.repository
 
-import com.fondesa.data.cache.Cache
-import com.fondesa.data.remote.RemoteApi
-import com.fondesa.data.remote.loader.RemoteLoader
+import com.fondesa.data.category.storage.CategoryDiskStorageFactory
+import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
 import javax.inject.Inject
 
 class DefaultCategoryRepository @Inject constructor(
-    private val remoteLoader: @JvmSuppressWildcards RemoteLoader<CategoryList>,
-    private val cache: @JvmSuppressWildcards Cache<CategoryList>
+    private val remoteStorageFactory: CategoryRemoteStorageFactory,
+    private val diskStorageFactory: CategoryDiskStorageFactory
 ) : CategoryRepository {
 
-    override suspend fun getAll(): CategoryList = if (cache.isValid()) {
-        cache.get()
-    } else {
-        val task = RemoteApi.Request.categories()
-        remoteLoader.load(task).also {
-            cache.put(it)
+    override suspend fun getAll(): CategoryList {
+        val cacheStorage = diskStorageFactory.provideStorage()
+        return if (cacheStorage.isValid()) {
+            cacheStorage.get()
+        } else {
+            val remoteStorage = remoteStorageFactory.provideStorage()
+            remoteStorage.get().also {
+                cacheStorage.put(it)
+            }
         }
     }
 }

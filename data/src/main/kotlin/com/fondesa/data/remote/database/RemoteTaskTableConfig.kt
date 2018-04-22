@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.store
+package com.fondesa.data.remote.database
 
-interface CacheDataStore<T> {
+import com.fondesa.database.annotations.Column
+import com.fondesa.database.annotations.Table
+import com.fondesa.database.structure.IntegerColumnConfig
+import com.fondesa.database.structure.RealColumnConfig
+import com.fondesa.database.structure.TextColumnConfig
 
-    suspend fun get(): T
+@Table("remote_task")
+object RemoteTaskTableConfig {
 
-    suspend fun save(mangaList: T)
+    @Column("id")
+    val COL_ID = IntegerColumnConfig.primaryKey()
 
-    suspend fun isValid(): Boolean
+    @Column("key")
+    val COL_KEY = TextColumnConfig.unique()
+
+    @Column("date_ms")
+    val COL_DATE_MS = RealColumnConfig.notNull()
 }

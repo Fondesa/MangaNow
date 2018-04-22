@@ -14,30 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.latest.cache
+package com.fondesa.data.category.storage.disk
 
-import com.fondesa.data.cache.SQLiteCache
+import com.fondesa.data.category.storage.CategoryDiskStorageFactory
+import com.fondesa.data.storage.disk.DiskStorage
 import com.fondesa.database.DatabaseClient
-import com.fondesa.domain.latest.LatestList
+import com.fondesa.domain.category.CategoryList
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class LatestCache @Inject constructor(client: DatabaseClient) :
-    SQLiteCache<LatestList>(client) {
+class DefaultCategoryDiskStorageFactory @Inject constructor(private val client: DatabaseClient) :
+    CategoryDiskStorageFactory {
 
-    override val expirationTimeMs: Long = TimeUnit.MINUTES.toMillis(5)
-
-    override val remoteTaskPath: String = TODO()
-
-    override fun get(cacheId: Long): LatestList {
-        TODO()
-    }
-
-    override fun put(cacheId: Long, item: LatestList) {
-        TODO()
-    }
-
-    private object Statements {
-
+    override fun provideStorage(): DiskStorage<CategoryList> {
+        val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
+        val remoteTaskKey = "categories"
+        return CategoryDiskStorage(client, expirationTimeMs, remoteTaskKey)
     }
 }

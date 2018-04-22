@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.store
+package com.fondesa.data.storage
 
-import com.fondesa.data.store.RemoteDataStore
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.remote.client.RemoteClient
-import javax.inject.Inject
-
-class MangaRemoteDataStore @Inject constructor(private val remoteClient: RemoteClient) :
-    RemoteDataStore<List<@JvmSuppressWildcards Manga>> {
-    override suspend fun get(): List<Manga> {
-        TODO("not implemented")
-    }
-}
+interface Storage

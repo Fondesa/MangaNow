@@ -16,28 +16,27 @@
 
 package com.fondesa.data.latest.repository
 
-import com.fondesa.data.cache.Cache
-import com.fondesa.data.remote.RemoteApi
-import com.fondesa.data.remote.loader.RemoteLoader
+import com.fondesa.data.latest.storage.LatestStorageFactory
+import com.fondesa.data.storage.disk.DiskStorage
+import com.fondesa.data.storage.remote.RemoteStorage
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.repository.LatestRepository
 import javax.inject.Inject
 
 class DefaultLatestRepository @Inject constructor(
-    private val remoteLoader: @JvmSuppressWildcards RemoteLoader<LatestList>,
-    private val cache: @JvmSuppressWildcards Cache<LatestList>
+    private val remoteStorageFactory: LatestStorageFactory<RemoteStorage<LatestList>>,
+    private val diskStorageFactory: LatestStorageFactory<DiskStorage<LatestList>>
 ) : LatestRepository {
 
-    //TODO pass params to cache
-    override suspend fun getPaginated(page: Int, pageSize: Int): LatestList = if (cache.isValid()) {
-        cache.get()
-    } else {
-        val task = RemoteApi.Request.latest(page, pageSize)
-        remoteLoader.load(task).also {
-            cache.put(it)
+    override suspend fun getPaginated(page: Int, pageSize: Int): LatestList {
+        val cacheStorage = diskStorageFactory.provideStorage(page, pageSize)
+        return if (cacheStorage.isValid()) {
+            cacheStorage.get()
+        } else {
+            val remoteStorage = remoteStorageFactory.provideStorage(page, pageSize)
+            remoteStorage.get().also {
+                cacheStorage.put(it)
+            }
         }
     }
 }
-
-
-

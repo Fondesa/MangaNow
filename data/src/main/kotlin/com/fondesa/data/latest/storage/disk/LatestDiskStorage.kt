@@ -14,14 +14,27 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.repository
+package com.fondesa.data.latest.storage.disk
 
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.manga.repository.MangaRepository
-import javax.inject.Inject
+import com.fondesa.data.storage.disk.SQLiteDiskStorage
+import com.fondesa.database.DatabaseClient
+import com.fondesa.domain.latest.LatestList
 
-class DefaultMangaRepository @Inject constructor(
-) : MangaRepository {
+class LatestDiskStorage(
+    client: DatabaseClient,
+    expirationTimeMs: Long,
+    remoteTaskKey: String
+) : SQLiteDiskStorage<LatestList>(client, expirationTimeMs, remoteTaskKey) {
 
-    override suspend fun getAll(): List<Manga> = TODO()
+    override fun get(cacheId: Long): LatestList {
+        TODO()
+    }
+
+    override fun put(cacheId: Long, item: LatestList) {
+        TODO()
+    }
+
+    private object Statements {
+
+    }
 }

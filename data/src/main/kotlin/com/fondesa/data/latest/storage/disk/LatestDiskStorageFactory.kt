@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.repository
+package com.fondesa.data.latest.storage.disk
 
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.manga.repository.MangaRepository
-import javax.inject.Inject
+import com.fondesa.data.latest.storage.LatestStorageFactory
+import com.fondesa.data.storage.disk.DiskStorage
+import com.fondesa.domain.latest.LatestList
+import java.util.concurrent.TimeUnit
 
-class DefaultMangaRepository @Inject constructor(
-) : MangaRepository {
+class LatestDiskStorageFactory:
+    LatestStorageFactory<DiskStorage<LatestList>> {
 
-    override suspend fun getAll(): List<Manga> = TODO()
+    override fun provideStorage(page: Int, pageSize: Int): DiskStorage<LatestList> {
+        val expirationTimeMs: Long = TimeUnit.MINUTES.toMillis(5)
+        val remoteTaskPath: String = TODO()
+    }
 }

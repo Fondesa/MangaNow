@@ -14,23 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.cache
+package com.fondesa.data.category.storage
 
-import com.fondesa.database.annotations.Column
-import com.fondesa.database.annotations.Table
-import com.fondesa.database.structure.IntegerColumnConfig
-import com.fondesa.database.structure.RealColumnConfig
-import com.fondesa.database.structure.TextColumnConfig
+import com.fondesa.data.storage.Storage
+import com.fondesa.data.storage.disk.DiskStorage
+import com.fondesa.data.storage.remote.RemoteStorage
+import com.fondesa.domain.category.CategoryList
 
-@Table("remote_task_cache")
-object RemoteTaskCacheTableConfig {
+interface CategoryStorageFactory<out T : Storage> {
 
-    @Column("id")
-    val COL_ID = IntegerColumnConfig.primaryKey()
-
-    @Column("date_ms")
-    val COL_DATE_MS = RealColumnConfig.notNull()
-
-    @Column("task_path")
-    val COL_PATH = TextColumnConfig.unique()
+    fun provideStorage(): T
 }
+
+typealias CategoryDiskStorageFactory =
+        @JvmSuppressWildcards CategoryStorageFactory<@JvmSuppressWildcards DiskStorage<CategoryList>>
+
+typealias CategoryRemoteStorageFactory =
+        @JvmSuppressWildcards CategoryStorageFactory<@JvmSuppressWildcards RemoteStorage<CategoryList>>

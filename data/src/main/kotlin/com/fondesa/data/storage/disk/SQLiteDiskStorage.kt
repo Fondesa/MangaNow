@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.cache
+package com.fondesa.data.storage.disk
 
 import com.fondesa.data.remote.database.RemoteTaskTable
 import com.fondesa.database.DatabaseClient
@@ -25,13 +25,13 @@ import com.fondesa.database.extension.majorThan
 import com.fondesa.database.statement.Insert
 import com.fondesa.database.statement.Select
 
-abstract class SQLiteCache<T>(client: DatabaseClient) : Cache<T> {
+abstract class SQLiteDiskStorage<T>(
+    client: DatabaseClient,
+    private val expirationTimeMs: Long,
+    private val remoteTaskKey: String
+) : DiskStorage<T> {
 
     protected val database by lazy { client.getDatabase() }
-
-    protected abstract val expirationTimeMs: Long
-
-    protected abstract val remoteTaskPath: String
 
     protected abstract fun get(cacheId: Long): T
 
@@ -59,25 +59,35 @@ abstract class SQLiteCache<T>(client: DatabaseClient) : Cache<T> {
 
         // If there's at least one record in cache inserted in an acceptable expiration time and
         // with the same path, the cache is valid.
-        val count = database.compile(Statements.countCache(remoteTaskPath, validDate))
+        val count = database.compile(
+            Statements.countCache(
+                remoteTaskKey,
+                validDate
+            )
+        )
             .execute()
             .simpleInteger()
         return count > 0
     }
 
     private fun cacheRecordId(): Long {
-        return database.compile(Statements.selectCache(remoteTaskPath))
+        return database.compile(
+            Statements.selectCache(
+                remoteTaskKey
+            )
+        )
             .execute()
             .firstOrNull {
                 // Get the record's id.
                 it.getLong(RemoteTaskTable.COL_ID)
-            } ?: throw NullPointerException("Cache id for the path `$remoteTaskPath` not found")
+            }
+                ?: throw NullPointerException("Cache id for the identifier `$remoteTaskKey` not found")
     }
 
     private fun insertCacheRecord(): Long = database.compile(Statements.insertCache())
         .bindNull(RemoteTaskTable.COL_ID)
         .bindLong(RemoteTaskTable.COL_DATE_MS, System.currentTimeMillis())
-        .bindString(RemoteTaskTable.COL_KEY, remoteTaskPath)
+        .bindString(RemoteTaskTable.COL_KEY, remoteTaskKey)
         .execute(close = true)
 
     private object Statements {

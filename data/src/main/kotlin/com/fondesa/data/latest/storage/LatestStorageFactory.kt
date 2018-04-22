@@ -14,24 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.store
+package com.fondesa.data.latest.storage
 
-import com.fondesa.data.store.CacheDataStore
-import com.fondesa.domain.manga.model.Manga
-import javax.inject.Inject
+import com.fondesa.data.storage.Storage
 
-class MangaCacheDataStore @Inject constructor() :
-    CacheDataStore<List<@JvmSuppressWildcards Manga>> {
+interface LatestStorageFactory<out T : Storage> {
 
-    override suspend fun get(): List<Manga> {
-        TODO("not implemented")
-    }
-
-    override suspend fun save(mangaList: List<Manga>) {
-        TODO("not implemented")
-    }
-
-    override suspend fun isValid(): Boolean {
-        TODO("not implemented")
-    }
+    fun provideStorage(page: Int, pageSize: Int): T
 }

@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.repository
+package com.fondesa.data.storage.remote
 
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.manga.repository.MangaRepository
-import javax.inject.Inject
+import com.fondesa.data.serialization.FromJsonConverter
+import com.fondesa.remote.client.RemoteClient
+import com.fondesa.remote.task.RemoteTask
 
-class DefaultMangaRepository @Inject constructor(
-) : MangaRepository {
+class DefaultRemoteStorage<out T>(
+    private val remoteClient: RemoteClient,
+    private val remoteTask: RemoteTask,
+    private val converter: FromJsonConverter<T>
+) : RemoteStorage<T> {
 
-    override suspend fun getAll(): List<Manga> = TODO()
+    override fun get(): T {
+        val json = remoteClient.load(remoteTask)
+        return converter.convert(json)
+    }
 }

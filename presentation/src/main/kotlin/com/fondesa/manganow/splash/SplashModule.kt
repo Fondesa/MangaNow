@@ -17,9 +17,12 @@
 package com.fondesa.manganow.splash
 
 import com.fondesa.data.cache.Cache
-import com.fondesa.data.category.cache.CategoryCache
 import com.fondesa.data.category.converter.CategoryJsonConverter
 import com.fondesa.data.category.repository.DefaultCategoryRepository
+import com.fondesa.data.category.storage.CategoryDiskStorageFactory
+import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
+import com.fondesa.data.category.storage.disk.DefaultCategoryDiskStorageFactory
+import com.fondesa.data.category.storage.remote.DefaultCategoryRemoteStorageFactory
 import com.fondesa.data.remote.loader.DefaultRemoteLoader
 import com.fondesa.data.remote.loader.RemoteLoader
 import com.fondesa.data.serialization.FromJsonConverter
@@ -54,7 +57,10 @@ interface SplashModule {
     fun provideCategoryRemoteLoader(loader: @JvmSuppressWildcards DefaultRemoteLoader<CategoryList>): RemoteLoader<CategoryList>
 
     @Binds
-    fun provideCategoryCache(cache: CategoryCache): Cache<CategoryList>
+    fun provideCategoryDiskStorageFactory(factory: DefaultCategoryDiskStorageFactory): CategoryDiskStorageFactory
+
+    @Binds
+    fun provideCategoryRemoteStorageFactory(factory: DefaultCategoryRemoteStorageFactory): CategoryRemoteStorageFactory
 
     @Binds
     fun provideCategoryRepository(repository: DefaultCategoryRepository): CategoryRepository

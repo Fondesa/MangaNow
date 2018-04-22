@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.cache
+package com.fondesa.data.category.storage.disk
 
-import com.fondesa.data.cache.SQLiteCache
 import com.fondesa.data.category.database.CategoryTable
+import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.database.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.statement.Insert
 import com.fondesa.database.statement.Select
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.model.Category
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class CategoryCache @Inject constructor(client: DatabaseClient) :
-    SQLiteCache<CategoryList>(client) {
-
-    override val expirationTimeMs: Long = TimeUnit.DAYS.toMillis(7)
-
-    override val remoteTaskPath: String = "categories"
+class CategoryDiskStorage(
+    client: DatabaseClient,
+    expirationTimeMs: Long,
+    remoteTaskKey: String
+) : SQLiteDiskStorage<CategoryList>(client, expirationTimeMs, remoteTaskKey) {
 
     override fun get(cacheId: Long): CategoryList =
         database.compile(Statements.selectCategories())

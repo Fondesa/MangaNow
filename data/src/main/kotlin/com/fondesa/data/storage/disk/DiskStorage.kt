@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.store
+package com.fondesa.data.storage.disk
 
-interface RemoteDataStore<out T> {
+import com.fondesa.data.storage.Storage
 
-    suspend fun get(): T
+interface DiskStorage<T> : Storage {
+
+    fun get(): T
+
+    fun put(item: T)
+
+    fun isValid(): Boolean
 }

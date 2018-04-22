@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.repository
+package com.fondesa.data.storage.remote
 
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.manga.repository.MangaRepository
-import javax.inject.Inject
+import com.fondesa.data.storage.Storage
 
-class DefaultMangaRepository @Inject constructor(
-) : MangaRepository {
+interface RemoteStorage<out T> : Storage {
 
-    override suspend fun getAll(): List<Manga> = TODO()
+    fun get(): T
 }
