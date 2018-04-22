@@ -17,43 +17,6 @@
 package com.fondesa.database.extension
 
 /**
- * Creates a string containing the elements of the array separated by a character.
- * E.g. with the given array ["red", "green", "blue"] and the separator "|",
- * the result will be: "red|green|blue"
- *
- * @param separator character used to separate the array's elements.
- * @param transform transformation applied to the array's element to map it to String.
- * @return string containing the elements of the array separated by the given [separator].
- */
-fun <T> Array<T>.interpolateWith(separator: Char, transform: ((T) -> String) = { it.toString() }) =
-    interpolateWith(separator.toString(), transform)
-
-/**
- * Creates a string containing the elements of the array separated by another string.
- * E.g. with the given array ["red", "green", "blue"] and the separator "_$_",
- * the result will be: "red_$_green_$_blue"
- *
- * @param separator string used to separate the array's elements.
- * @param transform transformation applied to the array's element to map it to String.
- * @return string containing the elements of the array separated by the given [separator].
- */
-fun <T> Array<T>.interpolateWith(
-    separator: String,
-    transform: ((T) -> String) = { it.toString() }
-): String {
-    val sb = StringBuilder()
-    forEachIndexed { index, elem ->
-        // Append the mapped element.
-        sb.append(transform(elem))
-        if (index < lastIndex) {
-            // Append the separator if this element isn't the last one.
-            sb.append(separator)
-        }
-    }
-    return sb.toString()
-}
-
-/**
  * @return true if the array is null or empty.
  */
 fun <T> Array<T>?.isNullOrEmpty(): Boolean = this?.isEmpty() ?: true

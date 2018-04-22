@@ -16,8 +16,6 @@
 
 package com.fondesa.database.clause
 
-import com.fondesa.database.extension.interpolateWith
-
 /**
  * Type of [Expression] used to concatenate an array of [Expression]s with a keyword.
  */
@@ -26,7 +24,7 @@ abstract class MergeExpression internal constructor() : Expression {
     override final fun raw(): String {
         val expressions = expressions()
         val mergeText = mergeText()
-        return expressions.interpolateWith(mergeText) {
+        return expressions.joinToString(mergeText) {
             // Add brackets to avoid errors with nested expressions.
             "(${it.raw()})"
         }

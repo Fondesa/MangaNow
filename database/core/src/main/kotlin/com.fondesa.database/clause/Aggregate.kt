@@ -16,7 +16,6 @@
 
 package com.fondesa.database.clause
 
-import com.fondesa.database.extension.interpolateWith
 import com.fondesa.database.structure.Column
 
 /**
@@ -75,7 +74,7 @@ class Aggregate private constructor(val fullName: String, val alias: String) {
 
             val sql = StringBuilder(name)
                 .append('(')
-                .append(args.interpolateWith(','))
+                .append(args.joinToString())
                 .append(')')
 
             return Aggregate(sql.toString(), alias)

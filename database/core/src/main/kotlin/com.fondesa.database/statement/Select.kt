@@ -18,7 +18,6 @@ package com.fondesa.database.statement
 
 import com.fondesa.database.clause.*
 import com.fondesa.database.execution.QueryExecutor
-import com.fondesa.database.extension.interpolateWith
 import com.fondesa.database.extension.isNullOrEmpty
 import com.fondesa.database.extension.plusArray
 import com.fondesa.database.reader.SQLiteColumnReader
@@ -42,7 +41,7 @@ object Select {
      */
     fun from(first: String, vararg others: String): Builder {
         val full = first.plusArray(others)
-        return Builder().from(full.interpolateWith(','))
+        return Builder().from(full.joinToString())
     }
 
     /**
@@ -55,7 +54,7 @@ object Select {
      */
     fun from(first: SQLiteQueryStatement<*>, vararg others: SQLiteQueryStatement<*>): Builder {
         val full = first.plusArray(others)
-        return Builder().from(full.interpolateWith(',') { it.raw })
+        return Builder().from(full.joinToString { it.raw })
     }
 
     /**
@@ -259,14 +258,14 @@ object Select {
 
             if (atLeastOneColumn) {
                 // Use always the alias on the columns.
-                sql.append(columns!!.interpolateWith(',') { "${it.fullName} AS \"${it.alias}\"" })
+                sql.append(columns!!.joinToString { "${it.fullName} AS \"${it.alias}\"" })
                 if (atLeastOneAggregate)
                     sql.append(',')
             }
 
             if (atLeastOneAggregate) {
                 // Use always the alias on the aggregate functions.
-                sql.append(aggregates!!.interpolateWith(',') { "${it.fullName} AS \"${it.alias}\"" })
+                sql.append(aggregates!!.joinToString { "${it.fullName} AS \"${it.alias}\"" })
             }
 
             sql.append(' ')
@@ -282,7 +281,7 @@ object Select {
             }
             if (!groupByColumns.isNullOrEmpty()) {
                 sql.append("GROUP BY (")
-                    .append(groupByColumns!!.interpolateWith(',') { it.fullName })
+                    .append(groupByColumns!!.joinToString { it.fullName })
                     .append(')')
             }
             orderBy?.let { sql.append(it) }

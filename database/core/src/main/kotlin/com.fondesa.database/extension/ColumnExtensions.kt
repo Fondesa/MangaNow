@@ -177,7 +177,7 @@ fun Column<*>.between(first: Column<*>, second: Column<*>) =
  */
 fun Column<*>.`in`(vararg values: Any) = ColumnExpression(
     this,
-    " IN (" + values.interpolateWith(',') { "?" } + ")",
+    " IN (" + values.joinToString { "?" } + ")",
     *values.map { wrap(it) }.toTypedArray()
 )
 
@@ -189,7 +189,7 @@ fun Column<*>.`in`(vararg values: Any) = ColumnExpression(
  * @return instance of [ColumnExpression].
  */
 fun Column<*>.`in`(vararg columns: Column<*>) =
-    ColumnExpression(this, " IN (" + columns.interpolateWith(',') { it.fullName } + ")")
+    ColumnExpression(this, " IN (" + columns.joinToString { it.fullName } + ")")
 
 /**
  * Creates an [Expression] that matches values not equal to [values].
@@ -200,7 +200,7 @@ fun Column<*>.`in`(vararg columns: Column<*>) =
  */
 fun Column<*>.notIn(vararg values: Any) = ColumnExpression(
     this,
-    " NOT IN (" + values.interpolateWith(',') { "?" } + ")",
+    " NOT IN (" + values.joinToString { "?" } + ")",
     *values.map { wrap(it) }.toTypedArray()
 )
 
@@ -212,7 +212,7 @@ fun Column<*>.notIn(vararg values: Any) = ColumnExpression(
  * @return instance of [ColumnExpression].
  */
 fun Column<*>.notIn(vararg columns: Column<*>) =
-    ColumnExpression(this, " NOT IN (" + columns.interpolateWith(',') { it.fullName } + ")")
+    ColumnExpression(this, " NOT IN (" + columns.joinToString { it.fullName } + ")")
 
 private fun wrap(value: Any): String {
     return if (value is Boolean) {
