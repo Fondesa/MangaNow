@@ -28,7 +28,7 @@ class DefaultCategoryRepository @Inject constructor(
     private val cache: @JvmSuppressWildcards Cache<CategoryList>
 ) : CategoryRepository {
 
-    override suspend fun getList(): CategoryList = if (cache.isValid()) {
+    override suspend fun getAll(): CategoryList = if (cache.isValid()) {
         cache.get()
     } else {
         val task = RemoteApi.Request.categories()

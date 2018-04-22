@@ -26,6 +26,6 @@ class GetCategoryList @Inject constructor(private val repository: CategoryReposi
     UseCase<CategoryList, Unit> {
 
     override suspend fun execute(params: Unit): CategoryList = asyncAwait {
-        repository.getList()
+        repository.getAll()
     }
 }

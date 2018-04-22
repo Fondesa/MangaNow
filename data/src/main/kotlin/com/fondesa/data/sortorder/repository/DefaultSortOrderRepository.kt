@@ -28,7 +28,7 @@ class DefaultSortOrderRepository @Inject constructor(
     private val cache: @JvmSuppressWildcards Cache<SortOrderList>
 ) : SortOrderRepository {
 
-    override suspend fun getList(): SortOrderList = if (cache.isValid()) {
+    override suspend fun getAll(): SortOrderList = if (cache.isValid()) {
         cache.get()
     } else {
         val task = RemoteApi.Request.sortOrders()

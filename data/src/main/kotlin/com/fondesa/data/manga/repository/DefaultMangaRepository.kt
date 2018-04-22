@@ -27,7 +27,7 @@ class DefaultMangaRepository @Inject constructor(
     private val cacheDataStore: @JvmSuppressWildcards CacheDataStore<List<Manga>>
 ) : MangaRepository {
 
-    override suspend fun getList(): List<Manga> = if (cacheDataStore.isValid()) {
+    override suspend fun getAll(): List<Manga> = if (cacheDataStore.isValid()) {
         cacheDataStore.get()
     } else {
         remoteDataStore.get()

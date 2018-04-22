@@ -26,6 +26,6 @@ class GetMangaList @Inject constructor(private val repository: MangaRepository) 
     UseCase<List<@JvmSuppressWildcards Manga>, Unit> {
 
     override suspend fun execute(params: Unit): List<Manga> = asyncAwait {
-        repository.getList()
+        repository.getAll()
     }
 }

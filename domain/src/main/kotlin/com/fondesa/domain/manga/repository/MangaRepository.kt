@@ -20,5 +20,5 @@ import com.fondesa.domain.manga.model.Manga
 
 interface MangaRepository {
 
-    suspend fun getList(): List<Manga>
+    suspend fun getAll(): List<Manga>
 }

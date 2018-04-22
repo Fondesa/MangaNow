@@ -26,6 +26,6 @@ class GetSortOrderList @Inject constructor(private val repository: SortOrderRepo
     UseCase<SortOrderList, Unit> {
 
     override suspend fun execute(params: Unit): SortOrderList = asyncAwait {
-        repository.getList()
+        repository.getAll()
     }
 }

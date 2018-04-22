@@ -20,5 +20,5 @@ import com.fondesa.domain.sortorder.SortOrderList
 
 interface SortOrderRepository {
 
-    suspend fun getList(): SortOrderList
+    suspend fun getAll(): SortOrderList
 }

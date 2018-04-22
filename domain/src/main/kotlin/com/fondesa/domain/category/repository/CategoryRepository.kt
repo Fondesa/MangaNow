@@ -20,5 +20,5 @@ import com.fondesa.domain.category.CategoryList
 
 interface CategoryRepository {
 
-    suspend fun getList(): CategoryList
+    suspend fun getAll(): CategoryList
 }
