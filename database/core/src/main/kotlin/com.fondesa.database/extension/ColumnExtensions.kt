@@ -38,124 +38,144 @@ fun Column<*>.isNotNull() = ColumnExpression(this, " IS NOT NULL")
  * Creates an [Expression] that matches values equal to [value].
  *
  * @param value value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.equalTo(value: Any) = ColumnExpression(this, " = ?", wrap(value))
+fun <T : Any> Column<T>.equalTo(value: T) = ColumnExpression(this, " = ?", wrap(value))
 
 /**
  * Creates an [Expression] that matches values equal to the values of [column].
  *
  * @param column [Column] containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.equalTo(column: Column<*>) = ColumnExpression(this, " = " + column.fullName)
+fun <T : Any> Column<T>.equalTo(column: Column<T>) = ColumnExpression(this, " = " + column.fullName)
 
 /**
  * Creates an [Expression] that matches values not equal to [value].
  *
  * @param value value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.notEqualTo(value: Any) = ColumnExpression(this, " <> ?", wrap(value))
+fun <T : Any> Column<T>.notEqualTo(value: T) = ColumnExpression(this, " <> ?", wrap(value))
 
 /**
  * Creates an [Expression] that matches values not equal to the values of [column].
  *
  * @param column [Column] containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.notEqualTo(column: Column<*>) = ColumnExpression(this, " <> " + column.fullName)
+fun <T : Any> Column<T>.notEqualTo(column: Column<T>) =
+    ColumnExpression(this, " <> " + column.fullName)
 
 /**
  * Creates an [Expression] that matches values major than [value].
  *
  * @param value value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.majorThan(value: Any) = ColumnExpression(this, " > ?", wrap(value))
+fun <T : Any> Column<T>.majorThan(value: T) = ColumnExpression(this, " > ?", wrap(value))
 
 /**
  * Creates an [Expression] that matches values major than the values of [column].
  *
  * @param column [Column] containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.majorThan(column: Column<*>) = ColumnExpression(this, " > " + column.fullName)
+fun <T : Any> Column<T>.majorThan(column: Column<T>) =
+    ColumnExpression(this, " > " + column.fullName)
 
 /**
  * Creates an [Expression] that matches values minor than [value].
  *
  * @param value value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.minorThan(value: Any) = ColumnExpression(this, " < " + wrap(value))
+fun <T : Any> Column<T>.minorThan(value: T) = ColumnExpression(this, " < " + wrap(value))
 
 /**
  * Creates an [Expression] that matches values minor than the values of [column].
  *
  * @param column [Column] containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.minorThan(column: Column<*>) = ColumnExpression(this, " < " + column.fullName)
+fun <T : Any> Column<T>.minorThan(column: Column<T>) =
+    ColumnExpression(this, " < " + column.fullName)
 
 /**
  * Creates an [Expression] that matches values major than or equal to [value].
  *
  * @param value value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.majorOrEqualThan(value: Any) = ColumnExpression(this, " >= ?", wrap(value))
+fun <T : Any> Column<T>.majorOrEqualThan(value: T) = ColumnExpression(this, " >= ?", wrap(value))
 
 /**
  * Creates an [Expression] that matches values major than or equal to the values of [column].
  *
  * @param column [Column] containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.majorOrEqualThan(column: Column<*>) = ColumnExpression(this, " >= " + column.fullName)
+fun <T : Any> Column<T>.majorOrEqualThan(column: Column<T>) =
+    ColumnExpression(this, " >= " + column.fullName)
 
 /**
  * Creates an [Expression] that matches values minor than or equal to [value].
  *
  * @param value value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.minorOrEqualThan(value: Any) = ColumnExpression(this, " <= ?", wrap(value))
+fun <T : Any> Column<T>.minorOrEqualThan(value: T) = ColumnExpression(this, " <= ?", wrap(value))
 
 /**
  * Creates an [Expression] that matches values minor than or equal to the values of [column].
  *
  * @param column [Column] containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.minorOrEqualThan(column: Column<*>) = ColumnExpression(this, " <= " + column.fullName)
+fun <T : Any> Column<T>.minorOrEqualThan(column: Column<T>) =
+    ColumnExpression(this, " <= " + column.fullName)
 
 /**
  * Creates an [Expression] that matches values against a pattern using wildcards.
  * The allowed wildcards are "_" and "%". They can be used in combinations and placed anywhere.
  *
  * @param value value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.like(value: Any) = ColumnExpression(this, " LIKE ?", wrap(value))
+fun <T : Any> Column<T>.like(value: T) = ColumnExpression(this, " LIKE ?", wrap(value))
 
 /**
  * Creates an [Expression] that matches values against a pattern using wildcards.
  * The allowed wildcards are "_" and "%". They can be used in combinations and placed anywhere.
  *
  * @param column [Column] containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.like(column: Column<*>) = ColumnExpression(this, " LIKE " + column.fullName)
+fun <T : Any> Column<T>.like(column: Column<T>) = ColumnExpression(this, " LIKE " + column.fullName)
 
 /**
  * Creates an [Expression] that matches values between [first] and [second].
  *
  * @param first lower bound value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
  * @param second upper bound value used for the matching. If the value is a string, the value mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.between(first: Any, second: Any) =
+fun <T : Any> Column<T>.between(first: T, second: T) =
     ColumnExpression(this, " BETWEEN ? AND ?", wrap(first), wrap(second))
 
 /**
@@ -163,19 +183,21 @@ fun Column<*>.between(first: Any, second: Any) =
  *
  * @param first [Column] containing lower bound values used for the matching.
  * @param second [Column] containing upper bound values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.between(first: Column<*>, second: Column<*>) =
+fun <T : Any> Column<T>.between(first: Column<T>, second: Column<T>) =
     ColumnExpression(this, " BETWEEN " + first.fullName + " AND " + second.fullName)
 
 /**
  * Creates an [Expression] that matches values equal to [values].
  * The IN condition is used to reduce the need to use multiple OR [Expression]s in statements.
  *
- * @param values values used for the matching. If the values are strings, the values mustn't be wrapped in quotes
+ * @param values values used for the matching. If the values are strings, the values mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.within(vararg values: Any) = ColumnExpression(
+fun <T : Any> Column<T>.within(vararg values: T) = ColumnExpression(
     this,
     " IN (" + values.joinToString { "?" } + ")",
     *values.map { wrap(it) }.toTypedArray()
@@ -186,19 +208,21 @@ fun Column<*>.within(vararg values: Any) = ColumnExpression(
  * The IN condition is used to reduce the need to use multiple OR [Expression]s in statements.
  *
  * @param columns [Column]s containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.within(vararg columns: Column<*>) =
+fun <T : Any> Column<T>.within(vararg columns: Column<T>) =
     ColumnExpression(this, " IN (" + columns.joinToString { it.fullName } + ")")
 
 /**
  * Creates an [Expression] that matches values not equal to [values].
  * The NOT IN condition is used to reduce the need to use multiple OR [Expression]s in statements.
  *
- * @param values values used for the matching. If the values are strings, the values mustn't be wrapped in quotes
+ * @param values values used for the matching. If the values are strings, the values mustn't be wrapped in quotes.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.notWithin(vararg values: Any) = ColumnExpression(
+fun <T : Any> Column<T>.notWithin(vararg values: T) = ColumnExpression(
     this,
     " NOT IN (" + values.joinToString { "?" } + ")",
     *values.map { wrap(it) }.toTypedArray()
@@ -209,9 +233,10 @@ fun Column<*>.notWithin(vararg values: Any) = ColumnExpression(
  * The NOT IN condition is used to reduce the need to use multiple OR [Expression]s in statements.
  *
  * @param columns [Column]s containing values used for the matching.
+ * @param T type of the values contained in the column.
  * @return instance of [ColumnExpression].
  */
-fun Column<*>.notWithin(vararg columns: Column<*>) =
+fun <T : Any> Column<T>.notWithin(vararg columns: Column<T>) =
     ColumnExpression(this, " NOT IN (" + columns.joinToString { it.fullName } + ")")
 
 private fun wrap(value: Any): String {

@@ -20,6 +20,7 @@ package com.fondesa.database.structure
  * Builder used to create a column in a table.
  *
  * @param type type of the column (one of [Column.Type]).
+ * @param ValueType type of the values contained in the column.
  */
 sealed class ColumnConfig<ValueType>(val type: Column.Type) {
     internal var isPrimaryKey: Boolean = false

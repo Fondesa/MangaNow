@@ -29,7 +29,7 @@ import com.fondesa.database.structure.Column.Type
  * @param isUnique true if the column's values will be unique.
  * @param isNotNull true if the column is declared as not null.
  * @param defaultValue value assigned when the value would have been null.
- * @param ValueType type of the value that will be inserted in the column
+ * @param ValueType type of the values contained in the column.
  */
 class Column<out ValueType>(
     tableName: String,
