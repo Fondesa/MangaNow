@@ -1,5 +1,6 @@
 package com.fondesa.data.remote
 
+import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.remote.task.RemoteTask
 import com.google.gson.JsonElement
 
@@ -12,12 +13,18 @@ object RemoteApi {
      * Keys used in the body of the requests or in query string.
      */
     object Key {
+        const val PAGE = "page"
+        const val PAGE_SIZE = "pageSize"
+        const val SORT_ORDER_ID = "sortOrderId"
+        const val TEXT_FILTER = "textFilter"
     }
 
     /**
      * Default values used in the body of the requests or in query string.
      */
     object Values {
+        const val DEFAULT_PAGE = 1
+        const val DEFAULT_PAGE_SIZE = 25
     }
 
     /**
@@ -26,6 +33,7 @@ object RemoteApi {
     object Path {
         const val CATEGORIES = "categories"
         const val SORT_ORDERS = "sortorders"
+        const val MANGA_LIST = "mangalist"
     }
 
     /**
@@ -35,6 +43,25 @@ object RemoteApi {
         fun categories(): RemoteTask = Task.Get(Path.CATEGORIES)
 
         fun sortOrders(): RemoteTask = Task.Get(Path.SORT_ORDERS)
+
+        fun mangaList(
+            sortOrder: SortOrder? = null,
+            textFilter: String? = null,
+            page: Int = Values.DEFAULT_PAGE,
+            pageSize: Int = Values.DEFAULT_PAGE_SIZE
+        ): RemoteTask {
+
+            val queryParams = mutableMapOf<String, String>()
+            sortOrder?.let {
+                queryParams[Key.SORT_ORDER_ID] = it.id.toString()
+            }
+            textFilter?.let {
+                queryParams[Key.TEXT_FILTER] = it
+            }
+            queryParams[Key.PAGE] = page.toString()
+            queryParams[Key.PAGE_SIZE] = pageSize.toString()
+            return Task.Get(Path.MANGA_LIST, queryParams)
+        }
     }
 
     /**
