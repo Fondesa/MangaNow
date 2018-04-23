@@ -31,13 +31,13 @@ import com.fondesa.database.structure.TextColumnConfig
 object LatestTableConfig {
 
     @Column("remote_task_id")
-    val COL_REMOTE_TASK_ID = IntegerColumnConfig.primaryKey()
+    val COL_REMOTE_TASK_ID = IntegerColumnConfig().primaryKey()
 
     @Column("manga_id")
-    val COL_MANGA_ID = IntegerColumnConfig.primaryKey()
+    val COL_MANGA_ID = IntegerColumnConfig().primaryKey()
 
     @Column("chapter_id")
-    val COL_CHAPTER_ID = TextColumnConfig.primaryKey()
+    val COL_CHAPTER_ID = TextColumnConfig().primaryKey()
 
     @ForeignKey(RemoteTaskTableConfig::class)
     val REMOTE_TASK_ID_FK = ForeignKeyConfig.from("remote_task_id")

@@ -26,32 +26,32 @@ import com.fondesa.domain.manga.model.Manga
 object MangaTableConfig {
 
     @Column("id")
-    val COL_ID = IntegerColumnConfig.primaryKey()
+    val COL_ID = IntegerColumnConfig().primaryKey()
 
     @Column("alias")
-    val COL_ALIAS = TextColumnConfig.unique()
+    val COL_ALIAS = TextColumnConfig().unique()
 
     @Column("author")
-    val COL_AUTHOR = TextColumnConfig
+    val COL_AUTHOR = TextColumnConfig()
 
     @Column("description")
-    val COL_DESCRIPTION = TextColumnConfig
+    val COL_DESCRIPTION = TextColumnConfig()
 
     @Column("hits")
-    val COL_HITS = IntegerColumnConfig.notNull().defaultValue(0)
+    val COL_HITS = IntegerColumnConfig().notNull().defaultValue(0)
 
     @Column("image_url")
-    val COL_IMAGE_URL = TextColumnConfig
+    val COL_IMAGE_URL = TextColumnConfig()
 
     @Column("year_of_release")
-    val COL_YEAR_OF_RELEASE = IntegerColumnConfig
+    val COL_YEAR_OF_RELEASE = IntegerColumnConfig()
 
     @Column("status")
-    val COL_STATUS = IntegerColumnConfig.defaultValue(Manga.Status.UNKNOWN.value)
+    val COL_STATUS = IntegerColumnConfig().defaultValue(Manga.Status.UNKNOWN.value)
 
     @Column("title")
-    val COL_TITLE = TextColumnConfig.notNull()
+    val COL_TITLE = TextColumnConfig().notNull()
 
     @Column("is_favourite")
-    val COL_IS_FAVOURITE = IntegerColumnConfig.notNull().defaultValue(0)
+    val COL_IS_FAVOURITE = IntegerColumnConfig().notNull().defaultValue(0)
 }

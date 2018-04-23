@@ -26,11 +26,11 @@ import com.fondesa.database.structure.TextColumnConfig
 object RemoteTaskTableConfig {
 
     @Column("id")
-    val COL_ID = IntegerColumnConfig.primaryKey()
+    val COL_ID = IntegerColumnConfig().primaryKey()
 
     @Column("key")
-    val COL_KEY = TextColumnConfig.unique()
+    val COL_KEY = TextColumnConfig().unique()
 
     @Column("date_ms")
-    val COL_DATE_MS = RealColumnConfig.notNull()
+    val COL_DATE_MS = RealColumnConfig().notNull()
 }

@@ -25,11 +25,11 @@ import com.fondesa.database.structure.TextColumnConfig
 object SortOrderTableConfig {
 
     @Column("id")
-    val COL_ID = IntegerColumnConfig.primaryKey()
+    val COL_ID = IntegerColumnConfig().primaryKey()
 
     @Column("name")
-    val COL_NAME = TextColumnConfig.unique()
+    val COL_NAME = TextColumnConfig().unique()
 
     @Column("priority")
-    val COL_PRIORITY = IntegerColumnConfig.unique()
+    val COL_PRIORITY = IntegerColumnConfig().unique()
 }

@@ -67,19 +67,19 @@ sealed class ColumnConfig<ValueType>(val type: Column.Type) {
 /**
  * Builder used to create a floating-point column in a table.
  */
-object RealColumnConfig : ColumnConfig<Double>(Column.Type.REAL)
+class RealColumnConfig : ColumnConfig<Double>(Column.Type.REAL)
 
 /**
  * Builder used to create an integer or a boolean column in a table.
  */
-object IntegerColumnConfig : ColumnConfig<Long>(Column.Type.INTEGER)
+class IntegerColumnConfig : ColumnConfig<Long>(Column.Type.INTEGER)
 
 /**
  * Builder used to create a string column in a table.
  */
-object TextColumnConfig : ColumnConfig<String>(Column.Type.TEXT)
+class TextColumnConfig : ColumnConfig<String>(Column.Type.TEXT)
 
 /**
  * Builder used to create a byte array column in a table.
  */
-object BlobColumnConfig : ColumnConfig<ByteArray>(Column.Type.BLOB)
+class BlobColumnConfig : ColumnConfig<ByteArray>(Column.Type.BLOB)
