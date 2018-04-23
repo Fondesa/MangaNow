@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.sortorder.cache
+package com.fondesa.data.sortorder.storage.disk
 
-import com.fondesa.data.cache.SQLiteCache
 import com.fondesa.data.sortorder.database.SortOrderTable
+import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.database.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.statement.Insert
 import com.fondesa.database.statement.Select
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.model.SortOrder
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class SortOrderCache @Inject constructor(client: DatabaseClient) :
-    SQLiteCache<SortOrderList>(client) {
-
-    override val expirationTimeMs: Long = TimeUnit.DAYS.toMillis(7)
-
-    override val remoteTaskPath: String = "sort_orders"
+class DefaultSortOrderDiskStorage(
+    client: DatabaseClient,
+    expirationTimeMs: Long,
+    remoteTaskKey: String
+) : SQLiteDiskStorage<SortOrderList>(client, expirationTimeMs, remoteTaskKey) {
 
     override fun get(cacheId: Long): SortOrderList =
         database.compile(Statements.selectSortOrders())

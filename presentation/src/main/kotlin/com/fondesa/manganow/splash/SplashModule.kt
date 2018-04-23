@@ -16,19 +16,16 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.data.cache.Cache
-import com.fondesa.data.category.converter.CategoryJsonConverter
 import com.fondesa.data.category.repository.DefaultCategoryRepository
 import com.fondesa.data.category.storage.CategoryDiskStorageFactory
 import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
 import com.fondesa.data.category.storage.disk.DefaultCategoryDiskStorageFactory
 import com.fondesa.data.category.storage.remote.DefaultCategoryRemoteStorageFactory
-import com.fondesa.data.remote.loader.DefaultRemoteLoader
-import com.fondesa.data.remote.loader.RemoteLoader
-import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.data.sortorder.cache.SortOrderCache
-import com.fondesa.data.sortorder.converter.SortOrderJsonConverter
 import com.fondesa.data.sortorder.repository.DefaultSortOrderRepository
+import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
+import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
+import com.fondesa.data.sortorder.storage.disk.DefaultSortOrderDiskStorageFactory
+import com.fondesa.data.sortorder.storage.remote.DefaultSortOrderRemoteStorageFactory
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
 import com.fondesa.domain.category.usecase.GetCategoryList
@@ -51,12 +48,6 @@ interface SplashModule {
     fun provideView(view: SplashActivity): SplashContract.View
 
     @Binds
-    fun provideCategoryJsonConverter(converter: CategoryJsonConverter): FromJsonConverter<CategoryList>
-
-    @Binds
-    fun provideCategoryRemoteLoader(loader: @JvmSuppressWildcards DefaultRemoteLoader<CategoryList>): RemoteLoader<CategoryList>
-
-    @Binds
     fun provideCategoryDiskStorageFactory(factory: DefaultCategoryDiskStorageFactory): CategoryDiskStorageFactory
 
     @Binds
@@ -69,13 +60,10 @@ interface SplashModule {
     fun provideGetCategoryList(useCase: GetCategoryList): UseCase<CategoryList, Unit>
 
     @Binds
-    fun provideSortOrderJsonConverter(converter: SortOrderJsonConverter): FromJsonConverter<SortOrderList>
+    fun provideSortOrderDiskStorageFactory(factory: DefaultSortOrderDiskStorageFactory): SortOrderDiskStorageFactory
 
     @Binds
-    fun provideSortOrderRemoteLoader(loader: @JvmSuppressWildcards DefaultRemoteLoader<SortOrderList>): RemoteLoader<SortOrderList>
-
-    @Binds
-    fun provideSortOrderCache(cache: SortOrderCache): Cache<SortOrderList>
+    fun provideSortOrderRemoteStorageFactory(factory: DefaultSortOrderRemoteStorageFactory): SortOrderRemoteStorageFactory
 
     @Binds
     fun provideSortOrderRepository(repository: DefaultSortOrderRepository): SortOrderRepository

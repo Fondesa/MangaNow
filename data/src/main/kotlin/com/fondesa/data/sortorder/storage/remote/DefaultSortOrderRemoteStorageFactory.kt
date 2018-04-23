@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage.remote
+package com.fondesa.data.sortorder.storage.remote
 
-import com.fondesa.data.category.converter.CategoryJsonConverter
-import com.fondesa.data.category.storage.CategoryRemoteStorage
-import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
 import com.fondesa.data.remote.RemoteApi
+import com.fondesa.data.sortorder.converter.SortOrderJsonConverter
+import com.fondesa.data.sortorder.storage.SortOrderRemoteStorage
+import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
 import com.fondesa.data.storage.remote.DefaultRemoteStorage
 import com.fondesa.remote.client.RemoteClient
 import javax.inject.Inject
 
-class DefaultCategoryRemoteStorageFactory @Inject constructor(private val remoteClient: RemoteClient) :
-    CategoryRemoteStorageFactory {
+class DefaultSortOrderRemoteStorageFactory @Inject constructor(private val remoteClient: RemoteClient) :
+    SortOrderRemoteStorageFactory {
 
-    override fun provideStorage(): CategoryRemoteStorage {
-        val task = RemoteApi.Request.categories()
-        val jsonConverter = CategoryJsonConverter()
+    override fun provideStorage(): SortOrderRemoteStorage {
+        val task = RemoteApi.Request.sortOrders()
+        val jsonConverter = SortOrderJsonConverter()
         return DefaultRemoteStorage(remoteClient, task, jsonConverter)
     }
 }

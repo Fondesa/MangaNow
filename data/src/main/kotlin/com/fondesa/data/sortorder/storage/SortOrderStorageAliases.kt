@@ -14,20 +14,16 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.loader
+package com.fondesa.data.sortorder.storage
 
-import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.remote.client.RemoteClient
-import com.fondesa.remote.task.RemoteTask
-import javax.inject.Inject
+import com.fondesa.data.storage.disk.DiskStorage
+import com.fondesa.data.storage.remote.RemoteStorage
+import com.fondesa.domain.sortorder.SortOrderList
 
-class DefaultRemoteLoader<out T> @Inject constructor(
-    private val remoteClient: RemoteClient,
-    private val converter: @JvmSuppressWildcards FromJsonConverter<T>
-) : RemoteLoader<T> {
+typealias SortOrderDiskStorage = @JvmSuppressWildcards DiskStorage<SortOrderList>
 
-    override fun load(task: RemoteTask): T {
-        val json = remoteClient.load(task)
-        return converter.convert(json)
-    }
-}
+typealias SortOrderRemoteStorage = @JvmSuppressWildcards RemoteStorage<SortOrderList>
+
+typealias SortOrderDiskStorageFactory = @JvmSuppressWildcards SortOrderStorageFactory<SortOrderDiskStorage>
+
+typealias SortOrderRemoteStorageFactory = @JvmSuppressWildcards SortOrderStorageFactory<SortOrderRemoteStorage>

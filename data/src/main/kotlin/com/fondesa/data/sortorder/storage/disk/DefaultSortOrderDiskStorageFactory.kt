@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage.disk
+package com.fondesa.data.sortorder.storage.disk
 
-import com.fondesa.data.category.storage.CategoryDiskStorage
-import com.fondesa.data.category.storage.CategoryDiskStorageFactory
+import com.fondesa.data.sortorder.storage.SortOrderDiskStorage
+import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
 import com.fondesa.database.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class DefaultCategoryDiskStorageFactory @Inject constructor(private val client: DatabaseClient) :
-    CategoryDiskStorageFactory {
+class DefaultSortOrderDiskStorageFactory @Inject constructor(private val client: DatabaseClient) :
+    SortOrderDiskStorageFactory {
 
-    override fun provideStorage(): CategoryDiskStorage {
+    override fun provideStorage(): SortOrderDiskStorage {
         val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
-        val remoteTaskKey = "categories"
-        return DefaultCategoryDiskStorage(client, expirationTimeMs, remoteTaskKey)
+        val remoteTaskKey = "sort_orders"
+        return DefaultSortOrderDiskStorage(client, expirationTimeMs, remoteTaskKey)
     }
 }

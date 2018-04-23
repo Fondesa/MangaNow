@@ -21,7 +21,7 @@ import com.fondesa.data.storage.disk.DiskStorage
 import com.fondesa.domain.latest.LatestList
 import java.util.concurrent.TimeUnit
 
-class LatestDiskStorageFactory:
+class LatestDiskStorageFactory :
     LatestStorageFactory<DiskStorage<LatestList>> {
 
     override fun provideStorage(page: Int, pageSize: Int): DiskStorage<LatestList> {

@@ -25,7 +25,7 @@ import com.fondesa.database.statement.Select
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.model.Category
 
-class CategoryDiskStorage(
+class DefaultCategoryDiskStorage(
     client: DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String

@@ -20,7 +20,7 @@ import com.fondesa.data.latest.storage.LatestStorageFactory
 import com.fondesa.data.storage.remote.RemoteStorage
 import com.fondesa.domain.latest.LatestList
 
-class LatestRemoteStorageFactory:
+class LatestRemoteStorageFactory :
     LatestStorageFactory<RemoteStorage<LatestList>> {
 
     override fun provideStorage(page: Int, pageSize: Int): RemoteStorage<LatestList> {

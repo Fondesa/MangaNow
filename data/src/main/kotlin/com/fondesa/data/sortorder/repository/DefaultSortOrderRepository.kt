@@ -16,27 +16,26 @@
 
 package com.fondesa.data.sortorder.repository
 
-import com.fondesa.data.cache.Cache
-import com.fondesa.data.remote.RemoteApi
-import com.fondesa.data.remote.loader.RemoteLoader
+import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
+import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import javax.inject.Inject
 
 class DefaultSortOrderRepository @Inject constructor(
-    private val remoteLoader: @JvmSuppressWildcards RemoteLoader<SortOrderList>,
-    private val cache: @JvmSuppressWildcards Cache<SortOrderList>
+    private val remoteStorageFactory: SortOrderRemoteStorageFactory,
+    private val diskStorageFactory: SortOrderDiskStorageFactory
 ) : SortOrderRepository {
 
-    override suspend fun getAll(): SortOrderList = if (cache.isValid()) {
-        cache.get()
-    } else {
-        val task = RemoteApi.Request.sortOrders()
-        remoteLoader.load(task).also {
-            cache.put(it)
+    override suspend fun getAll(): SortOrderList {
+        val cacheStorage = diskStorageFactory.provideStorage()
+        return if (cacheStorage.isValid()) {
+            cacheStorage.get()
+        } else {
+            val remoteStorage = remoteStorageFactory.provideStorage()
+            remoteStorage.get().also {
+                cacheStorage.put(it)
+            }
         }
     }
 }
-
-
-

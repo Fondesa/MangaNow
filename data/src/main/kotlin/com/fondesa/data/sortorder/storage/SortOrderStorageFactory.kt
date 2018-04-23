@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.cache
+package com.fondesa.data.sortorder.storage
 
-interface Cache<T> {
+import com.fondesa.data.storage.Storage
 
-    fun get(): T
+interface SortOrderStorageFactory<out T : Storage> {
 
-    fun put(item: T)
-
-    fun isValid(): Boolean
+    fun provideStorage(): T
 }

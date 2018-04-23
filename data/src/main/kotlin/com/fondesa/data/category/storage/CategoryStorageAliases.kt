@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.remote.loader
+package com.fondesa.data.category.storage
 
-import com.fondesa.remote.task.RemoteTask
+import com.fondesa.data.storage.disk.DiskStorage
+import com.fondesa.data.storage.remote.RemoteStorage
+import com.fondesa.domain.category.CategoryList
 
-interface RemoteLoader<out T> {
+typealias CategoryDiskStorage = @JvmSuppressWildcards DiskStorage<CategoryList>
 
-    fun load(task: RemoteTask): T
-}
+typealias CategoryRemoteStorage = @JvmSuppressWildcards RemoteStorage<CategoryList>
+
+typealias CategoryDiskStorageFactory = @JvmSuppressWildcards CategoryStorageFactory<CategoryDiskStorage>
+
+typealias CategoryRemoteStorageFactory = @JvmSuppressWildcards CategoryStorageFactory<CategoryRemoteStorage>

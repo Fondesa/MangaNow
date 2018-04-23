@@ -17,17 +17,8 @@
 package com.fondesa.data.category.storage
 
 import com.fondesa.data.storage.Storage
-import com.fondesa.data.storage.disk.DiskStorage
-import com.fondesa.data.storage.remote.RemoteStorage
-import com.fondesa.domain.category.CategoryList
 
 interface CategoryStorageFactory<out T : Storage> {
 
     fun provideStorage(): T
 }
-
-typealias CategoryDiskStorageFactory =
-        @JvmSuppressWildcards CategoryStorageFactory<@JvmSuppressWildcards DiskStorage<CategoryList>>
-
-typealias CategoryRemoteStorageFactory =
-        @JvmSuppressWildcards CategoryStorageFactory<@JvmSuppressWildcards RemoteStorage<CategoryList>>
