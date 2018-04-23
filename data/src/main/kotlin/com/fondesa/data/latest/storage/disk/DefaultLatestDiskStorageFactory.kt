@@ -16,25 +16,18 @@
 
 package com.fondesa.data.latest.storage.disk
 
-import com.fondesa.data.storage.disk.SQLiteDiskStorage
+import com.fondesa.data.latest.storage.LatestDiskStorage
+import com.fondesa.data.latest.storage.LatestDiskStorageFactory
 import com.fondesa.database.DatabaseClient
-import com.fondesa.domain.latest.LatestList
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class LatestDiskStorage(
-    client: DatabaseClient,
-    expirationTimeMs: Long,
-    remoteTaskKey: String
-) : SQLiteDiskStorage<LatestList>(client, expirationTimeMs, remoteTaskKey) {
+class DefaultLatestDiskStorageFactory @Inject constructor(private val client: DatabaseClient) :
+    LatestDiskStorageFactory {
 
-    override fun get(cacheId: Long): LatestList {
-        TODO()
-    }
-
-    override fun put(cacheId: Long, item: LatestList) {
-        TODO()
-    }
-
-    private object Statements {
-
+    override fun provideStorage(page: Int, pageSize: Int): LatestDiskStorage {
+        val expirationTimeMs = TimeUnit.MINUTES.toMillis(5)
+        val remoteTaskPath = "latest-$page-$pageSize"
+        return DefaultLatestDiskStorage(client, expirationTimeMs, remoteTaskPath)
     }
 }

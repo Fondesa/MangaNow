@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.latest.storage.disk
+package com.fondesa.data.latest.storage
 
-import com.fondesa.data.latest.storage.LatestStorageFactory
 import com.fondesa.data.storage.disk.DiskStorage
+import com.fondesa.data.storage.remote.RemoteStorage
 import com.fondesa.domain.latest.LatestList
-import java.util.concurrent.TimeUnit
 
-class LatestDiskStorageFactory :
-    LatestStorageFactory<DiskStorage<LatestList>> {
+typealias LatestDiskStorage = @JvmSuppressWildcards DiskStorage<LatestList>
 
-    override fun provideStorage(page: Int, pageSize: Int): DiskStorage<LatestList> {
-        val expirationTimeMs: Long = TimeUnit.MINUTES.toMillis(5)
-        val remoteTaskPath: String = TODO()
-    }
-}
+typealias LatestRemoteStorage = @JvmSuppressWildcards RemoteStorage<LatestList>
+
+typealias LatestDiskStorageFactory = @JvmSuppressWildcards LatestStorageFactory<LatestDiskStorage>
+
+typealias LatestRemoteStorageFactory = @JvmSuppressWildcards LatestStorageFactory<LatestRemoteStorage>

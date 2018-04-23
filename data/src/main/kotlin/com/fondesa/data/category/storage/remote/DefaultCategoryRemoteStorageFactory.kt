@@ -24,13 +24,13 @@ import com.fondesa.data.storage.remote.DefaultRemoteStorage
 import com.fondesa.remote.client.RemoteClient
 import javax.inject.Inject
 
-class DefaultCategoryRemoteStorageFactory @Inject constructor(private val remoteClient: RemoteClient) :
+class DefaultCategoryRemoteStorageFactory @Inject constructor(private val client: RemoteClient) :
     CategoryRemoteStorageFactory {
 
     override fun provideStorage(): CategoryRemoteStorage {
         val task = RemoteApi.Request.categories()
         val jsonConverter = CategoryJsonConverter()
-        return DefaultRemoteStorage(remoteClient, task, jsonConverter)
+        return DefaultRemoteStorage(client, task, jsonConverter)
     }
 }
 

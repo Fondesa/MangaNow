@@ -16,16 +16,15 @@
 
 package com.fondesa.data.latest.repository
 
-import com.fondesa.data.latest.storage.LatestStorageFactory
-import com.fondesa.data.storage.disk.DiskStorage
-import com.fondesa.data.storage.remote.RemoteStorage
+import com.fondesa.data.latest.storage.LatestDiskStorageFactory
+import com.fondesa.data.latest.storage.LatestRemoteStorageFactory
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.repository.LatestRepository
 import javax.inject.Inject
 
 class DefaultLatestRepository @Inject constructor(
-    private val remoteStorageFactory: LatestStorageFactory<RemoteStorage<LatestList>>,
-    private val diskStorageFactory: LatestStorageFactory<DiskStorage<LatestList>>
+    private val remoteStorageFactory: LatestRemoteStorageFactory,
+    private val diskStorageFactory: LatestDiskStorageFactory
 ) : LatestRepository {
 
     override suspend fun getPaginated(page: Int, pageSize: Int): LatestList {

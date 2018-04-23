@@ -59,23 +59,14 @@ abstract class SQLiteDiskStorage<T>(
 
         // If there's at least one record in cache inserted in an acceptable expiration time and
         // with the same path, the cache is valid.
-        val count = database.compile(
-            Statements.countCache(
-                remoteTaskKey,
-                validDate
-            )
-        )
+        val count = database.compile(Statements.countCache(remoteTaskKey, validDate))
             .execute()
             .simpleInteger()
         return count > 0
     }
 
     private fun cacheRecordId(): Long {
-        return database.compile(
-            Statements.selectCache(
-                remoteTaskKey
-            )
-        )
+        return database.compile(Statements.selectCache(remoteTaskKey))
             .execute()
             .firstOrNull {
                 // Get the record's id.
