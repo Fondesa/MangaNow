@@ -1,6 +1,6 @@
 buildscript {
     ext.versions = [
-            androidPlugin    : '3.1.1',
+            androidPlugin    : '3.1.2',
             androidSupport   : '27.1.1',
             androidTestRunner: '1.0.1',
             autoService      : '1.0-rc4',
@@ -8,10 +8,10 @@ buildscript {
             dagger           : '2.15',
             espresso         : '3.0.1',
             gson             : '2.8.2',
-            kotlinPoet       : '0.7.0',
             javaxInject      : '1',
             jUnit            : '4.12',
-            kotlin           : '1.2.30',
+            kotlin           : '1.2.40',
+            kotlinPoet       : '0.7.0',
             leakCanary       : '1.5.4',
             okHttp           : '3.10.0'
     ]

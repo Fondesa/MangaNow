@@ -4,6 +4,12 @@
 
     </style>
 
+    <style name="AppTheme.Splash">
+        <item name="android:windowBackground">?colorPrimary</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
     <style name="CommonTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>

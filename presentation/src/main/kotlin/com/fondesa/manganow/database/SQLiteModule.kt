@@ -23,10 +23,8 @@ import com.fondesa.database.strategy.DefaultUpgradeStrategy
 import com.fondesa.database.strategy.ErrorStrategy
 import com.fondesa.database.strategy.UpgradeStrategy
 import com.fondesa.database.structure.Graph
-import com.fondesa.database.structure.Table
 import dagger.Module
 import dagger.Provides
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
@@ -49,10 +47,4 @@ class SQLiteModule {
     @SQLiteDatabaseInfo
     @Provides
     fun provideVersion(): Int = 1
-
-    class ToBeRemovedGraph @Inject constructor() : Graph {
-        override fun getTables(): Array<Table> {
-            return emptyArray()
-        }
-    }
 }

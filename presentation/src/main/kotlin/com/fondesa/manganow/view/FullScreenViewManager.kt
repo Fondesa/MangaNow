@@ -34,12 +34,8 @@ class FullScreenViewManager(@LayoutRes private val contentLayout: Int, val fitsS
 
     override fun bind(activity: AppCompatActivity, rootView: ViewGroup) {
         coordinatorLayout = rootView.findViewById(R.id.coordinator)
-
-        // Get the content layout that will be added to the CoordinatorLayout.
-        val contentLayout = View.inflate(activity, contentLayout, null)
-        val layoutParams = CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-
-        coordinatorLayout.addView(contentLayout, layoutParams)
+        // Inflate the content layout into the CoordinatorLayout.
+        View.inflate(activity, contentLayout, coordinatorLayout)
     }
 
     override fun detach(activity: AppCompatActivity, rootView: ViewGroup) {
