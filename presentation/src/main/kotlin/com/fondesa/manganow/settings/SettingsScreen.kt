@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.screen
+package com.fondesa.manganow.settings
 
-interface ScreenManager {
+import com.fondesa.manganow.R
+import com.fondesa.manganow.screen.BaseScreen
 
-    fun navigateToScreen(definition: ScreenDefinition, addToStack: Boolean, replaceCurrent: Boolean)
+class SettingsScreen : BaseScreen() {
 
-    fun navigateToPreviousScreen()
+    override val rootLayout = R.layout.screen_settings
+
+    override val title get() = getString(R.string.section_settings)
 }

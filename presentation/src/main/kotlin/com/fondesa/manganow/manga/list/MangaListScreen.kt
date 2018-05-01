@@ -16,9 +16,18 @@
 
 package com.fondesa.manganow.manga.list
 
+import android.os.Bundle
+import android.view.View
 import com.fondesa.manganow.R
-import com.fondesa.screen.ScreenFragment
+import com.fondesa.manganow.screen.BaseScreen
 
-class MangaListScreen: ScreenFragment(), MangaListContract.View {
-    override fun rootLayout(): Int = R.layout.screen_manga_list
+class MangaListScreen : BaseScreen(), MangaListContract.View {
+
+    override val rootLayout = R.layout.screen_manga_list
+
+    override val title get() = getString(R.string.section_list)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }

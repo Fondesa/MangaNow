@@ -17,13 +17,6 @@
 package com.fondesa.screen
 
 import android.content.Context
-import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.annotation.StyleRes
-import android.view.ContextThemeWrapper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 
 abstract class ScreenFragment : DaggerFragment() {
@@ -40,33 +33,8 @@ abstract class ScreenFragment : DaggerFragment() {
         )
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val correctInflater = theme()?.let {
-            // Wrap the custom theme.
-            val contextThemeWrapper = ContextThemeWrapper(activity, it)
-            // Clone the inflater passing the custom theme.
-            inflater.cloneInContext(contextThemeWrapper)
-        } ?: inflater
-        return correctInflater.inflate(rootLayout(), container, false)
-    }
-
     override fun onDetach() {
         super.onDetach()
         _screenManager = null
     }
-
-    @LayoutRes
-    protected abstract fun rootLayout(): Int
-
-    @StyleRes
-    protected open fun theme(): Int? = null
 }

@@ -27,10 +27,10 @@ class DefaultNavigation @Inject constructor() : Navigation {
     @IdRes
     override fun rootItemId() = R.id.section_home
 
-    override fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition = when (itemId) {
-        R.id.section_home -> Screens.MANGA_LIST
+    override fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition? = when (itemId) {
+        R.id.section_home -> Screens.LATEST
         R.id.section_list -> Screens.MANGA_LIST
-        R.id.section_settings -> Screens.MANGA_LIST
-        else -> throw IllegalArgumentException("The id $itemId cannot be handled.")
+        R.id.section_settings -> Screens.SETTINGS
+        else -> null
     }
 }

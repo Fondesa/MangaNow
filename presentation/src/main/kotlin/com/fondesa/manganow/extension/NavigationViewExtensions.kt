@@ -14,11 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.screen
+package com.fondesa.manganow.extension
 
-interface ScreenManager {
+import android.support.annotation.IdRes
+import android.support.design.widget.NavigationView
+import android.view.View
 
-    fun navigateToScreen(definition: ScreenDefinition, addToStack: Boolean, replaceCurrent: Boolean)
-
-    fun navigateToPreviousScreen()
+@IdRes
+fun NavigationView.getCheckedItem(): Int {
+    val menu = menu
+    return (0 until menu.size()).map {
+        menu.getItem(it)
+    }.firstOrNull {
+        it.isChecked
+    }?.itemId ?: View.NO_ID
 }

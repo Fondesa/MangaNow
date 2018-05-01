@@ -17,9 +17,11 @@
 package com.fondesa.manganow.screen
 
 import com.fondesa.manganow.activity.HostActivity
+import com.fondesa.manganow.latest.LatestScreen
 import com.fondesa.manganow.manga.list.MangaListModule
 import com.fondesa.manganow.manga.list.MangaListScreen
 import com.fondesa.manganow.navigation.NavigationModule
+import com.fondesa.manganow.settings.SettingsScreen
 import com.fondesa.manganow.splash.SplashModule
 import com.fondesa.manganow.splash.SplashScreen
 import com.fondesa.screen.ScreenListMap
@@ -37,8 +39,14 @@ interface ScreenModule {
     @ContributesAndroidInjector(modules = [SplashModule::class])
     fun provideSplashScreen(): SplashScreen
 
+    @ContributesAndroidInjector
+    fun provideLatestScreen(): LatestScreen
+
     @ContributesAndroidInjector(modules = [MangaListModule::class])
     fun provideMangaListScreen(): MangaListScreen
+
+    @ContributesAndroidInjector
+    fun provideSettingsScreen(): SettingsScreen
 
     @Module
     class Map {

@@ -24,5 +24,5 @@ interface Navigation {
     @IdRes
     fun rootItemId(): Int
 
-    fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition
+    fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition?
 }

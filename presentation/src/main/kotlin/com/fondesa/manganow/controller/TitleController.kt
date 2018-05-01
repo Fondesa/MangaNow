@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.screen
+package com.fondesa.manganow.controller
 
-interface ScreenManager {
+interface TitleController {
 
-    fun navigateToScreen(definition: ScreenDefinition, addToStack: Boolean, replaceCurrent: Boolean)
-
-    fun navigateToPreviousScreen()
+    fun changeTitle(title: String)
 }

@@ -19,18 +19,19 @@ package com.fondesa.manganow.splash
 import android.os.Bundle
 import android.view.View
 import com.fondesa.manganow.R
-import com.fondesa.screen.ScreenFragment
+import com.fondesa.manganow.screen.BaseScreen
+import com.fondesa.manganow.screen.Screens
 import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
 
-class SplashScreen : ScreenFragment(), SplashContract.View {
+class SplashScreen : BaseScreen(), SplashContract.View {
+
+    override val rootLayout = R.layout.screen_splash
+
+    override val theme = R.style.Screen_Splash
 
     @Inject
     lateinit var presenter: SplashContract.Presenter
-
-    override fun rootLayout() = R.layout.screen_splash
-
-    override fun theme() = R.style.Screen_Splash
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -87,6 +88,6 @@ class SplashScreen : ScreenFragment(), SplashContract.View {
     }
 
     override fun navigateToMainScreen() {
-        screenManager.navigateToRootScreen()
+        screenManager.navigateToScreen(Screens.LATEST, true, true)
     }
 }

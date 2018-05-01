@@ -16,7 +16,9 @@
 
 package com.fondesa.manganow.screen
 
+import com.fondesa.manganow.latest.LatestScreen
 import com.fondesa.manganow.manga.list.MangaListScreen
+import com.fondesa.manganow.settings.SettingsScreen
 import com.fondesa.manganow.splash.SplashScreen
 import com.fondesa.screen.ScreenClass
 import com.fondesa.screen.ScreenDefinition
@@ -25,5 +27,9 @@ enum class Screens(val screenClass: ScreenClass) : ScreenDefinition {
 
     SPLASH(SplashScreen::class),
 
-    MANGA_LIST(MangaListScreen::class)
+    LATEST(LatestScreen::class),
+
+    MANGA_LIST(MangaListScreen::class),
+
+    SETTINGS(SettingsScreen::class)
 }
