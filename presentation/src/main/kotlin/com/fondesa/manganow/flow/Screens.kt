@@ -16,9 +16,7 @@
 
 package com.fondesa.manganow.flow
 
-interface ScreenManager {
+enum class Screens(val screenClass: ScreenClass) : ScreenDefinition {
 
-    fun navigateToScreen(definition: ScreenDefinition)
-
-    fun navigateToPreviousScreen()
+    SPLASH(Screen::class)
 }

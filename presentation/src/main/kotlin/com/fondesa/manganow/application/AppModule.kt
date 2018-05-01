@@ -19,14 +19,15 @@ package com.fondesa.manganow.application
 import android.app.Application
 import android.content.Context
 import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.remote.RemoteModule
 import com.fondesa.manganow.execution.ExecutorModule
+import com.fondesa.manganow.flow.ScreenModule
+import com.fondesa.manganow.remote.RemoteModule
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [RemoteModule::class, DatabaseModule::class, ExecutorModule::class])
+@Module(includes = [RemoteModule::class, DatabaseModule::class, ExecutorModule::class, ScreenModule::class])
 class AppModule {
 
     @Singleton

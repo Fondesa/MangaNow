@@ -18,20 +18,20 @@ package com.fondesa.manganow.flow
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 
 class Screen : DaggerFragment() {
 
-    private var screenManager: ScreenManager? = null
+    private var _screenManager: ScreenManager? = null
+    protected val screenManager
+        get() = _screenManager ?: throw ScreenManagerNotAttachedException()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        _screenManager = context as? ScreenManager ?: throw ClassCastException(
+            "Cannot cast ${context::class.java.name} to ${ScreenManager::class.java.name}"
+        )
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,49 +40,6 @@ class Screen : DaggerFragment() {
 
     override fun onDetach() {
         super.onDetach()
+        _screenManager = null
     }
-}
-
-abstract class ScreenViewActivity : AppCompatActivity(), ScreenViewManager {
-
-    private lateinit var currentScreen: ScreenView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        currentScreen = mainScreen()
-        currentScreen.attach()
-        val view = currentScreen.createView(layoutInflater, window.decorView as ViewGroup)
-        setContentView(view)
-    }
-
-    override fun onDestroy() {
-        currentScreen.detach()
-        super.onDestroy()
-    }
-
-    override fun navigateToScreen(screenView: ScreenView) {
-        TODO("not implemented")
-    }
-
-    abstract fun mainScreen(): ScreenView
-}
-
-class ScreenView {
-
-    fun attach() {
-
-    }
-
-    fun createView(inflater: LayoutInflater, container: ViewGroup): View {
-        TODO()
-    }
-
-    fun detach() {
-
-    }
-}
-
-interface ScreenViewManager {
-
-    fun navigateToScreen(screenView: ScreenView)
 }

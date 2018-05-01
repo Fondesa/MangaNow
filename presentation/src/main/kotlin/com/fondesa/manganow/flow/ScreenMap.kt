@@ -16,9 +16,10 @@
 
 package com.fondesa.manganow.flow
 
-interface ScreenManager {
+interface ScreenMap {
 
-    fun navigateToScreen(definition: ScreenDefinition)
+    fun definitionOf(screenClass: ScreenClass): ScreenDefinition
 
-    fun navigateToPreviousScreen()
+    fun screenOf(definition: ScreenDefinition): ScreenClass
 }
+

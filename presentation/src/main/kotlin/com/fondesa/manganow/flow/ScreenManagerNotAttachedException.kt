@@ -16,9 +16,4 @@
 
 package com.fondesa.manganow.flow
 
-interface ScreenManager {
-
-    fun navigateToScreen(definition: ScreenDefinition)
-
-    fun navigateToPreviousScreen()
-}
+class ScreenManagerNotAttachedException: Exception()

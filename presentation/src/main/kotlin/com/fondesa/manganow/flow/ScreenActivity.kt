@@ -17,11 +17,17 @@
 package com.fondesa.manganow.flow
 
 import android.os.Bundle
+import android.support.v4.app.FragmentTransaction
 import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 import kotlin.reflect.KClass
 import kotlin.reflect.jvm.isAccessible
 
-abstract class ScreenActivity : DaggerAppCompatActivity(), ScreenManager {
+abstract class ScreenActivity : DaggerAppCompatActivity(),
+    ScreenManager {
+
+    @Inject
+    lateinit var screenMap: ScreenMap
 
     private val screenStack = mutableListOf<Screen>()
 
@@ -32,17 +38,27 @@ abstract class ScreenActivity : DaggerAppCompatActivity(), ScreenManager {
         navigateToScreen(launchScreen)
     }
 
-    override fun onScreenReady(tag: String) {
-        TODO("not implemented")
+
+    fun customizeTransaction(
+        transaction: FragmentTransaction,
+        current: ScreenDefinition,
+        next: ScreenDefinition
+    ) {
+
     }
 
-    override fun navigateToScreen(screenClass: KClass<out Screen>) {
+    override fun navigateToScreen(
+        definition: ScreenDefinition
+    ) {
+        val screenClass = screenMap.screenOf(definition)
         val screen = createScreen(screenClass)
 
         val transaction = supportFragmentManager.beginTransaction()
 
         val lastScreen = screenStack.lastOrNull()
         lastScreen?.let {
+            val current = screenMap.definitionOf(it::class)
+            customizeTransaction(transaction, current, definition)
             transaction.hide(it)
         }
 
@@ -56,9 +72,15 @@ abstract class ScreenActivity : DaggerAppCompatActivity(), ScreenManager {
             return
         }
 
+        val currentScreen = screenStack.last()
         val previousScreen = screenStack[screenStack.size - 2]
-        supportFragmentManager.beginTransaction()
-            .remove(screenStack.last())
+        val transaction = supportFragmentManager.beginTransaction()
+
+        val currentDefinition = screenMap.definitionOf(currentScreen::class)
+        val previousDefinition = screenMap.definitionOf(previousScreen::class)
+        customizeTransaction(transaction, currentDefinition, previousDefinition)
+
+        transaction.remove(currentScreen)
             .show(previousScreen)
             .commit()
     }
@@ -71,7 +93,7 @@ abstract class ScreenActivity : DaggerAppCompatActivity(), ScreenManager {
         }
     }
 
-    abstract fun launchScreen(): KClass<out Screen>
+    abstract fun launchScreen(): ScreenDefinition
 
     private fun createScreen(screenClass: KClass<out Screen>): Screen {
         val constructor = screenClass.constructors.firstOrNull {

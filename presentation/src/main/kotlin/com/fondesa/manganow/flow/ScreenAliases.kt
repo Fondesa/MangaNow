@@ -16,9 +16,6 @@
 
 package com.fondesa.manganow.flow
 
-interface ScreenManager {
+import kotlin.reflect.KClass
 
-    fun navigateToScreen(definition: ScreenDefinition)
-
-    fun navigateToPreviousScreen()
-}
+typealias ScreenClass = KClass<out Screen>

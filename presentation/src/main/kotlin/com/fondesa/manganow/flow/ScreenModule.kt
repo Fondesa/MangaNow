@@ -16,9 +16,12 @@
 
 package com.fondesa.manganow.flow
 
-interface ScreenManager {
+import dagger.Binds
+import dagger.Module
 
-    fun navigateToScreen(definition: ScreenDefinition)
+@Module
+interface ScreenModule {
 
-    fun navigateToPreviousScreen()
+    @Binds
+    fun provideScreenMap(map: ScreenEnumMap): ScreenMap
 }
