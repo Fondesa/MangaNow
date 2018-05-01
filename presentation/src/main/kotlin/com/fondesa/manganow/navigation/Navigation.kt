@@ -17,20 +17,12 @@
 package com.fondesa.manganow.navigation
 
 import android.support.annotation.IdRes
-import com.fondesa.manganow.R
-import com.fondesa.manganow.screen.Screens
 import com.fondesa.screen.ScreenDefinition
-import javax.inject.Inject
 
-class DefaultNavigator @Inject constructor() : Navigator {
+interface Navigation {
 
     @IdRes
-    override fun rootItemId() = R.id.section_home
+    fun rootItemId(): Int
 
-    override fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition = when (itemId) {
-        R.id.section_home -> Screens.MANGA_LIST
-        R.id.section_list -> Screens.MANGA_LIST
-        R.id.section_settings -> Screens.MANGA_LIST
-        else -> throw IllegalArgumentException("The id $itemId cannot be handled.")
-    }
+    fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition
 }

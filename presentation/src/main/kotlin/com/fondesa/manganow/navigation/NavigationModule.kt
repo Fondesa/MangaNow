@@ -23,5 +23,5 @@ import dagger.Module
 interface NavigationModule {
 
     @Binds
-    fun provideNavigator(navigator: DefaultNavigator): Navigator
+    fun provideNavigator(navigator: DefaultNavigation): Navigation
 }

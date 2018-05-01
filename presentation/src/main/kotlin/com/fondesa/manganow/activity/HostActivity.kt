@@ -24,7 +24,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Gravity
 import android.view.View
 import com.fondesa.manganow.R
-import com.fondesa.manganow.navigation.Navigator
+import com.fondesa.manganow.navigation.Navigation
 import com.fondesa.manganow.screen.Screens
 import com.fondesa.screen.ScreenActivity
 import com.fondesa.screen.ScreenDefinition
@@ -35,7 +35,7 @@ import javax.inject.Inject
 class HostActivity : ScreenActivity() {
 
     @Inject
-    lateinit var navigator: Navigator
+    lateinit var navigation: Navigation
 
     private val drawerToggle: ActionBarDrawerToggle by lazy {
         ActionBarDrawerToggle(
@@ -60,7 +60,7 @@ class HostActivity : ScreenActivity() {
         navigationView.setNavigationItemSelectedListener { item ->
             @IdRes val itemId = item.itemId
 
-            val screenDefinition = navigator.definitionOfItem(itemId)
+            val screenDefinition = navigation.definitionOfItem(itemId)
             navigateToScreen(screenDefinition, true)
 
             navigationView.setCheckedItem(itemId)
@@ -81,8 +81,8 @@ class HostActivity : ScreenActivity() {
     override fun screenContainer(): Int = R.id.screenContainer
 
     override fun rootScreenDefinition(): ScreenDefinition {
-        @IdRes val rootItemId = navigator.rootItemId()
-        return navigator.definitionOfItem(rootItemId)
+        @IdRes val rootItemId = navigation.rootItemId()
+        return navigation.definitionOfItem(rootItemId)
     }
 
     override fun onTransaction(
@@ -93,7 +93,7 @@ class HostActivity : ScreenActivity() {
         if (current == Screens.SPLASH) {
             applyDefaultConfiguration()
             // Check the root navigation item.
-            navigationView.setCheckedItem(navigator.rootItemId())
+            navigationView.setCheckedItem(navigation.rootItemId())
         }
     }
 
