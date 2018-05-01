@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.screen
+package com.fondesa.manganow.navigation
 
-interface ScreenManager {
+import android.support.annotation.IdRes
+import com.fondesa.screen.ScreenDefinition
 
-    fun navigateToRootScreen()
+interface Navigator {
 
-    fun navigateToScreen(definition: ScreenDefinition, addToStack: Boolean)
+    @IdRes
+    fun rootItemId(): Int
 
-    fun navigateToPreviousScreen()
+    fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition
 }

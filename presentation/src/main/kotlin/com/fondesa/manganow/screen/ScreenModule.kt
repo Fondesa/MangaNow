@@ -19,6 +19,7 @@ package com.fondesa.manganow.screen
 import com.fondesa.manganow.activity.HostActivity
 import com.fondesa.manganow.manga.list.MangaListModule
 import com.fondesa.manganow.manga.list.MangaListScreen
+import com.fondesa.manganow.navigation.NavigationModule
 import com.fondesa.manganow.splash.SplashModule
 import com.fondesa.manganow.splash.SplashScreen
 import com.fondesa.screen.ScreenListMap
@@ -30,7 +31,7 @@ import dagger.android.ContributesAndroidInjector
 @Module
 interface ScreenModule {
 
-    @ContributesAndroidInjector(modules = [Map::class])
+    @ContributesAndroidInjector(modules = [Map::class, NavigationModule::class])
     fun provideHostActivity(): HostActivity
 
     @ContributesAndroidInjector(modules = [SplashModule::class])

@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.screen
+package com.fondesa.manganow.navigation
 
-interface ScreenManager {
+import dagger.Binds
+import dagger.Module
 
-    fun navigateToRootScreen()
+@Module
+interface NavigationModule {
 
-    fun navigateToScreen(definition: ScreenDefinition, addToStack: Boolean)
-
-    fun navigateToPreviousScreen()
+    @Binds
+    fun provideNavigator(navigator: DefaultNavigator): Navigator
 }

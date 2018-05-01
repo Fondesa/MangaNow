@@ -40,6 +40,8 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
     @IdRes
     protected abstract fun screenContainer(): Int
 
+    protected abstract fun rootScreenDefinition(): ScreenDefinition
+
     protected open fun onTransaction(
         transaction: FragmentTransaction,
         current: ScreenDefinition,
@@ -50,6 +52,11 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
         current: ScreenDefinition,
         next: ScreenDefinition
     ) = Unit
+
+    override fun navigateToRootScreen() {
+        val rootDefinition = rootScreenDefinition()
+        navigateToScreen(rootDefinition, true)
+    }
 
     override fun navigateToScreen(
         definition: ScreenDefinition,

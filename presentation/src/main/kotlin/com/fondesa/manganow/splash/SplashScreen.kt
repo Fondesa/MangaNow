@@ -19,7 +19,6 @@ package com.fondesa.manganow.splash
 import android.os.Bundle
 import android.view.View
 import com.fondesa.manganow.R
-import com.fondesa.manganow.screen.Screens
 import com.fondesa.screen.ScreenFragment
 import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
@@ -88,6 +87,6 @@ class SplashScreen : ScreenFragment(), SplashContract.View {
     }
 
     override fun navigateToMainScreen() {
-        screenManager.navigateToScreen(Screens.MANGA_LIST, true)
+        screenManager.navigateToRootScreen()
     }
 }
