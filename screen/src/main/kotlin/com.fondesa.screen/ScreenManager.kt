@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.screen
+package com.fondesa.screen
 
-class ScreenManagerNotAttachedException: Exception()
+interface ScreenManager {
+
+    fun navigateToScreen(definition: ScreenDefinition, addToStack: Boolean)
+
+    fun navigateToPreviousScreen()
+}

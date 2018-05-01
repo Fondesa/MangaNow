@@ -45,7 +45,7 @@ interface SplashModule {
     fun providePresenter(presenter: SplashPresenter): SplashContract.Presenter
 
     @Binds
-    fun provideView(view: SplashActivity): SplashContract.View
+    fun provideView(view: SplashScreen): SplashContract.View
 
     @Binds
     fun provideCategoryDiskStorageFactory(factory: DefaultCategoryDiskStorageFactory): CategoryDiskStorageFactory

@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.screen
 
-import android.os.Bundle
-import com.fondesa.manganow.R
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
+interface ScreenMap {
 
-class MangaListActivity : DaggerAppCompatActivity(), MangaListContract.View {
+    fun definitionOf(screenClass: ScreenClass): ScreenDefinition
 
-    @Inject
-    lateinit var presenter: MangaListContract.Presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+    fun screenOf(definition: ScreenDefinition): ScreenClass
 }
+

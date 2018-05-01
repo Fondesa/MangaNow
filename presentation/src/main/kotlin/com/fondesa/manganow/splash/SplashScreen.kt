@@ -18,26 +18,23 @@ package com.fondesa.manganow.splash
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import com.fondesa.manganow.R
-import com.fondesa.manganow.activity.BaseActivity
-import com.fondesa.manganow.view.FullScreenViewManager
+import com.fondesa.manganow.screen.Screens
+import com.fondesa.screen.ScreenFragment
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
-/**
- * Section that shows the launch screen.
- * This section will be dismissed automatically after a certain amount of time.
- */
-class SplashActivity : BaseActivity<FullScreenViewManager>(),
-    SplashContract.View {
+class SplashScreen : ScreenFragment(), SplashContract.View {
 
     @Inject
     lateinit var presenter: SplashContract.Presenter
 
-    override fun createViewManager() = FullScreenViewManager(R.layout.activity_splash, true)
+    override fun rootLayout() = R.layout.activity_splash
 
-    override fun onViewCreated(view: ViewGroup, savedInstanceState: Bundle?) {
+    override fun theme() = R.style.Screen_Splash
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // Set the click listener.
         retryButton.setOnClickListener {
             // Retry to load the data.
@@ -91,6 +88,6 @@ class SplashActivity : BaseActivity<FullScreenViewManager>(),
     }
 
     override fun navigateToMainScreen() {
-        //TODO
+        screenManager.navigateToScreen(Screens.MANGA_LIST, true)
     }
 }

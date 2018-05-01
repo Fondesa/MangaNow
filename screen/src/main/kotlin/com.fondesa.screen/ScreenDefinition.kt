@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.screen
+package com.fondesa.screen
 
-interface ScreenMap {
-
-    fun definitionOf(screenClass: ScreenClass): ScreenDefinition
-
-    fun screenOf(definition: ScreenDefinition): ScreenClass
-}
-
+interface ScreenDefinition

@@ -14,87 +14,102 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.screen
+package com.fondesa.screen
 
-import android.os.Bundle
+import android.support.annotation.IdRes
 import android.support.v4.app.FragmentTransaction
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
-import kotlin.reflect.KClass
-import kotlin.reflect.jvm.isAccessible
 
 abstract class ScreenActivity : DaggerAppCompatActivity(),
     ScreenManager {
 
+    private val container by lazy { screenContainer() }
+
     @Inject
     lateinit var screenMap: ScreenMap
 
-    private val screenStack = mutableListOf<Screen>()
+    protected val currentScreen: ScreenFragment?
+        get() = supportFragmentManager.findFragmentById(container) as? ScreenFragment
 
-    protected abstract fun launchScreen(): ScreenDefinition
+    protected val currentDefinition: ScreenDefinition?
+        get() = currentScreen?.let {
+            screenMap.definitionOf(it::class)
+        }
 
-    protected open fun customizeTransaction(
+    @IdRes
+    protected abstract fun screenContainer(): Int
+
+    protected open fun onTransaction(
         transaction: FragmentTransaction,
         current: ScreenDefinition,
         next: ScreenDefinition
     ) = Unit
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val launchScreen = launchScreen()
-        navigateToScreen(launchScreen)
-    }
+    protected open fun onScreenChange(
+        current: ScreenDefinition,
+        next: ScreenDefinition
+    ) = Unit
 
     override fun navigateToScreen(
-        definition: ScreenDefinition
+        definition: ScreenDefinition,
+        addToStack: Boolean
     ) {
         val screenClass = screenMap.screenOf(definition)
         val screen = createScreen(screenClass)
 
         val transaction = supportFragmentManager.beginTransaction()
+            .replace(container, screen)
 
-        val lastScreen = screenStack.lastOrNull()
-        lastScreen?.let {
+        currentScreen?.let {
             val current = screenMap.definitionOf(it::class)
-            customizeTransaction(transaction, current, definition)
+            onTransaction(transaction, current, definition)
+            onScreenChange(current, definition)
             transaction.hide(it)
         }
 
-        transaction.add(screen, null)
-            .commit()
+        if (addToStack) {
+            transaction.addToBackStack(screenClass.java.name)
+        }
+
+        transaction.commit()
     }
 
     override fun navigateToPreviousScreen() {
-        if (screenStack.size <= 1) {
+        val fm = supportFragmentManager
+        val stackSize = fm.backStackEntryCount
+        if (stackSize == 0) {
             finish()
             return
         }
 
-        val currentScreen = screenStack.last()
-        val previousScreen = screenStack[screenStack.size - 2]
-        val transaction = supportFragmentManager.beginTransaction()
+        val lastEntry = fm.getBackStackEntryAt(stackSize - 1)
+        @Suppress("UNCHECKED_CAST")
+        val previousScreenClass = Class.forName(lastEntry.name).kotlin as ScreenClass
+
+        val currentScreen = currentScreen!!
+        if (stackSize == 1 && currentScreen::class == previousScreenClass) {
+            finish()
+            return
+        }
 
         val currentDefinition = screenMap.definitionOf(currentScreen::class)
-        val previousDefinition = screenMap.definitionOf(previousScreen::class)
-        customizeTransaction(transaction, currentDefinition, previousDefinition)
-
-        transaction.remove(currentScreen)
-            .show(previousScreen)
-            .commit()
+        val previousDefinition = screenMap.definitionOf(previousScreenClass)
+        onScreenChange(currentDefinition, previousDefinition)
+        fm.popBackStack()
     }
 
     override fun onBackPressed() {
-        if (screenStack.size <= 1) {
+        if (supportFragmentManager.backStackEntryCount == 0) {
             super.onBackPressed()
         } else {
             navigateToPreviousScreen()
         }
     }
 
-    private fun createScreen(screenClass: KClass<out Screen>): Screen {
+    private fun createScreen(screenClass: ScreenClass): ScreenFragment {
         val constructor = screenClass.constructors.firstOrNull {
-            it.parameters.isEmpty() && it.isAccessible
+            it.parameters.isEmpty()
         } ?: throw IllegalArgumentException(
             "The class ${screenClass.java.name} must provide a public constructor with zero parameters."
         )

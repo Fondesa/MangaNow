@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.screen
+package com.fondesa.screen
 
-class ScreenEnumMap : ScreenMap {
+class ScreenListMap(screenList: List<Pair<ScreenDefinition, ScreenClass>>) : ScreenMap {
 
     private val screenToDefinition = mutableMapOf<ScreenClass, ScreenDefinition>()
     private val definitionToScreen = mutableMapOf<ScreenDefinition, ScreenClass>()
 
     init {
         // Add the screens to the map.
-        Screens.values().map {
-            it to it.screenClass
+        screenList.forEach { (definition, screen) ->
+            screenToDefinition[screen] = definition
+            definitionToScreen[definition] = screen
         }
     }
+
     override fun definitionOf(screenClass: ScreenClass): ScreenDefinition =
         screenToDefinition[screenClass] ?: throw IllegalArgumentException(
             "Cannot find a ${ScreenDefinition::class.java.name} for class ${screenClass.java.name}"
@@ -34,7 +36,7 @@ class ScreenEnumMap : ScreenMap {
 
     override fun screenOf(definition: ScreenDefinition): ScreenClass =
         definitionToScreen[definition] ?: throw IllegalArgumentException(
-            "Cannot find a ${Screen::class.java.name} class for definition ${definition::class.java.name}"
+            "Cannot find a ${ScreenFragment::class.java.name} class for definition ${definition::class.java.name}"
         )
 }
 

@@ -16,12 +16,38 @@
 
 package com.fondesa.manganow.screen
 
-import dagger.Binds
+import com.fondesa.manganow.activity.HostActivity
+import com.fondesa.manganow.manga.list.MangaListModule
+import com.fondesa.manganow.manga.list.MangaListScreen
+import com.fondesa.manganow.splash.SplashModule
+import com.fondesa.manganow.splash.SplashScreen
+import com.fondesa.screen.ScreenListMap
+import com.fondesa.screen.ScreenMap
 import dagger.Module
+import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 
 @Module
 interface ScreenModule {
 
-    @Binds
-    fun provideScreenMap(map: ScreenEnumMap): ScreenMap
+    @ContributesAndroidInjector(modules = [Map::class])
+    fun provideHostActivity(): HostActivity
+
+    @ContributesAndroidInjector(modules = [SplashModule::class])
+    fun provideSplashScreen(): SplashScreen
+
+    @ContributesAndroidInjector(modules = [MangaListModule::class])
+    fun provideMangaListScreen(): MangaListScreen
+
+    @Module
+    class Map {
+
+        @Provides
+        fun provideScreenMap(): ScreenMap {
+            val screenList = Screens.values().map {
+                it to it.screenClass
+            }
+            return ScreenListMap(screenList)
+        }
+    }
 }

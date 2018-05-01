@@ -14,21 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.activity
+package com.fondesa.manganow.manga.list
 
-import com.fondesa.manganow.manga.list.MangaListActivity
-import com.fondesa.manganow.manga.list.MangaListModule
-import com.fondesa.manganow.splash.SplashActivity
-import com.fondesa.manganow.splash.SplashModule
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.fondesa.manganow.R
+import com.fondesa.screen.ScreenFragment
 
-@Module
-interface ActivityBuilderModule {
-
-    @ContributesAndroidInjector(modules = [SplashModule::class])
-    fun bindSplashActivity(): SplashActivity
-
-    @ContributesAndroidInjector(modules = [MangaListModule::class])
-    fun bindMangaListActivity(): MangaListActivity
+class MangaListScreen: ScreenFragment(), MangaListContract.View {
+    override fun rootLayout(): Int = R.layout.activity_main
 }

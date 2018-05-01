@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.screen
+package com.fondesa.screen
 
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.LayoutRes
+import android.support.annotation.StyleRes
+import android.view.ContextThemeWrapper
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 
-class Screen : DaggerFragment() {
+abstract class ScreenFragment : DaggerFragment() {
 
-    private var _screenManager: ScreenManager? = null
     protected val screenManager
         get() = _screenManager ?: throw ScreenManagerNotAttachedException()
+
+    private var _screenManager: ScreenManager? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,8 +45,28 @@ class Screen : DaggerFragment() {
         setHasOptionsMenu(true)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val correctInflater = theme()?.let {
+            // Wrap the custom theme.
+            val contextThemeWrapper = ContextThemeWrapper(activity, it)
+            // Clone the inflater passing the custom theme.
+            inflater.cloneInContext(contextThemeWrapper)
+        } ?: inflater
+        return correctInflater.inflate(rootLayout(), container, false)
+    }
+
     override fun onDetach() {
         super.onDetach()
         _screenManager = null
     }
+
+    @LayoutRes
+    protected abstract fun rootLayout(): Int
+
+    @StyleRes
+    protected open fun theme(): Int? = null
 }

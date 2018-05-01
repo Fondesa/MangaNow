@@ -1,16 +1,10 @@
 <resources>
 
-    <style name="AppTheme" parent="CommonTheme">
+    <style name="App" parent="AppCommon">
 
     </style>
 
-    <style name="AppTheme.Splash">
-        <item name="android:windowBackground">?colorPrimary</item>
-        <item name="colorAccent">@android:color/white</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-    <style name="CommonTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppCommon" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
@@ -19,5 +13,17 @@
 
     <style name="NavigationDrawerToggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="Host" parent="App">
+        <!-- Used to have this background at the startup without delay. -->
+        <item name="android:windowBackground">?colorPrimary</item>
+    </style>
+
+    <style name="Screen" />
+
+    <style name="Screen.Splash">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 </resources>
