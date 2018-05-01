@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.flow
+package com.fondesa.manganow.screen
 
 import android.content.Context
 import android.os.Bundle

@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.flow
+package com.fondesa.manganow.screen
 
-enum class Screens(val screenClass: ScreenClass) : ScreenDefinition {
-
-    SPLASH(Screen::class)
-}
+class ScreenManagerNotAttachedException: Exception()

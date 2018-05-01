@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.flow
+package com.fondesa.manganow.screen
 
 import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
@@ -31,20 +31,19 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
 
     private val screenStack = mutableListOf<Screen>()
 
+    protected abstract fun launchScreen(): ScreenDefinition
+
+    protected open fun customizeTransaction(
+        transaction: FragmentTransaction,
+        current: ScreenDefinition,
+        next: ScreenDefinition
+    ) = Unit
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val launchScreen = launchScreen()
         navigateToScreen(launchScreen)
-    }
-
-
-    fun customizeTransaction(
-        transaction: FragmentTransaction,
-        current: ScreenDefinition,
-        next: ScreenDefinition
-    ) {
-
     }
 
     override fun navigateToScreen(
@@ -92,8 +91,6 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
             navigateToPreviousScreen()
         }
     }
-
-    abstract fun launchScreen(): ScreenDefinition
 
     private fun createScreen(screenClass: KClass<out Screen>): Screen {
         val constructor = screenClass.constructors.firstOrNull {

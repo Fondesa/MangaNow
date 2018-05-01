@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.flow
+package com.fondesa.manganow.screen
 
-interface ScreenMap {
+enum class Screens(val screenClass: ScreenClass) : ScreenDefinition {
 
-    fun definitionOf(screenClass: ScreenClass): ScreenDefinition
-
-    fun screenOf(definition: ScreenDefinition): ScreenClass
+    SPLASH(Screen::class)
 }
-

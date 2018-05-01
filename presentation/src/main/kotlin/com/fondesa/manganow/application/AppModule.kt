@@ -20,8 +20,8 @@ import android.app.Application
 import android.content.Context
 import com.fondesa.manganow.database.DatabaseModule
 import com.fondesa.manganow.execution.ExecutorModule
-import com.fondesa.manganow.flow.ScreenModule
 import com.fondesa.manganow.remote.RemoteModule
+import com.fondesa.manganow.screen.ScreenModule
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
