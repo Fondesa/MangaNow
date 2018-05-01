@@ -21,7 +21,7 @@ import android.view.View
 import com.fondesa.manganow.R
 import com.fondesa.manganow.screen.Screens
 import com.fondesa.screen.ScreenFragment
-import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
 
 class SplashScreen : ScreenFragment(), SplashContract.View {
@@ -29,7 +29,7 @@ class SplashScreen : ScreenFragment(), SplashContract.View {
     @Inject
     lateinit var presenter: SplashContract.Presenter
 
-    override fun rootLayout() = R.layout.activity_splash
+    override fun rootLayout() = R.layout.screen_splash
 
     override fun theme() = R.style.Screen_Splash
 

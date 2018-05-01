@@ -28,7 +28,7 @@ class HostActivity : ScreenActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_root_full_screen)
+        setContentView(R.layout.activity_host)
 
         if (savedInstanceState == null) {
             // Navigate to the splash screen only the first time.

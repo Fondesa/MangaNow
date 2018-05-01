@@ -20,5 +20,5 @@ import com.fondesa.manganow.R
 import com.fondesa.screen.ScreenFragment
 
 class MangaListScreen: ScreenFragment(), MangaListContract.View {
-    override fun rootLayout(): Int = R.layout.activity_main
+    override fun rootLayout(): Int = R.layout.screen_manga_list
 }

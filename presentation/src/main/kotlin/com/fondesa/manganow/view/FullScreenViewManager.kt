@@ -25,7 +25,7 @@ class FullScreenViewManager(@LayoutRes private val contentLayout: Int, val fitsS
 
     override fun createRootView(activity: AppCompatActivity): ViewGroup {
         // Inflate the content layout.
-        val view = View.inflate(activity, R.layout.activity_root_full_screen, null)
+        val view = View.inflate(activity, R.layout.activity_host, null)
         // The root view will be full screen.
         view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view.fitsSystemWindows = fitsSystemWindows
