@@ -16,11 +16,15 @@
 
 package com.fondesa.manganow.latest
 
+import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.R
+import com.fondesa.manganow.lyra
 import com.fondesa.manganow.screen.BaseScreen
 
 class LatestScreen : BaseScreen(), LatestContract.View {
@@ -29,8 +33,68 @@ class LatestScreen : BaseScreen(), LatestContract.View {
 
     override val title get() = getString(R.string.section_home)
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        lyra("onActivityCreated")
+        super.onActivityCreated(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        lyra("onCreateView")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        lyra("onViewCreated")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lyra("onCreate")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        lyra("onPause")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lyra("onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        lyra("onStart")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        lyra("onStop")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        lyra("onAttach")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        lyra("onDetach")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        lyra("onDestroyView")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lyra("onDestroy")
     }
 
     override fun showProgressIndicator() {

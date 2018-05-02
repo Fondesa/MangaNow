@@ -19,6 +19,7 @@ package com.fondesa.screen
 import android.support.annotation.IdRes
 import android.support.v4.app.FragmentTransaction
 import dagger.android.support.DaggerAppCompatActivity
+import java.util.*
 import javax.inject.Inject
 
 abstract class ScreenActivity : DaggerAppCompatActivity(),
@@ -29,13 +30,12 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
     @Inject
     lateinit var screenMap: ScreenMap
 
-    protected val currentScreen: ScreenFragment?
-        get() = supportFragmentManager.findFragmentById(container) as? ScreenFragment
-
     protected val currentDefinition: ScreenDefinition?
-        get() = currentScreen?.let {
+        get() = stack.lastOrNull()?.let {
             screenMap.definitionOf(it::class)
         }
+
+    private val stack = LinkedList<ScreenFragment>()
 
     @IdRes
     protected abstract fun screenContainer(): Int
@@ -53,57 +53,70 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
 
     override fun navigateToScreen(
         definition: ScreenDefinition,
-        addToStack: Boolean,
-        replaceCurrent: Boolean
+        strategy: ScreenManager.StackStrategy
     ) {
         val screenClass = screenMap.screenOf(definition)
         val screen = createScreen(screenClass)
 
         val transaction = supportFragmentManager.beginTransaction()
-            .replace(container, screen)
+            .add(container, screen)
 
-        currentScreen?.let {
-            val current = screenMap.definitionOf(it::class)
-            onTransaction(transaction, current, definition)
-            onScreenChange(current, definition)
-            if (replaceCurrent) {
-                supportFragmentManager.popBackStack()
+        val currentScreen = stack.lastOrNull()
+        val current = currentScreen?.let {
+            screenMap.definitionOf(it::class)
+        }
+        if (strategy == ScreenManager.StackStrategy.REPLACE_ALL) {
+            stack.forEach {
+                transaction.remove(it)
+            }
+            stack.clear()
+        } else if (currentScreen != null) {
+            if (strategy == ScreenManager.StackStrategy.REPLACE_CURRENT) {
+                transaction.remove(currentScreen)
+                stack.removeLast()
+            } else {
+                transaction.detach(currentScreen)
             }
         }
 
-        if (addToStack) {
-            transaction.addToBackStack(screenClass.java.name)
+        current?.also {
+            onTransaction(transaction, it, definition)
+            onScreenChange(it, definition)
         }
 
         transaction.commit()
+        // Add the screen to the stack.
+        stack.add(screen)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stack.clear()
     }
 
     override fun navigateToPreviousScreen() {
         val fm = supportFragmentManager
-        val stackSize = fm.backStackEntryCount
-        if (stackSize == 0) {
+        val stackSize = stack.size
+        if (stackSize <= 1) {
             finish()
             return
         }
 
-        val lastEntry = fm.getBackStackEntryAt(stackSize - 1)
-        @Suppress("UNCHECKED_CAST")
-        val previousScreenClass = Class.forName(lastEntry.name).kotlin as ScreenClass
-
-        val currentScreen = currentScreen!!
-        if (stackSize == 1 && currentScreen::class == previousScreenClass) {
-            finish()
-            return
-        }
+        val currentScreen = stack.pollLast()
+        val previousScreen = stack.last
 
         val currentDefinition = screenMap.definitionOf(currentScreen::class)
-        val previousDefinition = screenMap.definitionOf(previousScreenClass)
+        val previousDefinition = screenMap.definitionOf(previousScreen::class)
         onScreenChange(currentDefinition, previousDefinition)
-        fm.popBackStack()
+
+        fm.beginTransaction()
+            .remove(currentScreen)
+            .attach(previousScreen)
+            .commit()
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount == 0) {
+        if (stack.size <= 1) {
             super.onBackPressed()
         } else {
             navigateToPreviousScreen()

@@ -29,6 +29,7 @@ import com.fondesa.manganow.navigation.Navigation
 import com.fondesa.manganow.screen.Screens
 import com.fondesa.screen.ScreenActivity
 import com.fondesa.screen.ScreenDefinition
+import com.fondesa.screen.ScreenManager
 import kotlinx.android.synthetic.main.activity_host.*
 import kotlinx.android.synthetic.main.partial_toolbar.*
 import javax.inject.Inject
@@ -68,8 +69,13 @@ class HostActivity : ScreenActivity(), TitleController {
 
             val screenDefinition = navigation.definitionOfItem(selectedItemId)
             screenDefinition?.let {
+                val strategy = when {
+                    selectedItemId == rootItemId -> ScreenManager.StackStrategy.REPLACE_ALL
+                    currentItemId == rootItemId -> ScreenManager.StackStrategy.NONE
+                    else -> ScreenManager.StackStrategy.REPLACE_CURRENT
+                }
                 // Navigate to the next screen.
-                navigateToScreen(it, true, currentItemId != rootItemId)
+                navigateToScreen(it, strategy)
                 return@setNavigationItemSelectedListener true
             }
             false
@@ -77,7 +83,7 @@ class HostActivity : ScreenActivity(), TitleController {
 
         if (savedInstanceState == null) {
             // Navigate to the splash screen only the first time.
-            navigateToScreen(Screens.SPLASH, false, false)
+            navigateToScreen(Screens.SPLASH)
         } else if (currentDefinition != Screens.SPLASH) {
             applyDefaultConfiguration()
         }

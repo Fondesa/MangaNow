@@ -68,8 +68,6 @@ abstract class BaseScreen : ScreenFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        title?.let {
-            titleController?.changeTitle(it)
-        }
+        titleController?.changeTitle(title)
     }
 }
