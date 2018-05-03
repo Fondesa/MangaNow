@@ -18,8 +18,8 @@ package com.fondesa.manganow.navigation
 
 import android.support.annotation.IdRes
 import com.fondesa.manganow.R
-import com.fondesa.manganow.screen.Screens
-import com.fondesa.screen.ScreenDefinition
+import com.fondesa.manganow.screen.ScreenConfigurations
+import com.fondesa.screen.ScreenConfiguration
 import javax.inject.Inject
 
 class DefaultNavigation @Inject constructor() : Navigation {
@@ -27,10 +27,10 @@ class DefaultNavigation @Inject constructor() : Navigation {
     @IdRes
     override fun rootItemId() = R.id.section_home
 
-    override fun definitionOfItem(@IdRes itemId: Int): ScreenDefinition? = when (itemId) {
-        R.id.section_home -> Screens.LATEST
-        R.id.section_list -> Screens.MANGA_LIST
-        R.id.section_settings -> Screens.SETTINGS
+    override fun configurationOfItem(@IdRes itemId: Int): ScreenConfiguration? = when (itemId) {
+        R.id.section_home -> ScreenConfigurations.LATEST
+        R.id.section_list -> ScreenConfigurations.MANGA_LIST
+        R.id.section_settings -> ScreenConfigurations.SETTINGS
         else -> null
     }
 }

@@ -10,7 +10,7 @@ buildscript {
             gson             : '2.8.2',
             javaxInject      : '1',
             jUnit            : '4.12',
-            kotlin           : '1.2.40',
+            kotlin           : '1.2.41',
             kotlinPoet       : '0.7.0',
             leakCanary       : '1.5.4',
             okHttp           : '3.10.0'

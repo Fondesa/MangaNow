@@ -20,16 +20,22 @@ import com.fondesa.manganow.latest.LatestScreen
 import com.fondesa.manganow.manga.list.MangaListScreen
 import com.fondesa.manganow.settings.SettingsScreen
 import com.fondesa.manganow.splash.SplashScreen
-import com.fondesa.screen.ScreenClass
-import com.fondesa.screen.ScreenDefinition
+import com.fondesa.screen.ScreenConfiguration
+import com.fondesa.screen.ScreenFragment
+import com.fondesa.screen.ScreenKey
 
-enum class Screens(val screenClass: ScreenClass) : ScreenDefinition {
+enum class ScreenConfigurations(
+    override val key: ScreenKey,
+    private inline val screenBlock: () -> ScreenFragment
+) : ScreenConfiguration {
 
-    SPLASH(SplashScreen::class),
+    SPLASH(ScreenKeys.SPLASH, { SplashScreen() }),
 
-    LATEST(LatestScreen::class),
+    LATEST(ScreenKeys.LATEST, { LatestScreen() }),
 
-    MANGA_LIST(MangaListScreen::class),
+    MANGA_LIST(ScreenKeys.MANGA_LIST, { MangaListScreen() }),
 
-    SETTINGS(SettingsScreen::class)
+    SETTINGS(ScreenKeys.SETTINGS, { SettingsScreen() });
+
+    override fun createScreen(): ScreenFragment = screenBlock()
 }

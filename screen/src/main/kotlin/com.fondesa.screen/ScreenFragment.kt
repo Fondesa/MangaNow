@@ -21,6 +21,11 @@ import dagger.android.support.DaggerFragment
 
 abstract class ScreenFragment : DaggerFragment() {
 
+    val key: ScreenKey
+        get() = arguments?.getParcelable(ARG_SCREEN_KEY) ?: throw NullPointerException(
+            "Cannot get the key for the screen ${this::class.java.name}"
+        )
+
     protected val screenManager
         get() = _screenManager ?: throw ScreenManagerNotAttachedException()
 
@@ -36,5 +41,9 @@ abstract class ScreenFragment : DaggerFragment() {
     override fun onDetach() {
         super.onDetach()
         _screenManager = null
+    }
+
+    companion object {
+        const val ARG_SCREEN_KEY = "screen.key"
     }
 }

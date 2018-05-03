@@ -24,16 +24,13 @@ import com.fondesa.manganow.navigation.NavigationModule
 import com.fondesa.manganow.settings.SettingsScreen
 import com.fondesa.manganow.splash.SplashModule
 import com.fondesa.manganow.splash.SplashScreen
-import com.fondesa.screen.ScreenListMap
-import com.fondesa.screen.ScreenMap
 import dagger.Module
-import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 
 @Module
 interface ScreenModule {
 
-    @ContributesAndroidInjector(modules = [Map::class, NavigationModule::class])
+    @ContributesAndroidInjector(modules = [NavigationModule::class])
     fun provideHostActivity(): HostActivity
 
     @ContributesAndroidInjector(modules = [SplashModule::class])
@@ -47,16 +44,4 @@ interface ScreenModule {
 
     @ContributesAndroidInjector
     fun provideSettingsScreen(): SettingsScreen
-
-    @Module
-    class Map {
-
-        @Provides
-        fun provideScreenMap(): ScreenMap {
-            val screenList = Screens.values().map {
-                it to it.screenClass
-            }
-            return ScreenListMap(screenList)
-        }
-    }
 }

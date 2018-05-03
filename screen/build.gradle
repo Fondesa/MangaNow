@@ -15,7 +15,7 @@ android {
 
 dependencies {
     api "javax.inject:javax.inject:$versions.javaxInject"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     api "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
 
     api "com.google.dagger:dagger-android-support:$versions.dagger"

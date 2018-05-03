@@ -22,21 +22,3 @@ interface ScreenConfiguration {
 
     fun createScreen(): ScreenFragment
 }
-
-interface ScreenKey {
-
-    val tag: String
-}
-
-enum class ScreenKeys(override val tag: String) : ScreenKey {
-
-    SPLASH("splash")
-}
-
-data class BaseScreenConfiguration(
-    override val key: ScreenKey,
-    private inline val screenBlock: () -> ScreenFragment
-) : ScreenConfiguration {
-
-    override fun createScreen(): ScreenFragment = screenBlock()
-}

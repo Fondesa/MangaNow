@@ -15,7 +15,7 @@ android {
 
 dependencies {
     api "javax.inject:javax.inject:$versions.javaxInject"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     api "com.google.code.gson:gson:$versions.gson"
     api "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
 }

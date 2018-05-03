@@ -16,24 +16,19 @@
 
 package com.fondesa.screen
 
+import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.FragmentTransaction
 import dagger.android.support.DaggerAppCompatActivity
 import java.util.*
-import javax.inject.Inject
 
 abstract class ScreenActivity : DaggerAppCompatActivity(),
     ScreenManager {
 
     private val container by lazy { screenContainer() }
 
-    @Inject
-    lateinit var screenMap: ScreenMap
-
-    protected val currentDefinition: ScreenDefinition?
-        get() = stack.lastOrNull()?.let {
-            screenMap.definitionOf(it::class)
-        }
+    protected val currentKey: ScreenKey?
+        get() = stack.lastOrNull()?.key
 
     private val stack = LinkedList<ScreenFragment>()
 
@@ -42,29 +37,32 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
 
     protected open fun onTransaction(
         transaction: FragmentTransaction,
-        current: ScreenDefinition,
-        next: ScreenDefinition
+        current: ScreenKey,
+        next: ScreenKey
     ) = Unit
 
     protected open fun onScreenChange(
-        current: ScreenDefinition,
-        next: ScreenDefinition
+        current: ScreenKey,
+        next: ScreenKey
     ) = Unit
 
     override fun navigateToScreen(
-        definition: ScreenDefinition,
+        configuration: ScreenConfiguration,
         strategy: ScreenManager.StackStrategy
     ) {
-        val screenClass = screenMap.screenOf(definition)
-        val screen = createScreen(screenClass)
+        val nextScreen = configuration.createScreen()
+        val nextKey = configuration.key
+
+        val screenArgs = nextScreen.arguments ?: Bundle()
+        screenArgs. putParcelable(ScreenFragment.ARG_SCREEN_KEY, nextKey)
+        nextScreen.arguments = screenArgs
 
         val transaction = supportFragmentManager.beginTransaction()
-            .add(container, screen)
+            .add(container, nextScreen)
 
         val currentScreen = stack.lastOrNull()
-        val current = currentScreen?.let {
-            screenMap.definitionOf(it::class)
-        }
+        val currentKey = currentScreen?.key
+
         if (strategy == ScreenManager.StackStrategy.REPLACE_ALL) {
             stack.forEach {
                 transaction.remove(it)
@@ -79,14 +77,14 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
             }
         }
 
-        current?.also {
-            onTransaction(transaction, it, definition)
-            onScreenChange(it, definition)
+        currentKey?.also {
+            onTransaction(transaction, it, nextKey)
+            onScreenChange(it, nextKey)
         }
 
         transaction.commit()
         // Add the screen to the stack.
-        stack.add(screen)
+        stack.add(nextScreen)
     }
 
     override fun onDestroy() {
@@ -105,9 +103,9 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
         val currentScreen = stack.pollLast()
         val previousScreen = stack.last
 
-        val currentDefinition = screenMap.definitionOf(currentScreen::class)
-        val previousDefinition = screenMap.definitionOf(previousScreen::class)
-        onScreenChange(currentDefinition, previousDefinition)
+        val currentKey = currentScreen.key
+        val previousKey = previousScreen.key
+        onScreenChange(currentKey, previousKey)
 
         fm.beginTransaction()
             .remove(currentScreen)
@@ -121,15 +119,5 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
         } else {
             navigateToPreviousScreen()
         }
-    }
-
-    private fun createScreen(screenClass: ScreenClass): ScreenFragment {
-        val constructor = screenClass.constructors.firstOrNull {
-            it.parameters.isEmpty()
-        } ?: throw IllegalArgumentException(
-            "The class ${screenClass.java.name} must provide a public constructor with zero parameters."
-        )
-
-        return constructor.call()
     }
 }

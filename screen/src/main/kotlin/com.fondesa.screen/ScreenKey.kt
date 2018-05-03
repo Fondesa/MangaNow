@@ -16,4 +16,9 @@
 
 package com.fondesa.screen
 
-interface ScreenDefinition
+import android.os.Parcelable
+
+interface ScreenKey : Parcelable {
+
+    val tag: String
+}

@@ -26,9 +26,10 @@ import com.fondesa.manganow.R
 import com.fondesa.manganow.controller.TitleController
 import com.fondesa.manganow.extension.getCheckedItem
 import com.fondesa.manganow.navigation.Navigation
-import com.fondesa.manganow.screen.Screens
+import com.fondesa.manganow.screen.ScreenConfigurations
+import com.fondesa.manganow.screen.ScreenKeys
 import com.fondesa.screen.ScreenActivity
-import com.fondesa.screen.ScreenDefinition
+import com.fondesa.screen.ScreenKey
 import com.fondesa.screen.ScreenManager
 import kotlinx.android.synthetic.main.activity_host.*
 import kotlinx.android.synthetic.main.partial_toolbar.*
@@ -51,7 +52,11 @@ class HostActivity : ScreenActivity(), TitleController {
 
     private val rootItemId by lazy { navigation.rootItemId() }
 
-    private val rootDefinition by lazy { navigation.definitionOfItem(rootItemId) }
+    private val rootKey by lazy {
+        val configuration = navigation.configurationOfItem(rootItemId)
+                ?: throw NullPointerException("The root item id should be associated with a configuration")
+        configuration.key
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,8 +72,8 @@ class HostActivity : ScreenActivity(), TitleController {
             if (currentItemId == selectedItemId)
                 return@setNavigationItemSelectedListener false
 
-            val screenDefinition = navigation.definitionOfItem(selectedItemId)
-            screenDefinition?.let {
+            val screenConfiguration = navigation.configurationOfItem(selectedItemId)
+            screenConfiguration?.let {
                 val strategy = when {
                     selectedItemId == rootItemId -> ScreenManager.StackStrategy.REPLACE_ALL
                     currentItemId == rootItemId -> ScreenManager.StackStrategy.NONE
@@ -83,8 +88,8 @@ class HostActivity : ScreenActivity(), TitleController {
 
         if (savedInstanceState == null) {
             // Navigate to the splash screen only the first time.
-            navigateToScreen(Screens.SPLASH)
-        } else if (currentDefinition != Screens.SPLASH) {
+            navigateToScreen(ScreenConfigurations.SPLASH)
+        } else if (currentKey != ScreenKeys.SPLASH) {
             applyDefaultConfiguration()
         }
     }
@@ -92,12 +97,12 @@ class HostActivity : ScreenActivity(), TitleController {
     @IdRes
     override fun screenContainer(): Int = R.id.screenContainer
 
-    override fun onScreenChange(current: ScreenDefinition, next: ScreenDefinition) {
-        if (current == Screens.SPLASH) {
+    override fun onScreenChange(current: ScreenKey, next: ScreenKey) {
+        if (current == ScreenKeys.SPLASH) {
             applyDefaultConfiguration()
         }
 
-        if (next == rootDefinition) {
+        if (next == rootKey) {
             navigationView.setCheckedItem(rootItemId)
         }
     }

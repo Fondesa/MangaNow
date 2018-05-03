@@ -18,7 +18,7 @@ package com.fondesa.screen
 
 interface ScreenManager {
 
-    fun navigateToScreen(definition: ScreenDefinition, strategy: StackStrategy = StackStrategy.NONE)
+    fun navigateToScreen(configuration: ScreenConfiguration, strategy: StackStrategy = StackStrategy.NONE)
 
     fun navigateToPreviousScreen()
 
