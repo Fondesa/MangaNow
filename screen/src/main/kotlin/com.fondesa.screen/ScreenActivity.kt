@@ -26,11 +26,10 @@ import java.util.*
 abstract class ScreenActivity : DaggerAppCompatActivity(),
     ScreenManager {
 
-    private val container by lazy { screenContainer() }
-
     protected val currentKey: ScreenKey?
         get() = keys.lastOrNull()
 
+    private val container by lazy { screenContainer() }
     private val keys = LinkedList<ScreenKey>()
 
     @IdRes
