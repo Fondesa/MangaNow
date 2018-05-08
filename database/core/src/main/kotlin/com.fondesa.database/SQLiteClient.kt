@@ -19,7 +19,6 @@ package com.fondesa.database
 import android.content.Context
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteException
-import android.util.Log
 import com.fondesa.database.injection.SQLiteDatabaseInfo
 import com.fondesa.database.statement.CreateTable
 import com.fondesa.database.statement.Pragma
@@ -28,6 +27,7 @@ import com.fondesa.database.strategy.UpgradeStrategy
 import com.fondesa.database.structure.Graph
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -65,7 +65,7 @@ open class SQLiteClient @Inject constructor(
             // Dispatch the creation on the background thread.
             synchronized(lock) {
                 val context = this@SQLiteClient.context
-                Log.d(TAG, "Started creation or opening of the database.")
+                Timber.d("Started creation or opening of the database.")
                 // Open or create the database.
                 val sqlDatabase = context.openOrCreateDatabase(name, 0, null, errorHandler)
                         ?: throw NullPointerException("The creation or opening of the database wasn't successful.")
@@ -114,7 +114,7 @@ open class SQLiteClient @Inject constructor(
                 // Open the database.
                 onOpen(database)
                 isInitialized = true
-                Log.d(TAG, "End creation or opening of the database.")
+                Timber.d("End creation or opening of the database.")
 
                 // Unlock the lock to retrieve the database.
                 lock.notifyAll()
@@ -125,7 +125,7 @@ open class SQLiteClient @Inject constructor(
     override fun getDatabase(): Database {
         synchronized(lock) {
             while (!isInitialized) {
-                Log.d(TAG, "Waiting the database initialization...")
+                Timber.d("Waiting the database initialization...")
                 // Lock the retrieving of the database on the main thread
                 // till the creation or opening of the database isn't finished.
                 lock.wait()
@@ -205,9 +205,5 @@ open class SQLiteClient @Inject constructor(
      */
     open fun onOpen(database: Database) {
         // Empty by default.
-    }
-
-    companion object {
-        private val TAG = SQLiteClient::class.java.simpleName
     }
 }

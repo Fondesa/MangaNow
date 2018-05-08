@@ -24,9 +24,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.fondesa.manganow.R
 import com.fondesa.manganow.controller.TitleController
-import com.fondesa.screen.ScreenFragment
 
-abstract class BaseScreen : ScreenFragment() {
+abstract class BaseScreen : LoggableScreenFragment() {
 
     protected abstract val rootLayout: Int
 
@@ -34,6 +33,8 @@ abstract class BaseScreen : ScreenFragment() {
         get() = getString(R.string.app_name)
 
     protected open val theme: Int? = null
+
+    override val enableLifecycleLogging: Boolean = true
 
     private var titleController: TitleController? = null
 

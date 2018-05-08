@@ -19,6 +19,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
 
     api "com.google.dagger:dagger-android-support:$versions.dagger"
+    api "com.jakewharton.timber:timber:$versions.timber"
 }
 
 sourceCompatibility = "1.7"

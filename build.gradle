@@ -13,7 +13,8 @@ buildscript {
             kotlin           : '1.2.41',
             kotlinPoet       : '0.7.0',
             leakCanary       : '1.5.4',
-            okHttp           : '3.10.0'
+            okHttp           : '3.10.0',
+            timber           : '4.7.0'
     ]
 
     repositories {

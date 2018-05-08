@@ -18,6 +18,8 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     api "com.google.code.gson:gson:$versions.gson"
     api "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+
+    api "com.jakewharton.timber:timber:$versions.timber"
 }
 
 sourceCompatibility = "1.7"

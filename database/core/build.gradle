@@ -18,6 +18,7 @@ dependencies {
     api project(':thread')
     api "javax.inject:javax.inject:$versions.javaxInject"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    api "com.jakewharton.timber:timber:$versions.timber"
 }
 
 sourceCompatibility = "1.7"

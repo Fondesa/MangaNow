@@ -16,8 +16,8 @@
 
 package com.fondesa.database.statement.base
 
-import android.util.Log
 import com.fondesa.database.execution.Executor
+import timber.log.Timber
 
 /**
  * Subclass of [SQLiteBaseStatement] that allows raw statements.
@@ -27,7 +27,7 @@ import com.fondesa.database.execution.Executor
 abstract class SQLiteRawStatement<out E : Executor<*>>(val raw: String) : SQLiteBaseStatement<E>() {
 
     final override fun createExecutor(): E {
-        Log.d(TAG, "compiling: $raw")
+        Timber.d("compiling: $raw")
         return createExecutor(raw)
     }
 
@@ -40,7 +40,6 @@ abstract class SQLiteRawStatement<out E : Executor<*>>(val raw: String) : SQLite
     abstract fun createExecutor(raw: String): E
 
     companion object {
-        private val TAG = SQLiteRawStatement::class.java.simpleName
 
         /**
          * Creates an anonymous subclass of [SQLiteRawStatement] specifying
