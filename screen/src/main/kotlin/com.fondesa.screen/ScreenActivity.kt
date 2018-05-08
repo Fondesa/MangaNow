@@ -16,6 +16,7 @@
 
 package com.fondesa.screen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.FragmentTransaction
@@ -28,9 +29,9 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
     private val container by lazy { screenContainer() }
 
     protected val currentKey: ScreenKey?
-        get() = stack.lastOrNull()?.key
+        get() = keys.lastOrNull()
 
-    private val stack = LinkedList<ScreenFragment>()
+    private val keys = LinkedList<ScreenKey>()
 
     @IdRes
     protected abstract fun screenContainer(): Int
@@ -54,24 +55,26 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
         val nextKey = configuration.key
 
         val screenArgs = nextScreen.arguments ?: Bundle()
-        screenArgs. putParcelable(ScreenFragment.ARG_SCREEN_KEY, nextKey)
+        screenArgs.putParcelable(ScreenFragment.ARG_SCREEN_KEY, nextKey)
         nextScreen.arguments = screenArgs
 
-        val transaction = supportFragmentManager.beginTransaction()
-            .add(container, nextScreen)
+        val transaction = beginTransaction()
+            .add(container, nextScreen, nextKey.tag)
 
-        val currentScreen = stack.lastOrNull()
+        val currentScreen = keys.lastOrNull()?.getFragmentOrNull()
         val currentKey = currentScreen?.key
 
         if (strategy == ScreenManager.StackStrategy.REPLACE_ALL) {
-            stack.forEach {
+            keys.mapNotNull {
+                it.getFragmentOrNull()
+            }.forEach {
                 transaction.remove(it)
             }
-            stack.clear()
+            keys.clear()
         } else if (currentScreen != null) {
             if (strategy == ScreenManager.StackStrategy.REPLACE_CURRENT) {
                 transaction.remove(currentScreen)
-                stack.removeLast()
+                keys.removeLast()
             } else {
                 transaction.detach(currentScreen)
             }
@@ -84,40 +87,49 @@ abstract class ScreenActivity : DaggerAppCompatActivity(),
 
         transaction.commit()
         // Add the screen to the stack.
-        stack.add(nextScreen)
+        keys.add(nextKey)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        stack.clear()
+        keys.clear()
     }
 
     override fun navigateToPreviousScreen() {
-        val fm = supportFragmentManager
-        val stackSize = stack.size
+        val stackSize = keys.size
         if (stackSize <= 1) {
             finish()
             return
         }
 
-        val currentScreen = stack.pollLast()
-        val previousScreen = stack.last
+        val currentScreen = keys.pollLast().getFragment()
+        val previousScreen = keys.last.getFragment()
 
         val currentKey = currentScreen.key
         val previousKey = previousScreen.key
         onScreenChange(currentKey, previousKey)
 
-        fm.beginTransaction()
+        beginTransaction()
             .remove(currentScreen)
             .attach(previousScreen)
             .commit()
     }
 
     override fun onBackPressed() {
-        if (stack.size <= 1) {
+        if (keys.size <= 1) {
             super.onBackPressed()
         } else {
             navigateToPreviousScreen()
         }
     }
+
+    @SuppressLint("CommitTransaction")
+    private fun beginTransaction() = supportFragmentManager.beginTransaction()
+        .disallowAddToBackStack()
+
+    private fun ScreenKey.getFragment() = getFragmentOrNull()
+            ?: throw NullPointerException("Cannot find a ${ScreenFragment::class.java.name} for the tag $tag")
+
+    private fun ScreenKey.getFragmentOrNull() =
+        supportFragmentManager.findFragmentByTag(tag) as? ScreenFragment
 }
