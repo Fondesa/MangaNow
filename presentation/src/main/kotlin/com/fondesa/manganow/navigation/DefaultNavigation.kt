@@ -18,8 +18,12 @@ package com.fondesa.manganow.navigation
 
 import android.support.annotation.IdRes
 import com.fondesa.manganow.R
-import com.fondesa.manganow.screen.ScreenConfigurations
+import com.fondesa.manganow.latest.LatestScreen
+import com.fondesa.manganow.manga.list.MangaListScreen
+import com.fondesa.manganow.screen.ScreenKeys
+import com.fondesa.manganow.settings.SettingsScreen
 import com.fondesa.screen.ScreenConfiguration
+import com.fondesa.screen.screenConfiguration
 import javax.inject.Inject
 
 class DefaultNavigation @Inject constructor() : Navigation {
@@ -28,9 +32,9 @@ class DefaultNavigation @Inject constructor() : Navigation {
     override fun rootItemId() = R.id.section_home
 
     override fun configurationOfItem(@IdRes itemId: Int): ScreenConfiguration? = when (itemId) {
-        R.id.section_home -> ScreenConfigurations.LATEST
-        R.id.section_list -> ScreenConfigurations.MANGA_LIST
-        R.id.section_settings -> ScreenConfigurations.SETTINGS
+        R.id.section_home -> screenConfiguration<LatestScreen>(ScreenKeys.LATEST)
+        R.id.section_list -> screenConfiguration<MangaListScreen>(ScreenKeys.MANGA_LIST)
+        R.id.section_settings ->  screenConfiguration<SettingsScreen>(ScreenKeys.SETTINGS)
         else -> null
     }
 }

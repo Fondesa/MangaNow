@@ -26,11 +26,12 @@ import com.fondesa.manganow.R
 import com.fondesa.manganow.controller.TitleController
 import com.fondesa.manganow.extension.getCheckedItem
 import com.fondesa.manganow.navigation.Navigation
-import com.fondesa.manganow.screen.ScreenConfigurations
 import com.fondesa.manganow.screen.ScreenKeys
+import com.fondesa.manganow.splash.SplashScreen
 import com.fondesa.screen.ScreenActivity
 import com.fondesa.screen.ScreenKey
 import com.fondesa.screen.ScreenManager
+import com.fondesa.screen.navigateToScreen
 import kotlinx.android.synthetic.main.activity_host.*
 import kotlinx.android.synthetic.main.partial_toolbar.*
 import javax.inject.Inject
@@ -88,7 +89,7 @@ class HostActivity : ScreenActivity(), TitleController {
 
         if (savedInstanceState == null) {
             // Navigate to the splash screen only the first time.
-            navigateToScreen(ScreenConfigurations.SPLASH)
+            navigateToScreen<SplashScreen>(ScreenKeys.SPLASH)
         } else if (currentKey != ScreenKeys.SPLASH) {
             applyDefaultConfiguration()
         }

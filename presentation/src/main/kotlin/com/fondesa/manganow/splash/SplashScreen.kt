@@ -19,9 +19,11 @@ package com.fondesa.manganow.splash
 import android.os.Bundle
 import android.view.View
 import com.fondesa.manganow.R
+import com.fondesa.manganow.latest.LatestScreen
 import com.fondesa.manganow.screen.BaseScreen
-import com.fondesa.manganow.screen.ScreenConfigurations
+import com.fondesa.manganow.screen.ScreenKeys
 import com.fondesa.screen.ScreenManager
+import com.fondesa.screen.navigateToScreen
 import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
 
@@ -89,8 +91,8 @@ class SplashScreen : BaseScreen(), SplashContract.View {
     }
 
     override fun navigateToMainScreen() {
-        screenManager.navigateToScreen(
-            ScreenConfigurations.LATEST,
+        screenManager.navigateToScreen<LatestScreen>(
+            ScreenKeys.LATEST,
             ScreenManager.StackStrategy.REPLACE_ALL
         )
     }
