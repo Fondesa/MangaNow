@@ -16,8 +16,6 @@
 
 package com.fondesa.manganow.navigation
 
-import com.fondesa.manganow.screen.Screen
-
 interface Navigator {
 
     fun goTo(screen: Screen, strategy: Strategy = Strategy.NONE)

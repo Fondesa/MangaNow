@@ -21,8 +21,8 @@ import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.usecase.UseCase
 import com.fondesa.manganow.navigation.Navigator
+import com.fondesa.manganow.navigation.Screen
 import com.fondesa.manganow.presenter.AbstractPresenter
-import com.fondesa.manganow.screen.Screen
 import com.fondesa.manganow.time.Scheduler
 import com.fondesa.thread.execution.ExecutorFactory
 import com.fondesa.thread.execution.ExecutorPool

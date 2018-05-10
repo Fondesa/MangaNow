@@ -14,17 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.activity
+package com.fondesa.manganow.navigation
 
-import com.fondesa.manganow.navigation.NavigationModule
-import com.fondesa.manganow.screen.ScreenFragmentsModule
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import javax.inject.Scope
 
-@Module
-interface ActivitiesModule {
-
-    @ActivityScope
-    @ContributesAndroidInjector(modules = [NavigationModule::class, ScreenFragmentsModule::class])
-    fun provideNavigationActivity(): ScreenActivity
-}
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ScreenManagerScope

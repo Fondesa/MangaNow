@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.activity
+package com.fondesa.manganow.navigation
 
 import android.os.Bundle
-import com.fondesa.manganow.navigation.Navigator
-import com.fondesa.manganow.screen.Screen
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class ScreenActivity : DaggerAppCompatActivity() {
+class ScreenManager : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var navigator: Navigator

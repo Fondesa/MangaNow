@@ -57,7 +57,7 @@
 //
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_host)
+//        setContentView(R.layout.screen_base_drawer)
 //
 //        navigationView.setNavigationItemSelectedListener { item ->
 //            @IdRes val selectedItemId = item.itemId

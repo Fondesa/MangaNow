@@ -14,7 +14,7 @@
         android:theme="@style/App"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".activity.ScreenActivity"
+        <activity android:name=".navigation.ScreenManager"
             android:theme="@style/Host">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

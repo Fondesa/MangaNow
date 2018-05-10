@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.screen
+package com.fondesa.manganow.navigation
 
 import javax.inject.Scope
 

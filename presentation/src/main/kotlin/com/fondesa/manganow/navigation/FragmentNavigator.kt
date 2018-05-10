@@ -21,7 +21,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import com.fondesa.manganow.latest.LatestFragment
 import com.fondesa.manganow.manga.list.MangaListFragment
-import com.fondesa.manganow.screen.Screen
 import com.fondesa.manganow.settings.SettingsFragment
 import com.fondesa.manganow.splash.SplashFragment
 import java.io.ByteArrayInputStream

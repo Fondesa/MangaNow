@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.activity
+package com.fondesa.manganow.navigation
 
-import javax.inject.Scope
+import java.io.Serializable
 
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-annotation class ActivityScope
+sealed class Screen: Serializable {
+
+    class Splash: Screen()
+
+    class Latest: Screen()
+
+    class MangaList: Screen()
+
+    class Settings: Screen()
+}
