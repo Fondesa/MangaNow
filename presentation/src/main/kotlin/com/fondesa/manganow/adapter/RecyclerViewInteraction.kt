@@ -16,6 +16,15 @@
 
 package com.fondesa.manganow.adapter
 
-enum class Gesture {
-    CLICK, LONG_CLICK, TOUCH
-}
+import android.view.View
+
+/**
+ * Used to add gestures and interactions to a [View].
+ *
+ * @param view [View] on which the interactions will be added.
+ * @param gesture type of [RecyclerViewRowGesture] allowed on this [View].
+ */
+data class RecyclerViewInteraction constructor(
+    val view: View,
+    val gesture: RecyclerViewRowGesture
+)

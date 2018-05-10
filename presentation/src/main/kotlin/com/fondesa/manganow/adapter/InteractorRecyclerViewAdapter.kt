@@ -26,7 +26,7 @@ import android.view.ViewGroup
  *
  * @param VH type of [RecyclerView.ViewHolder].
  */
-abstract class GestureAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class InteractorRecyclerViewAdapter<VH : InteractiveViewHolder> : RecyclerView.Adapter<VH>() {
 
     /**
      * Constructs the [VH] for a given [View].
@@ -64,22 +64,21 @@ abstract class GestureAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapt
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val holder = onConstructViewHolder(parent, viewType)
-        // The interactions are added only if the ViewHolder is Interactive.
-        (holder as? Interactive)?.interactions?.forEach {
+        holder.interactions.forEach {
             addGestureToView(holder, it.view, it.gesture)
         }
         return holder
     }
 
-    private fun addGestureToView(holder: VH, v: View, gesture: Gesture) {
+    private fun addGestureToView(holder: VH, v: View, gesture: RecyclerViewRowGesture) {
         when (gesture) {
-            Gesture.CLICK -> v.setOnClickListener { view ->
+            RecyclerViewRowGesture.CLICK -> v.setOnClickListener { view ->
                 onCellClick(view, holder.adapterPosition)
             }
-            Gesture.LONG_CLICK -> v.setOnLongClickListener { view ->
+            RecyclerViewRowGesture.LONG_CLICK -> v.setOnLongClickListener { view ->
                 onCellLongClick(view, holder.adapterPosition)
             }
-            Gesture.TOUCH -> v.setOnTouchListener { view, event ->
+            RecyclerViewRowGesture.TOUCH -> v.setOnTouchListener { view, event ->
                 onCellTouch(view, holder.adapterPosition, event)
             }
         }

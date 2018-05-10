@@ -16,15 +16,25 @@
 
 package com.fondesa.manganow.adapter
 
-import android.view.View
+import android.support.v7.widget.RecyclerView
 
 /**
- * Class used to add gestures and interactions to a [View].
- *
- * @param view [View] on which the interactions will be added.
- * @param gesture type of [Gesture] allowed on this [View].
+ * Types of gestures that user could perform on a [RecyclerView]'s row.
  */
-data class Interaction constructor(
-    val view: View,
-    val gesture: Gesture
-)
+enum class RecyclerViewRowGesture {
+
+    /**
+     * Used to identify a click gesture.
+     */
+    CLICK,
+
+    /**
+     * Used to identify a long-click gesture.
+     */
+    LONG_CLICK,
+
+    /**
+     * Used to identify a touch gesture.
+     */
+    TOUCH
+}
