@@ -17,12 +17,11 @@
 package com.fondesa.manganow.navigation
 
 import android.support.annotation.IdRes
-import com.fondesa.screen.ScreenConfiguration
 
 interface Navigation {
 
     @IdRes
     fun rootItemId(): Int
 
-    fun configurationOfItem(@IdRes itemId: Int): ScreenConfiguration?
+//    fun configurationOfItem(@IdRes itemId: Int): ScreenConfiguration?
 }

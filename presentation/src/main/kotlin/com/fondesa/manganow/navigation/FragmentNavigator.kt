@@ -19,13 +19,11 @@ package com.fondesa.manganow.navigation
 import android.annotation.SuppressLint
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import com.fondesa.manganow.latest.LatestScreen
-import com.fondesa.manganow.manga.list.MangaListScreen
+import com.fondesa.manganow.latest.LatestFragment
+import com.fondesa.manganow.manga.list.MangaListFragment
 import com.fondesa.manganow.screen.Screen
-import com.fondesa.manganow.settings.SettingsScreen
-import com.fondesa.manganow.splash.SplashScreen
-import com.fondesa.screen.ScreenFragment
-import com.fondesa.screen.ScreenManager
+import com.fondesa.manganow.settings.SettingsFragment
+import com.fondesa.manganow.splash.SplashFragment
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -44,7 +42,7 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
 
         val currentScreen = screens.lastOrNull()?.getFragmentOrNull()
 
-        if (strategy == ScreenManager.StackStrategy.REPLACE_ALL) {
+        if (strategy == Navigator.Strategy.REPLACE_ALL) {
             screens.mapNotNull {
                 it.getFragmentOrNull()
             }.forEach {
@@ -52,7 +50,7 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
             }
             screens.clear()
         } else if (currentScreen != null) {
-            if (strategy == ScreenManager.StackStrategy.REPLACE_CURRENT) {
+            if (strategy == Navigator.Strategy.REPLACE_CURRENT) {
                 transaction.remove(currentScreen)
                 screens.removeLast()
             } else {
@@ -105,17 +103,17 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
         .disallowAddToBackStack()
 
     private fun mapScreenToFragment(screen: Screen): Fragment = when (screen) {
-        is Screen.Splash -> SplashScreen()
-        is Screen.Latest -> LatestScreen()
-        is Screen.MangaList -> MangaListScreen()
-        is Screen.Settings -> SettingsScreen()
+        is Screen.Splash -> SplashFragment()
+        is Screen.Latest -> LatestFragment()
+        is Screen.MangaList -> MangaListFragment()
+        is Screen.Settings -> SettingsFragment()
     }
 
     private fun Screen.getFragment() = getFragmentOrNull()
-            ?: throw NullPointerException("Cannot find a ${ScreenFragment::class.java.name} for the tag $tag")
+            ?: throw NullPointerException("Cannot find a ${Fragment::class.java.name} for the tag $tag")
 
     private fun Screen.getFragmentOrNull() =
-        fragmentManager.findFragmentByTag(tag) as? ScreenFragment
+        fragmentManager.findFragmentByTag(tag)
 
     private val Screen.tag: String
         get() = this::class.java.name

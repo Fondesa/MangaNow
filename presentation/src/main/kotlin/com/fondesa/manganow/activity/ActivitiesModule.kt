@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.manganow.activity
 
-import com.fondesa.manganow.R
-import com.fondesa.manganow.screen.BaseScreen
+import com.fondesa.manganow.navigation.NavigationModule
+import com.fondesa.manganow.screen.ScreenFragmentsModule
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-class MangaListScreen : BaseScreen(), MangaListContract.View {
+@Module
+interface ActivitiesModule {
 
-    override val rootLayout = R.layout.screen_manga_list
-
-    override val title get() = getString(R.string.section_list)
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [NavigationModule::class, ScreenFragmentsModule::class])
+    fun provideNavigationActivity(): ScreenActivity
 }

@@ -16,7 +16,9 @@
 
 package com.fondesa.manganow.screen
 
-sealed class Screen {
+import java.io.Serializable
+
+sealed class Screen: Serializable {
 
     class Splash: Screen()
 

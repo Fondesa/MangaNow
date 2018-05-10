@@ -22,10 +22,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.fondesa.screen.ScreenFragment
+import dagger.android.support.DaggerFragment
 import timber.log.Timber
 
-abstract class LoggableScreenFragment : ScreenFragment() {
+abstract class LoggableScreenFragment : DaggerFragment() {
 
     protected abstract val enableLifecycleLogging: Boolean
 
@@ -105,7 +105,7 @@ abstract class LoggableScreenFragment : ScreenFragment() {
 
     private fun maybeLogLifecycle(name: String) {
         if (enableLifecycleLogging) {
-            Timber.d("Lifecycle event for screen with tag ${key.tag}: $name")
+            Timber.d("Lifecycle event for screen with tag $tag: $name")
         }
     }
 }

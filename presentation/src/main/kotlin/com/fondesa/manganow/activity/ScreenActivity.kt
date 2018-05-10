@@ -22,7 +22,7 @@ import com.fondesa.manganow.screen.Screen
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class NavigationActivity : DaggerAppCompatActivity() {
+class ScreenActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var navigator: Navigator

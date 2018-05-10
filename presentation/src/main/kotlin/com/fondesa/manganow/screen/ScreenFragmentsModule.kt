@@ -16,36 +16,31 @@
 
 package com.fondesa.manganow.screen
 
-import com.fondesa.manganow.activity.HostActivity
-import com.fondesa.manganow.activity.NavigationActivity
-import com.fondesa.manganow.latest.LatestScreen
+import com.fondesa.manganow.latest.LatestFragment
+import com.fondesa.manganow.manga.list.MangaListFragment
 import com.fondesa.manganow.manga.list.MangaListModule
-import com.fondesa.manganow.manga.list.MangaListScreen
-import com.fondesa.manganow.navigation.NavigationModule
-import com.fondesa.manganow.settings.SettingsScreen
+import com.fondesa.manganow.settings.SettingsFragment
+import com.fondesa.manganow.splash.SplashFragment
 import com.fondesa.manganow.splash.SplashModule
-import com.fondesa.manganow.splash.SplashScreen
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface ScreenModule {
+interface ScreenFragmentsModule {
 
-    @ContributesAndroidInjector(modules = [NavigationModule::class])
-    fun provideNavigationActivity(): NavigationActivity
-
-    @ContributesAndroidInjector(modules = [NavigationModule::class])
-    fun provideHostActivity(): HostActivity
-
+    @ScreenScope
     @ContributesAndroidInjector(modules = [SplashModule::class])
-    fun provideSplashScreen(): SplashScreen
+    fun provideSplashScreen(): SplashFragment
 
+    @ScreenScope
     @ContributesAndroidInjector
-    fun provideLatestScreen(): LatestScreen
+    fun provideLatestScreen(): LatestFragment
 
+    @ScreenScope
     @ContributesAndroidInjector(modules = [MangaListModule::class])
-    fun provideMangaListScreen(): MangaListScreen
+    fun provideMangaListScreen(): MangaListFragment
 
+    @ScreenScope
     @ContributesAndroidInjector
-    fun provideSettingsScreen(): SettingsScreen
+    fun provideSettingsScreen(): SettingsFragment
 }

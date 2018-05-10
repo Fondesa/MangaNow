@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.screen
+package com.fondesa.manganow.activity
 
-interface ScreenManager {
+import javax.inject.Scope
 
-    fun navigateToScreen(configuration: ScreenConfiguration, strategy: StackStrategy = StackStrategy.NONE)
-
-    fun navigateToPreviousScreen()
-
-    enum class StackStrategy {
-        NONE, REPLACE_CURRENT, REPLACE_ALL
-    }
-}
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ActivityScope

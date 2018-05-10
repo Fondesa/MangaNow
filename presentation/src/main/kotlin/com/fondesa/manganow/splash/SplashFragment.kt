@@ -17,24 +17,24 @@
 package com.fondesa.manganow.splash
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.fondesa.manganow.R
-import com.fondesa.manganow.latest.LatestScreen
-import com.fondesa.manganow.screen.BaseScreen
-import com.fondesa.manganow.screen.ScreenKeys
-import com.fondesa.screen.ScreenManager
-import com.fondesa.screen.navigateToScreen
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
 
-class SplashScreen : BaseScreen(), SplashContract.View {
-
-    override val rootLayout = R.layout.screen_splash
-
-    override val theme = R.style.Screen_Splash
+class SplashFragment : DaggerFragment(), SplashContract.View {
 
     @Inject
     lateinit var presenter: SplashContract.Presenter
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.screen_splash, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,12 +88,5 @@ class SplashScreen : BaseScreen(), SplashContract.View {
 
     override fun hideErrorMessage() {
         errorTextView.visibility = View.INVISIBLE
-    }
-
-    override fun navigateToMainScreen() {
-        screenManager.navigateToScreen<LatestScreen>(
-            ScreenKeys.LATEST,
-            ScreenManager.StackStrategy.REPLACE_ALL
-        )
     }
 }

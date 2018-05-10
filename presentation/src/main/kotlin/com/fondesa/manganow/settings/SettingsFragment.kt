@@ -14,6 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.screen
+package com.fondesa.manganow.settings
 
-class ScreenManagerNotAttachedException: Exception()
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.fondesa.manganow.R
+import dagger.android.support.DaggerFragment
+
+class SettingsFragment : DaggerFragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.screen_settings, container, false)
+}

@@ -14,9 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.controller
+package com.fondesa.manganow.manga.list
 
-interface TitleController {
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.fondesa.manganow.R
+import dagger.android.support.DaggerFragment
 
-    fun changeTitle(title: String)
+class MangaListFragment : DaggerFragment(), MangaListContract.View {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.screen_manga_list, container, false)
 }

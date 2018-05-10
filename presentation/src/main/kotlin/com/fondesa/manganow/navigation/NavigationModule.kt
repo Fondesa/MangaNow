@@ -16,15 +16,17 @@
 
 package com.fondesa.manganow.navigation
 
-import com.fondesa.manganow.activity.NavigationActivity
+import com.fondesa.manganow.activity.ActivityScope
+import com.fondesa.manganow.activity.ScreenActivity
 import dagger.Module
 import dagger.Provides
 
 @Module
 class NavigationModule {
 
+    @ActivityScope
     @Provides
-    fun provideNavigator(activity: NavigationActivity): Navigator {
+    fun provideNavigator(activity: ScreenActivity): Navigator {
         return FragmentNavigator(activity.supportFragmentManager)
     }
 }

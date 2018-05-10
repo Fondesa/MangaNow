@@ -31,7 +31,7 @@ interface MangaListModule {
     fun providePresenter(presenter: MangaListPresenter): MangaListContract.Presenter
 
     @Binds
-    fun provideView(view: MangaListScreen): MangaListContract.View
+    fun provideView(view: MangaListFragment): MangaListContract.View
 
     @Binds
     fun provideMangaRepository(repository: DefaultMangaRepository): MangaRepository

@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.settings
+package com.fondesa.manganow.screen
 
-import com.fondesa.manganow.R
-import com.fondesa.manganow.screen.BaseScreen
+import javax.inject.Scope
 
-class SettingsScreen : BaseScreen() {
-
-    override val rootLayout = R.layout.screen_settings
-
-    override val title get() = getString(R.string.section_settings)
-}
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ScreenScope

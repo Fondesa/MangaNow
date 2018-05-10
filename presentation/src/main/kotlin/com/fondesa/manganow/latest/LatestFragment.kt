@@ -16,16 +16,22 @@
 
 package com.fondesa.manganow.latest
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.R
-import com.fondesa.manganow.screen.BaseScreen
+import dagger.android.support.DaggerFragment
 
-class LatestScreen : BaseScreen(), LatestContract.View {
+class LatestFragment : DaggerFragment(), LatestContract.View {
 
-    override val rootLayout = R.layout.screen_latest
-
-    override val title get() = getString(R.string.section_home)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.screen_latest, container, false)
 
     override fun showProgressIndicator() {
         TODO("not implemented")

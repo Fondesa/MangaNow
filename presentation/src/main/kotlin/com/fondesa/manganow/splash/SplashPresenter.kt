@@ -20,7 +20,9 @@ import com.fondesa.data.converter.Converter
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.usecase.UseCase
+import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.presenter.AbstractPresenter
+import com.fondesa.manganow.screen.Screen
 import com.fondesa.manganow.time.Scheduler
 import com.fondesa.thread.execution.ExecutorFactory
 import com.fondesa.thread.execution.ExecutorPool
@@ -36,7 +38,8 @@ class SplashPresenter @Inject constructor(
     private val scheduler: Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
     private val executorFactory: ExecutorFactory,
-    private val executorPool: ExecutorPool
+    private val executorPool: ExecutorPool,
+    private val navigator: Navigator
 ) : AbstractPresenter<SplashContract.View>(),
     SplashContract.Presenter {
 
@@ -137,7 +140,7 @@ class SplashPresenter @Inject constructor(
 
     private fun executeNavigation() {
         view.hideProgressIndicator()
-        view.navigateToMainScreen()
+        navigator.goTo(Screen.Latest(), Navigator.Strategy.REPLACE_ALL)
     }
 
     companion object {

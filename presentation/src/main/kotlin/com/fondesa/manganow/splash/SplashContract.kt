@@ -44,11 +44,6 @@ object SplashContract {
          * Called when the error message previously shown to the user must disappear from the screen.
          */
         fun hideErrorMessage()
-
-        /**
-         * Called when the navigation must proceed to the the main screen of the app.
-         */
-        fun navigateToMainScreen()
     }
 
     /**
