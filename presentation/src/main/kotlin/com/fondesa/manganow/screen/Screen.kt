@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.navigation
+package com.fondesa.manganow.screen
 
-import com.fondesa.manganow.activity.NavigationActivity
-import dagger.Module
-import dagger.Provides
+sealed class Screen {
 
-@Module
-class NavigationModule {
+    class Splash: Screen()
 
-    @Provides
-    fun provideNavigator(activity: NavigationActivity): Navigator {
-        return FragmentNavigator(activity.supportFragmentManager)
-    }
+    class Latest: Screen()
+
+    class MangaList: Screen()
+
+    class Settings: Screen()
 }

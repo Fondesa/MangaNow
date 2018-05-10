@@ -16,15 +16,21 @@
 
 package com.fondesa.manganow.navigation
 
-import com.fondesa.manganow.activity.NavigationActivity
-import dagger.Module
-import dagger.Provides
+import com.fondesa.manganow.screen.Screen
 
-@Module
-class NavigationModule {
+interface Navigator {
 
-    @Provides
-    fun provideNavigator(activity: NavigationActivity): Navigator {
-        return FragmentNavigator(activity.supportFragmentManager)
+    fun goTo(screen: Screen, strategy: Strategy = Strategy.NONE)
+
+    fun goBack()
+
+    fun canGoBack(): Boolean
+
+    fun saveState(): ByteArray
+
+    fun restoreState(state: ByteArray)
+
+    enum class Strategy {
+        NONE, REPLACE_CURRENT, REPLACE_ALL
     }
 }

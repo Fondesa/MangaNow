@@ -14,7 +14,7 @@
         android:theme="@style/App"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".activity.HostActivity"
+        <activity android:name=".activity.NavigationActivity"
             android:theme="@style/Host">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

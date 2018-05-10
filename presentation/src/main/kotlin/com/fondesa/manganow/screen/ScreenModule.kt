@@ -17,6 +17,7 @@
 package com.fondesa.manganow.screen
 
 import com.fondesa.manganow.activity.HostActivity
+import com.fondesa.manganow.activity.NavigationActivity
 import com.fondesa.manganow.latest.LatestScreen
 import com.fondesa.manganow.manga.list.MangaListModule
 import com.fondesa.manganow.manga.list.MangaListScreen
@@ -29,6 +30,9 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 interface ScreenModule {
+
+    @ContributesAndroidInjector(modules = [NavigationModule::class])
+    fun provideNavigationActivity(): NavigationActivity
 
     @ContributesAndroidInjector(modules = [NavigationModule::class])
     fun provideHostActivity(): HostActivity
