@@ -34,11 +34,10 @@ import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
 import com.fondesa.domain.usecase.UseCase
 import com.fondesa.manganow.converter.ConverterModule
-import com.fondesa.manganow.time.TimeModule
 import dagger.Binds
 import dagger.Module
 
-@Module(includes = [TimeModule::class, ConverterModule::class])
+@Module(includes = [ConverterModule::class])
 interface SplashModule {
 
     @Binds

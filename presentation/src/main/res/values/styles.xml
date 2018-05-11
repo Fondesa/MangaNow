@@ -17,7 +17,7 @@
 
     <style name="Host" parent="App">
         <!-- Used to have this background at the startup without delay. -->
-        <item name="android:windowBackground">?colorPrimary</item>
+        <!--<item name="android:windowBackground">?colorPrimary</item>-->
     </style>
 
     <style name="Screen" />

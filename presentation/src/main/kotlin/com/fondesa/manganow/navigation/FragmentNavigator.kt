@@ -19,6 +19,7 @@ package com.fondesa.manganow.navigation
 import android.annotation.SuppressLint
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import com.fondesa.manganow.fragment.OnBackPressListener
 import com.fondesa.manganow.latest.LatestFragment
 import com.fondesa.manganow.manga.list.MangaListFragment
 import com.fondesa.manganow.settings.SettingsFragment
@@ -62,9 +63,15 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
         screens.add(screen)
     }
 
-    override fun goBack() {
-        if (!canGoBack()) {
-            throw IllegalStateException("Can't navigate back.")
+    override fun goBack(): Boolean {
+        val backPressHandler = screens.last.getFragmentOrNull() as? OnBackPressListener
+        val handled = backPressHandler?.onBackPressed() ?: false
+        if (handled) {
+            return true
+        }
+
+        if (screens.size <= 1) {
+            return false
         }
 
         val currentScreen = screens.pollLast().getFragment()
@@ -74,9 +81,9 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
             .remove(currentScreen)
             .attach(previousScreen)
             .commit()
-    }
 
-    override fun canGoBack(): Boolean = screens.size > 1
+        return true
+    }
 
     override fun saveState(): ByteArray {
         val bos = ByteArrayOutputStream()

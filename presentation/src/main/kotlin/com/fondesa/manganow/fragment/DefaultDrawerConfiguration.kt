@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.manganow.fragment
 
-import android.support.annotation.LayoutRes
+import android.support.annotation.IdRes
 import com.fondesa.manganow.R
-import com.fondesa.manganow.fragment.DrawerFragment
+import com.fondesa.manganow.navigation.Screen
+import javax.inject.Inject
 
-class MangaListFragment : DrawerFragment(), MangaListContract.View {
+class DefaultDrawerConfiguration @Inject constructor() : DrawerConfiguration {
 
-    @LayoutRes
-    override val contentLayout: Int = R.layout.screen_manga_list
+    @get:IdRes
+    override val rootItemId: Int = R.id.section_home
+
+    override fun screenOfItem(@IdRes itemId: Int): Screen? = when (itemId) {
+        R.id.section_home -> Screen.Latest()
+        R.id.section_list -> Screen.MangaList()
+        R.id.section_settings -> Screen.Settings()
+        else -> null
+    }
 }

@@ -20,9 +20,7 @@ interface Navigator {
 
     fun goTo(screen: Screen, strategy: Strategy = Strategy.NONE)
 
-    fun goBack()
-
-    fun canGoBack(): Boolean
+    fun goBack(): Boolean
 
     fun saveState(): ByteArray
 

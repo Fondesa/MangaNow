@@ -44,9 +44,7 @@ class ScreenManager : DaggerAppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (navigator.canGoBack()) {
-            navigator.goBack()
-        } else {
+        if (!navigator.goBack()) {
             super.onBackPressed()
         }
     }

@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.manganow.fragment
 
-import android.support.annotation.LayoutRes
-import com.fondesa.manganow.R
-import com.fondesa.manganow.fragment.DrawerFragment
+interface OnBackPressListener {
 
-class MangaListFragment : DrawerFragment(), MangaListContract.View {
-
-    @LayoutRes
-    override val contentLayout: Int = R.layout.screen_manga_list
+    fun onBackPressed(): Boolean
 }

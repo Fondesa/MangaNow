@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.manga.list
+package com.fondesa.manganow.fragment
 
-import android.support.annotation.LayoutRes
-import com.fondesa.manganow.R
-import com.fondesa.manganow.fragment.DrawerFragment
+import dagger.Binds
+import dagger.Module
 
-class MangaListFragment : DrawerFragment(), MangaListContract.View {
+@Module
+interface DrawerModule {
 
-    @LayoutRes
-    override val contentLayout: Int = R.layout.screen_manga_list
+    @Binds
+    fun provideDrawerConfiguration(configuration: DefaultDrawerConfiguration): DrawerConfiguration
 }

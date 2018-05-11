@@ -16,18 +16,12 @@
 
 package com.fondesa.manganow.settings
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.annotation.LayoutRes
 import com.fondesa.manganow.R
-import dagger.android.support.DaggerFragment
+import com.fondesa.manganow.fragment.DrawerFragment
 
-class SettingsFragment : DaggerFragment() {
+class SettingsFragment : DrawerFragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.screen_settings, container, false)
+    @LayoutRes
+    override val contentLayout: Int = R.layout.screen_settings
 }
