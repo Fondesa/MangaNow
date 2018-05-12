@@ -18,7 +18,6 @@ package com.fondesa.manganow.latest
 
 import android.support.annotation.LayoutRes
 import com.fondesa.domain.latest.LatestList
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.DrawerFragment
 
@@ -50,13 +49,4 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
     override fun updateLatestList(latest: LatestList) {
         TODO("not implemented")
     }
-
-    override fun updatePageSize(pageSize: Int) {
-        TODO("not implemented")
-    }
-
-    override fun navigateToDetailScreen(manga: Manga) {
-        TODO("not implemented")
-    }
-
 }

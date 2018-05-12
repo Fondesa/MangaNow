@@ -18,13 +18,14 @@ package com.fondesa.manganow.latest
 
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.presenter.BasePresenter
 
 /**
  * Used to specify the contract between the view and the presenter for the latest section.
  */
 object LatestContract {
+
+    const val PAGE_SIZE = 25
 
     /**
      * Specify the view methods for the latest section.
@@ -66,20 +67,6 @@ object LatestContract {
          * @param latest new list of [Latest] objects.
          */
         fun updateLatestList(latest: LatestList)
-
-        /**
-         * Called when the page size from the [Presenter] is available.
-         *
-         * @param pageSize new page size that must be set.
-         */
-        fun updatePageSize(pageSize: Int)
-
-        /**
-         * Called when the navigation must proceed to the detail screen of a given [Manga].
-         *
-         * @param manga instance of [Manga] that will be loaded in the detail screen.
-         */
-        fun navigateToDetailScreen(manga: Manga)
     }
 
     /**

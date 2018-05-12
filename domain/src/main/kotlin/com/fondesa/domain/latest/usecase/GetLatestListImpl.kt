@@ -17,8 +17,14 @@
 package com.fondesa.domain.latest.usecase
 
 import com.fondesa.domain.latest.LatestList
+import com.fondesa.domain.latest.repository.LatestRepository
+import com.fondesa.thread.extension.asyncAwait
+import javax.inject.Inject
 
-interface GetLatestList {
+class GetLatestListImpl @Inject constructor(private val repository: LatestRepository) :
+    GetLatestList {
 
-    suspend fun execute(page: Int, pageSize: Int): LatestList
+    override suspend fun execute(page: Int, pageSize: Int): LatestList = asyncAwait {
+        repository.getPaginated(page, pageSize)
+    }
 }
