@@ -19,6 +19,7 @@ package com.fondesa.manganow.navigation
 import android.annotation.SuppressLint
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import com.fondesa.manganow.fragment.AdditionalNavigationArgumentsProvider
 import com.fondesa.manganow.fragment.OnBackPressListener
 import com.fondesa.manganow.latest.LatestFragment
 import com.fondesa.manganow.manga.list.MangaListFragment
@@ -41,6 +42,16 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
             .add(android.R.id.content, nextFragment, screen.tag)
 
         val currentScreen = screens.lastOrNull()?.getFragmentOrNull()
+        // Add the additional arguments.
+        (currentScreen as? AdditionalNavigationArgumentsProvider)
+            ?.provideAdditionalArguments()?.let {
+                val args = nextFragment.arguments
+                if (args == null) {
+                    nextFragment.arguments = it
+                } else {
+                    args.putAll(it)
+                }
+            }
 
         if (strategy == Navigator.Strategy.REPLACE_ALL) {
             screens.mapNotNull {

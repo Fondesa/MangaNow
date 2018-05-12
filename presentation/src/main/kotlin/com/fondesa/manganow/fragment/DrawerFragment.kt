@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.fragment
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
@@ -23,19 +24,19 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.fondesa.manganow.R
-import com.fondesa.manganow.extension.getCheckedItem
 import com.fondesa.manganow.navigation.Navigator
+import com.fondesa.manganow.view.doOnLayout
+import com.fondesa.manganow.view.getCheckedItem
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.partial_toolbar.*
 import kotlinx.android.synthetic.main.screen_base_drawer.*
 import javax.inject.Inject
 
-abstract class DrawerFragment : DaggerFragment(), OnBackPressListener {
+abstract class DrawerFragment : DaggerFragment(),
+    OnBackPressListener,
+    AdditionalNavigationArgumentsProvider {
 
     @Inject
     lateinit var navigator: Navigator
@@ -46,17 +47,12 @@ abstract class DrawerFragment : DaggerFragment(), OnBackPressListener {
     @get:LayoutRes
     protected abstract val contentLayout: Int
 
-    private val drawerToggle: ActionBarDrawerToggle by lazy {
-        ActionBarDrawerToggle(
-            activity,
-            drawerLayout,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-    }
+    private lateinit var drawerToggle: ActionBarDrawerToggle
 
-    private val drawerCloseListener = DrawerCloseListener()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,7 +83,7 @@ abstract class DrawerFragment : DaggerFragment(), OnBackPressListener {
                     currentItemId == rootItemId -> Navigator.Strategy.NONE
                     else -> Navigator.Strategy.REPLACE_CURRENT
                 }
-                drawerCloseListener.doOnDrawerClosed {
+                doOnDrawerClosed {
                     // Navigate to the next screen.
                     navigator.goTo(it, strategy)
                 }
@@ -98,16 +94,41 @@ abstract class DrawerFragment : DaggerFragment(), OnBackPressListener {
 
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
-        drawerLayout.addDrawerListener(drawerCloseListener)
+        drawerToggle = ActionBarDrawerToggle(
+            activity,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawerLayout.addDrawerListener(drawerToggle)
+
+        arguments?.getInt(ARG_DRAWER_ITEM_ID)?.let { drawerItemId ->
+            navigationView.doOnLayout {
+                // Restore the current selected item id.
+                navigationView.setCheckedItem(drawerItemId)
+            }
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         // Necessary after the initialization to synchronize the state of the DrawerLayout with the button.
         drawerToggle.syncState()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        drawerLayout.removeDrawerListener(drawerCloseListener)
         drawerLayout.removeDrawerListener(drawerToggle)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        drawerToggle.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed(): Boolean {
@@ -121,20 +142,28 @@ abstract class DrawerFragment : DaggerFragment(), OnBackPressListener {
         }
     }
 
-    private class DrawerCloseListener : DrawerLayout.DrawerListener {
+    override fun provideAdditionalArguments(): Bundle =
+        drawerItemBundle(navigationView.getCheckedItem())
 
-        private var onDrawerClosedBlock: (() -> Unit)? = null
+    private inline fun doOnDrawerClosed(crossinline block: () -> Unit) {
+        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerClosed(drawerView: View) {
+                drawerLayout.removeDrawerListener(this)
+                // Execute the block.
+                block()
+            }
 
-        fun doOnDrawerClosed(block: () -> Unit) {
-            onDrawerClosedBlock = block
+            override fun onDrawerStateChanged(newState: Int) = Unit
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
+            override fun onDrawerOpened(drawerView: View) = Unit
+        })
+    }
+
+    companion object {
+        private const val ARG_DRAWER_ITEM_ID = "arg.drawerItemId"
+
+        fun drawerItemBundle(@IdRes itemId: Int) = Bundle().apply {
+            putInt(ARG_DRAWER_ITEM_ID, itemId)
         }
-
-        override fun onDrawerClosed(drawerView: View) {
-            onDrawerClosedBlock?.invoke()
-        }
-
-        override fun onDrawerStateChanged(newState: Int) = Unit
-        override fun onDrawerSlide(drawerView: View, slideOffset: Float) = Unit
-        override fun onDrawerOpened(drawerView: View) = Unit
     }
 }

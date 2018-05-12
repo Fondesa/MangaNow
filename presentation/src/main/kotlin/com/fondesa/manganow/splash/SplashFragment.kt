@@ -21,11 +21,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fondesa.manganow.R
+import com.fondesa.manganow.fragment.AdditionalNavigationArgumentsProvider
+import com.fondesa.manganow.fragment.DrawerFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
 
-class SplashFragment : DaggerFragment(), SplashContract.View {
+class SplashFragment : DaggerFragment(),
+    SplashContract.View,
+    AdditionalNavigationArgumentsProvider {
 
     @Inject
     lateinit var presenter: SplashContract.Presenter
@@ -89,4 +93,7 @@ class SplashFragment : DaggerFragment(), SplashContract.View {
     override fun hideErrorMessage() {
         errorTextView.visibility = View.INVISIBLE
     }
+
+    override fun provideAdditionalArguments(): Bundle =
+        DrawerFragment.drawerItemBundle(R.id.section_home)
 }

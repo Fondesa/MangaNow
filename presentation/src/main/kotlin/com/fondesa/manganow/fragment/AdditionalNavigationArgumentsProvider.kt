@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.extension
+package com.fondesa.manganow.fragment
 
-import android.support.annotation.IdRes
-import android.support.design.widget.NavigationView
-import android.view.View
+import android.os.Bundle
 
-@IdRes
-fun NavigationView.getCheckedItem(): Int {
-    val menu = menu
-    return (0 until menu.size()).map {
-        menu.getItem(it)
-    }.firstOrNull {
-        it.isChecked
-    }?.itemId ?: View.NO_ID
+interface AdditionalNavigationArgumentsProvider {
+
+    fun provideAdditionalArguments(): Bundle
 }
