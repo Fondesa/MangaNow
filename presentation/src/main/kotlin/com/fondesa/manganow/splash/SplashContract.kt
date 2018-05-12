@@ -57,12 +57,13 @@ object SplashContract {
         fun retryButtonClicked()
 
         /**
-         * Allows or blocks the navigation to the main section.
-         * If the navigation is required when it's blocked, the navigation must be dispatched
-         * when the it will be allowed again.
-         *
-         * @param allow true if the navigation to the main section is allowed, false otherwise.
+         * Notifies the presenter when the view enters its foreground state.
          */
-        fun allowNavigation(allow: Boolean)
+        fun movedToForeground()
+
+        /**
+         * Notifies the presenter when the view enters its background state.
+         */
+        fun movedToBackground()
     }
 }

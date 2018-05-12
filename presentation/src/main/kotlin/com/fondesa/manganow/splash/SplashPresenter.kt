@@ -68,13 +68,17 @@ class SplashPresenter @Inject constructor(
         loadData()
     }
 
-    override fun allowNavigation(allow: Boolean) {
-        canNavigate = allow
-        if (canNavigate && navigationWasDispatched) {
+    override fun movedToForeground() {
+        canNavigate = true
+        if (navigationWasDispatched) {
             // Navigate to the main screen.
             executeNavigation()
             navigationWasDispatched = false
         }
+    }
+
+    override fun movedToBackground() {
+        canNavigate = false
     }
 
     private fun loadData() {

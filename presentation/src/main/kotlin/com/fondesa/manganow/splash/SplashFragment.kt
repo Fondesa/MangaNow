@@ -66,13 +66,13 @@ class SplashFragment : DaggerFragment(),
     override fun onResume() {
         super.onResume()
         // Allow the navigation when the app comes to foreground.
-        presenter.allowNavigation(true)
+        presenter.movedToForeground()
     }
 
     override fun onPause() {
         super.onPause()
         // Disallow the navigation if the app goes to create.
-        presenter.allowNavigation(false)
+        presenter.movedToBackground()
     }
 
     override fun onDestroyView() {
