@@ -15,11 +15,6 @@
         <item name="color">@android:color/white</item>
     </style>
 
-    <style name="Host" parent="App">
-        <!-- Used to have this background at the startup without delay. -->
-        <!--<item name="android:windowBackground">?colorPrimary</item>-->
-    </style>
-
     <style name="Screen" />
 
     <style name="Screen.Splash">

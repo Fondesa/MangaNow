@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.splash
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import android.view.ViewGroup
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.AdditionalNavigationArgumentsProvider
 import com.fondesa.manganow.fragment.DrawerFragment
+import com.fondesa.manganow.util.ColorUtil
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
@@ -34,6 +36,8 @@ class SplashFragment : DaggerFragment(),
     @Inject
     lateinit var presenter: SplashContract.Presenter
 
+    private var originalStatusBarColor: Int? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,13 +46,21 @@ class SplashFragment : DaggerFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Attach the view to the presenter.
+        presenter.attachView(this)
         // Set the click listener.
         retryButton.setOnClickListener {
             // Retry to load the data.
             presenter.retryButtonClicked()
         }
-        // Attach the view to the presenter.
-        presenter.attachView(this)
+
+        val activity = activity
+        if (activity != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Store the current status bar color to restore it later.
+            originalStatusBarColor = activity.window?.statusBarColor
+            // Change the status bar color.
+            activity.window?.statusBarColor = ColorUtil.getPrimaryDark(activity)
+        }
     }
 
     override fun onResume() {
@@ -61,6 +73,19 @@ class SplashFragment : DaggerFragment(),
         super.onPause()
         // Disallow the navigation if the app goes to create.
         presenter.allowNavigation(false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val activity = activity
+        val originalStatusBarColor = originalStatusBarColor
+        if (activity != null &&
+            originalStatusBarColor != null &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+        ) {
+            // Restore the previous status bar color.
+            activity.window?.statusBarColor = originalStatusBarColor
+        }
     }
 
     override fun onDestroy() {
