@@ -23,19 +23,17 @@ import android.view.ViewGroup
 
 /**
  * Adapter used to define the gestures on the rows of a [RecyclerView].
- *
- * @param VH type of [RecyclerView.ViewHolder].
  */
-abstract class InteractorRecyclerViewAdapter<VH : InteractiveViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class InteractiveRecyclerViewAdapter: RecyclerView.Adapter<InteractiveViewHolder>() {
 
     /**
-     * Constructs the [VH] for a given [View].
+     * Constructs the [InteractiveViewHolder] for a given [View].
      *
      * @param parent root [View] of the cell.
      * @param viewType the view type of the new [View].
-     * @return new instance of [VH].
+     * @return new instance of [InteractiveViewHolder].
      */
-    abstract fun onConstructViewHolder(parent: ViewGroup, viewType: Int): VH
+    abstract fun onConstructViewHolder(parent: ViewGroup, viewType: Int): InteractiveViewHolder
 
     /**
      * Called when a view in a row (or its root view) is clicked.
@@ -62,7 +60,7 @@ abstract class InteractorRecyclerViewAdapter<VH : InteractiveViewHolder> : Recyc
      */
     open fun onCellTouch(view: View, position: Int, event: MotionEvent): Boolean = false
 
-    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InteractiveViewHolder {
         val holder = onConstructViewHolder(parent, viewType)
         holder.interactions.forEach {
             addGestureToView(holder, it.view, it.gesture)
@@ -70,7 +68,7 @@ abstract class InteractorRecyclerViewAdapter<VH : InteractiveViewHolder> : Recyc
         return holder
     }
 
-    private fun addGestureToView(holder: VH, v: View, gesture: RecyclerViewRowGesture) {
+    private fun addGestureToView(holder: InteractiveViewHolder, v: View, gesture: RecyclerViewRowGesture) {
         when (gesture) {
             RecyclerViewRowGesture.CLICK -> v.setOnClickListener { view ->
                 onCellClick(view, holder.adapterPosition)

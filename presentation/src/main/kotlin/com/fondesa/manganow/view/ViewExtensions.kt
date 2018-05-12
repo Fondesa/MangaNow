@@ -18,8 +18,11 @@ package com.fondesa.manganow.view
 
 import android.os.Build
 import android.support.annotation.IdRes
+import android.support.annotation.LayoutRes
 import android.support.design.widget.NavigationView
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 
 inline fun View.doOnLayout(crossinline block: () -> Unit) {
@@ -35,6 +38,12 @@ inline fun View.doOnLayout(crossinline block: () -> Unit) {
         }
     })
 }
+
+fun ViewGroup.inflateChild(@LayoutRes layout: Int): View = LayoutInflater.from(context).inflate(
+    layout,
+    this,
+    false
+)
 
 @IdRes
 fun NavigationView.getCheckedItem(): Int {
