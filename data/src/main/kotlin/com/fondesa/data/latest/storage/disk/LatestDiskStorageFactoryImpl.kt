@@ -22,12 +22,12 @@ import com.fondesa.database.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class DefaultLatestDiskStorageFactory @Inject constructor(private val client: DatabaseClient) :
+class LatestDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
     LatestDiskStorageFactory {
 
     override fun provideStorage(page: Int, pageSize: Int): LatestDiskStorage {
         val expirationTimeMs = TimeUnit.MINUTES.toMillis(5)
         val remoteTaskPath = "latest-$page-$pageSize"
-        return DefaultLatestDiskStorage(client, expirationTimeMs, remoteTaskPath)
+        return LatestDiskStorageImpl(client, expirationTimeMs, remoteTaskPath)
     }
 }

@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.manga.list
 
-import com.fondesa.data.manga.repository.DefaultMangaRepository
+import com.fondesa.data.manga.repository.MangaRepositoryImpl
 import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
 import com.fondesa.domain.manga.usecase.GetMangaList
@@ -34,7 +34,7 @@ interface MangaListModule {
     fun provideView(view: MangaListFragment): MangaListContract.View
 
     @Binds
-    fun provideMangaRepository(repository: DefaultMangaRepository): MangaRepository
+    fun provideMangaRepository(repository: MangaRepositoryImpl): MangaRepository
 
     @Binds
     fun provideGetMangaList(useCase: GetMangaList): UseCase<List<Manga>, Unit>

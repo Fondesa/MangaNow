@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.remote.connectivity
+package com.fondesa.data.storage.remote
 
-import android.content.Context
-import javax.inject.Inject
+import com.fondesa.data.serialization.FromJsonConverter
+import com.fondesa.remote.client.RemoteClient
+import com.fondesa.remote.task.RemoteTask
 
-class DefaultConnectivityManager @Inject constructor(private val context: Context) :
-    ConnectivityManager {
+class JsonRemoteStorage<out T>(
+    private val remoteClient: RemoteClient,
+    private val remoteTask: RemoteTask,
+    private val converter: FromJsonConverter<T>
+) : RemoteStorage<T> {
 
-    private val connectivityManager by lazy {
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
-    }
-
-    override fun isConnected(): Boolean {
-        val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo?.isConnectedOrConnecting ?: false
+    override fun get(): T {
+        val json = remoteClient.load(remoteTask)
+        return converter.convert(json)
     }
 }

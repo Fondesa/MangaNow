@@ -22,7 +22,7 @@ import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import javax.inject.Inject
 
-class DefaultSortOrderRepository @Inject constructor(
+class SortOrderRepositoryImpl @Inject constructor(
     private val remoteStorageFactory: SortOrderRemoteStorageFactory,
     private val diskStorageFactory: SortOrderDiskStorageFactory
 ) : SortOrderRepository {

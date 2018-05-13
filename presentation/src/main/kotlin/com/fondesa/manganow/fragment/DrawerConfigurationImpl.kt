@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.storage.remote
+package com.fondesa.manganow.fragment
 
-import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.remote.client.RemoteClient
-import com.fondesa.remote.task.RemoteTask
+import android.support.annotation.IdRes
+import com.fondesa.manganow.R
+import com.fondesa.manganow.navigation.Screen
+import javax.inject.Inject
 
-class DefaultRemoteStorage<out T>(
-    private val remoteClient: RemoteClient,
-    private val remoteTask: RemoteTask,
-    private val converter: FromJsonConverter<T>
-) : RemoteStorage<T> {
+class DrawerConfigurationImpl @Inject constructor() : DrawerConfiguration {
 
-    override fun get(): T {
-        val json = remoteClient.load(remoteTask)
-        return converter.convert(json)
+    @get:IdRes
+    override val rootItemId: Int = R.id.section_home
+
+    override fun screenOfItem(@IdRes itemId: Int): Screen? = when (itemId) {
+        R.id.section_home -> Screen.Latest()
+        R.id.section_list -> Screen.MangaList()
+        R.id.section_settings -> Screen.Settings()
+        else -> null
     }
 }

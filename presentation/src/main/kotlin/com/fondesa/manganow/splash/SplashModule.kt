@@ -16,16 +16,16 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.data.category.repository.DefaultCategoryRepository
+import com.fondesa.data.category.repository.CategoryRepositoryImpl
 import com.fondesa.data.category.storage.CategoryDiskStorageFactory
 import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
-import com.fondesa.data.category.storage.disk.DefaultCategoryDiskStorageFactory
-import com.fondesa.data.category.storage.remote.DefaultCategoryRemoteStorageFactory
-import com.fondesa.data.sortorder.repository.DefaultSortOrderRepository
+import com.fondesa.data.category.storage.disk.CategoryDiskStorageFactoryImpl
+import com.fondesa.data.category.storage.remote.CategoryRemoteStorageFactoryImpl
+import com.fondesa.data.sortorder.repository.SortOrderRepositoryImpl
 import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
 import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
-import com.fondesa.data.sortorder.storage.disk.DefaultSortOrderDiskStorageFactory
-import com.fondesa.data.sortorder.storage.remote.DefaultSortOrderRemoteStorageFactory
+import com.fondesa.data.sortorder.storage.disk.SortOrderDiskStorageFactoryImpl
+import com.fondesa.data.sortorder.storage.remote.SortOrderRemoteStorageFactoryImpl
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
 import com.fondesa.domain.category.usecase.GetCategoryList
@@ -47,25 +47,25 @@ interface SplashModule {
     fun provideView(view: SplashFragment): SplashContract.View
 
     @Binds
-    fun provideCategoryDiskStorageFactory(factory: DefaultCategoryDiskStorageFactory): CategoryDiskStorageFactory
+    fun provideCategoryDiskStorageFactory(factory: CategoryDiskStorageFactoryImpl): CategoryDiskStorageFactory
 
     @Binds
-    fun provideCategoryRemoteStorageFactory(factory: DefaultCategoryRemoteStorageFactory): CategoryRemoteStorageFactory
+    fun provideCategoryRemoteStorageFactory(factory: CategoryRemoteStorageFactoryImpl): CategoryRemoteStorageFactory
 
     @Binds
-    fun provideCategoryRepository(repository: DefaultCategoryRepository): CategoryRepository
+    fun provideCategoryRepository(repository: CategoryRepositoryImpl): CategoryRepository
 
     @Binds
     fun provideGetCategoryList(useCase: GetCategoryList): UseCase<CategoryList, Unit>
 
     @Binds
-    fun provideSortOrderDiskStorageFactory(factory: DefaultSortOrderDiskStorageFactory): SortOrderDiskStorageFactory
+    fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
 
     @Binds
-    fun provideSortOrderRemoteStorageFactory(factory: DefaultSortOrderRemoteStorageFactory): SortOrderRemoteStorageFactory
+    fun provideSortOrderRemoteStorageFactory(factory: SortOrderRemoteStorageFactoryImpl): SortOrderRemoteStorageFactory
 
     @Binds
-    fun provideSortOrderRepository(repository: DefaultSortOrderRepository): SortOrderRepository
+    fun provideSortOrderRepository(repository: SortOrderRepositoryImpl): SortOrderRepository
 
     @Binds
     fun provideGetSortOrderList(useCase: GetSortOrderList): UseCase<SortOrderList, Unit>

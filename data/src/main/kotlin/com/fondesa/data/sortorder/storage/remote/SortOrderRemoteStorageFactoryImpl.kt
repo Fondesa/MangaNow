@@ -20,17 +20,17 @@ import com.fondesa.data.remote.RemoteApi
 import com.fondesa.data.sortorder.converter.SortOrderJsonConverter
 import com.fondesa.data.sortorder.storage.SortOrderRemoteStorage
 import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
-import com.fondesa.data.storage.remote.DefaultRemoteStorage
+import com.fondesa.data.storage.remote.JsonRemoteStorage
 import com.fondesa.remote.client.RemoteClient
 import javax.inject.Inject
 
-class DefaultSortOrderRemoteStorageFactory @Inject constructor(private val client: RemoteClient) :
+class SortOrderRemoteStorageFactoryImpl @Inject constructor(private val client: RemoteClient) :
     SortOrderRemoteStorageFactory {
 
     override fun provideStorage(): SortOrderRemoteStorage {
         val task = RemoteApi.Request.sortOrders()
         val jsonConverter = SortOrderJsonConverter()
-        return DefaultRemoteStorage(client, task, jsonConverter)
+        return JsonRemoteStorage(client, task, jsonConverter)
     }
 }
 

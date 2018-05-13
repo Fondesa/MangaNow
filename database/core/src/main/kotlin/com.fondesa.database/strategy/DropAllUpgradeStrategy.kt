@@ -32,7 +32,7 @@ import javax.inject.Inject
  * The writing on the <i>sqlite_master</i> table is discouraged so, in production mode,
  * it's better to specify a custom [UpgradeStrategy].
  */
-class DefaultUpgradeStrategy @Inject constructor() : UpgradeStrategy {
+class DropAllUpgradeStrategy @Inject constructor() : UpgradeStrategy {
 
     override fun onUpgrade(database: Database, oldVersion: Int, newVersion: Int, newGraph: Graph) {
         val pragmaWritableSchemaRaw = "writable_schema"

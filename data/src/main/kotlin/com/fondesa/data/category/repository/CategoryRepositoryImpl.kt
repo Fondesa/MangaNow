@@ -14,28 +14,31 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.latest.repository
+package com.fondesa.data.category.repository
 
-import com.fondesa.data.latest.storage.LatestDiskStorageFactory
-import com.fondesa.data.latest.storage.LatestRemoteStorageFactory
-import com.fondesa.domain.latest.LatestList
-import com.fondesa.domain.latest.repository.LatestRepository
+import com.fondesa.data.category.storage.CategoryDiskStorageFactory
+import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
+import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.category.repository.CategoryRepository
 import javax.inject.Inject
 
-class DefaultLatestRepository @Inject constructor(
-    private val remoteStorageFactory: LatestRemoteStorageFactory,
-    private val diskStorageFactory: LatestDiskStorageFactory
-) : LatestRepository {
+class CategoryRepositoryImpl @Inject constructor(
+    private val remoteStorageFactory: CategoryRemoteStorageFactory,
+    private val diskStorageFactory: CategoryDiskStorageFactory
+) : CategoryRepository {
 
-    override suspend fun getPaginated(page: Int, pageSize: Int): LatestList {
-        val cacheStorage = diskStorageFactory.provideStorage(page, pageSize)
+    override suspend fun getAll(): CategoryList {
+        val cacheStorage = diskStorageFactory.provideStorage()
         return if (cacheStorage.isValid()) {
             cacheStorage.get()
         } else {
-            val remoteStorage = remoteStorageFactory.provideStorage(page, pageSize)
+            val remoteStorage = remoteStorageFactory.provideStorage()
             remoteStorage.get().also {
                 cacheStorage.put(it)
             }
         }
     }
 }
+
+
+
