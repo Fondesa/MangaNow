@@ -40,6 +40,7 @@ class LatestPresenter @Inject constructor(
 
     private val latestList = mutableListOf<Latest>()
     private var currentPage = 0
+    private var currentExecutingPage: Int? = null
 
     override fun attachView(view: LatestContract.View) {
         super.attachView(view)
@@ -62,7 +63,9 @@ class LatestPresenter @Inject constructor(
     }
 
     override fun pageEnded() {
-        loadNextPage()
+        if (currentExecutingPage != currentPage) {
+            loadNextPage()
+        }
     }
 
     override fun latestSelected(latest: Latest) {
@@ -70,6 +73,7 @@ class LatestPresenter @Inject constructor(
     }
 
     private fun loadNextPage() {
+        currentExecutingPage = currentPage
         // Create and load the executor used to load the latest list.
         executorFactory
             .create {
@@ -83,6 +87,8 @@ class LatestPresenter @Inject constructor(
     private fun onLatestLoadCompleted(result: List<Latest>) {
         if (!isViewAttached())
             return
+
+        currentExecutingPage = null
 
         latestList.addAll(result)
 
@@ -100,6 +106,8 @@ class LatestPresenter @Inject constructor(
     private fun onLatestLoadFailed(t: Throwable) {
         if (!isViewAttached())
             return
+
+        currentExecutingPage = null
 
         val msg = throwableConverter.convert(t)
         view.showErrorMessage(msg)

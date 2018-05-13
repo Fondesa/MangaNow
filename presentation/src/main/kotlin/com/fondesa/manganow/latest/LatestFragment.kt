@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.DrawerFragment
+import com.fondesa.manganow.view.RecyclerViewScrollEndedListener
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider
 import kotlinx.android.synthetic.main.screen_base_drawer.*
 import kotlinx.android.synthetic.main.screen_latest.*
@@ -39,6 +40,9 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
     override val contentLayout: Int = R.layout.screen_latest
 
     private val listAdapter by lazy { LatestRecyclerViewAdapter() }
+    private val scrollEndedListener = RecyclerViewScrollEndedListener {
+        presenter.pageEnded()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +59,7 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
             // Add the divider.
             RecyclerViewDivider.with(it).build().addTo(recyclerView)
         }
+        recyclerView.addOnScrollListener(scrollEndedListener)
         // Set the adapter on the RecyclerView.
         recyclerView.adapter = listAdapter
         // Attach the view to the presenter.
@@ -63,6 +68,7 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        recyclerView.removeOnScrollListener(scrollEndedListener)
         // Detach the view from the presenter.
         presenter.detachView()
     }
@@ -88,6 +94,6 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
     }
 
     override fun updateLatestList(latest: LatestList) {
-       listAdapter.updateList(latest)
+        listAdapter.updateList(latest)
     }
 }
