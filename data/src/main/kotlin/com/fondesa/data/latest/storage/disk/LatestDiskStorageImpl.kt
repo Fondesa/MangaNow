@@ -16,11 +16,11 @@
 
 package com.fondesa.data.latest.storage.disk
 
+import com.fondesa.common.database.DatabaseClient
 import com.fondesa.data.chapter.ChapterTable
 import com.fondesa.data.latest.database.LatestTable
 import com.fondesa.data.manga.database.MangaTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
-import com.fondesa.database.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.extension.equalTo
 import com.fondesa.database.statement.Insert

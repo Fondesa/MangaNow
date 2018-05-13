@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage.disk
+package com.fondesa.database.strategy
 
-import com.fondesa.common.database.DatabaseClient
-import com.fondesa.data.category.storage.CategoryDiskStorage
-import com.fondesa.data.category.storage.CategoryDiskStorageFactory
-import java.util.concurrent.TimeUnit
+import com.fondesa.common.database.Database
+import com.fondesa.database.statement.Vacuum
 import javax.inject.Inject
 
-class CategoryDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
-    CategoryDiskStorageFactory {
+/**
+ * Default implementation of [ErrorStrategy] that will attempt to rebuild
+ * the database file when a corruption occurs.
+ */
+class VacuumErrorStrategy @Inject constructor() : ErrorStrategy {
 
-    override fun provideStorage(): CategoryDiskStorage {
-        val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
-        val remoteTaskKey = "categories"
-        return CategoryDiskStorageImpl(client, expirationTimeMs, remoteTaskKey)
+    override fun onCorruption(database: Database) {
+        val vacuum = Vacuum.create()
+        // Attempt to rebuild the database file.
+        database.compile(vacuum).execute()
     }
 }

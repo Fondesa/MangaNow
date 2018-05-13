@@ -16,8 +16,8 @@
 
 package com.fondesa.data.storage.disk
 
+import com.fondesa.common.database.DatabaseClient
 import com.fondesa.data.remote.database.RemoteTaskTable
-import com.fondesa.database.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.extension.and
 import com.fondesa.database.extension.equalTo

@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.sortorder.storage.disk
+package com.fondesa.manganow.injection.database
 
 import com.fondesa.common.database.DatabaseClient
-import com.fondesa.data.sortorder.storage.SortOrderDiskStorage
-import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
+import com.fondesa.database.SQLiteClient
+import dagger.Binds
+import dagger.Module
+import javax.inject.Singleton
 
-class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
-    SortOrderDiskStorageFactory {
+@Module(includes = [SQLiteModule::class])
+interface DatabaseModule {
 
-    override fun provideStorage(): SortOrderDiskStorage {
-        val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
-        val remoteTaskKey = "sort_orders"
-        return SortOrderDiskStorageImpl(client, expirationTimeMs, remoteTaskKey)
-    }
+    @Singleton
+    @Binds
+    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
 }

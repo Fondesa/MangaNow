@@ -28,7 +28,6 @@ android {
 
 dependencies {
     implementation project(":data")
-    implementation project(":injection")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"

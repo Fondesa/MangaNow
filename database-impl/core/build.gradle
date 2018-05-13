@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -15,16 +14,12 @@ android {
 }
 
 dependencies {
-    api project(":remote-impl")
-    api project(":thread-impl")
-    api project(":domain")
-    api project(":database-impl:core")
-
+    api project(":database-impl:annotations")
+    api project(":common:common-database")
+    api project(':thread-impl')
     api "javax.inject:javax.inject:$versions.javaxInject"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    api "com.google.code.gson:gson:$versions.gson"
-
-    kapt project(':database-impl:processor')
+    api "com.jakewharton.timber:timber:$versions.timber"
 }
 
 kotlin.experimental.coroutines "enable"

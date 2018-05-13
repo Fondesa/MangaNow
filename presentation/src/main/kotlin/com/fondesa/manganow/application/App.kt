@@ -16,8 +16,9 @@
 
 package com.fondesa.manganow.application
 
-import com.fondesa.database.DatabaseClient
+import com.fondesa.common.database.DatabaseClient
 import com.fondesa.manganow.BuildConfig
+import com.fondesa.manganow.injection.application.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
