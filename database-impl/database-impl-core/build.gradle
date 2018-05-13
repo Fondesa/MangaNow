@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-    api project(":database-impl:annotations")
+    api project(':database-impl:database-impl-annotations')
     api project(":common:common-database")
     api project(':thread-impl')
     api "javax.inject:javax.inject:$versions.javaxInject"

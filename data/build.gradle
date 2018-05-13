@@ -18,13 +18,13 @@ dependencies {
     api project(":remote-impl")
     api project(":thread-impl")
     api project(":domain")
-    api project(":database-impl:core")
+    api project(':database-impl:database-impl-core')
 
     api "javax.inject:javax.inject:$versions.javaxInject"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     api "com.google.code.gson:gson:$versions.gson"
 
-    kapt project(':database-impl:processor')
+    kapt project(':database-impl:database-impl-processor')
 }
 
 kotlin.experimental.coroutines "enable"
