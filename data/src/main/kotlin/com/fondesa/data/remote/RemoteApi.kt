@@ -86,36 +86,32 @@ object RemoteApi {
          * @param queryParams key-value params that will be added in query string.
          */
         data class Get(
-            private val apiPath: String,
-            private val queryParams: Map<String, String> = emptyMap()
+            override val apiPath: String,
+            override val queryParams: Map<String, String> = emptyMap()
         ) : BaseTask() {
 
-            override fun apiPath(): String = apiPath
+            override val method = RemoteTask.Method.GET
 
-            override fun method() = RemoteTask.Method.GET
+            override val body: JsonElement? = null
 
-            override fun queryParams() = queryParams
-
-            override fun body(): JsonElement? = null
-
-            override fun headers(): Map<String, String> = emptyMap()
+            override val headers: Map<String, String> = emptyMap()
         }
 
         data class ImageTask(private val imageUrl: String) : RemoteTask {
 
-            override fun method() = RemoteTask.Method.GET
+            override val method = RemoteTask.Method.GET
 
-            override fun scheme() = "https"
+            override val scheme = "https"
 
-            override fun host() = "cdn.mangaeden.com"
+            override val host = "cdn.mangaeden.com"
 
-            override fun path() = "mangasimg/$imageUrl"
+            override val path = "mangasimg/$imageUrl"
 
-            override fun headers(): Map<String, String> = emptyMap()
+            override val headers: Map<String, String> = emptyMap()
 
-            override fun queryParams(): Map<String, String> = emptyMap()
+            override val queryParams: Map<String, String> = emptyMap()
 
-            override fun body(): JsonElement? = null
+            override val body: JsonElement? = null
         }
 
         /**
@@ -123,18 +119,18 @@ object RemoteApi {
          */
         abstract class BaseTask : RemoteTask {
 
-            override fun scheme() = "http"
-
-            override fun host() = "192.168.1.2"
-
-            override fun path() = "api/${apiPath()}"
-
-            override fun port() = 8080
-
             /**
              * @return path that will be appended to the root path of the APIs.
              */
-            abstract fun apiPath(): String
+            protected abstract val apiPath: String
+
+            override val scheme: String = "http"
+
+            override val host: String = "192.168.1.2"
+
+            override val path get() = "api/$apiPath"
+
+            override val port = 8080
         }
     }
 }

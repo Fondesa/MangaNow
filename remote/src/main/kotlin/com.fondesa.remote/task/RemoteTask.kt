@@ -34,7 +34,7 @@ interface RemoteTask {
      *
      * @return method of the request.
      */
-    fun method(): Method
+    val method: Method
 
     /**
      * Specify the scheme of the request.
@@ -42,7 +42,7 @@ interface RemoteTask {
      *
      * @return scheme of the request.
      */
-    fun scheme(): String
+    val scheme: String
 
     /**
      * Specify the host of the request.
@@ -50,7 +50,7 @@ interface RemoteTask {
      *
      * @return host of the request.
      */
-    fun host(): String
+    val host: String
 
     /**
      * Specify the port number of the request.
@@ -58,7 +58,7 @@ interface RemoteTask {
      *
      * @return port number of the request.
      */
-    fun port(): Int = HttpUrl.defaultPort(scheme())
+    val port: Int get() = HttpUrl.defaultPort(scheme)
 
     /**
      * Specify the path of the request that will be appended to the absolute path.
@@ -66,28 +66,28 @@ interface RemoteTask {
      *
      * @return path of the request.
      */
-    fun path(): String
+    val path: String
 
     /**
      * Specify the headers that will be added to the request.
      *
      * @return key-value map representing the headers.
      */
-    fun headers(): Map<String, String>
+    val headers: Map<String, String>
 
     /**
      * Specify the query parameters that will be added to the request.
      *
      * @return key-value map representing the query parameters.
      */
-    fun queryParams(): Map<String, String>
+    val queryParams: Map<String, String>
 
     /**
      * Specify the body of the request.
      *
      * @return [JsonElement] representing the body of the request or null.
      */
-    fun body(): JsonElement?
+    val body: JsonElement?
 
     /**
      * Specify the tag of the request.
@@ -96,7 +96,7 @@ interface RemoteTask {
      *
      * @return tag of the request.
      */
-    fun tag(): Any? = null
+    val tag: Any? get() = null
 
     enum class Method(val value: String) {
 

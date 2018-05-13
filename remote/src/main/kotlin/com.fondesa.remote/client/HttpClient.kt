@@ -65,7 +65,7 @@ class HttpClient @Inject constructor(
         // Get the task URL.
         val url = task.toHttpUrl()
 
-        val body = task.body()?.let {
+        val body = task.body?.let {
             // Content-type of the json.
             val mediaType = MediaType.parse("application/json; charset=utf-8")
             val jsonBody = gson.toJson(it)
@@ -75,10 +75,10 @@ class HttpClient @Inject constructor(
         // Create the request.
         val requestBuilder = Request.Builder()
             .url(url)
-            .headers(Headers.of(task.headers()))
-            .method(task.method().value, body)
+            .headers(Headers.of(task.headers))
+            .method(task.method.value, body)
 
-        task.tag()?.let {
+        task.tag?.let {
             requestBuilder.tag(it)
         }
 
@@ -117,13 +117,13 @@ class HttpClient @Inject constructor(
      */
     private fun RemoteTask.toHttpUrl(): HttpUrl {
         val urlBuilder = HttpUrl.Builder()
-            .scheme(scheme())
-            .host(host())
-            .port(port())
-            .addPathSegments(path())
+            .scheme(scheme)
+            .host(host)
+            .port(port)
+            .addPathSegments(path)
 
         // Add all query string parameters.
-        queryParams().forEach { (key, value) ->
+        queryParams.forEach { (key, value) ->
             urlBuilder.addQueryParameter(key, value)
         }
 
