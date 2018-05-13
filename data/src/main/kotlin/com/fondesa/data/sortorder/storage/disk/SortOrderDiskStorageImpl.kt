@@ -25,7 +25,7 @@ import com.fondesa.database.statement.Select
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.model.SortOrder
 
-class DefaultSortOrderDiskStorage(
+class SortOrderDiskStorageImpl(
     client: DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String

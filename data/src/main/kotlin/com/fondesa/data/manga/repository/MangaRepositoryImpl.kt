@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.fragment
+package com.fondesa.data.manga.repository
 
-import dagger.Binds
-import dagger.Module
+import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.manga.repository.MangaRepository
+import javax.inject.Inject
 
-@Module
-interface DrawerModule {
+class MangaRepositoryImpl @Inject constructor(
+) : MangaRepository {
 
-    @Binds
-    fun provideDrawerConfiguration(configuration: DrawerConfigurationImpl): DrawerConfiguration
+    override suspend fun getAll(): List<Manga> = TODO()
 }

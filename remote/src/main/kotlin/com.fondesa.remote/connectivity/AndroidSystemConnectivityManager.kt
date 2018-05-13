@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage.disk
+package com.fondesa.remote.connectivity
 
-import com.fondesa.data.category.storage.CategoryDiskStorage
-import com.fondesa.data.category.storage.CategoryDiskStorageFactory
-import com.fondesa.database.DatabaseClient
-import java.util.concurrent.TimeUnit
+import android.content.Context
 import javax.inject.Inject
 
-class DefaultCategoryDiskStorageFactory @Inject constructor(private val client: DatabaseClient) :
-    CategoryDiskStorageFactory {
+class AndroidSystemConnectivityManager @Inject constructor(private val context: Context) :
+    ConnectivityManager {
 
-    override fun provideStorage(): CategoryDiskStorage {
-        val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
-        val remoteTaskKey = "categories"
-        return DefaultCategoryDiskStorage(client, expirationTimeMs, remoteTaskKey)
+    private val connectivityManager by lazy {
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
+    }
+
+    override fun isConnected(): Boolean {
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo?.isConnectedOrConnecting ?: false
     }
 }

@@ -18,10 +18,10 @@ package com.fondesa.manganow.database
 
 import com.fondesa.data.database.AppGraph
 import com.fondesa.database.injection.SQLiteDatabaseInfo
-import com.fondesa.database.strategy.DefaultErrorStrategy
-import com.fondesa.database.strategy.DefaultUpgradeStrategy
+import com.fondesa.database.strategy.DropAllUpgradeStrategy
 import com.fondesa.database.strategy.ErrorStrategy
 import com.fondesa.database.strategy.UpgradeStrategy
+import com.fondesa.database.strategy.VacuumErrorStrategy
 import com.fondesa.database.structure.Graph
 import dagger.Module
 import dagger.Provides
@@ -31,10 +31,10 @@ import javax.inject.Singleton
 class SQLiteModule {
 
     @Provides
-    fun provideUpgradeStrategy(strategy: DefaultUpgradeStrategy): UpgradeStrategy = strategy
+    fun provideUpgradeStrategy(strategy: DropAllUpgradeStrategy): UpgradeStrategy = strategy
 
     @Provides
-    fun provideErrorStrategy(strategy: DefaultErrorStrategy): ErrorStrategy = strategy
+    fun provideErrorStrategy(strategy: VacuumErrorStrategy): ErrorStrategy = strategy
 
     @Singleton
     @Provides

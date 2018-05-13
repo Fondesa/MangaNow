@@ -32,7 +32,7 @@ import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.manga.model.Manga
 import java.util.*
 
-class DefaultLatestDiskStorage(
+class LatestDiskStorageImpl(
     client: DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String

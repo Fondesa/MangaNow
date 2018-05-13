@@ -18,8 +18,8 @@ package com.fondesa.manganow.remote
 
 import com.fondesa.remote.client.HttpClient
 import com.fondesa.remote.client.RemoteClient
+import com.fondesa.remote.connectivity.AndroidSystemConnectivityManager
 import com.fondesa.remote.connectivity.ConnectivityManager
-import com.fondesa.remote.connectivity.DefaultConnectivityManager
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -28,7 +28,7 @@ import javax.inject.Singleton
 interface RemoteModule {
 
     @Binds
-    fun provideConnectivityManager(manager: DefaultConnectivityManager): ConnectivityManager
+    fun provideConnectivityManager(manager: AndroidSystemConnectivityManager): ConnectivityManager
 
     @Singleton
     @Binds

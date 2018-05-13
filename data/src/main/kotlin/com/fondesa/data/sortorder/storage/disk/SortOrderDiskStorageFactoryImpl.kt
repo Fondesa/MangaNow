@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.fragment
+package com.fondesa.data.sortorder.storage.disk
 
-import android.support.annotation.IdRes
-import com.fondesa.manganow.R
-import com.fondesa.manganow.navigation.Screen
+import com.fondesa.data.sortorder.storage.SortOrderDiskStorage
+import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
+import com.fondesa.database.DatabaseClient
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class DefaultDrawerConfiguration @Inject constructor() : DrawerConfiguration {
+class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
+    SortOrderDiskStorageFactory {
 
-    @get:IdRes
-    override val rootItemId: Int = R.id.section_home
-
-    override fun screenOfItem(@IdRes itemId: Int): Screen? = when (itemId) {
-        R.id.section_home -> Screen.Latest()
-        R.id.section_list -> Screen.MangaList()
-        R.id.section_settings -> Screen.Settings()
-        else -> null
+    override fun provideStorage(): SortOrderDiskStorage {
+        val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
+        val remoteTaskKey = "sort_orders"
+        return SortOrderDiskStorageImpl(client, expirationTimeMs, remoteTaskKey)
     }
 }

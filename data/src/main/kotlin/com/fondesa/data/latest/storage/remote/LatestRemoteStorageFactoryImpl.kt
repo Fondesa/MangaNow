@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage.remote
+package com.fondesa.data.latest.storage.remote
 
-import com.fondesa.data.category.converter.CategoryJsonConverter
-import com.fondesa.data.category.storage.CategoryRemoteStorage
-import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
+import com.fondesa.data.latest.converter.LatestJsonConverter
+import com.fondesa.data.latest.storage.LatestRemoteStorage
+import com.fondesa.data.latest.storage.LatestRemoteStorageFactory
 import com.fondesa.data.remote.RemoteApi
-import com.fondesa.data.storage.remote.DefaultRemoteStorage
+import com.fondesa.data.storage.remote.JsonRemoteStorage
 import com.fondesa.remote.client.RemoteClient
 import javax.inject.Inject
 
-class DefaultCategoryRemoteStorageFactory @Inject constructor(private val client: RemoteClient) :
-    CategoryRemoteStorageFactory {
+class LatestRemoteStorageFactoryImpl @Inject constructor(private val remoteClient: RemoteClient) :
+    LatestRemoteStorageFactory {
 
-    override fun provideStorage(): CategoryRemoteStorage {
-        val task = RemoteApi.Request.categories()
-        val jsonConverter = CategoryJsonConverter()
-        return DefaultRemoteStorage(client, task, jsonConverter)
+    override fun provideStorage(page: Int, pageSize: Int): LatestRemoteStorage {
+        val task = RemoteApi.Request.latest(page, pageSize)
+        val jsonConverter = LatestJsonConverter()
+        return JsonRemoteStorage(remoteClient, task, jsonConverter)
     }
 }
-
