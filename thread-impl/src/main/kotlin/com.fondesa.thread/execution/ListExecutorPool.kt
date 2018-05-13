@@ -16,20 +16,23 @@
 
 package com.fondesa.thread.execution
 
+import com.fondesa.common.thread.execution.Executor
+import com.fondesa.common.thread.execution.ExecutorPool
+import javax.inject.Inject
+
 /**
- * Used to manage a pool of [Executor] and release them in a centralized way.
+ * Implementation of [ExecutorPool] which uses a [List] to handle the pool.
  */
-interface ExecutorPool {
+class ListExecutorPool @Inject constructor() : ExecutorPool {
 
-    /**
-     * Adds an [Executor] to the pool.
-     *
-     * @param executor [Executor] which must be added.
-     */
-    fun add(executor: Executor)
+    private val executors = mutableListOf<Executor>()
 
-    /**
-     * Cancel all [Executor]s in the pool and release their references.
-     */
-    fun release()
+    override fun add(executor: Executor) {
+        executors.add(executor)
+    }
+
+    override fun release() {
+        executors.forEach { it.cancel() }
+        executors.clear()
+    }
 }

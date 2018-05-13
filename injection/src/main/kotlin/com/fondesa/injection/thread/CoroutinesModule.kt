@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.execution
+package com.fondesa.injection.thread
 
 import dagger.Module
 import dagger.Provides

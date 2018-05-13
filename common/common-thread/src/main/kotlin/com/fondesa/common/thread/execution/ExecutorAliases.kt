@@ -14,5 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.injection
+package com.fondesa.common.thread.execution
 
+/**
+ * Defines a lambda which returns a generic result.
+ *
+ * @param T the result's type.
+ */
+typealias ExecutionBlock<T> = suspend () -> T
+
+/**
+ * Defines a lambda which will be invoked with a previously returned result as parameter.
+ *
+ * @param T the parameter's type.
+ */
+typealias CompletedBlock<T> = (T) -> Unit
+
+/**
+ * Defines a lambda which will be invoked with a [Throwable] as parameter.
+ */
+typealias ErrorBlock = (Throwable) -> Unit

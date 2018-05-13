@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.thread.execution
+package com.fondesa.common.thread.execution
 
 /**
- * Defines a lambda which returns a generic result.
- *
- * @param T the result's type.
+ * Used to manage a pool of [Executor] and release them in a centralized way.
  */
-typealias ExecutionBlock<T> = suspend () -> T
+interface ExecutorPool {
 
-/**
- * Defines a lambda which will be invoked with a previously returned result as parameter.
- *
- * @param T the parameter's type.
- */
-typealias CompletedBlock<T> = (T) -> Unit
+    /**
+     * Adds an [Executor] to the pool.
+     *
+     * @param executor [Executor] which must be added.
+     */
+    fun add(executor: Executor)
 
-/**
- * Defines a lambda which will be invoked with a [Throwable] as parameter.
- */
-typealias ErrorBlock = (Throwable) -> Unit
+    /**
+     * Cancel all [Executor]s in the pool and release their references.
+     */
+    fun release()
+}

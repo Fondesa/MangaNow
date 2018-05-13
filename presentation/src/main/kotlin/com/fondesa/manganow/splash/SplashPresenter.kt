@@ -16,6 +16,9 @@
 
 package com.fondesa.manganow.splash
 
+import com.fondesa.common.thread.execution.ExecutorFactory
+import com.fondesa.common.thread.execution.ExecutorPool
+import com.fondesa.common.thread.execution.execute
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.usecase.GetCategoryList
@@ -25,9 +28,6 @@ import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
 import com.fondesa.manganow.presenter.AbstractPresenter
 import com.fondesa.manganow.time.Scheduler
-import com.fondesa.thread.execution.ExecutorFactory
-import com.fondesa.thread.execution.ExecutorPool
-import com.fondesa.thread.execution.execute
 import javax.inject.Inject
 
 /**

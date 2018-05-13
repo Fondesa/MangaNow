@@ -15,8 +15,8 @@ android {
 }
 
 dependencies {
-    api project(":common:common-remote")
-    api project(":remote")
+    api project(':remote-impl')
+    api project(':thread-impl')
 
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     api "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"

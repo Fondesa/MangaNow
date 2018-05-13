@@ -19,8 +19,8 @@ package com.fondesa.manganow.application
 import android.app.Application
 import android.content.Context
 import com.fondesa.injection.remote.RemoteModule
+import com.fondesa.injection.thread.ThreadModule
 import com.fondesa.manganow.database.DatabaseModule
-import com.fondesa.manganow.execution.ExecutorModule
 import com.fondesa.manganow.navigation.ScreenModule
 import com.fondesa.manganow.time.TimeModule
 import com.google.gson.Gson
@@ -30,7 +30,7 @@ import javax.inject.Singleton
 
 @Module(includes = [RemoteModule::class,
     DatabaseModule::class,
-    ExecutorModule::class,
+    ThreadModule::class,
     TimeModule::class,
     ScreenModule::class])
 class AppModule {

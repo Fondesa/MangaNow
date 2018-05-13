@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.execution
+package com.fondesa.injection.thread
 
+import com.fondesa.common.thread.execution.ExecutorFactory
+import com.fondesa.common.thread.execution.ExecutorPool
 import com.fondesa.thread.execution.CoroutinesExecutorFactory
-import com.fondesa.thread.execution.ExecutorFactory
-import com.fondesa.thread.execution.ExecutorPool
 import com.fondesa.thread.execution.ListExecutorPool
 import dagger.Binds
 import dagger.Module
 
 @Module(includes = [CoroutinesModule::class])
-interface ExecutorModule {
+interface ThreadModule {
 
     @Binds
     fun provideExecutorBuilderFactory(factory: CoroutinesExecutorFactory): ExecutorFactory

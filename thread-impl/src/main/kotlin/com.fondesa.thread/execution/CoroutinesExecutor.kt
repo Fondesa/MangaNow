@@ -16,6 +16,10 @@
 
 package com.fondesa.thread.execution
 
+import com.fondesa.common.thread.execution.CompletedBlock
+import com.fondesa.common.thread.execution.ErrorBlock
+import com.fondesa.common.thread.execution.ExecutionBlock
+import com.fondesa.common.thread.execution.Executor
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
 import kotlin.coroutines.experimental.CoroutineContext
@@ -35,7 +39,7 @@ class CoroutinesExecutor<T>(
     private val executionBlock: ExecutionBlock<T>,
     private val completedBlock: CompletedBlock<T>?,
     private val errorBlock: ErrorBlock?
-) : Executor {
+): Executor {
 
     override val isExecuting: Boolean get() = job?.isActive == true
 

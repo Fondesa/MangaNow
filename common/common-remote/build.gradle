@@ -1,11 +1,7 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    compile "javax.inject:javax.inject:$versions.javaxInject"
-
     compile "com.google.code.gson:gson:$versions.gson"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 }
-
-kotlin.experimental.coroutines "enable"

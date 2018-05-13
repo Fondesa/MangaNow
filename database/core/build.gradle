@@ -15,7 +15,7 @@ android {
 
 dependencies {
     api project(":database:annotations")
-    api project(':thread')
+    api project(':thread-impl')
     api "javax.inject:javax.inject:$versions.javaxInject"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     api "com.jakewharton.timber:timber:$versions.timber"

@@ -16,14 +16,14 @@
 
 package com.fondesa.manganow.latest
 
+import com.fondesa.common.thread.execution.ExecutorFactory
+import com.fondesa.common.thread.execution.ExecutorPool
+import com.fondesa.common.thread.execution.execute
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.usecase.GetLatestList
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.presenter.AbstractPresenter
-import com.fondesa.thread.execution.ExecutorFactory
-import com.fondesa.thread.execution.ExecutorPool
-import com.fondesa.thread.execution.execute
 import timber.log.Timber
 import javax.inject.Inject
 

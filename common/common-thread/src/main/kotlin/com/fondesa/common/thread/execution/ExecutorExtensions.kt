@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.thread.execution
+package com.fondesa.common.thread.execution
 
 /**
  * Used to create an [Executor] and execute it immediately.
