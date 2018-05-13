@@ -16,13 +16,12 @@
 
 package com.fondesa.manganow.manga.list
 
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.usecase.UseCase
+import com.fondesa.domain.manga.usecase.GetMangaList
 import com.fondesa.manganow.presenter.AbstractPresenter
 import javax.inject.Inject
 
 class MangaListPresenter @Inject constructor(
-    private val getMangaListUseCase: @JvmSuppressWildcards UseCase<List<Manga>, Unit>
+    private val getMangaListUseCase: GetMangaList
 ) : AbstractPresenter<MangaListContract.View>(),
     MangaListContract.Presenter {
 }

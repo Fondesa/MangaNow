@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.usecase
+package com.fondesa.domain.manga.usecase
 
-import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.manga.model.Manga
+import com.fondesa.domain.manga.repository.MangaRepository
+import com.fondesa.thread.extension.asyncAwait
+import javax.inject.Inject
 
-interface GetCategoryList {
+class GetMangaListImpl @Inject constructor(private val repository: MangaRepository) :
+    GetMangaList {
 
-    suspend fun execute(): CategoryList
+    override suspend fun execute(): List<Manga> = asyncAwait {
+        repository.getAll()
+    }
 }

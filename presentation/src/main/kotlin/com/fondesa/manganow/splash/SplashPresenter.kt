@@ -18,8 +18,9 @@ package com.fondesa.manganow.splash
 
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.category.usecase.GetCategoryList
 import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.usecase.UseCase
+import com.fondesa.domain.sortorder.usecase.GetSortOrderList
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
 import com.fondesa.manganow.presenter.AbstractPresenter
@@ -33,8 +34,8 @@ import javax.inject.Inject
  * Default implementation of [SplashContract.Presenter] for the splash section.
  */
 class SplashPresenter @Inject constructor(
-    private val getCategoryListUseCase: @JvmSuppressWildcards UseCase<CategoryList, Unit>,
-    private val getSortOrderListUseCase: @JvmSuppressWildcards UseCase<SortOrderList, Unit>,
+    private val getCategoryListUseCase: GetCategoryList,
+    private val getSortOrderListUseCase: GetSortOrderList,
     private val scheduler: Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
     private val executorFactory: ExecutorFactory,
@@ -89,7 +90,7 @@ class SplashPresenter @Inject constructor(
         // Create and load the executor used to load the categories.
         executorFactory
             .create {
-                getCategoryListUseCase.execute(Unit)
+                getCategoryListUseCase.execute()
             }
             .completed(::onCategoriesLoadCompleted)
             .error(::onLoadFailed)
@@ -103,7 +104,7 @@ class SplashPresenter @Inject constructor(
         // Create and load the executor used to load the sort orders.
         executorFactory
             .create {
-                getSortOrderListUseCase.execute(Unit)
+                getSortOrderListUseCase.execute()
             }
             .completed(::onSortOrdersLoadCompleted)
             .error(::onLoadFailed)

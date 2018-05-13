@@ -26,13 +26,12 @@ import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
 import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
 import com.fondesa.data.sortorder.storage.disk.SortOrderDiskStorageFactoryImpl
 import com.fondesa.data.sortorder.storage.remote.SortOrderRemoteStorageFactoryImpl
-import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
 import com.fondesa.domain.category.usecase.GetCategoryList
-import com.fondesa.domain.sortorder.SortOrderList
+import com.fondesa.domain.category.usecase.GetCategoryListImpl
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
-import com.fondesa.domain.usecase.UseCase
+import com.fondesa.domain.sortorder.usecase.GetSortOrderListImpl
 import com.fondesa.manganow.converter.ConverterModule
 import dagger.Binds
 import dagger.Module
@@ -56,7 +55,7 @@ interface SplashModule {
     fun provideCategoryRepository(repository: CategoryRepositoryImpl): CategoryRepository
 
     @Binds
-    fun provideGetCategoryList(useCase: GetCategoryList): UseCase<CategoryList, Unit>
+    fun provideGetCategoryList(useCase: GetCategoryListImpl): GetCategoryList
 
     @Binds
     fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
@@ -68,5 +67,5 @@ interface SplashModule {
     fun provideSortOrderRepository(repository: SortOrderRepositoryImpl): SortOrderRepository
 
     @Binds
-    fun provideGetSortOrderList(useCase: GetSortOrderList): UseCase<SortOrderList, Unit>
+    fun provideGetSortOrderList(useCase: GetSortOrderListImpl): GetSortOrderList
 }

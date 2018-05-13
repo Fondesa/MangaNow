@@ -17,15 +17,8 @@
 package com.fondesa.domain.manga.usecase
 
 import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.manga.repository.MangaRepository
-import com.fondesa.domain.usecase.UseCase
-import com.fondesa.thread.extension.asyncAwait
-import javax.inject.Inject
 
-class GetMangaList @Inject constructor(private val repository: MangaRepository) :
-    UseCase<List<@JvmSuppressWildcards Manga>, Unit> {
+interface GetMangaList {
 
-    override suspend fun execute(params: Unit): List<Manga> = asyncAwait {
-        repository.getAll()
-    }
+    suspend fun execute(): List<Manga>
 }

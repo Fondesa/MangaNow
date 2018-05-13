@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.usecase
+package com.fondesa.domain.category.usecase
 
-interface UseCase<out Result, in Params> {
+import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.category.repository.CategoryRepository
+import com.fondesa.thread.extension.asyncAwait
+import javax.inject.Inject
 
-    suspend fun execute(params: Params): Result
+class GetCategoryListImpl @Inject constructor(private val repository: CategoryRepository) :
+    GetCategoryList {
+
+    override suspend fun execute(): CategoryList = asyncAwait {
+        repository.getAll()
+    }
 }

@@ -17,15 +17,8 @@
 package com.fondesa.domain.sortorder.usecase
 
 import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.domain.usecase.UseCase
-import com.fondesa.thread.extension.asyncAwait
-import javax.inject.Inject
 
-class GetSortOrderList @Inject constructor(private val repository: SortOrderRepository) :
-    UseCase<SortOrderList, Unit> {
+interface GetSortOrderList {
 
-    override suspend fun execute(params: Unit): SortOrderList = asyncAwait {
-        repository.getAll()
-    }
+    suspend fun execute(): SortOrderList
 }

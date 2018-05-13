@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.usecase
+package com.fondesa.domain.sortorder.usecase
 
-import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.sortorder.SortOrderList
+import com.fondesa.domain.sortorder.repository.SortOrderRepository
+import com.fondesa.thread.extension.asyncAwait
+import javax.inject.Inject
 
-interface GetCategoryList {
+class GetSortOrderListImpl @Inject constructor(private val repository: SortOrderRepository) :
+    GetSortOrderList {
 
-    suspend fun execute(): CategoryList
+    override suspend fun execute(): SortOrderList = asyncAwait {
+        repository.getAll()
+    }
 }
