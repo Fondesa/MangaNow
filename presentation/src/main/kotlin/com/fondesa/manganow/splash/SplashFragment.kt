@@ -26,6 +26,7 @@ import com.fondesa.manganow.fragment.AdditionalNavigationArgumentsProvider
 import com.fondesa.manganow.fragment.DrawerFragment
 import com.fondesa.manganow.util.ColorUtil
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
 
 class SplashFragment : DaggerFragment(),

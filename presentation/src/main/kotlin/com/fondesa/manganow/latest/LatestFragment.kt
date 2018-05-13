@@ -26,6 +26,8 @@ import com.fondesa.domain.latest.LatestList
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.DrawerFragment
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider
+import kotlinx.android.synthetic.main.screen_base_drawer.*
+import kotlinx.android.synthetic.main.screen_latest.*
 import javax.inject.Inject
 
 class LatestFragment : DrawerFragment(), LatestContract.View {

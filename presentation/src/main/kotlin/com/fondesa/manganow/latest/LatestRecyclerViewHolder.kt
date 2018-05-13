@@ -27,6 +27,7 @@ import com.fondesa.manganow.adapter.RecyclerViewRowGesture
 import com.fondesa.manganow.converter.ChapterNumberConverter
 import com.fondesa.manganow.converter.PreviewDateConverter
 import com.fondesa.manganow.view.inflateChild
+import kotlinx.android.synthetic.main.row_latest.view.*
 import java.util.*
 
 /**
