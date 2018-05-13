@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.latest
 
+import android.view.View
 import android.view.ViewGroup
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
@@ -23,6 +24,8 @@ import com.fondesa.manganow.adapter.InteractiveRecyclerViewHolder
 import com.fondesa.manganow.adapter.PagingRecyclerViewAdapter
 
 class LatestRecyclerViewAdapter : PagingRecyclerViewAdapter(LatestContract.PAGE_SIZE) {
+
+    var clickListener: OnLatestClickListener? = null
 
     private val items = mutableListOf<Latest>()
 
@@ -54,5 +57,16 @@ class LatestRecyclerViewAdapter : PagingRecyclerViewAdapter(LatestContract.PAGE_
         holder.onItem<LatestRecyclerViewHolder> {
             bind(items[position])
         }
+    }
+
+    override fun onCellClick(view: View, position: Int) {
+        super.onCellClick(view, position)
+        val latest = items[position]
+        clickListener?.onLatestClicked(latest)
+    }
+
+    interface OnLatestClickListener {
+
+        fun onLatestClicked(latest: Latest)
     }
 }

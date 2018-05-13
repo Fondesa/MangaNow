@@ -24,6 +24,7 @@ import com.fondesa.manganow.presenter.AbstractPresenter
 import com.fondesa.thread.execution.ExecutorFactory
 import com.fondesa.thread.execution.ExecutorPool
 import com.fondesa.thread.execution.execute
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -69,7 +70,7 @@ class LatestPresenter @Inject constructor(
     }
 
     override fun latestSelected(latest: Latest) {
-        TODO("not implemented")
+        Timber.d("Selected: ${latest.manga.title}")
     }
 
     private fun loadNextPage() {

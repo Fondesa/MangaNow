@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fondesa.domain.latest.LatestList
+import com.fondesa.domain.latest.model.Latest
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.DrawerFragment
 import com.fondesa.manganow.view.RecyclerViewScrollEndedListener
@@ -31,7 +32,8 @@ import kotlinx.android.synthetic.main.screen_base_drawer.*
 import kotlinx.android.synthetic.main.screen_latest.*
 import javax.inject.Inject
 
-class LatestFragment : DrawerFragment(), LatestContract.View {
+class LatestFragment : DrawerFragment(), LatestContract.View,
+    LatestRecyclerViewAdapter.OnLatestClickListener {
 
     @Inject
     lateinit var presenter: LatestContract.Presenter
@@ -60,6 +62,7 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
             RecyclerViewDivider.with(it).build().addTo(recyclerView)
         }
         recyclerView.addOnScrollListener(scrollEndedListener)
+        listAdapter.clickListener = this
         // Set the adapter on the RecyclerView.
         recyclerView.adapter = listAdapter
         // Attach the view to the presenter.
@@ -68,6 +71,7 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        listAdapter.clickListener = null
         recyclerView.removeOnScrollListener(scrollEndedListener)
         // Detach the view from the presenter.
         presenter.detachView()
@@ -95,5 +99,9 @@ class LatestFragment : DrawerFragment(), LatestContract.View {
 
     override fun updateLatestList(latest: LatestList) {
         listAdapter.updateList(latest)
+    }
+
+    override fun onLatestClicked(latest: Latest) {
+        presenter.latestSelected(latest)
     }
 }
