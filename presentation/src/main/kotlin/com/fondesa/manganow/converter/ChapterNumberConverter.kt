@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.adapter
+package com.fondesa.manganow.converter
 
-import android.support.v7.widget.RecyclerView
-import android.view.View
+import com.fondesa.data.converter.Converter
+import java.text.DecimalFormat
 
 /**
- * Interface used to specify an element that can define its [RecyclerViewInteraction]s.
+ * Created by antoniolig on 24/09/17.
  */
-abstract class InteractiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ChapterNumberConverter: Converter<Double, String> {
 
-    /**
-     * @return interactions added to the [View]s of the row.
-     */
-    open val interactions: Array<RecyclerViewInteraction> = emptyArray()
+    private val decimalFormat by lazy { DecimalFormat("###.#") }
+
+    override fun convert(value: Double): String = decimalFormat.format(value)
 }

@@ -20,7 +20,7 @@ import android.view.ViewGroup
 
 /**
  * Type of [InteractiveRecyclerViewAdapter] used to handle the pagination.
- * When the page size is reached, this adapter will show the [PagingViewHolder] if the pagination
+ * When the page size is reached, this adapter will show the [PagingRecyclerViewHolder] if the pagination
  * is enabled.
  */
 abstract class PagingRecyclerViewAdapter(private val pageSize: Int) : InteractiveRecyclerViewAdapter() {
@@ -55,7 +55,7 @@ abstract class PagingRecyclerViewAdapter(private val pageSize: Int) : Interactiv
     final override fun onConstructViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): InteractiveViewHolder {
+    ): InteractiveRecyclerViewHolder {
         return if (viewType == VIEW_TYPE_PROGRESS) {
             onConstructProgressViewHolder(parent, viewType)
         } else {
@@ -70,18 +70,18 @@ abstract class PagingRecyclerViewAdapter(private val pageSize: Int) : Interactiv
     protected abstract fun onConstructItemViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): InteractiveViewHolder
+    ): InteractiveRecyclerViewHolder
 
-    protected abstract fun onConstructProgressViewHolder(
+    protected open fun onConstructProgressViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): InteractiveViewHolder
+    ): InteractiveRecyclerViewHolder = PagingRecyclerViewHolder(parent)
 
-    protected val InteractiveViewHolder.isProgressViewHolder get() = itemViewType == VIEW_TYPE_PROGRESS
+    protected val InteractiveRecyclerViewHolder.isProgressViewHolder get() = itemViewType == VIEW_TYPE_PROGRESS
 
-    protected val InteractiveViewHolder.isItemViewHolder get() = !isProgressViewHolder
+    protected val InteractiveRecyclerViewHolder.isItemViewHolder get() = !isProgressViewHolder
 
-    protected inline fun <reified T : InteractiveViewHolder> InteractiveViewHolder.onItem(
+    protected inline fun <reified T : InteractiveRecyclerViewHolder> InteractiveRecyclerViewHolder.onItem(
         block: T.() -> Unit
     ) {
         if (isItemViewHolder && this is T) {
@@ -89,7 +89,7 @@ abstract class PagingRecyclerViewAdapter(private val pageSize: Int) : Interactiv
         }
     }
 
-    protected inline fun <reified T : InteractiveViewHolder> InteractiveViewHolder.onProgress(
+    protected inline fun <reified T : InteractiveRecyclerViewHolder> InteractiveRecyclerViewHolder.onProgress(
         block: T.() -> Unit
     ) {
         if (isProgressViewHolder && this is T) {

@@ -40,6 +40,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$versions.dagger"
 
     implementation "com.jakewharton.timber:timber:$versions.timber"
+    compile "com.github.fondesa:recycler-view-divider:$versions.recyclerViewDivider"
 
     kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"

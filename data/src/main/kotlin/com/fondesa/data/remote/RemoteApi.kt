@@ -125,7 +125,7 @@ object RemoteApi {
 
             override fun scheme() = "http"
 
-            override fun host() = "192.168.1.3"
+            override fun host() = "192.168.1.2"
 
             override fun path() = "api/${apiPath()}"
 

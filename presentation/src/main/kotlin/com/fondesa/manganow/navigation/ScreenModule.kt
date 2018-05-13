@@ -18,6 +18,7 @@ package com.fondesa.manganow.navigation
 
 import com.fondesa.manganow.fragment.DrawerModule
 import com.fondesa.manganow.latest.LatestFragment
+import com.fondesa.manganow.latest.LatestModule
 import com.fondesa.manganow.manga.list.MangaListFragment
 import com.fondesa.manganow.manga.list.MangaListModule
 import com.fondesa.manganow.settings.SettingsFragment
@@ -51,7 +52,7 @@ interface ScreenModule {
         fun provideSplashScreen(): SplashFragment
 
         @ScreenScope
-        @ContributesAndroidInjector(modules = [DrawerModule::class])
+        @ContributesAndroidInjector(modules = [DrawerModule::class, LatestModule::class])
         fun provideLatestScreen(): LatestFragment
 
         @ScreenScope

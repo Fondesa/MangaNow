@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/cell_latest_padding_vertical"
+    android:paddingEnd="@dimen/cell_latest_padding_horizontal"
+    android:paddingLeft="@dimen/cell_latest_padding_horizontal"
+    android:paddingRight="@dimen/cell_latest_padding_horizontal"
+    android:paddingStart="@dimen/cell_latest_padding_horizontal"
+    android:paddingTop="@dimen/cell_latest_padding_vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/cell_latest_image_size"
+        android:layout_height="@dimen/cell_latest_image_size" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/cell_latest_padding_horizontal"
+        android:layout_marginStart="@dimen/cell_latest_padding_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:singleLine="true"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/text_size_small"
+            tools:text="Yesterday" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/cell_latest_padding_horizontal"
+            android:layout_marginRight="@dimen/cell_latest_padding_horizontal"
+            android:layout_toLeftOf="@id/dateTextView"
+            android:layout_toStartOf="@id/dateTextView"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/text_size_medium"
+            tools:text="Dummy manga title" />
+
+        <TextView
+            android:id="@+id/subtitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleTextView"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="@dimen/text_size_medium_small"
+            tools:text="Chapter 203 - dummy ch. title" />
+    </RelativeLayout>
+</LinearLayout>

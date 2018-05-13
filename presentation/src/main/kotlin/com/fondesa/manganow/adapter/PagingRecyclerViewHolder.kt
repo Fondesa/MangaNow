@@ -21,8 +21,8 @@ import com.fondesa.manganow.R
 import com.fondesa.manganow.view.inflateChild
 
 /**
- * Type of [InteractiveViewHolder] used to show the progress in a [PagingRecyclerViewAdapter].
+ * Type of [InteractiveRecyclerViewHolder] used to show the progress in a [PagingRecyclerViewAdapter].
  * The progress will be shown when the page size is reached.
  */
-class PagingViewHolder(parent: ViewGroup) :
-    InteractiveViewHolder(parent.inflateChild(R.layout.row_progress))
+class PagingRecyclerViewHolder(parent: ViewGroup) :
+    InteractiveRecyclerViewHolder(parent.inflateChild(R.layout.row_progress))

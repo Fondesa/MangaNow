@@ -16,37 +16,76 @@
 
 package com.fondesa.manganow.latest
 
+import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.design.widget.Snackbar
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.DrawerFragment
+import com.fondesa.recyclerviewdivider.RecyclerViewDivider
+import javax.inject.Inject
 
 class LatestFragment : DrawerFragment(), LatestContract.View {
+
+    @Inject
+    lateinit var presenter: LatestContract.Presenter
 
     @LayoutRes
     override val contentLayout: Int = R.layout.screen_latest
 
+    private val listAdapter by lazy { LatestRecyclerViewAdapter() }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        activity?.setTitle(R.string.section_home)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.let {
+            // Add the divider.
+            RecyclerViewDivider.with(it).build().addTo(recyclerView)
+        }
+        // Set the adapter on the RecyclerView.
+        recyclerView.adapter = listAdapter
+        // Attach the view to the presenter.
+        presenter.attachView(this)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Detach the view from the presenter.
+        presenter.detachView()
+    }
+
     override fun showProgressIndicator() {
-        TODO("not implemented")
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgressIndicator() {
-        TODO("not implemented")
+        progressBar.visibility = View.INVISIBLE
     }
 
     override fun showListContainer() {
-        TODO("not implemented")
+        recyclerView.visibility = View.VISIBLE
     }
 
     override fun hideListContainer() {
-        TODO("not implemented")
+        recyclerView.visibility = View.INVISIBLE
     }
 
     override fun showErrorMessage(msg: String) {
-        TODO("not implemented")
+        Snackbar.make(coordinator, msg, Snackbar.LENGTH_LONG).show()
     }
 
     override fun updateLatestList(latest: LatestList) {
-        TODO("not implemented")
+       listAdapter.updateList(latest)
     }
 }

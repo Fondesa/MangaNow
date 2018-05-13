@@ -26,7 +26,6 @@ import com.fondesa.manganow.fragment.AdditionalNavigationArgumentsProvider
 import com.fondesa.manganow.fragment.DrawerFragment
 import com.fondesa.manganow.util.ColorUtil
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject
 
 class SplashFragment : DaggerFragment(),
@@ -77,6 +76,9 @@ class SplashFragment : DaggerFragment(),
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Detach the view from the presenter.
+        presenter.detachView()
+
         val activity = activity
         val originalStatusBarColor = originalStatusBarColor
         if (activity != null &&
@@ -86,12 +88,6 @@ class SplashFragment : DaggerFragment(),
             // Restore the previous status bar color.
             activity.window?.statusBarColor = originalStatusBarColor
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // Detach the view from the presenter.
-        presenter.detachView()
     }
 
     override fun showProgressIndicator() {
