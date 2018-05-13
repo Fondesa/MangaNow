@@ -10,6 +10,3 @@ dependencies {
 
     compile "com.squareup:kotlinpoet:$versions.kotlinPoet"
 }
-
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"

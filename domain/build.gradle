@@ -7,7 +7,4 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
 kotlin.experimental.coroutines "enable"

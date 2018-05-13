@@ -26,7 +26,4 @@ dependencies {
     kapt project(':database:processor')
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-
 kotlin.experimental.coroutines "enable"
