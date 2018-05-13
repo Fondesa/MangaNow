@@ -7,6 +7,7 @@ buildscript {
             coroutines         : '0.22.5',
             dagger             : '2.15',
             espresso           : '3.0.1',
+            glide              : '4.7.1',
             gson               : '2.8.2',
             javaxInject        : '1',
             jUnit              : '4.12',
@@ -14,7 +15,7 @@ buildscript {
             kotlinPoet         : '0.7.0',
             leakCanary         : '1.5.4',
             okHttp             : '3.10.0',
-            recyclerViewDivider: '2.0.0',
+            recyclerViewDivider: '2.0.1',
             timber             : '4.7.0'
     ]
 
