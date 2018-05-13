@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.storage.remote
+package com.fondesa.common.remote.exception
 
-import com.fondesa.common.remote.client.RemoteClient
-import com.fondesa.common.remote.task.RemoteTask
-import com.fondesa.data.serialization.FromJsonConverter
-
-class JsonRemoteStorage<out T>(
-    private val remoteClient: RemoteClient,
-    private val remoteTask: RemoteTask,
-    private val converter: FromJsonConverter<T>
-) : RemoteStorage<T> {
-
-    override fun get(): T {
-        val json = remoteClient.load(remoteTask)
-        return converter.convert(json)
-    }
-}
+/**
+ * Exception thrown if an error occurs when the response (of a WS request) is received.
+ *
+ * @param code HTTP response code.
+ * @param reason technical reason explaining why this exception is thrown.
+ */
+class ResponseException(val code: String, val reason: String) :
+    Exception("Unsuccessful response with code: '$code' and reason: '$reason'")

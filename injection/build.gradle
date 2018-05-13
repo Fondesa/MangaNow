@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 27
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/kotlin"
+    }
+}
+
+dependencies {
+    api project(":common:common-remote")
+    api project(":remote")
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    api "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+
+    api "com.google.dagger:dagger-android-support:$versions.dagger"
+
+    api "com.jakewharton.timber:timber:$versions.timber"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+}
+
+kotlin.experimental.coroutines "enable"

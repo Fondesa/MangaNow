@@ -14,23 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.remote
+package com.fondesa.common.remote.connectivity
 
-import com.fondesa.remote.client.HttpClient
-import com.fondesa.remote.client.RemoteClient
-import com.fondesa.remote.connectivity.AndroidSystemConnectivityManager
-import com.fondesa.remote.connectivity.ConnectivityManager
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+interface ConnectivityManager {
 
-@Module
-interface RemoteModule {
-
-    @Binds
-    fun provideConnectivityManager(manager: AndroidSystemConnectivityManager): ConnectivityManager
-
-    @Singleton
-    @Binds
-    fun provideRemoteClient(client: HttpClient): RemoteClient
+    fun isConnected(): Boolean
 }

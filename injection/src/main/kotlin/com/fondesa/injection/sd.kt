@@ -14,9 +14,5 @@
  * limitations under the License.
  */
 
-package com.fondesa.remote.exception
+package com.fondesa.injection
 
-/**
- * Exception thrown when the connection to the network isn't available.
- */
-class ConnectivityException : Exception("Connectivity not available.")

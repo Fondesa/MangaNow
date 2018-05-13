@@ -17,6 +17,7 @@
 package com.fondesa.remote.connectivity
 
 import android.content.Context
+import com.fondesa.common.remote.connectivity.ConnectivityManager
 import javax.inject.Inject
 
 class AndroidSystemConnectivityManager @Inject constructor(private val context: Context) :

@@ -15,9 +15,9 @@ android {
 }
 
 dependencies {
+    implementation project(":common:common-remote")
     api project(":domain")
     api project(":database:core")
-    api project(":remote")
 
     api "javax.inject:javax.inject:$versions.javaxInject"
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"

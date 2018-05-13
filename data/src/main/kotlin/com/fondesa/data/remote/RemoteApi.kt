@@ -1,7 +1,7 @@
 package com.fondesa.data.remote
 
+import com.fondesa.common.remote.task.RemoteTask
 import com.fondesa.domain.sortorder.model.SortOrder
-import com.fondesa.remote.task.RemoteTask
 import com.google.gson.JsonElement
 
 /**
@@ -106,6 +106,8 @@ object RemoteApi {
             override val host = "cdn.mangaeden.com"
 
             override val path = "mangasimg/$imageUrl"
+
+            override val port: Int = 443
 
             override val headers: Map<String, String> = emptyMap()
 

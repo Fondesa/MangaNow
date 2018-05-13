@@ -14,9 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.remote.connectivity
+package com.fondesa.common.remote.client
 
-interface ConnectivityManager {
+import com.fondesa.common.remote.task.RemoteTask
+import com.google.gson.JsonElement
 
-    fun isConnected(): Boolean
+/**
+ * Used to specify the behavior of the application to load an incoming task.
+ */
+interface RemoteClient {
+
+    /**
+     * Loads a [RemoteTask] calling the WS and converts its response to a [JsonElement].
+     *
+     * @param task task containing the request's configurations.
+     * @return json returned from the WS.
+     */
+    fun load(task: RemoteTask): JsonElement
 }

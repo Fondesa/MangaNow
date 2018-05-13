@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.remote.exception
+package com.fondesa.common.remote.exception
 
 /**
  * Exception thrown when the request goes in timeout.

@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.remote.exception
+package com.fondesa.injection.remote
 
-/**
- * Exception thrown if an error occurs when the response (of a WS request) is received.
- *
- * @param code HTTP response code.
- * @param reason technical reason explaining why this exception is thrown.
- */
-class ResponseException(val code: String, val reason: String) :
-    Exception("Unsuccessful response with code: '$code' and reason: '$reason'")
+import com.fondesa.common.remote.client.RemoteClient
+import com.fondesa.common.remote.connectivity.ConnectivityManager
+import com.fondesa.remote.client.HttpClient
+import com.fondesa.remote.connectivity.AndroidSystemConnectivityManager
+import dagger.Binds
+import dagger.Module
+import javax.inject.Singleton
+
+@Module
+interface RemoteModule {
+
+    @Binds
+    fun provideConnectivityManager(manager: AndroidSystemConnectivityManager): ConnectivityManager
+
+    @Singleton
+    @Binds
+    fun provideRemoteClient(client: HttpClient): RemoteClient
+}

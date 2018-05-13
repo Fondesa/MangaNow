@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.remote.task
+package com.fondesa.common.remote.task
 
-import com.fondesa.remote.client.RemoteClient
 import com.google.gson.JsonElement
-import okhttp3.HttpUrl
 
 /**
  * Definition of a request that must be called by the [RemoteClient].
@@ -58,7 +56,7 @@ interface RemoteTask {
      *
      * @return port number of the request.
      */
-    val port: Int get() = HttpUrl.defaultPort(scheme)
+    val port: Int
 
     /**
      * Specify the path of the request that will be appended to the absolute path.

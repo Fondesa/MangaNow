@@ -16,12 +16,13 @@
 
 package com.fondesa.remote.client
 
+import com.fondesa.common.remote.client.RemoteClient
+import com.fondesa.common.remote.connectivity.ConnectivityManager
+import com.fondesa.common.remote.exception.ConnectivityException
+import com.fondesa.common.remote.exception.ResponseException
+import com.fondesa.common.remote.exception.TimeoutException
+import com.fondesa.common.remote.task.RemoteTask
 import com.fondesa.remote.BuildConfig
-import com.fondesa.remote.connectivity.ConnectivityManager
-import com.fondesa.remote.exception.ConnectivityException
-import com.fondesa.remote.exception.ResponseException
-import com.fondesa.remote.exception.TimeoutException
-import com.fondesa.remote.task.RemoteTask
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import okhttp3.*
