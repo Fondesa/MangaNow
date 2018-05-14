@@ -1,0 +1,25 @@
+def add(String module) {
+    include ":$module"
+}
+
+def addCommon(String module) {
+    add("common:$module")
+}
+
+def addDatabaseImpl(String module) {
+    add("database-impl:$module")
+}
+
+add "data"
+add "domain"
+add "presentation"
+add "remote-impl"
+add "thread-impl"
+
+addCommon "common-database"
+addCommon "common-remote"
+addCommon "common-thread"
+
+addDatabaseImpl "database-impl-annotations"
+addDatabaseImpl "database-impl-core"
+addDatabaseImpl "database-impl-processor"

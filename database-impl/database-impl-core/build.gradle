@@ -1,17 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-android {
-    compileSdkVersion androidConfig.compileSdk
-    defaultConfig {
-        minSdkVersion androidConfig.minSdk
-        targetSdkVersion androidConfig.targetSdk
-    }
-
-    sourceSets {
-        main.java.srcDirs += "src/main/kotlin"
-    }
-}
+apply plugin: 'common-kotlin-android'
 
 dependencies {
     api project(':database-impl:database-impl-annotations')
@@ -22,5 +10,3 @@ dependencies {
     api deps.javaxInject
     api deps.timber
 }
-
-kotlin.experimental.coroutines "enable"

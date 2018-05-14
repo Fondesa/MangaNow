@@ -1,7 +1,5 @@
-apply plugin: 'kotlin'
+apply plugin: 'common-kotlin-jvm'
 
 dependencies {
     compile deps.kotlinStdLib
 }
-
-kotlin.experimental.coroutines "enable"

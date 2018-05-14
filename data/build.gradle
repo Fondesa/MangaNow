@@ -1,18 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: 'common-kotlin-android'
 apply plugin: 'kotlin-kapt'
-
-android {
-    compileSdkVersion androidConfig.compileSdk
-    defaultConfig {
-        minSdkVersion androidConfig.minSdk
-        targetSdkVersion androidConfig.targetSdk
-    }
-
-    sourceSets {
-        main.java.srcDirs += "src/main/kotlin"
-    }
-}
 
 dependencies {
     api project(":remote-impl")
@@ -26,5 +14,3 @@ dependencies {
 
     kapt project(':database-impl:database-impl-processor')
 }
-
-kotlin.experimental.coroutines "enable"

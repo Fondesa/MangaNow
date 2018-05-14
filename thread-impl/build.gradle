@@ -1,4 +1,4 @@
-apply plugin: 'kotlin'
+apply plugin: 'common-kotlin-jvm'
 
 dependencies {
     compile project(":common:common-thread")
@@ -7,5 +7,3 @@ dependencies {
     compile deps.javaxInject
     compile deps.coroutines
 }
-
-kotlin.experimental.coroutines "enable"

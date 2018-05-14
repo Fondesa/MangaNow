@@ -1,14 +1,11 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+apply plugin: 'common-kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion androidConfig.compileSdk
     defaultConfig {
         applicationId "com.fondesa.manganow"
-        minSdkVersion androidConfig.minSdk
-        targetSdkVersion androidConfig.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,10 +16,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    sourceSets {
-        main.java.srcDirs += "src/main/kotlin"
     }
 }
 
@@ -59,5 +52,3 @@ dependencies {
     debugImplementation deps.leakCanary
     releaseImplementation deps.leakCanaryNoOp
 }
-
-kotlin.experimental.coroutines "enable"
