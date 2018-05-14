@@ -1,4 +1,5 @@
 buildscript {
+    apply from: 'android-config.gradle'
     apply from: 'dependencies.gradle'
 
     repositories {

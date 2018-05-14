@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion androidConfig.compileSdk
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 27
+        minSdkVersion androidConfig.minSdk
+        targetSdkVersion androidConfig.targetSdk
     }
 
     sourceSets {
