@@ -15,10 +15,10 @@ android {
 
 dependencies {
     api project(":common:common-remote")
-    api "javax.inject:javax.inject:$versions.javaxInject"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    api "com.google.code.gson:gson:$versions.gson"
-    api "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
 
-    api "com.jakewharton.timber:timber:$versions.timber"
+    api deps.kotlinStdLib
+    api deps.javaxInject
+    api deps.gson
+    api deps.timber
+    api deps.okHttp
 }

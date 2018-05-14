@@ -17,9 +17,10 @@ dependencies {
     api project(':database-impl:database-impl-annotations')
     api project(":common:common-database")
     api project(':thread-impl')
-    api "javax.inject:javax.inject:$versions.javaxInject"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    api "com.jakewharton.timber:timber:$versions.timber"
+
+    api deps.kotlinStdLib
+    api deps.javaxInject
+    api deps.timber
 }
 
 kotlin.experimental.coroutines "enable"

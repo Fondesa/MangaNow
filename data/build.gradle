@@ -20,9 +20,9 @@ dependencies {
     api project(":domain")
     api project(':database-impl:database-impl-core')
 
-    api "javax.inject:javax.inject:$versions.javaxInject"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    api "com.google.code.gson:gson:$versions.gson"
+    api deps.kotlinStdLib
+    api deps.javaxInject
+    api deps.gson
 
     kapt project(':database-impl:database-impl-processor')
 }
