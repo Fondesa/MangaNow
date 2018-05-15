@@ -8,5 +8,5 @@ dependencies {
     api deps.javaxInject
     api deps.gson
     api deps.timber
-    api deps.okHttp
+    implementation deps.okHttp
 }
