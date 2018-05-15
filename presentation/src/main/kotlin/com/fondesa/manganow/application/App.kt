@@ -50,12 +50,10 @@ class App : DaggerApplication() {
         databaseClient.createDatabase()
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        val appComponent = DaggerAppComponent.builder()
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+        DaggerAppComponent.builder()
             .application(this)
-            .build()
-
-        appComponent.inject(this)
-        return appComponent
-    }
+            .build().also {
+                it.inject(this)
+            }
 }
