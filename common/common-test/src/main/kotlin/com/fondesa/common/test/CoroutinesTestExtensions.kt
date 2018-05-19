@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.latest
+package com.fondesa.common.test
 
-import com.fondesa.domain.latest.model.Latest
+import kotlinx.coroutines.experimental.CoroutineScope
+import kotlinx.coroutines.experimental.runBlocking
 
 /**
- * Identifies a list of [Latest] which suppress the wildcards.
+ * Used to avoid the return type of [runBlocking] to unit test suspend functions.
+ *
+ * @param block the block which must be executed.
  */
-typealias LatestList = List<@JvmSuppressWildcards Latest>
+inline fun runUnitBlocking(crossinline block: suspend CoroutineScope.()-> Unit) {
+    runBlocking {
+        block(this)
+        Unit
+    }
+}

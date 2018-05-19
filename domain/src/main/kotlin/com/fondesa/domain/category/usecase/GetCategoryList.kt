@@ -18,7 +18,15 @@ package com.fondesa.domain.category.usecase
 
 import com.fondesa.domain.category.CategoryList
 
+/**
+ * Defines the operation which must be executed to obtain the list of the categories.
+ */
 interface GetCategoryList {
 
+    /**
+     * Gets the list of all the categories.
+     *
+     * @return a list containing all the manga's categories.
+     */
     suspend fun execute(): CategoryList
 }

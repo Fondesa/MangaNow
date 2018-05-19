@@ -14,11 +14,30 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.latest
+package com.fondesa.domain.chapter.model
 
-import com.fondesa.domain.latest.model.Latest
+import org.junit.Test
+import java.util.*
 
 /**
- * Identifies a list of [Latest] which suppress the wildcards.
+ * Tests for [Chapter].
  */
-typealias LatestList = List<@JvmSuppressWildcards Latest>
+class ChapterTest {
+
+    @Test
+    fun areEquals() {
+        assert(createChapter() == createChapter())
+    }
+
+    @Test
+    fun sameHashCode() {
+        assert(createChapter().hashCode() == createChapter().hashCode())
+    }
+
+    private fun createChapter() = Chapter(
+        id = "dummy-id",
+        releaseDate = Date(1526746822797),
+        number = 34.5,
+        title = null
+    )
+}

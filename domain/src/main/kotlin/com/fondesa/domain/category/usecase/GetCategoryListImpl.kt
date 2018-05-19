@@ -21,6 +21,12 @@ import com.fondesa.domain.category.repository.CategoryRepository
 import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
+/**
+ * Implementation of [GetCategoryList] which uses a [CategoryRepository] to obtain the
+ * list of the categories on another thread.
+ *
+ * @param repository the instance of [CategoryRepository] used to get the list of all the categories.
+ */
 class GetCategoryListImpl @Inject constructor(private val repository: CategoryRepository) :
     GetCategoryList {
 

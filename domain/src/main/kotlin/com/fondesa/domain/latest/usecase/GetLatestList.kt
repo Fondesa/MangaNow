@@ -17,8 +17,19 @@
 package com.fondesa.domain.latest.usecase
 
 import com.fondesa.domain.latest.LatestList
+import com.fondesa.domain.latest.model.Latest
 
+/**
+ * Defines the operation which must be executed to obtain the list of the [Latest].
+ */
 interface GetLatestList {
 
+    /**
+     * Gets the list of all the latest paginated.
+     *
+     * @param page the page's number.
+     * @param pageSize the size of the [page].
+     * @return a list containing all the [Latest] in the current [page].
+     */
     suspend fun execute(page: Int, pageSize: Int): LatestList
 }

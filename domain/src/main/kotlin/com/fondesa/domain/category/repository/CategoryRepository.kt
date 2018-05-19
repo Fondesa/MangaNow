@@ -17,8 +17,17 @@
 package com.fondesa.domain.category.repository
 
 import com.fondesa.domain.category.CategoryList
+import com.fondesa.domain.category.model.Category
 
+/**
+ * Manages all the data operations about a [Category] model.
+ */
 interface CategoryRepository {
 
+    /**
+     * Gets the list of all the categories.
+     *
+     * @return a list containing all the manga's categories.
+     */
     suspend fun getAll(): CategoryList
 }

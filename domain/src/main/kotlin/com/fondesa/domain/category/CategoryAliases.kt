@@ -18,4 +18,7 @@ package com.fondesa.domain.category
 
 import com.fondesa.domain.category.model.Category
 
+/**
+ * Identifies a list of [Category] which suppress the wildcards.
+ */
 typealias CategoryList = List<@JvmSuppressWildcards Category>

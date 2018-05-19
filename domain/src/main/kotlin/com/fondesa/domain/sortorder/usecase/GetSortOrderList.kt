@@ -18,7 +18,15 @@ package com.fondesa.domain.sortorder.usecase
 
 import com.fondesa.domain.sortorder.SortOrderList
 
+/**
+ * Defines the operation which must be executed to obtain the list of the sort orders.
+ */
 interface GetSortOrderList {
 
+    /**
+     * Gets the list of all the sort order.
+     *
+     * @return a list containing all the possible sort orders used to sort a list of manga.
+     */
     suspend fun execute(): SortOrderList
 }

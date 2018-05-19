@@ -17,10 +17,17 @@
 package com.fondesa.domain.latest.usecase
 
 import com.fondesa.domain.latest.LatestList
+import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.repository.LatestRepository
 import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
+/**
+ * Implementation of [GetLatestList] which uses a [LatestRepository] to obtain the
+ * list of the [Latest] on another thread.
+ *
+ * @param repository the instance of [LatestRepository] used to get the list of all the [Latest].
+ */
 class GetLatestListImpl @Inject constructor(private val repository: LatestRepository) :
     GetLatestList {
 

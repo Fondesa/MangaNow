@@ -14,11 +14,28 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.latest
+package com.fondesa.domain.sortorder.model
 
-import com.fondesa.domain.latest.model.Latest
+import org.junit.Test
 
 /**
- * Identifies a list of [Latest] which suppress the wildcards.
+ * Tests for [SortOrder].
  */
-typealias LatestList = List<@JvmSuppressWildcards Latest>
+class SortOrderTest {
+
+    @Test
+    fun areEquals() {
+        assert(createSortOrder() == createSortOrder())
+    }
+
+    @Test
+    fun sameHashCode() {
+        assert(createSortOrder().hashCode() == createSortOrder().hashCode())
+    }
+
+    private fun createSortOrder() = SortOrder(
+        id = 1L,
+        name = "dummy-name",
+        priority = 4
+    )
+}

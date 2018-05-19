@@ -14,11 +14,27 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.latest
+package com.fondesa.domain.category.model
 
-import com.fondesa.domain.latest.model.Latest
+import org.junit.Test
 
 /**
- * Identifies a list of [Latest] which suppress the wildcards.
+ * Tests for [Category].
  */
-typealias LatestList = List<@JvmSuppressWildcards Latest>
+class CategoryTest {
+
+    @Test
+    fun areEquals() {
+        assert(createCategory() == createCategory())
+    }
+
+    @Test
+    fun sameHashCode() {
+        assert(createCategory().hashCode() == createCategory().hashCode())
+    }
+
+    private fun createCategory() = Category(
+        id = 1L,
+        name = "dummy-name"
+    )
+}

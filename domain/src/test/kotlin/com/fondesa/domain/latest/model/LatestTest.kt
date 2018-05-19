@@ -18,14 +18,36 @@ package com.fondesa.domain.latest.model
 
 import com.fondesa.domain.chapter.model.Chapter
 import com.fondesa.domain.manga.model.Manga
+import org.junit.Test
+import java.util.*
 
 /**
- * Identifies a new available chapter or a new available manga.
- *
- * @param manga the new available manga or the manga of the new available [chapter].
- * @param chapter the new available chapter.
+ * Tests for [Latest].
  */
-data class Latest(
-    val manga: Manga,
-    val chapter: Chapter
-)
+class LatestTest {
+
+    @Test
+    fun areEquals() {
+        assert(createLatest() == createLatest())
+    }
+
+    @Test
+    fun sameHashCode() {
+        assert(createLatest().hashCode() == createLatest().hashCode())
+    }
+
+    private fun createLatest() = Latest(
+        manga = Manga(
+            id = 4L,
+            alias = "dummy-alias",
+            imageUrl = "http://www.google.com",
+            title = "dummy-title"
+        ),
+        chapter = Chapter(
+            id = "dummy-id",
+            releaseDate = Date(1526746822797),
+            number = 34.5,
+            title = null
+        )
+    )
+}

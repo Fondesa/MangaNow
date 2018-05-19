@@ -16,6 +16,12 @@
 
 package com.fondesa.domain.category.model
 
+/**
+ * Identifies a category of a manga.
+ *
+ * @param id the category's id.
+ * @param name the category's name.
+ */
 data class Category(
     val id: Long,
     val name: String

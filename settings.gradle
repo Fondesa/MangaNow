@@ -18,6 +18,7 @@ add "thread-impl"
 
 addCommon "common-database"
 addCommon "common-remote"
+addCommon "common-test"
 addCommon "common-thread"
 
 addDatabaseImpl "database-impl-annotations"

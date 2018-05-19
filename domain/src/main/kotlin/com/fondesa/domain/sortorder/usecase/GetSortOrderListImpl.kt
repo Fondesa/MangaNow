@@ -21,6 +21,13 @@ import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
+/**
+ * Implementation of [GetSortOrderList] which uses a [SortOrderRepository] to obtain the
+ * list of the sort orders on another thread.
+ *
+ * @param repository the instance of [SortOrderRepository] used to get the list of all
+ * the possible sort orders used to sort a list of manga.
+ */
 class GetSortOrderListImpl @Inject constructor(private val repository: SortOrderRepository) :
     GetSortOrderList {
 

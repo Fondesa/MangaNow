@@ -17,8 +17,17 @@
 package com.fondesa.domain.sortorder.repository
 
 import com.fondesa.domain.sortorder.SortOrderList
+import com.fondesa.domain.sortorder.model.SortOrder
 
+/**
+ * Manages all the data operations about a [SortOrder] model.
+ */
 interface SortOrderRepository {
 
+    /**
+     * Gets the list of all the sort order.
+     *
+     * @return a list containing all the possible sort orders used to sort a list of manga.
+     */
     suspend fun getAll(): SortOrderList
 }

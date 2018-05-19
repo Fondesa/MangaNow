@@ -18,6 +18,14 @@ package com.fondesa.domain.chapter.model
 
 import java.util.*
 
+/**
+ * Identifies a chapter of a manga.
+ *
+ * @param id the chapter's id.
+ * @param releaseDate the date in which the chapter was released.
+ * @param number the chapter's number.
+ * @param title the optional chapter's title.
+ */
 data class Chapter(
     val id: String,
     val releaseDate: Date,

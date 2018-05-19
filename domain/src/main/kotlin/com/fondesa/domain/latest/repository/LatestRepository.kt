@@ -16,9 +16,20 @@
 
 package com.fondesa.domain.latest.repository
 
+import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 
+/**
+ * Manages all the data operations about a [Latest] model.
+ */
 interface LatestRepository {
 
-    suspend fun getPaginated(page: Int, pageSize: Int): List<Latest>
+    /**
+     * Gets the list of all the [Latest].
+     *
+     * @param page the page's number.
+     * @param pageSize the size of the [page].
+     * @return a list containing all the [Latest] in the current [page].
+     */
+    suspend fun getPaginated(page: Int, pageSize: Int): LatestList
 }

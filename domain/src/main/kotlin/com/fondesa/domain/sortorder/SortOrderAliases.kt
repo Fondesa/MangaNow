@@ -18,4 +18,7 @@ package com.fondesa.domain.sortorder
 
 import com.fondesa.domain.sortorder.model.SortOrder
 
+/**
+ * Identifies a list of [SortOrder] which suppress the wildcards.
+ */
 typealias SortOrderList = List<@JvmSuppressWildcards SortOrder>

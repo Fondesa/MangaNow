@@ -16,6 +16,14 @@
 
 package com.fondesa.domain.sortorder.model
 
+/**
+ * Identifies the possible sort orders of a list of manga.
+ *
+ * @param id the sort order's id.
+ * @param name the sort order's name.
+ * @param priority the priority of the sort order which identifies its importance. An higher
+ * priority means an higher importance.
+ */
 data class SortOrder(
     val id: Long,
     val name: String,
