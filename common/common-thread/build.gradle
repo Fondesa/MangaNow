@@ -2,4 +2,6 @@ apply plugin: 'common-kotlin-jvm'
 
 dependencies {
     compile deps.kotlinStdLib
+
+    testCompile project(':common:common-test')
 }
