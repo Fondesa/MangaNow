@@ -33,7 +33,7 @@ class GetSortOrderListImplTest {
     private val useCase = GetSortOrderListImpl(repository)
 
     @Test
-    fun getsFromRepository() = runUnitBlocking {
+    fun gotFromRepository() = runUnitBlocking {
         useCase.execute()
         verify(repository).getAll()
     }

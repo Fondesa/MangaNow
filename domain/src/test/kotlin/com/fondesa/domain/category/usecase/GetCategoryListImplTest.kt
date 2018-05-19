@@ -33,7 +33,7 @@ class GetCategoryListImplTest {
     private val useCase = GetCategoryListImpl(repository)
 
     @Test
-    fun getsFromRepository() = runUnitBlocking {
+    fun gotFromRepository() = runUnitBlocking {
         useCase.execute()
         verify(repository).getAll()
     }

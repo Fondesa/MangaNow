@@ -6,4 +6,6 @@ dependencies {
     compile deps.kotlinStdLib
     compile deps.javaxInject
     compile deps.coroutines
+
+    testCompile project(":common:common-test")
 }

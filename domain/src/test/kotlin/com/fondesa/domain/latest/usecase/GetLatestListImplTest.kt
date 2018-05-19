@@ -36,7 +36,7 @@ class GetLatestListImplTest {
     private val useCase = GetLatestListImpl(repository)
 
     @Test
-    fun getsFromRepository() = runUnitBlocking {
+    fun gotFromRepository() = runUnitBlocking {
         val page = 1
         val pageSize = 25
         useCase.execute(page, pageSize)

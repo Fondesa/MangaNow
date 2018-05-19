@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.test
+package com.fondesa.thread.extension
 
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.runBlocking
+import com.fondesa.common.test.runUnitBlocking
+import org.junit.Test
 
 /**
- * Used to avoid the return type of [runBlocking] to unit test suspend functions.
- *
- * @param block the block which must be executed.
+ * Tests for CoroutinesExtensions.kt file.
  */
-fun runUnitBlocking(block: suspend CoroutineScope.()-> Unit) {
-    runBlocking {
-        block(this)
-        Unit
+class CoroutinesExtensionsTest {
+
+    @Test
+    fun asyncAwaitReturnsResult() = runUnitBlocking {
+        val expectedBlock = { 1 + 1 }
+        val result = asyncAwait {
+            expectedBlock()
+        }
+        assert(result == expectedBlock())
     }
 }
