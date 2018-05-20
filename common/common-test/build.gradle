@@ -4,6 +4,6 @@ dependencies {
     compile deps.coroutines
     compile deps.kotlinStdLib
     compile deps.jUnit
-    compile deps.mockito
+    compile deps.mockitoInLine
     compile deps.mockitoKotlin
 }

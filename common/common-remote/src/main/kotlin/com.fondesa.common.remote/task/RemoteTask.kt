@@ -16,18 +16,18 @@
 
 package com.fondesa.common.remote.task
 
+import com.fondesa.common.remote.client.RemoteClient
 import com.google.gson.JsonElement
 
 /**
- * Definition of a request that must be called by the [RemoteClient].
- * <br/>
+ * Definition of a request that should be called by the [RemoteClient].
  * It's recommended to provide an implementation for GET/POST/PUT/DELETE requests to avoid to
  * repeat the code related to a task.
  */
 interface RemoteTask {
 
     /**
-     * Specify the method of the request.
+     * Specifies the method of the request.
      * Must be one of [RemoteTask.Method].
      *
      * @return method of the request.
@@ -35,7 +35,7 @@ interface RemoteTask {
     val method: Method
 
     /**
-     * Specify the scheme of the request.
+     * Specifies the scheme of the request.
      * E.g. http, https, tcp, telnet, etc..
      *
      * @return scheme of the request.
@@ -43,7 +43,7 @@ interface RemoteTask {
     val scheme: String
 
     /**
-     * Specify the host of the request.
+     * Specifies the host of the request.
      * It could be a named host as www.google.it or an IP.
      *
      * @return host of the request.
@@ -51,15 +51,14 @@ interface RemoteTask {
     val host: String
 
     /**
-     * Specify the port number of the request.
-     * By default the port number is obtained from the [scheme].
+     * Specifies the port number of the request.
      *
      * @return port number of the request.
      */
     val port: Int
 
     /**
-     * Specify the path of the request that will be appended to the absolute path.
+     * Specifies the path of the request that will be appended to the absolute path.
      * The absolute path is created with [scheme]://[host]:[port]/
      *
      * @return path of the request.
@@ -67,28 +66,28 @@ interface RemoteTask {
     val path: String
 
     /**
-     * Specify the headers that will be added to the request.
+     * Specifies the headers that will be added to the request.
      *
      * @return key-value map representing the headers.
      */
     val headers: Map<String, String>
 
     /**
-     * Specify the query parameters that will be added to the request.
+     * Specifies the query parameters that will be added to the request.
      *
      * @return key-value map representing the query parameters.
      */
     val queryParams: Map<String, String>
 
     /**
-     * Specify the body of the request.
+     * Specifies the body of the request.
      *
      * @return [JsonElement] representing the body of the request or null.
      */
     val body: JsonElement?
 
     /**
-     * Specify the tag of the request.
+     * Specifies the tag of the request.
      * The tag is used to recognize the request after its creation.
      * By default the request doesn't use a tag.
      *
@@ -96,6 +95,11 @@ interface RemoteTask {
      */
     val tag: Any? get() = null
 
+    /**
+     * List of request's available HTTP methods.
+     *
+     * @param value the HTTP method that should be used.
+     */
     enum class Method(val value: String) {
 
         /**

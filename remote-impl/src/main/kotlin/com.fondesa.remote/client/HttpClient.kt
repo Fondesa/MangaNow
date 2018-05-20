@@ -22,7 +22,7 @@ import com.fondesa.common.remote.exception.ConnectivityException
 import com.fondesa.common.remote.exception.ResponseException
 import com.fondesa.common.remote.exception.TimeoutException
 import com.fondesa.common.remote.task.RemoteTask
-import com.fondesa.remote.BuildConfig
+import com.fondesa.remote.injection.HttpClientInfo
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import okhttp3.*
@@ -32,13 +32,19 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
- * Type of [RemoteClient] which uses an [OkHttpClient] to manage WS requests.
+ * Implementation of [RemoteClient] which uses an [OkHttpClient] to manage WS requests.
  *
  * @param gson instance of [Gson] used to serialize and deserialize a json.
+ * @param connectivityManager instance of [ConnectivityManager] used to check
+ * the connectivity's status.
+ * @param timeout the timeout of the requests.
+ * @param timeoutUnit the timeout's [TimeUnit] of the requests.
  */
 class HttpClient @Inject constructor(
     private val gson: Gson,
-    private val connectivityManager: ConnectivityManager
+    private val connectivityManager: ConnectivityManager,
+    @HttpClientInfo timeout: Long,
+    @HttpClientInfo timeoutUnit: TimeUnit
 ) : RemoteClient {
 
     private val httpClient: OkHttpClient
@@ -46,8 +52,8 @@ class HttpClient @Inject constructor(
     init {
         // Set the properties that will be used by OkHttpClient.
         val httpClientBuilder = OkHttpClient.Builder()
-            .readTimeout(CONNECTION_TIMEOUT_SECONDS, TimeUnit.SECONDS)
-            .connectTimeout(CONNECTION_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .readTimeout(timeout, timeoutUnit)
+            .connectTimeout(timeout, timeoutUnit)
 
         // Logging interceptor to log requests' descriptions.
         val logInterceptor = HttpLoggingInterceptor()
@@ -95,20 +101,13 @@ class HttpClient @Inject constructor(
 
         if (!response.isSuccessful) {
             response.close()
-            throw ResponseException(
-                code.toString(),
-                "response not successful"
-            )
+            throw ResponseException(code, "response not successful")
         }
 
-        val responseBody =
-            response.body() ?: throw ResponseException(
-                code.toString(),
-                "response body is null"
-            )
-
-        // Parse the body as JsonElement.
-        return gson.fromJson(responseBody.charStream(), JsonElement::class.java)
+        return response.body()?.let {
+            // Parse the body as a JsonElement.
+            gson.fromJson(it.charStream(), JsonElement::class.java)
+        } ?:throw ResponseException(code, "response body is null")
     }
 
     /**
@@ -130,9 +129,5 @@ class HttpClient @Inject constructor(
 
         // Build the url.
         return urlBuilder.build()
-    }
-
-    companion object {
-        private val CONNECTION_TIMEOUT_SECONDS = if (BuildConfig.DEBUG) 15L else 30L
     }
 }

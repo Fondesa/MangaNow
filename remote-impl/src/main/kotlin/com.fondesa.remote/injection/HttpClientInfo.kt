@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.remote.exception
+package com.fondesa.remote.injection
+
+import com.fondesa.remote.client.HttpClient
+import javax.inject.Qualifier
 
 /**
- * Exception thrown if an error occurs when the response (of a WS request) is received.
- *
- * @param code HTTP response code.
- * @param reason technical reason explaining why this exception is thrown.
+ * Used to specify a configuration which must be injected into an [HttpClient].
  */
-class ResponseException(val code: Int, val reason: String) :
-    Exception("Unsuccessful response with code: '$code' and reason: '$reason'")
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class HttpClientInfo

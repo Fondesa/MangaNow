@@ -19,12 +19,19 @@ package com.fondesa.remote.connectivity
 import android.content.Context
 import com.fondesa.common.remote.connectivity.ConnectivityManager
 import javax.inject.Inject
+import android.net.ConnectivityManager as AndroidConnectivityManager
 
+/**
+ * Implementation of [ConnectivityManager] which uses the system service of Android to check
+ * the connectivity's status.
+ *
+ * @param context the [Context] used to access to the system services.
+ */
 class AndroidSystemConnectivityManager @Inject constructor(private val context: Context) :
     ConnectivityManager {
 
     private val connectivityManager by lazy {
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as AndroidConnectivityManager
     }
 
     override fun isConnected(): Boolean {

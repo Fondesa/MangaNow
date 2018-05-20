@@ -8,5 +8,8 @@ dependencies {
     api deps.javaxInject
     api deps.gson
     api deps.timber
-    implementation deps.okHttp
+    implementation deps.okHttpLoggingInterceptor
+
+    testImplementation project(":common:common-test")
+    testImplementation deps.okHttpMockWebServer
 }

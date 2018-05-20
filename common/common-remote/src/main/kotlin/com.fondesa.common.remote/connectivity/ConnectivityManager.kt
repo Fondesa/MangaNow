@@ -16,7 +16,15 @@
 
 package com.fondesa.common.remote.connectivity
 
+/**
+ * Checks the state of the device's connectivity.
+ */
 interface ConnectivityManager {
 
+    /**
+     * Checks if the device is connected to the network or not.
+     *
+     * @return true if the device is connected.
+     */
     fun isConnected(): Boolean
 }

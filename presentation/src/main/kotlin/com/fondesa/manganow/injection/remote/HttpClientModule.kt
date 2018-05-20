@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.remote.exception
+package com.fondesa.manganow.injection.remote
 
-/**
- * Exception thrown if an error occurs when the response (of a WS request) is received.
- *
- * @param code HTTP response code.
- * @param reason technical reason explaining why this exception is thrown.
- */
-class ResponseException(val code: Int, val reason: String) :
-    Exception("Unsuccessful response with code: '$code' and reason: '$reason'")
+import com.fondesa.remote.BuildConfig
+import com.fondesa.remote.injection.HttpClientInfo
+import dagger.Module
+import dagger.Provides
+import java.util.concurrent.TimeUnit
+
+@Module
+class HttpClientModule {
+
+    @HttpClientInfo
+    @Provides
+    fun provideTimeout(): Long = if (BuildConfig.DEBUG) 10L else 30L
+
+    @HttpClientInfo
+    @Provides
+    fun provideTimeoutUnit(): TimeUnit = TimeUnit.SECONDS
+}

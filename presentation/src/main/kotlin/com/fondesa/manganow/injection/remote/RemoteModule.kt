@@ -24,7 +24,7 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [HttpClientModule::class])
 interface RemoteModule {
 
     @Binds
