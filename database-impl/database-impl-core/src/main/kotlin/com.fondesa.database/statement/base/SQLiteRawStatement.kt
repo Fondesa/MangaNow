@@ -17,7 +17,6 @@
 package com.fondesa.database.statement.base
 
 import com.fondesa.common.database.execution.Executor
-import timber.log.Timber
 
 /**
  * Subclass of [SQLiteBaseStatement] that allows raw statements.
@@ -27,7 +26,7 @@ import timber.log.Timber
 abstract class SQLiteRawStatement<out E : Executor<*>>(val raw: String) : SQLiteBaseStatement<E>() {
 
     final override fun createExecutor(): E {
-        Timber.d("compiling: $raw")
+        logger.d("compiling: $raw")
         return createExecutor(raw)
     }
 

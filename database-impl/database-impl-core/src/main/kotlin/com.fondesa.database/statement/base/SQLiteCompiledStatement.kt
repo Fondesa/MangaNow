@@ -18,7 +18,6 @@ package com.fondesa.database.statement.base
 
 import android.database.sqlite.SQLiteStatement
 import com.fondesa.common.database.execution.Executor
-import timber.log.Timber
 
 /**
  * Implementation of [SQLiteBaseStatement] that will compile the raw string into a [SQLiteStatement]
@@ -30,7 +29,7 @@ abstract class SQLiteCompiledStatement<out E : Executor<*>>(val raw: String) :
     SQLiteBaseStatement<E>() {
 
     final override fun createExecutor(): E {
-        Timber.d("compiling: $raw")
+        logger.d("compiling: $raw")
         val statement = database.compileStatement(raw)
         return createExecutor(statement)
     }

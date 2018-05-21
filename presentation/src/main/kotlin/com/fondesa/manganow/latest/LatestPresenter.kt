@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.latest
 
+import com.fondesa.common.log.Logger
 import com.fondesa.common.thread.execution.ExecutorFactory
 import com.fondesa.common.thread.execution.ExecutorPool
 import com.fondesa.common.thread.execution.execute
@@ -24,13 +25,13 @@ import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.usecase.GetLatestList
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.presenter.AbstractPresenter
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Default implementation of [LatestContract.Presenter] for the latest section.
  */
 class LatestPresenter @Inject constructor(
+    private val logger: Logger,
     private val getLatestListUseCase: GetLatestList,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
     private val executorFactory: ExecutorFactory,
@@ -70,7 +71,7 @@ class LatestPresenter @Inject constructor(
     }
 
     override fun latestSelected(latest: Latest) {
-        Timber.d("Selected: ${latest.manga.title}")
+        logger.d("Selected: ${latest.manga.title}")
     }
 
     private fun loadNextPage() {

@@ -14,31 +14,18 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+package com.fondesa.manganow.injection.log
+
+import com.fondesa.common.log.Logger
+import com.fondesa.log.TimberLogger
+import dagger.Binds
+import dagger.Module
+import javax.inject.Singleton
+
+@Module
+interface LogModule {
+
+    @Singleton
+    @Binds
+    fun provideLogger(logger: TimberLogger): Logger
 }
-
-def addCommon(String module) {
-    add("common:$module")
-}
-
-def addDatabaseImpl(String module) {
-    add("database-impl:$module")
-}
-
-add "data"
-add "domain"
-add "log-impl"
-add "presentation"
-add "remote-impl"
-add "thread-impl"
-
-addCommon "common-database"
-addCommon "common-log"
-addCommon "common-remote"
-addCommon "common-test"
-addCommon "common-thread"
-
-addDatabaseImpl "database-impl-annotations"
-addDatabaseImpl "database-impl-core"
-addDatabaseImpl "database-impl-processor"

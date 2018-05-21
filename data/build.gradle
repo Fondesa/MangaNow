@@ -19,6 +19,7 @@ apply plugin: 'common-kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 dependencies {
+    api project(":log-impl")
     api project(":remote-impl")
     api project(":thread-impl")
     api project(":domain")

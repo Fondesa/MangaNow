@@ -14,31 +14,21 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+package com.fondesa.database.statement.base
+
+import com.fondesa.common.database.Database
+import com.fondesa.common.log.Logger
+
+/**
+ * Used to receive a [Logger] instance.
+ * The [Logger] instance must be provided and injected by another component (e.g. [Database]).
+ */
+interface LoggerReceiver {
+
+    /**
+     * Get the [Logger] instance injected by another component.
+     *
+     * @param logger [Logger] used to log db information.
+     */
+    fun injectLogger(logger: Logger)
 }
-
-def addCommon(String module) {
-    add("common:$module")
-}
-
-def addDatabaseImpl(String module) {
-    add("database-impl:$module")
-}
-
-add "data"
-add "domain"
-add "log-impl"
-add "presentation"
-add "remote-impl"
-add "thread-impl"
-
-addCommon "common-database"
-addCommon "common-log"
-addCommon "common-remote"
-addCommon "common-test"
-addCommon "common-thread"
-
-addDatabaseImpl "database-impl-annotations"
-addDatabaseImpl "database-impl-core"
-addDatabaseImpl "database-impl-processor"

@@ -19,6 +19,7 @@ package com.fondesa.manganow.injection.application
 import android.app.Application
 import android.content.Context
 import com.fondesa.manganow.injection.database.DatabaseModule
+import com.fondesa.manganow.injection.log.LogModule
 import com.fondesa.manganow.injection.remote.RemoteModule
 import com.fondesa.manganow.injection.screen.ScreenModule
 import com.fondesa.manganow.injection.thread.ThreadModule
@@ -28,11 +29,14 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [RemoteModule::class,
-    DatabaseModule::class,
-    ThreadModule::class,
-    TimeModule::class,
-    ScreenModule::class])
+@Module(
+    includes = [LogModule::class,
+        RemoteModule::class,
+        DatabaseModule::class,
+        ThreadModule::class,
+        TimeModule::class,
+        ScreenModule::class]
+)
 class AppModule {
 
     @Singleton

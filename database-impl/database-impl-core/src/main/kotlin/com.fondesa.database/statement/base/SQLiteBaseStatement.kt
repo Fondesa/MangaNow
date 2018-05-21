@@ -19,25 +19,36 @@ package com.fondesa.database.statement.base
 import android.database.sqlite.SQLiteDatabase
 import com.fondesa.common.database.execution.Executor
 import com.fondesa.common.database.statement.Statement
+import com.fondesa.common.log.Logger
 
 /**
  * Define a [Statement] that will receive the [SQLiteDatabase] instance.
  * The [SQLiteDatabase] instance will be available during the compile phase of the [Statement].
  */
-abstract class SQLiteBaseStatement<out E : Executor<*>> : Statement<E>, SQLiteDatabaseReceiver {
+abstract class SQLiteBaseStatement<out E : Executor<*>> : Statement<E>,
+    SQLiteDatabaseReceiver,
+    LoggerReceiver {
 
     /**
      * Instance of [SQLiteDatabase] injected by another component.
      */
     protected val database: SQLiteDatabase
-        get() {
-            if (_database == null)
-                throw NullPointerException("Database is not injected.")
-            return _database!!
-        }
-    private var _database: SQLiteDatabase? = null
+        get() = _database ?: throw NullPointerException("Database is not injected.")
 
-    override final fun injectDatabase(database: SQLiteDatabase) {
+    /**
+     * Instance of [Logger] injected by another component.
+     */
+    protected val logger: Logger
+        get() = _logger ?: throw NullPointerException("Logger is not injected.")
+
+    private var _database: SQLiteDatabase? = null
+    private var _logger: Logger? = null
+
+    final override fun injectDatabase(database: SQLiteDatabase) {
         _database = database
+    }
+
+    final override fun injectLogger(logger: Logger) {
+        _logger = logger
     }
 }

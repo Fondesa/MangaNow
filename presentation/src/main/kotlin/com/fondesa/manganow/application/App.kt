@@ -17,13 +17,10 @@
 package com.fondesa.manganow.application
 
 import com.fondesa.common.database.DatabaseClient
-import com.fondesa.manganow.BuildConfig
 import com.fondesa.manganow.injection.application.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
-import timber.log.Timber
-import timber.log.Timber.DebugTree
 import javax.inject.Inject
 
 class App : DaggerApplication() {
@@ -33,11 +30,6 @@ class App : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
-        if (BuildConfig.DEBUG) {
-            // Log only in debug.
-            Timber.plant(DebugTree())
-        }
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.

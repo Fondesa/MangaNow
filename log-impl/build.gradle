@@ -14,31 +14,13 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+apply plugin: 'com.android.library'
+apply plugin: 'common-kotlin-android'
+
+dependencies {
+    api project(":common:common-log")
+
+    api deps.kotlinStdLib
+    api deps.javaxInject
+    implementation deps.timber
 }
-
-def addCommon(String module) {
-    add("common:$module")
-}
-
-def addDatabaseImpl(String module) {
-    add("database-impl:$module")
-}
-
-add "data"
-add "domain"
-add "log-impl"
-add "presentation"
-add "remote-impl"
-add "thread-impl"
-
-addCommon "common-database"
-addCommon "common-log"
-addCommon "common-remote"
-addCommon "common-test"
-addCommon "common-thread"
-
-addDatabaseImpl "database-impl-annotations"
-addDatabaseImpl "database-impl-core"
-addDatabaseImpl "database-impl-processor"

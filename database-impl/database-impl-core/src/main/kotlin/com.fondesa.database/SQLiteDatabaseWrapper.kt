@@ -21,6 +21,8 @@ import com.fondesa.common.database.Database
 import com.fondesa.common.database.execution.Closeable
 import com.fondesa.common.database.execution.Executor
 import com.fondesa.common.database.statement.Statement
+import com.fondesa.common.log.Logger
+import com.fondesa.database.statement.base.LoggerReceiver
 import com.fondesa.database.statement.base.SQLiteDatabaseReceiver
 
 /**
@@ -28,7 +30,10 @@ import com.fondesa.database.statement.base.SQLiteDatabaseReceiver
  *
  * @param sqLiteDatabase instance of [SQLiteDatabase].
  */
-class SQLiteDatabaseWrapper(private val sqLiteDatabase: SQLiteDatabase) : Database {
+class SQLiteDatabaseWrapper(
+    private val logger: Logger,
+    private val sqLiteDatabase: SQLiteDatabase
+) : Database {
 
     override fun transaction(tx: () -> Unit) {
         sqLiteDatabase.beginTransaction()
@@ -45,6 +50,8 @@ class SQLiteDatabaseWrapper(private val sqLiteDatabase: SQLiteDatabase) : Databa
     override fun <E : Executor<*>> compile(statement: Statement<E>): E {
         // Attach the SQLiteDatabase instance to the statement.
         (statement as? SQLiteDatabaseReceiver)?.injectDatabase(sqLiteDatabase)
+        // Attach the Logger instance to the statement.
+        (statement as? LoggerReceiver)?.injectLogger(logger)
         // create the executor.
         return statement.createExecutor()
     }

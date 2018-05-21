@@ -20,9 +20,9 @@ apply plugin: 'common-kotlin-android'
 dependencies {
     api project(':database-impl:database-impl-annotations')
     api project(":common:common-database")
+    api project(":common:common-log")
     api project(':thread-impl')
 
     api deps.kotlinStdLib
     api deps.javaxInject
-    api deps.timber
 }

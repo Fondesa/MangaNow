@@ -47,7 +47,6 @@ dependencies {
     implementation deps.design
 
     implementation deps.daggerAndroid
-    implementation deps.timber
 
     implementation deps.recyclerViewDivider
     implementation deps.glide
