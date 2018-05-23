@@ -14,30 +14,16 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+package com.fondesa.manganow.injection.coroutines
+
+import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.experimental.android.UI
+import kotlin.coroutines.experimental.CoroutineContext
+
+@Module
+class CoroutinesModule {
+
+    @Provides
+    fun provideUiCoroutinesContext(): CoroutineContext = UI
 }
-
-def addCommon(String module) {
-    add("common:$module")
-}
-
-def addDatabaseImpl(String module) {
-    add("database-impl:$module")
-}
-
-add "data"
-add "domain"
-add "log-impl"
-add "presentation"
-add "remote-impl"
-
-addCommon "common-database"
-addCommon "common-log"
-addCommon "common-remote"
-addCommon "common-test"
-addCommon "common-coroutines"
-
-addDatabaseImpl "database-impl-annotations"
-addDatabaseImpl "database-impl-core"
-addDatabaseImpl "database-impl-processor"

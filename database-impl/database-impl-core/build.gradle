@@ -21,7 +21,7 @@ dependencies {
     api project(':database-impl:database-impl-annotations')
     api project(":common:common-database")
     api project(":common:common-log")
-    api project(':thread-impl')
+    api project(':common:common-coroutines')
 
     api deps.kotlinStdLib
     api deps.javaxInject

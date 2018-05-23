@@ -14,30 +14,31 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+package com.fondesa.common.coroutines
+
+import kotlinx.coroutines.experimental.Job
+
+/**
+ * Used to manage a pool of coroutines' [Job]s and release them in a centralized way.
+ */
+class CoroutinesJobsPool {
+
+    private val jobs = mutableListOf<Job>()
+
+    /**
+     * Adds an [Job] to the pool.
+     *
+     * @param job [Job] which must be added.
+     */
+    fun add(job: Job) {
+        jobs.add(job)
+    }
+
+    /**
+     * Cancel all [Job]s in the pool and release their references.
+     */
+    fun cancelAll() {
+        jobs.forEach { it.cancel() }
+        jobs.clear()
+    }
 }
-
-def addCommon(String module) {
-    add("common:$module")
-}
-
-def addDatabaseImpl(String module) {
-    add("database-impl:$module")
-}
-
-add "data"
-add "domain"
-add "log-impl"
-add "presentation"
-add "remote-impl"
-
-addCommon "common-database"
-addCommon "common-log"
-addCommon "common-remote"
-addCommon "common-test"
-addCommon "common-coroutines"
-
-addDatabaseImpl "database-impl-annotations"
-addDatabaseImpl "database-impl-core"
-addDatabaseImpl "database-impl-processor"

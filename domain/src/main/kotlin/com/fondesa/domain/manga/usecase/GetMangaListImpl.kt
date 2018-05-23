@@ -16,9 +16,9 @@
 
 package com.fondesa.domain.manga.usecase
 
+import com.fondesa.common.coroutines.asyncAwait
 import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
-import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
 class GetMangaListImpl @Inject constructor(private val repository: MangaRepository) :

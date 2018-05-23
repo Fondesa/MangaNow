@@ -144,7 +144,7 @@ object RemoteApi {
 
             override val scheme: String = "http"
 
-            override val host: String = "192.168.1.2"
+            override val host: String = "192.168.1.3"
 
             override val path get() = "api/$apiPath"
 

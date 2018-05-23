@@ -16,10 +16,10 @@
 
 package com.fondesa.domain.latest.usecase
 
+import com.fondesa.common.coroutines.asyncAwait
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.repository.LatestRepository
-import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
 /**
@@ -31,7 +31,8 @@ import javax.inject.Inject
 class GetLatestListImpl @Inject constructor(private val repository: LatestRepository) :
     GetLatestList {
 
-    override suspend fun execute(page: Int, pageSize: Int): LatestList = asyncAwait {
-        repository.getPaginated(page, pageSize)
-    }
+    override suspend fun execute(page: Int, pageSize: Int): LatestList =
+        asyncAwait {
+            repository.getPaginated(page, pageSize)
+        }
 }

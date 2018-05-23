@@ -16,9 +16,9 @@
 
 package com.fondesa.domain.sortorder.usecase
 
+import com.fondesa.common.coroutines.asyncAwait
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.thread.extension.asyncAwait
 import javax.inject.Inject
 
 /**

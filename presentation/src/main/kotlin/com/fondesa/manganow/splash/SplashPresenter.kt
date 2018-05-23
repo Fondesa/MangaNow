@@ -16,9 +16,9 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.common.thread.execution.ExecutorFactory
-import com.fondesa.common.thread.execution.ExecutorPool
-import com.fondesa.common.thread.execution.execute
+import com.fondesa.common.coroutines.CoroutinesJobsPool
+import com.fondesa.common.coroutines.inPool
+import com.fondesa.common.coroutines.trying
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.usecase.GetCategoryList
@@ -28,7 +28,9 @@ import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
 import com.fondesa.manganow.presenter.AbstractPresenter
 import com.fondesa.manganow.time.Scheduler
+import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
+import kotlin.coroutines.experimental.CoroutineContext
 
 /**
  * Default implementation of [SplashContract.Presenter] for the splash section.
@@ -38,8 +40,7 @@ class SplashPresenter @Inject constructor(
     private val getSortOrderListUseCase: GetSortOrderList,
     private val scheduler: Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
-    private val executorFactory: ExecutorFactory,
-    private val executorPool: ExecutorPool,
+    private val uiCoroutinesContext: CoroutineContext,
     private val navigator: Navigator
 ) : AbstractPresenter<SplashContract.View>(),
     SplashContract.Presenter {
@@ -48,6 +49,7 @@ class SplashPresenter @Inject constructor(
 
     private var canNavigate = true
     private var navigationWasDispatched = false
+    private val jobsPool by lazy { CoroutinesJobsPool() }
 
     override fun attachView(view: SplashContract.View) {
         super.attachView(view)
@@ -58,10 +60,8 @@ class SplashPresenter @Inject constructor(
     }
 
     override fun detachView() {
-        // Release the scheduler.
         scheduler.release()
-        // Release the executors.
-        executorPool.release()
+        jobsPool.cancelAll()
         super.detachView()
     }
 
@@ -87,28 +87,25 @@ class SplashPresenter @Inject constructor(
         view.hideErrorMessage()
         view.showProgressIndicator()
 
-        // Create and load the executor used to load the categories.
-        executorFactory
-            .create {
+        launch(uiCoroutinesContext) {
+            trying {
                 getCategoryListUseCase.execute()
-            }
-            .completed(::onCategoriesLoadCompleted)
-            .error(::onLoadFailed)
-            .execute(executorPool)
+            }.onSuccess(::onCategoriesLoadCompleted)
+                .onError(::onLoadFailed)
+        }.inPool(jobsPool)
     }
+
 
     private fun onCategoriesLoadCompleted(categories: CategoryList) {
         if (!isViewAttached())
             return
 
-        // Create and load the executor used to load the sort orders.
-        executorFactory
-            .create {
+        launch(uiCoroutinesContext) {
+            trying {
                 getSortOrderListUseCase.execute()
-            }
-            .completed(::onSortOrdersLoadCompleted)
-            .error(::onLoadFailed)
-            .execute(executorPool)
+            }.onSuccess(::onSortOrdersLoadCompleted)
+                .onError(::onLoadFailed)
+        }.inPool(jobsPool)
     }
 
     private fun onSortOrdersLoadCompleted(sortOrders: SortOrderList) {

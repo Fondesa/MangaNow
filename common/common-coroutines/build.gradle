@@ -14,30 +14,11 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+apply plugin: 'common-kotlin-jvm'
+
+dependencies {
+    compile deps.kotlinStdLib
+    compile deps.coroutines
+
+    testCompile project(':common:common-test')
 }
-
-def addCommon(String module) {
-    add("common:$module")
-}
-
-def addDatabaseImpl(String module) {
-    add("database-impl:$module")
-}
-
-add "data"
-add "domain"
-add "log-impl"
-add "presentation"
-add "remote-impl"
-
-addCommon "common-database"
-addCommon "common-log"
-addCommon "common-remote"
-addCommon "common-test"
-addCommon "common-coroutines"
-
-addDatabaseImpl "database-impl-annotations"
-addDatabaseImpl "database-impl-core"
-addDatabaseImpl "database-impl-processor"
