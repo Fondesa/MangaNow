@@ -16,7 +16,7 @@
 
 package com.fondesa.domain.latest.usecase
 
-import com.fondesa.common.coroutines.asyncAwait
+import com.fondesa.core.coroutines.asyncAwait
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.repository.LatestRepository

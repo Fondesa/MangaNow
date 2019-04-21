@@ -20,7 +20,7 @@ apply plugin: 'common-android'
 dependencies {
     api project(':database:database-annotations')
     api project(":database:database-api")
-    api project(':common:common-coroutines')
+    api project(':core:core-coroutines')
 
     api deps.kotlinStdLib
     api deps.javaxInject

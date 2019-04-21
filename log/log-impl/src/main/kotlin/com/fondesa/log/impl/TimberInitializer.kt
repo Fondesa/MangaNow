@@ -16,7 +16,7 @@
 
 package com.fondesa.log.impl
 
-import com.fondesa.core.AppInitializer
+import com.fondesa.core.lifecycle.AppInitializer
 import timber.log.Timber
 import javax.inject.Inject
 

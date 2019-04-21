@@ -16,7 +16,7 @@
 
 package com.fondesa.log.di
 
-import com.fondesa.core.AppInitializer
+import com.fondesa.core.lifecycle.AppInitializer
 import com.fondesa.log.api.Logger
 import com.fondesa.log.impl.TimberInitializer
 import com.fondesa.log.impl.TimberLogger

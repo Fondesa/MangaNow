@@ -16,7 +16,7 @@
 
 package com.fondesa.domain.sortorder.usecase
 
-import com.fondesa.common.test.runUnitBlocking
+import com.fondesa.core.test.runUnitBlocking
 import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
 import com.nhaarman.mockitokotlin2.mock

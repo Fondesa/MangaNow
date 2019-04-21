@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.application
 
-import com.fondesa.core.AppInitializer
+import com.fondesa.core.lifecycle.AppInitializer
 import com.fondesa.database.api.DatabaseClient
 import com.fondesa.log.api.Log
 import com.fondesa.log.api.Logger

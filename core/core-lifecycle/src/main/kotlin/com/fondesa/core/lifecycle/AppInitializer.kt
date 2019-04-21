@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.manga.usecase
+package com.fondesa.core.lifecycle
 
-import com.fondesa.core.coroutines.asyncAwait
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.manga.repository.MangaRepository
-import javax.inject.Inject
+interface AppInitializer {
 
-class GetMangaListImpl @Inject constructor(private val repository: MangaRepository) :
-    GetMangaList {
-
-    override suspend fun execute(): List<Manga> = asyncAwait {
-        repository.getAll()
-    }
+    fun initialize()
 }

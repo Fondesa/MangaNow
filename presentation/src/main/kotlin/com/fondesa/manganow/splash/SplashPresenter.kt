@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.common.coroutines.trying
+import com.fondesa.core.coroutines.trying
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.usecase.GetCategoryList

@@ -18,7 +18,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'common-android'
 
 dependencies {
-    api project(":common:common-coroutines")
+    api project(":core:core-coroutines")
     api project(":remote:remote-api")
     api project(":domain")
     api project(':database-impl:database-impl-core')

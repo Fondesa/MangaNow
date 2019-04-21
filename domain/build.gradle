@@ -17,10 +17,10 @@
 apply plugin: 'common-jvm'
 
 dependencies {
-    compile project(':common:common-coroutines')
+    compile project(':core:core-coroutines')
 
     compile deps.kotlinStdLib
     compile deps.javaxInject
 
-    testCompile project(':common:common-test')
+    testCompile project(':core:core-test')
 }

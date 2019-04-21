@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.latest
 
-import com.fondesa.common.coroutines.trying
+import com.fondesa.core.coroutines.trying
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.usecase.GetLatestList

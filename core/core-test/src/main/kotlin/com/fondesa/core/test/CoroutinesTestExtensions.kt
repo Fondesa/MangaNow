@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.manga.usecase
+package com.fondesa.core.test
 
-import com.fondesa.core.coroutines.asyncAwait
-import com.fondesa.domain.manga.model.Manga
-import com.fondesa.domain.manga.repository.MangaRepository
-import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
 
-class GetMangaListImpl @Inject constructor(private val repository: MangaRepository) :
-    GetMangaList {
-
-    override suspend fun execute(): List<Manga> = asyncAwait {
-        repository.getAll()
+/**
+ * Used to avoid the return type of [runBlocking] to unit test suspend functions.
+ *
+ * @param block the block which must be executed.
+ */
+fun runUnitBlocking(block: suspend CoroutineScope.() -> Unit) {
+    runBlocking {
+        block(this)
     }
 }

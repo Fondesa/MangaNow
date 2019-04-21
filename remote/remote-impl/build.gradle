@@ -25,6 +25,6 @@ dependencies {
     api deps.gson
     api deps.okHttpLoggingInterceptor
 
-    testImplementation project(":common:common-test")
+    testImplementation project(":core:core-test")
     testImplementation deps.okHttpMockWebServer
 }

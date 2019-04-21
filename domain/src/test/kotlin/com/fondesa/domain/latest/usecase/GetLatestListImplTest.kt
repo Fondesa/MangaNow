@@ -16,7 +16,7 @@
 
 package com.fondesa.domain.latest.usecase
 
-import com.fondesa.common.test.runUnitBlocking
+import com.fondesa.core.test.runUnitBlocking
 import com.fondesa.domain.chapter.model.Chapter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.repository.LatestRepository

@@ -16,7 +16,7 @@
 
 package com.fondesa.domain.category.usecase
 
-import com.fondesa.common.coroutines.asyncAwait
+import com.fondesa.core.coroutines.asyncAwait
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
 import javax.inject.Inject
