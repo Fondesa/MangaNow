@@ -14,16 +14,8 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+apply plugin: 'common-jvm'
 
 dependencies {
-    api project(':database-impl:database-impl-annotations')
-    api project(":common:common-database")
-    api project(':common:common-coroutines')
-
-    api deps.kotlinStdLib
-    api deps.javaxInject
-
-    implementation project(":log:log-api")
+    compile deps.kotlinStdLib
 }

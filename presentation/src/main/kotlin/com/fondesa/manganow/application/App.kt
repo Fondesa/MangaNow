@@ -17,6 +17,9 @@
 package com.fondesa.manganow.application
 
 import com.fondesa.common.database.DatabaseClient
+import com.fondesa.core.AppInitializer
+import com.fondesa.log.api.Log
+import com.fondesa.log.api.Logger
 import com.fondesa.manganow.injection.application.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
@@ -24,6 +27,12 @@ import dagger.android.support.DaggerApplication
 import javax.inject.Inject
 
 class App : DaggerApplication() {
+
+    @Inject
+    lateinit var logger: Logger
+
+    @Inject
+    lateinit var appInitializers: Set<@JvmSuppressWildcards AppInitializer>
 
     @Inject
     lateinit var databaseClient: DatabaseClient
@@ -38,6 +47,12 @@ class App : DaggerApplication() {
         }
         // Install LeakCanary to enable the leak monitoring.
         LeakCanary.install(this)
+
+        Log.initialize(logger)
+
+        appInitializers.forEach {
+            it.initialize()
+        }
 
         databaseClient.createDatabase()
     }

@@ -28,12 +28,10 @@ def addDatabaseImpl(String module) {
 
 add "data"
 add "domain"
-add "log-impl"
 add "presentation"
 add "remote-impl"
 
 addCommon "common-database"
-addCommon "common-log"
 addCommon "common-remote"
 addCommon "common-test"
 addCommon "common-coroutines"
@@ -41,3 +39,8 @@ addCommon "common-coroutines"
 addDatabaseImpl "database-impl-annotations"
 addDatabaseImpl "database-impl-core"
 addDatabaseImpl "database-impl-processor"
+
+include ':core:core-api'
+include ':log:log-api'
+include ':log:log-di'
+include ':log:log-impl'

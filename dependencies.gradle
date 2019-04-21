@@ -42,6 +42,7 @@ ext.deps = [
         androidTestRunner       : "androidx.test:runner:$androidTestRunner",
         androidPlugin           : "com.android.tools.build:gradle:$androidPlugin",
         autoService             : "com.google.auto.service:auto-service:$autoService",
+        dagger                  : "com.google.dagger:dagger:$dagger",
         daggerAndroid           : "com.google.dagger:dagger-android-support:$dagger",
         daggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:$dagger",
         daggerCompiler          : "com.google.dagger:dagger-compiler:$dagger",

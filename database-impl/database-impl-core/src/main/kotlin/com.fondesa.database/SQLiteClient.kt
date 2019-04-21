@@ -21,13 +21,13 @@ import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteException
 import com.fondesa.common.database.Database
 import com.fondesa.common.database.DatabaseClient
-import com.fondesa.common.log.Logger
 import com.fondesa.database.injection.SQLiteDatabaseInfo
 import com.fondesa.database.statement.CreateTable
 import com.fondesa.database.statement.Pragma
 import com.fondesa.database.strategy.ErrorStrategy
 import com.fondesa.database.strategy.UpgradeStrategy
 import com.fondesa.database.structure.Graph
+import com.fondesa.log.api.Log
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -46,7 +46,6 @@ import javax.inject.Inject
  * @param errorStrategy strategy used to launch actions when database is corrupted.
  */
 open class SQLiteClient @Inject constructor(
-    private val logger: Logger,
     private val context: Context,
     @SQLiteDatabaseInfo private val name: String,
     @SQLiteDatabaseInfo private val version: Int,
@@ -68,13 +67,13 @@ open class SQLiteClient @Inject constructor(
             // Dispatch the creation on the background thread.
             synchronized(lock) {
                 val context = this@SQLiteClient.context
-                logger.d("Started creation or opening of the database.")
+                Log.d("Started creation or opening of the database.")
                 // Open or create the database.
                 val sqlDatabase = context.openOrCreateDatabase(name, 0, null, errorHandler)
                     ?: throw NullPointerException("The creation or opening of the database wasn't successful.")
 
                 // Create the database wrapper.
-                database = SQLiteDatabaseWrapper(logger, sqlDatabase)
+                database = SQLiteDatabaseWrapper(sqlDatabase)
                 onConfigure(database)
 
                 val pragmaSchemaVersionRaw = "user_version"
@@ -117,7 +116,7 @@ open class SQLiteClient @Inject constructor(
                 // Open the database.
                 onOpen(database)
                 isInitialized = true
-                logger.d("End creation or opening of the database.")
+                Log.d("End creation or opening of the database.")
 
                 // Unlock the lock to retrieve the database.
                 lock.notifyAll()
@@ -128,7 +127,7 @@ open class SQLiteClient @Inject constructor(
     override fun getDatabase(): Database {
         synchronized(lock) {
             while (!isInitialized) {
-                logger.d("Waiting the database initialization...")
+                Log.d("Waiting the database initialization...")
                 // Lock the retrieving of the database on the main thread
                 // till the creation or opening of the database isn't finished.
                 lock.wait()

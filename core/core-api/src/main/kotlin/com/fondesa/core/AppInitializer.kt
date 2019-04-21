@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.core
 
-dependencies {
-    api project(':database-impl:database-impl-annotations')
-    api project(":common:common-database")
-    api project(':common:common-coroutines')
+interface AppInitializer {
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-
-    implementation project(":log:log-api")
+    fun initialize()
 }

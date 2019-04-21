@@ -18,7 +18,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'common-android'
 
 dependencies {
-    api project(":common:common-log")
     api project(":common:common-remote")
 
     api deps.kotlinStdLib

@@ -20,7 +20,6 @@ import android.app.Application
 import android.content.Context
 import com.fondesa.manganow.injection.coroutines.CoroutinesModule
 import com.fondesa.manganow.injection.database.DatabaseModule
-import com.fondesa.manganow.injection.log.LogModule
 import com.fondesa.manganow.injection.remote.RemoteModule
 import com.fondesa.manganow.injection.screen.ScreenModule
 import com.fondesa.manganow.injection.time.TimeModule
@@ -30,8 +29,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module(
-    includes = [LogModule::class,
-        RemoteModule::class,
+    includes = [RemoteModule::class,
         DatabaseModule::class,
         CoroutinesModule::class,
         TimeModule::class,

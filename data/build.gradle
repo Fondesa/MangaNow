@@ -19,7 +19,6 @@ apply plugin: 'common-android'
 
 dependencies {
     api project(":common:common-coroutines")
-    api project(":log-impl")
     api project(":remote-impl")
     api project(":domain")
     api project(':database-impl:database-impl-core')

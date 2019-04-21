@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.injection.log
+package com.fondesa.log.impl
 
-import com.fondesa.common.log.Logger
-import com.fondesa.log.TimberLogger
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+import com.fondesa.core.AppInitializer
+import timber.log.Timber
+import javax.inject.Inject
 
-@Module
-interface LogModule {
+class TimberInitializer @Inject constructor(): AppInitializer {
 
-    @Singleton
-    @Binds
-    fun provideLogger(logger: TimberLogger): Logger
+    override fun initialize() {
+        if (BuildConfig.DEBUG) {
+            // Log only in debug.
+            Timber.plant(TimberAdjustedDebugTree())
+        }
+    }
 }

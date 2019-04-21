@@ -17,6 +17,7 @@
 package com.fondesa.manganow.injection.application
 
 import android.app.Application
+import com.fondesa.log.di.LogModule
 import com.fondesa.manganow.application.App
 import dagger.BindsInstance
 import dagger.Component
@@ -25,7 +26,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, LogModule::class])
 interface AppComponent : AndroidInjector<App> {
 
     @Component.Builder

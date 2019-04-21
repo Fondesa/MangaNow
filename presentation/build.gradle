@@ -35,6 +35,8 @@ android {
 
 dependencies {
     implementation project(":data")
+    implementation project(":core:core-api")
+    implementation project(":log:log-di")
 
     implementation deps.kotlinStdLib
     implementation deps.kotlinReflect

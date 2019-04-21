@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.log.di
 
-dependencies {
-    api project(':database-impl:database-impl-annotations')
-    api project(":common:common-database")
-    api project(':common:common-coroutines')
+import com.fondesa.core.AppInitializer
+import com.fondesa.log.api.Logger
+import com.fondesa.log.impl.TimberInitializer
+import com.fondesa.log.impl.TimberLogger
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoSet
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
+@Module
+interface LogModule {
 
-    implementation project(":log:log-api")
+    @Binds
+    fun provideLogger(logger: TimberLogger): Logger
+
+    @Binds
+    @IntoSet
+    fun provideTimberInitializer(initializer: TimberInitializer): AppInitializer
 }

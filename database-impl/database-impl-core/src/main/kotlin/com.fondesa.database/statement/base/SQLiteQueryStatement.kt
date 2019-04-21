@@ -19,6 +19,7 @@ package com.fondesa.database.statement.base
 import android.annotation.SuppressLint
 import android.database.Cursor
 import com.fondesa.common.database.execution.Executor
+import com.fondesa.log.api.Log
 
 /**
  * Implementation of [SQLiteBaseStatement] that will compile the raw string into a [Cursor]
@@ -35,7 +36,7 @@ abstract class SQLiteQueryStatement<out E : Executor<*>>(
 
     @SuppressLint("Recycle")
     override fun createExecutor(): E {
-        logger.d("compiling: $raw")
+        Log.d("compiling: $raw")
         // Let the database to compile the query and bind the arguments.
         val cursor = database.rawQuery(raw, args)
         return createExecutor(cursor)

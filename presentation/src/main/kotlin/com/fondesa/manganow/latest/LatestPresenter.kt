@@ -17,10 +17,10 @@
 package com.fondesa.manganow.latest
 
 import com.fondesa.common.coroutines.trying
-import com.fondesa.common.log.Logger
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.usecase.GetLatestList
+import com.fondesa.log.api.Log
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.presenter.AbstractPresenter
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +34,6 @@ import kotlin.coroutines.CoroutineContext
  * Default implementation of [LatestContract.Presenter] for the latest section.
  */
 class LatestPresenter @Inject constructor(
-    private val logger: Logger,
     private val getLatestListUseCase: GetLatestList,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
     private val uiCoroutinesContext: CoroutineContext,
@@ -78,7 +77,7 @@ class LatestPresenter @Inject constructor(
     }
 
     override fun latestSelected(latest: Latest) {
-        logger.d("Selected: ${latest.manga.title}")
+        Log.d("Selected: ${latest.manga.title}")
     }
 
     private fun loadNextPage() {

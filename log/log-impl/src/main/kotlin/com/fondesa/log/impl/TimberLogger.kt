@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.log
+package com.fondesa.log.impl
 
-import com.fondesa.common.log.Logger
+import com.fondesa.log.api.Logger
+import dagger.Reusable
 import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Implementation of [Logger] which uses [Timber].
  */
+@Reusable
 class TimberLogger @Inject constructor() : Logger {
-
-    init {
-        if (BuildConfig.DEBUG) {
-            // Log only in debug.
-            Timber.plant(TimberAdjustedDebugTree())
-        }
-    }
 
     override fun d(message: String) {
         Timber.d(message)

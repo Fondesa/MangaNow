@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.database.statement.base
+apply plugin: 'com.android.library'
+apply plugin: 'common-android'
 
-import com.fondesa.common.database.Database
-import com.fondesa.common.log.Logger
+dependencies {
+    compileOnly deps.javaxInject
 
-/**
- * Used to receive a [Logger] instance.
- * The [Logger] instance must be provided and injected by another component (e.g. [Database]).
- */
-interface LoggerReceiver {
+    api project(":log:log-impl")
 
-    /**
-     * Get the [Logger] instance injected by another component.
-     *
-     * @param logger [Logger] used to log db information.
-     */
-    fun injectLogger(logger: Logger)
+    implementation project(":core:core-api")
+    implementation deps.dagger
+    implementation deps.timber
+
+    kapt deps.daggerAndroidProcessor
+    kapt deps.daggerCompiler
 }

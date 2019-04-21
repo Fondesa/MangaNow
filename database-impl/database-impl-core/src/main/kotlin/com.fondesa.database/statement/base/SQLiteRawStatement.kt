@@ -17,6 +17,7 @@
 package com.fondesa.database.statement.base
 
 import com.fondesa.common.database.execution.Executor
+import com.fondesa.log.api.Log
 
 /**
  * Subclass of [SQLiteBaseStatement] that allows raw statements.
@@ -26,7 +27,7 @@ import com.fondesa.common.database.execution.Executor
 abstract class SQLiteRawStatement<out E : Executor<*>>(val raw: String) : SQLiteBaseStatement<E>() {
 
     final override fun createExecutor(): E {
-        logger.d("compiling: $raw")
+        Log.d("compiling: $raw")
         return createExecutor(raw)
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,34 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.log.api
 
-dependencies {
-    api project(":common:common-log")
+object Log: Logger {
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    implementation deps.timber
+    private lateinit var logger: Logger
+
+    fun initialize(logger: Logger) {
+        this.logger = logger
+    }
+
+    override fun d(message: String) {
+        logger.d(message)
+    }
+
+    override fun i(message: String) {
+        logger.i(message)
+    }
+
+    override fun w(message: String) {
+        logger.w(message)
+    }
+
+    override fun e(message: String) {
+        logger.e(message)
+    }
+
+    override fun e(t: Throwable) {
+        logger.e(t)
+    }
+
 }
