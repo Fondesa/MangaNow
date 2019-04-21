@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.database.reader
+package com.fondesa.database.api.reader
 
 /**
  * Layer used to read data from a database query's result.

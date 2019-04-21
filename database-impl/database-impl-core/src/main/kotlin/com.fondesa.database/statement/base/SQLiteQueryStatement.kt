@@ -18,7 +18,7 @@ package com.fondesa.database.statement.base
 
 import android.annotation.SuppressLint
 import android.database.Cursor
-import com.fondesa.common.database.execution.Executor
+import com.fondesa.database.api.execution.Executor
 import com.fondesa.log.api.Log
 
 /**

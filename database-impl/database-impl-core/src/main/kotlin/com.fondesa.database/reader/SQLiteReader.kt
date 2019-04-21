@@ -17,7 +17,7 @@
 package com.fondesa.database.reader
 
 import android.database.Cursor
-import com.fondesa.common.database.reader.DatabaseReader
+import com.fondesa.database.api.reader.DatabaseReader
 
 /**
  * Implementation of [DatabaseReader] using a [Cursor].

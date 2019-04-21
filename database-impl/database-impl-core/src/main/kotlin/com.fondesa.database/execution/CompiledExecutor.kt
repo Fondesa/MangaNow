@@ -17,8 +17,8 @@
 package com.fondesa.database.execution
 
 import android.database.sqlite.SQLiteStatement
-import com.fondesa.common.database.execution.Closeable
-import com.fondesa.common.database.execution.Executor
+import com.fondesa.database.api.execution.Closeable
+import com.fondesa.database.api.execution.Executor
 
 /**
  * Type of [Executor] used to execute a [SQLiteStatement].

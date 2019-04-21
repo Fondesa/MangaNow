@@ -17,10 +17,10 @@
 package com.fondesa.database
 
 import android.database.sqlite.SQLiteDatabase
-import com.fondesa.common.database.Database
-import com.fondesa.common.database.execution.Closeable
-import com.fondesa.common.database.execution.Executor
-import com.fondesa.common.database.statement.Statement
+import com.fondesa.database.api.Database
+import com.fondesa.database.api.execution.Closeable
+import com.fondesa.database.api.execution.Executor
+import com.fondesa.database.api.statement.Statement
 import com.fondesa.database.statement.base.SQLiteDatabaseReceiver
 
 /**

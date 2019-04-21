@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.database.execution
+package com.fondesa.database.api.execution
 
-import com.fondesa.common.database.statement.Statement
+import com.fondesa.database.api.statement.Statement
 
 /**
- * Defines the execution of a [Statement].
- *
- * @param T return type after the execution.
+ * Define a [Statement] that can be closed after its execution.
  */
-interface Executor<out T> {
+interface Closeable {
 
     /**
-     * Executes the statement and return the execution's result.
-     *
-     * @return result after the execution.
+     * Close the [Statement] and releases any reference to it.
+     * If the [Statement] is already closed then invoking this method has no effect.
      */
-    fun execute(): T
+    fun close()
 }

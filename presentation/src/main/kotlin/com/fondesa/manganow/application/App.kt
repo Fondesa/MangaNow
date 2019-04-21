@@ -16,8 +16,8 @@
 
 package com.fondesa.manganow.application
 
-import com.fondesa.common.database.DatabaseClient
 import com.fondesa.core.AppInitializer
+import com.fondesa.database.api.DatabaseClient
 import com.fondesa.log.api.Log
 import com.fondesa.log.api.Logger
 import com.fondesa.manganow.injection.application.DaggerAppComponent

@@ -16,7 +16,7 @@
 
 package com.fondesa.database.clause
 
-import com.fondesa.common.database.clause.Expression
+import com.fondesa.database.api.clause.Expression
 
 /**
  * Raw SQLite expression with the arguments that will be bound in the compiled statement.
@@ -24,7 +24,8 @@ import com.fondesa.common.database.clause.Expression
  * @param raw the raw text that expressing the query.
  * @param args the arguments that will be bound in the compiled statement.
  */
-class RawExpression(val raw: String, vararg val args: String) : Expression {
+class RawExpression(val raw: String, vararg val args: String) :
+    Expression {
 
     override fun raw(): String = raw
 

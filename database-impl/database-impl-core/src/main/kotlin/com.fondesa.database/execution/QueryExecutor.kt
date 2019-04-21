@@ -17,8 +17,8 @@
 package com.fondesa.database.execution
 
 import android.database.Cursor
-import com.fondesa.common.database.execution.Executor
-import com.fondesa.common.database.reader.DatabaseReader
+import com.fondesa.database.api.execution.Executor
+import com.fondesa.database.api.reader.DatabaseReader
 
 /**
  * Type of [Executor] used to query the database with a [Cursor].

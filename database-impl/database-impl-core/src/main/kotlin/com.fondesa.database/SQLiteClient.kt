@@ -19,8 +19,8 @@ package com.fondesa.database
 import android.content.Context
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteException
-import com.fondesa.common.database.Database
-import com.fondesa.common.database.DatabaseClient
+import com.fondesa.database.api.Database
+import com.fondesa.database.api.DatabaseClient
 import com.fondesa.database.injection.SQLiteDatabaseInfo
 import com.fondesa.database.statement.CreateTable
 import com.fondesa.database.statement.Pragma

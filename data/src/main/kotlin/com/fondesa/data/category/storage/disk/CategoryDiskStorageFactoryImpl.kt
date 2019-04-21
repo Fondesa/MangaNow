@@ -16,9 +16,9 @@
 
 package com.fondesa.data.category.storage.disk
 
-import com.fondesa.common.database.DatabaseClient
 import com.fondesa.data.category.storage.CategoryDiskStorage
 import com.fondesa.data.category.storage.CategoryDiskStorageFactory
+import com.fondesa.database.api.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

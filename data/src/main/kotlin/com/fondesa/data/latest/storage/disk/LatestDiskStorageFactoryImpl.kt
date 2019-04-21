@@ -16,9 +16,9 @@
 
 package com.fondesa.data.latest.storage.disk
 
-import com.fondesa.common.database.DatabaseClient
 import com.fondesa.data.latest.storage.LatestDiskStorage
 import com.fondesa.data.latest.storage.LatestDiskStorageFactory
+import com.fondesa.database.api.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

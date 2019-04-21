@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.database.statement
+package com.fondesa.database.api.statement
 
-import com.fondesa.common.database.Database
-import com.fondesa.common.database.execution.Executor
+import com.fondesa.database.api.Database
+import com.fondesa.database.api.execution.Executor
 
 /**
  * Defines a statement that could be executed through a [Executor].

@@ -16,7 +16,7 @@
 
 package com.fondesa.database.clause
 
-import com.fondesa.common.database.clause.Expression
+import com.fondesa.database.api.clause.Expression
 
 /**
  * Concatenate [Expression]s with the AND keyword.

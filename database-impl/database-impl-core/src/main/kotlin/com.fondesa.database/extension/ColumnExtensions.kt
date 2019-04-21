@@ -16,7 +16,7 @@
 
 package com.fondesa.database.extension
 
-import com.fondesa.common.database.clause.Expression
+import com.fondesa.database.api.clause.Expression
 import com.fondesa.database.clause.ColumnExpression
 import com.fondesa.database.structure.Column
 

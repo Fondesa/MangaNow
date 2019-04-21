@@ -30,7 +30,6 @@ add "data"
 add "domain"
 add "presentation"
 
-addCommon "common-database"
 addCommon "common-test"
 addCommon "common-coroutines"
 
@@ -45,3 +44,8 @@ include ':log:log-impl'
 include ':remote:remote-api'
 include ':remote:remote-di'
 include ':remote:remote-impl'
+include ':database:database-annotations'
+include ':database:database-api'
+include ':database:database-di'
+include ':database:database-impl'
+include ':database:database-processor'

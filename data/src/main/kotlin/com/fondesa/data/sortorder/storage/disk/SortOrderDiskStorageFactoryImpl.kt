@@ -16,9 +16,9 @@
 
 package com.fondesa.data.sortorder.storage.disk
 
-import com.fondesa.common.database.DatabaseClient
 import com.fondesa.data.sortorder.storage.SortOrderDiskStorage
 import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
+import com.fondesa.database.api.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

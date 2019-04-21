@@ -16,7 +16,7 @@
 
 package com.fondesa.database.statement
 
-import com.fondesa.common.database.clause.Expression
+import com.fondesa.database.api.clause.Expression
 import com.fondesa.database.clause.RawExpression
 import com.fondesa.database.execution.PlainExecutor
 import com.fondesa.database.statement.base.SQLiteCompiledStatement

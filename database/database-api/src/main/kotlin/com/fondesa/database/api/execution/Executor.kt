@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.database
+package com.fondesa.database.api.execution
+
+import com.fondesa.database.api.statement.Statement
 
 /**
- * Used to manage the creation and the access to a [Database].
- * The close method is not provided to have the connection always opened.
- * In this way, the database can be accessed directly without checking if it's opened or closed.
+ * Defines the execution of a [Statement].
+ *
+ * @param T return type after the execution.
  */
-interface DatabaseClient {
+interface Executor<out T> {
 
     /**
-     * Creates the [Database] and opens the connection to it.
+     * Executes the statement and return the execution's result.
+     *
+     * @return result after the execution.
      */
-    fun createDatabase()
-
-    /**
-     * Get the [Database] instance created through [createDatabase].
-     * The [Database] connection must be opened in order to use it.
-     */
-    fun getDatabase(): Database
+    fun execute(): T
 }

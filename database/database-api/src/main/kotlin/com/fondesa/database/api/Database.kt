@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.database
+package com.fondesa.database.api
 
-import com.fondesa.common.database.execution.Closeable
-import com.fondesa.common.database.execution.Executor
-import com.fondesa.common.database.statement.Statement
+import com.fondesa.database.api.execution.Closeable
+import com.fondesa.database.api.execution.Executor
+import com.fondesa.database.api.statement.Statement
 
 /**
  * Used to define the database behavior.

@@ -17,9 +17,9 @@
 package com.fondesa.database.statement.base
 
 import android.database.sqlite.SQLiteDatabase
-import com.fondesa.common.database.Database
-import com.fondesa.common.database.statement.Statement
 import com.fondesa.database.SQLiteDatabaseWrapper
+import com.fondesa.database.api.Database
+import com.fondesa.database.api.statement.Statement
 
 /**
  * Used to receive a [SQLiteDatabase] instance.

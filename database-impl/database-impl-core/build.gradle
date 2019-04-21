@@ -19,7 +19,7 @@ apply plugin: 'common-android'
 
 dependencies {
     api project(':database-impl:database-impl-annotations')
-    api project(":common:common-database")
+    api project(":database:database-api")
     api project(':common:common-coroutines')
 
     api deps.kotlinStdLib

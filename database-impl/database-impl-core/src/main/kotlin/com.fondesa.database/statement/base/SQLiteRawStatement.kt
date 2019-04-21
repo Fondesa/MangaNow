@@ -16,7 +16,7 @@
 
 package com.fondesa.database.statement.base
 
-import com.fondesa.common.database.execution.Executor
+import com.fondesa.database.api.execution.Executor
 import com.fondesa.log.api.Log
 
 /**

@@ -16,7 +16,7 @@
 
 package com.fondesa.database.statement
 
-import com.fondesa.common.database.clause.Expression
+import com.fondesa.database.api.clause.Expression
 import com.fondesa.database.clause.*
 import com.fondesa.database.execution.QueryExecutor
 import com.fondesa.database.extension.isNullOrEmpty

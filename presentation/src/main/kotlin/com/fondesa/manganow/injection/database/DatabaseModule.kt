@@ -16,8 +16,8 @@
 
 package com.fondesa.manganow.injection.database
 
-import com.fondesa.common.database.DatabaseClient
 import com.fondesa.database.SQLiteClient
+import com.fondesa.database.api.DatabaseClient
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

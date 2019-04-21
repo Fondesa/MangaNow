@@ -16,9 +16,9 @@
 
 package com.fondesa.data.sortorder.storage.disk
 
-import com.fondesa.common.database.DatabaseClient
 import com.fondesa.data.sortorder.database.SortOrderTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
+import com.fondesa.database.api.DatabaseClient
 import com.fondesa.database.clause.ConflictType
 import com.fondesa.database.statement.Insert
 import com.fondesa.database.statement.Select

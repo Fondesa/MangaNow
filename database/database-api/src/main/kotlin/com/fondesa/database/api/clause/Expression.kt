@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.common.database.clause
+package com.fondesa.database.api.clause
 
 /**
  * Define a SQLite expression like WHERE, HAVING, ON, etc..

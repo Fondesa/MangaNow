@@ -16,7 +16,7 @@
 
 package com.fondesa.database.strategy
 
-import com.fondesa.common.database.Database
+import com.fondesa.database.api.Database
 
 /**
  * Used to define an action to take when database corruption is detected.
