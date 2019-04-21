@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.injection.database
+apply plugin: 'com.android.library'
+apply plugin: 'common-android'
 
-import com.fondesa.database.SQLiteClient
-import com.fondesa.database.api.DatabaseClient
-import dagger.Binds
-import dagger.Module
-import javax.inject.Singleton
+dependencies {
+    compileOnly deps.javaxInject
 
-@Module(includes = [SQLiteModule::class])
-interface DatabaseModule {
-
-    @Singleton
-    @Binds
-    fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+    api project(':core:core-coroutines')
+    api project(":log:log-api")
+    api project(':database:database-annotations')
+    api project(":database:database-api")
+    api deps.kotlinStdLib
 }

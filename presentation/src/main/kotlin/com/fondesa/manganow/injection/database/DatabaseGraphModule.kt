@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.database.strategy
+package com.fondesa.manganow.injection.database
 
-import com.fondesa.database.api.Database
+import com.fondesa.data.database.AppGraph
+import com.fondesa.database.api.structure.Graph
+import dagger.Module
+import dagger.Provides
 
-/**
- * Used to define an action to take when database corruption is detected.
- */
-interface ErrorStrategy {
+@Module
+object DatabaseGraphModule {
 
-    /**
-     * Invoked when database corruption is detected.
-     *
-     * @param database [Database] object representing the database on which corruption
-     * is detected.
-     */
-    fun onCorruption(database: Database)
+    @JvmStatic
+    @Provides
+    fun provideGraph(graph: AppGraph): Graph = graph
 }

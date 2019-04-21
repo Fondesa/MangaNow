@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'common-android'
 
 dependencies {
-    api project(':database:database-annotations')
-    api project(":database:database-api")
-    api project(':core:core-coroutines')
+    compileOnly deps.javaxInject
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
+    api project(":database:database-impl")
+    api deps.dagger
 
-    implementation project(":log:log-api")
+    kapt deps.daggerAndroidProcessor
+    kapt deps.daggerCompiler
 }

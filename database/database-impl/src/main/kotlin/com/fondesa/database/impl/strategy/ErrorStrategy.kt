@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.database.impl.strategy
 
-dependencies {
-    api project(":core:core-coroutines")
-    api project(':database:database-api')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(":domain")
+import com.fondesa.database.api.Database
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
+/**
+ * Used to define an action to take when database corruption is detected.
+ */
+interface ErrorStrategy {
 
-    kapt project(':database:database-processor')
+    /**
+     * Invoked when database corruption is detected.
+     *
+     * @param database [Database] object representing the database on which corruption
+     * is detected.
+     */
+    fun onCorruption(database: Database)
 }

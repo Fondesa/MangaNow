@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.database
+package com.fondesa.database.impl
 
 import android.content.Context
 import android.database.DatabaseErrorHandler
@@ -24,9 +24,9 @@ import com.fondesa.database.api.DatabaseClient
 import com.fondesa.database.api.statement.CreateTable
 import com.fondesa.database.api.statement.Pragma
 import com.fondesa.database.api.structure.Graph
-import com.fondesa.database.injection.SQLiteDatabaseInfo
-import com.fondesa.database.strategy.ErrorStrategy
-import com.fondesa.database.strategy.UpgradeStrategy
+import com.fondesa.database.impl.qualifiers.SQLiteDatabaseInfo
+import com.fondesa.database.impl.strategy.ErrorStrategy
+import com.fondesa.database.impl.strategy.UpgradeStrategy
 import com.fondesa.log.api.Log
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.database.strategy
+package com.fondesa.database.impl.qualifiers
 
-import com.fondesa.database.api.Database
-import com.fondesa.database.api.statement.Vacuum
-import javax.inject.Inject
+import javax.inject.Qualifier
 
-/**
- * Default implementation of [ErrorStrategy] that will attempt to rebuild
- * the database file when a corruption occurs.
- */
-class VacuumErrorStrategy @Inject constructor() : ErrorStrategy {
-
-    override fun onCorruption(database: Database) {
-        val vacuum = Vacuum.create()
-        // Attempt to rebuild the database file.
-        database.compile(vacuum).execute()
-    }
-}
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class SQLiteDatabaseInfo

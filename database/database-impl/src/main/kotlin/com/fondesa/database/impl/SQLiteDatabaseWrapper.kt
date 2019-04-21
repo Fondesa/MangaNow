@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.database
+package com.fondesa.database.impl
 
 import android.database.sqlite.SQLiteDatabase
 import com.fondesa.database.api.Database

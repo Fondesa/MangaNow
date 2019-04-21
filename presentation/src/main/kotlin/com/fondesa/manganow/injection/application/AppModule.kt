@@ -19,18 +19,15 @@ package com.fondesa.manganow.injection.application
 import android.app.Application
 import android.content.Context
 import com.fondesa.manganow.injection.coroutines.CoroutinesModule
-import com.fondesa.manganow.injection.database.DatabaseModule
 import com.fondesa.manganow.injection.screen.ScreenModule
 import com.fondesa.manganow.injection.time.TimeModule
-import com.fondesa.remote.di.RemoteModule
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module(
-    includes = [RemoteModule::class,
-        DatabaseModule::class,
+    includes = [
         CoroutinesModule::class,
         TimeModule::class,
         ScreenModule::class]

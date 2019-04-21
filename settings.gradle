@@ -18,15 +18,9 @@ def add(String module) {
     include ":$module"
 }
 
-def addDatabaseImpl(String module) {
-    add("database-impl:$module")
-}
-
 add "data"
 add "domain"
 add "presentation"
-
-addDatabaseImpl "database-impl-core"
 
 include ':core:core-coroutines'
 include ':core:core-lifecycle'

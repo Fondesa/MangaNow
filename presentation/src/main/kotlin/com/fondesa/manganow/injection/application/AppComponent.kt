@@ -17,8 +17,10 @@
 package com.fondesa.manganow.injection.application
 
 import android.app.Application
+import com.fondesa.database.di.DatabaseModule
 import com.fondesa.log.di.LogModule
 import com.fondesa.manganow.application.App
+import com.fondesa.manganow.injection.database.DatabaseGraphModule
 import com.fondesa.remote.di.RemoteModule
 import dagger.BindsInstance
 import dagger.Component
@@ -29,7 +31,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [AndroidSupportInjectionModule::class, AppModule::class, LogModule::class,
-        RemoteModule::class]
+        RemoteModule::class, DatabaseModule::class, DatabaseGraphModule::class]
 )
 interface AppComponent : AndroidInjector<App> {
 

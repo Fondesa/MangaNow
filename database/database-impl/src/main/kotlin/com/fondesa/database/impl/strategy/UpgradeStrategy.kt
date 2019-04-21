@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.database.strategy
+package com.fondesa.database.impl.strategy
 
 import com.fondesa.database.api.Database
 import com.fondesa.database.api.structure.Graph
