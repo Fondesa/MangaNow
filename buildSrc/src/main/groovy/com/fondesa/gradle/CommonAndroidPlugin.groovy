@@ -16,6 +16,7 @@
 
 package com.fondesa.gradle
 
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -25,23 +26,30 @@ class CommonAndroidPlugin implements Plugin<Project> {
     void apply(Project target) {
         target.with {
             apply plugin: 'kotlin-android'
+            apply plugin: 'kotlin-kapt'
 
             android {
                 compileSdkVersion androidConfig.compileSdk
                 defaultConfig {
                     minSdkVersion androidConfig.minSdk
                     targetSdkVersion androidConfig.targetSdk
+
+                    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+                    testInstrumentationRunnerArguments clearPackageData: 'true'
                 }
 
                 compileOptions {
-                    targetCompatibility = "8"
-                    sourceCompatibility = "8"
+                    targetCompatibility JavaVersion.VERSION_1_8
+                    sourceCompatibility JavaVersion.VERSION_1_8
                 }
 
-                sourceSets {
-                    androidTest.java.srcDirs += "src/androidTest/kotlin"
-                    main.java.srcDirs += "src/main/kotlin"
-                    test.java.srcDirs += "src/test/kotlin"
+                testOptions {
+                    execution 'ANDROIDX_TEST_ORCHESTRATOR'
+                    animationsDisabled = true
+                }
+
+                sourceSets.forEach {
+                    it.java.srcDirs += "src/${it.name}/kotlin"
                 }
             }
         }

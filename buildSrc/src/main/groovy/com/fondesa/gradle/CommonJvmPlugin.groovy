@@ -25,6 +25,7 @@ class CommonJvmPlugin implements Plugin<Project> {
     void apply(Project target) {
         target.with {
             apply plugin: 'kotlin'
+            apply plugin: 'kotlin-kapt'
         }
     }
 }
