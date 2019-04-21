@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-kotlin-jvm'
+apply plugin: 'common-jvm'
 
 dependencies {
     compile project(':common:common-coroutines')

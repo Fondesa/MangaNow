@@ -19,31 +19,12 @@ package com.fondesa.gradle
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class KotlinAndroidPlugin implements Plugin<Project> {
+class CommonJvmPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project target) {
         target.with {
-            apply plugin: 'kotlin-android'
-
-            android {
-                compileSdkVersion androidConfig.compileSdk
-                defaultConfig {
-                    minSdkVersion androidConfig.minSdk
-                    targetSdkVersion androidConfig.targetSdk
-                }
-
-                compileOptions {
-                    targetCompatibility = "8"
-                    sourceCompatibility = "8"
-                }
-
-                sourceSets {
-                    androidTest.java.srcDirs += "src/androidTest/kotlin"
-                    main.java.srcDirs += "src/main/kotlin"
-                    test.java.srcDirs += "src/test/kotlin"
-                }
-            }
+            apply plugin: 'kotlin'
         }
     }
 }
