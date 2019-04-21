@@ -33,9 +33,7 @@ add "presentation"
 addCommon "common-test"
 addCommon "common-coroutines"
 
-addDatabaseImpl "database-impl-annotations"
 addDatabaseImpl "database-impl-core"
-addDatabaseImpl "database-impl-processor"
 
 include ':core:core-api'
 include ':log:log-api'
