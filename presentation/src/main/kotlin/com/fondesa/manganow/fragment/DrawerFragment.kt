@@ -18,18 +18,19 @@ package com.fondesa.manganow.fragment
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.annotation.LayoutRes
-import android.support.v4.view.GravityCompat
-import android.support.v4.view.ViewCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
 import com.fondesa.manganow.R
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.view.doOnLayout
-import com.fondesa.manganow.view.getCheckedItem
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.partial_toolbar.*
 import kotlinx.android.synthetic.main.screen_base_drawer.*
@@ -68,10 +69,10 @@ abstract class DrawerFragment : DaggerFragment(),
 
         navigationView.setNavigationItemSelectedListener { item ->
             @IdRes val selectedItemId = item.itemId
-            @IdRes val currentItemId = navigationView.getCheckedItem()
+            @IdRes val currentItemId = navigationView.checkedItem?.itemId
 
             // Close drawer after click.
-            drawerLayout.closeDrawer(Gravity.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
 
             if (currentItemId == selectedItemId)
                 return@setNavigationItemSelectedListener false
@@ -147,10 +148,14 @@ abstract class DrawerFragment : DaggerFragment(),
     }
 
     override fun provideAdditionalArguments(): Bundle =
-        drawerItemBundle(navigationView.getCheckedItem())
+        drawerItemBundle(
+            navigationView.checkedItem?.itemId
+                ?: throw IllegalArgumentException("The menu item shouldn't be null.")
+        )
 
     private inline fun doOnDrawerClosed(crossinline block: () -> Unit) {
-        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+        drawerLayout.addDrawerListener(object :
+            androidx.drawerlayout.widget.DrawerLayout.DrawerListener {
             override fun onDrawerClosed(drawerView: View) {
                 drawerLayout.removeDrawerListener(this)
                 // Execute the block.

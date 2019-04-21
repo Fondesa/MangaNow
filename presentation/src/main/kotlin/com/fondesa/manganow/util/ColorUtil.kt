@@ -17,9 +17,9 @@
 package com.fondesa.manganow.util
 
 import android.content.Context
-import android.support.annotation.AttrRes
-import android.support.annotation.ColorInt
 import android.util.TypedValue
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import com.fondesa.manganow.R
 
 /**

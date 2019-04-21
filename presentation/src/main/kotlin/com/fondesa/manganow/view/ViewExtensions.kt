@@ -17,13 +17,13 @@
 package com.fondesa.manganow.view
 
 import android.os.Build
-import android.support.annotation.IdRes
-import android.support.annotation.LayoutRes
-import android.support.design.widget.NavigationView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import com.google.android.material.navigation.NavigationView
 
 inline fun View.doOnLayout(crossinline block: () -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {

@@ -15,12 +15,12 @@
  */
 
 def androidPlugin = '3.4.0'
-def androidSupport = '27.1.1'
-def androidTestRunner = '1.0.1'
+def androidSupport = '1.0.0'
+def androidTestRunner = '1.1.0'
 def autoService = '1.0-rc5'
 def coroutines = '1.1.1'
 def dagger = '2.22.1'
-def espresso = '3.0.1'
+def espresso = '3.1.1'
 def glide = '4.9.0'
 def gson = '2.8.5'
 def javaxInject = '1'
@@ -36,16 +36,16 @@ def recyclerViewDivider = '2.0.1'
 def timber = '4.7.1'
 
 ext.deps = [
-        appCompat               : "com.android.support:appcompat-v7:$androidSupport",
-        cardView                : "com.android.support:cardview-v7:$androidSupport",
-        design                  : "com.android.support:design:$androidSupport",
-        androidTestRunner       : "com.android.support.test:runner:$androidTestRunner",
+        appCompat               : "androidx.appcompat:appcompat:$androidSupport",
+        cardView                : "androidx.cardview:cardview:$androidSupport",
+        design                  : "com.google.android.material:material:$androidSupport",
+        androidTestRunner       : "androidx.test:runner:$androidTestRunner",
         androidPlugin           : "com.android.tools.build:gradle:$androidPlugin",
         autoService             : "com.google.auto.service:auto-service:$autoService",
         daggerAndroid           : "com.google.dagger:dagger-android-support:$dagger",
         daggerAndroidProcessor  : "com.google.dagger:dagger-android-processor:$dagger",
         daggerCompiler          : "com.google.dagger:dagger-compiler:$dagger",
-        espresso                : "com.android.support.test.espresso:espresso-core:$espresso",
+        espresso                : "androidx.test.espresso:espresso-core:$espresso",
         glide                   : "com.github.bumptech.glide:glide:$glide",
         gson                    : "com.google.code.gson:gson:$gson",
         javaxInject             : "javax.inject:javax.inject:$javaxInject",

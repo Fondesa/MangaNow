@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Types of gestures that user could perform on a [RecyclerView]'s row.

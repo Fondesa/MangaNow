@@ -17,8 +17,6 @@
 package com.fondesa.manganow.navigation
 
 import android.annotation.SuppressLint
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import com.fondesa.manganow.fragment.AdditionalNavigationArgumentsProvider
 import com.fondesa.manganow.fragment.OnBackPressListener
 import com.fondesa.manganow.latest.LatestFragment
@@ -31,7 +29,7 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.util.*
 
-class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigator {
+class FragmentNavigator(private val fragmentManager: androidx.fragment.app.FragmentManager) : Navigator {
 
     private val screens = LinkedList<Screen>()
 
@@ -119,7 +117,7 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
     private fun beginTransaction() = fragmentManager.beginTransaction()
         .disallowAddToBackStack()
 
-    private fun mapScreenToFragment(screen: Screen): Fragment = when (screen) {
+    private fun mapScreenToFragment(screen: Screen): androidx.fragment.app.Fragment = when (screen) {
         is Screen.Splash -> SplashFragment()
         is Screen.Latest -> LatestFragment()
         is Screen.MangaList -> MangaListFragment()
@@ -127,7 +125,7 @@ class FragmentNavigator(private val fragmentManager: FragmentManager) : Navigato
     }
 
     private fun Screen.getFragment() = getFragmentOrNull()
-            ?: throw NullPointerException("Cannot find a ${Fragment::class.java.name} for the tag $tag")
+            ?: throw NullPointerException("Cannot find a ${androidx.fragment.app.Fragment::class.java.name} for the tag $tag")
 
     private fun Screen.getFragmentOrNull() =
         fragmentManager.findFragmentByTag(tag)

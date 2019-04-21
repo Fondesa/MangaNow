@@ -16,7 +16,6 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'common-android'
-apply plugin: 'kotlin-kapt'
 
 dependencies {
     api project(":common:common-coroutines")

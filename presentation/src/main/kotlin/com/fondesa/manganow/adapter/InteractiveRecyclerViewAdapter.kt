@@ -16,15 +16,15 @@
 
 package com.fondesa.manganow.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Adapter used to define the gestures on the rows of a [RecyclerView].
  */
-abstract class InteractiveRecyclerViewAdapter: RecyclerView.Adapter<InteractiveRecyclerViewHolder>() {
+abstract class InteractiveRecyclerViewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<InteractiveRecyclerViewHolder>() {
 
     /**
      * Constructs the [InteractiveRecyclerViewHolder] for a given [View].

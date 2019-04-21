@@ -20,10 +20,10 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.support.annotation.ColorInt
-import android.support.v4.graphics.drawable.DrawableCompat
 import android.util.AttributeSet
 import android.widget.ProgressBar
+import androidx.annotation.ColorInt
+import androidx.core.graphics.drawable.DrawableCompat
 import com.fondesa.manganow.R
 import com.fondesa.manganow.util.ColorUtil
 

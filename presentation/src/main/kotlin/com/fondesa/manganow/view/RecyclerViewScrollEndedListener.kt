@@ -16,12 +16,10 @@
 
 package com.fondesa.manganow.view
 
-import android.support.v7.widget.RecyclerView
-
 class RecyclerViewScrollEndedListener(private inline val onEnd: () -> Unit) :
-    RecyclerView.OnScrollListener() {
+    androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+    override fun onScrollStateChanged(recyclerView: androidx.recyclerview.widget.RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         if (!recyclerView.canScrollVertically(1)) {
             onEnd()

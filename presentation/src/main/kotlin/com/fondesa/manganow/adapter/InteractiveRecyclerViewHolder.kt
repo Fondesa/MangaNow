@@ -16,13 +16,12 @@
 
 package com.fondesa.manganow.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 
 /**
  * Interface used to specify an element that can define its [RecyclerViewInteraction]s.
  */
-abstract class InteractiveRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class InteractiveRecyclerViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
     /**
      * @return interactions added to the [View]s of the row.

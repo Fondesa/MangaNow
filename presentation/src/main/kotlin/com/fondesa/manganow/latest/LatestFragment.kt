@@ -17,17 +17,17 @@
 package com.fondesa.manganow.latest
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.DrawerFragment
 import com.fondesa.manganow.view.RecyclerViewScrollEndedListener
 import com.fondesa.recyclerviewdivider.RecyclerViewDivider
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.screen_base_drawer.*
 import kotlinx.android.synthetic.main.screen_latest.*
 import javax.inject.Inject

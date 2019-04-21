@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.fragment
 
-import android.support.annotation.IdRes
+import androidx.annotation.IdRes
 import com.fondesa.manganow.R
 import com.fondesa.manganow.navigation.Screen
 import javax.inject.Inject

@@ -17,14 +17,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'common-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     defaultConfig {
         applicationId "com.fondesa.manganow"
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {

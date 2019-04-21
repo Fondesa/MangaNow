@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.settings
 
-import android.support.annotation.LayoutRes
+import androidx.annotation.LayoutRes
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.DrawerFragment
 
