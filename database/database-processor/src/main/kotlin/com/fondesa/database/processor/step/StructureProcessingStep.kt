@@ -283,13 +283,13 @@ class StructureProcessingStep(
         private val JAVAX_INJECT_CLASS = ClassName("javax.inject", "Inject")
 
         private val COLUMN_CONFIG_CLASS =
-            ClassName("com.fondesa.database.structure", "ColumnConfig")
+            ClassName("com.fondesa.database.api.structure", "ColumnConfig")
         private val FOREIGN_KEY_CONFIG_CLASS =
-            ClassName("com.fondesa.database.structure", "ForeignKeyConfig")
-        private val FOREIGN_KEY_CLASS = ClassName("com.fondesa.database.structure", "ForeignKey")
-        private val COLUMN_CLASS = ClassName("com.fondesa.database.structure", "Column")
-        private val TABLE_CLASS = ClassName("com.fondesa.database.structure", "Table")
-        private val GRAPH_CLASS = ClassName("com.fondesa.database.structure", "Graph")
+            ClassName("com.fondesa.database.api.structure", "ForeignKeyConfig")
+        private val FOREIGN_KEY_CLASS = ClassName("com.fondesa.database.api.structure", "ForeignKey")
+        private val COLUMN_CLASS = ClassName("com.fondesa.database.api.structure", "Column")
+        private val TABLE_CLASS = ClassName("com.fondesa.database.api.structure", "Table")
+        private val GRAPH_CLASS = ClassName("com.fondesa.database.api.structure", "Graph")
 
         private val GENERATED_GRAPH_CLASS = ClassName("com.fondesa.data.database", "AppGraph")
     }

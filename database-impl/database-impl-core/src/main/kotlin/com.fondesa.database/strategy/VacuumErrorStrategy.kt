@@ -17,7 +17,7 @@
 package com.fondesa.database.strategy
 
 import com.fondesa.database.api.Database
-import com.fondesa.database.statement.Vacuum
+import com.fondesa.database.api.statement.Vacuum
 import javax.inject.Inject
 
 /**

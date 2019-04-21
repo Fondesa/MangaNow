@@ -18,8 +18,8 @@ package com.fondesa.data.category.database
 
 import com.fondesa.database.annotations.Column
 import com.fondesa.database.annotations.Table
-import com.fondesa.database.structure.IntegerColumnConfig
-import com.fondesa.database.structure.TextColumnConfig
+import com.fondesa.database.api.structure.IntegerColumnConfig
+import com.fondesa.database.api.structure.TextColumnConfig
 
 @Table("category")
 object CategoryTableConfig {

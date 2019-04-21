@@ -21,12 +21,12 @@ import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteException
 import com.fondesa.database.api.Database
 import com.fondesa.database.api.DatabaseClient
+import com.fondesa.database.api.statement.CreateTable
+import com.fondesa.database.api.statement.Pragma
+import com.fondesa.database.api.structure.Graph
 import com.fondesa.database.injection.SQLiteDatabaseInfo
-import com.fondesa.database.statement.CreateTable
-import com.fondesa.database.statement.Pragma
 import com.fondesa.database.strategy.ErrorStrategy
 import com.fondesa.database.strategy.UpgradeStrategy
-import com.fondesa.database.structure.Graph
 import com.fondesa.log.api.Log
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

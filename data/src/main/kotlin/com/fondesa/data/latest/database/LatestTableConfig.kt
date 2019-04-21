@@ -22,10 +22,10 @@ import com.fondesa.data.remote.database.RemoteTaskTableConfig
 import com.fondesa.database.annotations.Column
 import com.fondesa.database.annotations.ForeignKey
 import com.fondesa.database.annotations.Table
-import com.fondesa.database.structure.ForeignKeyAction
-import com.fondesa.database.structure.ForeignKeyConfig
-import com.fondesa.database.structure.IntegerColumnConfig
-import com.fondesa.database.structure.TextColumnConfig
+import com.fondesa.database.api.structure.ForeignKeyAction
+import com.fondesa.database.api.structure.ForeignKeyConfig
+import com.fondesa.database.api.structure.IntegerColumnConfig
+import com.fondesa.database.api.structure.TextColumnConfig
 
 @Table("latest", withRowId = false)
 object LatestTableConfig {

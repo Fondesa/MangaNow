@@ -19,9 +19,9 @@ package com.fondesa.data.category.storage.disk
 import com.fondesa.data.category.database.CategoryTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.database.api.DatabaseClient
-import com.fondesa.database.clause.ConflictType
-import com.fondesa.database.statement.Insert
-import com.fondesa.database.statement.Select
+import com.fondesa.database.api.clause.ConflictType
+import com.fondesa.database.api.statement.Insert
+import com.fondesa.database.api.statement.Select
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.model.Category
 

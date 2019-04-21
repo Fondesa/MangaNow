@@ -21,7 +21,7 @@ import com.fondesa.database.api.Database
 import com.fondesa.database.api.execution.Closeable
 import com.fondesa.database.api.execution.Executor
 import com.fondesa.database.api.statement.Statement
-import com.fondesa.database.statement.base.SQLiteDatabaseReceiver
+import com.fondesa.database.api.statement.base.SQLiteDatabaseReceiver
 
 /**
  * Used to define the behavior of a SQLite database.

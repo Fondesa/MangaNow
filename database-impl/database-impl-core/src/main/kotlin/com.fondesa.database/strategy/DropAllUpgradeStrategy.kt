@@ -17,11 +17,11 @@
 package com.fondesa.database.strategy
 
 import com.fondesa.database.api.Database
-import com.fondesa.database.statement.CreateTable
-import com.fondesa.database.statement.Delete
-import com.fondesa.database.statement.Pragma
-import com.fondesa.database.statement.Vacuum
-import com.fondesa.database.structure.Graph
+import com.fondesa.database.api.statement.CreateTable
+import com.fondesa.database.api.statement.Delete
+import com.fondesa.database.api.statement.Pragma
+import com.fondesa.database.api.statement.Vacuum
+import com.fondesa.database.api.structure.Graph
 import javax.inject.Inject
 
 /**

@@ -18,12 +18,12 @@ package com.fondesa.data.storage.disk
 
 import com.fondesa.data.remote.database.RemoteTaskTable
 import com.fondesa.database.api.DatabaseClient
-import com.fondesa.database.clause.ConflictType
-import com.fondesa.database.extension.and
-import com.fondesa.database.extension.equalTo
-import com.fondesa.database.extension.majorThan
-import com.fondesa.database.statement.Insert
-import com.fondesa.database.statement.Select
+import com.fondesa.database.api.clause.ConflictType
+import com.fondesa.database.api.extension.and
+import com.fondesa.database.api.extension.equalTo
+import com.fondesa.database.api.extension.majorThan
+import com.fondesa.database.api.statement.Insert
+import com.fondesa.database.api.statement.Select
 
 abstract class SQLiteDiskStorage<T>(
     client: DatabaseClient,
@@ -72,7 +72,7 @@ abstract class SQLiteDiskStorage<T>(
                 // Get the record's id.
                 it.getLong(RemoteTaskTable.COL_ID)
             }
-                ?: throw NullPointerException("Cache id for the identifier `$remoteTaskKey` not found")
+            ?: throw NullPointerException("Cache id for the identifier `$remoteTaskKey` not found")
     }
 
     private fun insertCacheRecord(): Long = database.compile(Statements.insertCache())

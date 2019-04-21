@@ -21,11 +21,11 @@ import com.fondesa.data.latest.database.LatestTable
 import com.fondesa.data.manga.database.MangaTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.database.api.DatabaseClient
-import com.fondesa.database.clause.ConflictType
-import com.fondesa.database.extension.equalTo
-import com.fondesa.database.statement.Insert
-import com.fondesa.database.statement.Select
-import com.fondesa.database.statement.Update
+import com.fondesa.database.api.clause.ConflictType
+import com.fondesa.database.api.extension.equalTo
+import com.fondesa.database.api.statement.Insert
+import com.fondesa.database.api.statement.Select
+import com.fondesa.database.api.statement.Update
 import com.fondesa.domain.chapter.model.Chapter
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest

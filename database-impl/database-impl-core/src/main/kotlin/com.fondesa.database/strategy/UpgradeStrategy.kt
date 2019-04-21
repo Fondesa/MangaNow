@@ -17,7 +17,7 @@
 package com.fondesa.database.strategy
 
 import com.fondesa.database.api.Database
-import com.fondesa.database.structure.Graph
+import com.fondesa.database.api.structure.Graph
 
 /**
  * Used to define actions to take when the schema's version is increased.
