@@ -28,8 +28,8 @@ import com.fondesa.database.statement.Pragma
 import com.fondesa.database.strategy.ErrorStrategy
 import com.fondesa.database.strategy.UpgradeStrategy
 import com.fondesa.database.structure.Graph
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -61,17 +61,17 @@ open class SQLiteClient @Inject constructor(
     }
 
     private lateinit var database: Database
-    private val lock = java.lang.Object()
+    private val lock = Object()
 
     override fun createDatabase() {
-        launch(CommonPool) {
+        GlobalScope.launch {
             // Dispatch the creation on the background thread.
             synchronized(lock) {
                 val context = this@SQLiteClient.context
                 logger.d("Started creation or opening of the database.")
                 // Open or create the database.
                 val sqlDatabase = context.openOrCreateDatabase(name, 0, null, errorHandler)
-                        ?: throw NullPointerException("The creation or opening of the database wasn't successful.")
+                    ?: throw NullPointerException("The creation or opening of the database wasn't successful.")
 
                 // Create the database wrapper.
                 database = SQLiteDatabaseWrapper(logger, sqlDatabase)

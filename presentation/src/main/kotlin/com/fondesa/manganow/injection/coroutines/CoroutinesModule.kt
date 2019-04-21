@@ -18,12 +18,12 @@ package com.fondesa.manganow.injection.coroutines
 
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 @Module
 class CoroutinesModule {
 
     @Provides
-    fun provideUiCoroutinesContext(): CoroutineContext = UI
+    fun provideUiCoroutinesDispatcher(): CoroutineContext = Dispatchers.Main
 }

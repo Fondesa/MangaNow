@@ -18,10 +18,10 @@ package com.fondesa.common.coroutines
 
 import com.fondesa.common.test.TestLock
 import com.fondesa.common.test.runUnitBlocking
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.launch
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.junit.Test
 
 /**

@@ -16,8 +16,8 @@
 
 package com.fondesa.common.test
 
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
 
 /**
  * Used to avoid the return type of [runBlocking] to unit test suspend functions.

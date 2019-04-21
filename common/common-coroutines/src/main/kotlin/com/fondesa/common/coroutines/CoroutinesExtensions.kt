@@ -16,23 +16,22 @@
 
 package com.fondesa.common.coroutines
 
-import kotlinx.coroutines.experimental.*
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.*
 
 /**
  * Used to execute an asynchronous operation awaiting for its result.
  *
- * @param coroutineContext the context of the coroutine. By default it's [CommonPool].
+ * @param dispatcher the context of the coroutine. By default it's [CommonPool].
  * @param start the [CoroutineStart] type. By default it's [CoroutineStart.DEFAULT].
  * @param block the asynchronous operation which must be executed.
  * @param T the returning type of the suspending function.
  * @return the result of the asynchronous operation.
  */
 suspend fun <T> asyncAwait(
-    coroutineContext: CoroutineContext = CommonPool,
+    dispatcher: CoroutineDispatcher = Dispatchers.Default,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T
-): T = async(coroutineContext, start, block = block).await()
+): T = coroutineScope { async(dispatcher, start, block = block).await() }
 
 /**
  * Executes a suspending function catching all the [Throwable] thrown by its execution.
@@ -74,15 +73,3 @@ suspend fun <T> CoroutineScope.trying(
         }
     }
 }
-
-/**
- * Adds a [Job] into a [CoroutinesJobsPool].
- *
- * @param pool the [CoroutinesJobsPool] in which the [Job] should be added.
- * @param T a subtype of [Job].
- * @return the receiver on which this method is called.
- */
-fun <T : Job> T.inPool(pool: CoroutinesJobsPool): T = apply {
-    pool.add(this)
-}
-

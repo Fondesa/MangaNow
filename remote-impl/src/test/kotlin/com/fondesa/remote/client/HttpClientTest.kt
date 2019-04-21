@@ -23,9 +23,9 @@ import com.fondesa.common.remote.exception.TimeoutException
 import com.fondesa.common.remote.task.RemoteTask
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.nhaarman.mockito_kotlin.KStubbing
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.KStubbing
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.SocketPolicy

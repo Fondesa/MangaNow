@@ -25,8 +25,6 @@ class KotlinJvmPlugin implements Plugin<Project> {
     void apply(Project target) {
         target.with {
             apply plugin: 'kotlin'
-            // Enable the coroutines.
-            kotlin.experimental.coroutines "enable"
         }
     }
 }

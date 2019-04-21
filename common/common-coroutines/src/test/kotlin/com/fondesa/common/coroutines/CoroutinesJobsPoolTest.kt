@@ -16,10 +16,10 @@
 
 package com.fondesa.common.coroutines
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import kotlinx.coroutines.experimental.Job
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import kotlinx.coroutines.Job
 import org.junit.Test
 
 /**

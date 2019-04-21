@@ -25,14 +25,17 @@ class KotlinAndroidPlugin implements Plugin<Project> {
     void apply(Project target) {
         target.with {
             apply plugin: 'kotlin-android'
-            // Enable the coroutines.
-            kotlin.experimental.coroutines "enable"
 
             android {
                 compileSdkVersion androidConfig.compileSdk
                 defaultConfig {
                     minSdkVersion androidConfig.minSdk
                     targetSdkVersion androidConfig.targetSdk
+                }
+
+                compileOptions {
+                    targetCompatibility = "8"
+                    sourceCompatibility = "8"
                 }
 
                 sourceSets {

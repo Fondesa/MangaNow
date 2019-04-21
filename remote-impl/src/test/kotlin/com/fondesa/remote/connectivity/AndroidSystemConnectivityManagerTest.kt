@@ -18,8 +18,8 @@ package com.fondesa.remote.connectivity
 
 import android.content.Context
 import android.net.NetworkInfo
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
 import android.net.ConnectivityManager as AndroidConnectivityManager
 

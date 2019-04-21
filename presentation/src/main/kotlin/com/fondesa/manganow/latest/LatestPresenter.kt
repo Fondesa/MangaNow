@@ -16,8 +16,6 @@
 
 package com.fondesa.manganow.latest
 
-import com.fondesa.common.coroutines.CoroutinesJobsPool
-import com.fondesa.common.coroutines.inPool
 import com.fondesa.common.coroutines.trying
 import com.fondesa.common.log.Logger
 import com.fondesa.data.converter.Converter
@@ -25,9 +23,12 @@ import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.usecase.GetLatestList
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.presenter.AbstractPresenter
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Default implementation of [LatestContract.Presenter] for the latest section.
@@ -39,12 +40,17 @@ class LatestPresenter @Inject constructor(
     private val uiCoroutinesContext: CoroutineContext,
     private val navigator: Navigator
 ) : AbstractPresenter<LatestContract.View>(),
-    LatestContract.Presenter {
+    LatestContract.Presenter,
+    CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO + job
+
+    private val job = Job()
 
     private val latestList = mutableListOf<Latest>()
     private var currentPage = 0
     private var currentExecutingPage: Int? = null
-    private val jobsPool by lazy { CoroutinesJobsPool() }
 
     override fun attachView(view: LatestContract.View) {
         super.attachView(view)
@@ -61,7 +67,7 @@ class LatestPresenter @Inject constructor(
     }
 
     override fun detachView() {
-        jobsPool.cancelAll()
+        job.cancel()
         super.detachView()
     }
 
@@ -83,7 +89,7 @@ class LatestPresenter @Inject constructor(
                 getLatestListUseCase.execute(currentPage, LatestContract.PAGE_SIZE)
             }.onSuccess(::onLatestLoadCompleted)
                 .onError(::onLatestLoadFailed)
-        }.inPool(jobsPool)
+        }
     }
 
     private fun onLatestLoadCompleted(result: List<Latest>) {
