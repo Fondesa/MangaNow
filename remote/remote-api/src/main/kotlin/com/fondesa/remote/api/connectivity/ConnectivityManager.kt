@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.remote.api.connectivity
 
-dependencies {
-    api project(":common:common-coroutines")
-    api project(":remote:remote-api")
-    api project(":domain")
-    api project(':database-impl:database-impl-core')
+/**
+ * Checks the state of the device's connectivity.
+ */
+interface ConnectivityManager {
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database-impl:database-impl-processor')
+    /**
+     * Checks if the device is connected to the network or not.
+     *
+     * @return true if the device is connected.
+     */
+    fun isConnected(): Boolean
 }

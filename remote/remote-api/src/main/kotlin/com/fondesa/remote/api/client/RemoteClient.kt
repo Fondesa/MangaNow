@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.remote.api.client
 
-dependencies {
-    api project(":common:common-coroutines")
-    api project(":remote:remote-api")
-    api project(":domain")
-    api project(':database-impl:database-impl-core')
+import com.fondesa.remote.api.task.RemoteTask
+import com.google.gson.JsonElement
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
+/**
+ * Used to specify the behavior of the application to load an incoming task.
+ */
+interface RemoteClient {
 
-    kapt project(':database-impl:database-impl-processor')
+    /**
+     * Loads a [RemoteTask] calling the WS and converts its response to a [JsonElement].
+     *
+     * @param task task containing the request's configurations.
+     * @return json returned from the WS.
+     */
+    fun load(task: RemoteTask): JsonElement
 }

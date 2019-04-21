@@ -16,8 +16,8 @@
 
 package com.fondesa.data.remote
 
-import com.fondesa.common.remote.task.RemoteTask
 import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.remote.api.task.RemoteTask
 import com.google.gson.JsonElement
 
 /**

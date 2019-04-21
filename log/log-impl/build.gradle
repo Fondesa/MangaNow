@@ -21,9 +21,8 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(":log:log-api")
-
-    implementation project(":core:core-api")
-    implementation deps.dagger
-    implementation deps.kotlinStdLib
-    implementation deps.timber
+    api project(":core:core-api")
+    api deps.dagger
+    api deps.kotlinStdLib
+    api deps.timber
 }

@@ -18,10 +18,10 @@ package com.fondesa.manganow.converter
 
 import android.content.Context
 import androidx.annotation.StringRes
-import com.fondesa.common.remote.exception.ConnectivityException
-import com.fondesa.common.remote.exception.TimeoutException
 import com.fondesa.data.converter.Converter
 import com.fondesa.manganow.R
+import com.fondesa.remote.api.exception.ConnectivityException
+import com.fondesa.remote.api.exception.TimeoutException
 import javax.inject.Inject
 
 /**

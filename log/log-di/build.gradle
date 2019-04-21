@@ -22,10 +22,6 @@ dependencies {
 
     api project(":log:log-impl")
 
-    implementation project(":core:core-api")
-    implementation deps.dagger
-    implementation deps.timber
-
     kapt deps.daggerAndroidProcessor
     kapt deps.daggerCompiler
 }

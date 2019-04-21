@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.remote.api.exception
 
-dependencies {
-    api project(":common:common-coroutines")
-    api project(":remote:remote-api")
-    api project(":domain")
-    api project(':database-impl:database-impl-core')
-
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database-impl:database-impl-processor')
-}
+/**
+ * Exception thrown if an error occurs when the response (of a WS request) is received.
+ *
+ * @param code HTTP response code.
+ * @param reason technical reason explaining why this exception is thrown.
+ */
+class ResponseException(val code: Int, val reason: String) :
+    Exception("Unsuccessful response with code: '$code' and reason: '$reason'")

@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.remote.impl.injection
 
-dependencies {
-    api project(":common:common-coroutines")
-    api project(":remote:remote-api")
-    api project(":domain")
-    api project(':database-impl:database-impl-core')
+import com.fondesa.remote.impl.client.HttpClient
+import javax.inject.Qualifier
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database-impl:database-impl-processor')
-}
+/**
+ * Used to specify a configuration which must be injected into an [HttpClient].
+ */
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class HttpClientInfo

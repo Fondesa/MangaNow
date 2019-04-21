@@ -29,10 +29,8 @@ def addDatabaseImpl(String module) {
 add "data"
 add "domain"
 add "presentation"
-add "remote-impl"
 
 addCommon "common-database"
-addCommon "common-remote"
 addCommon "common-test"
 addCommon "common-coroutines"
 
@@ -44,3 +42,6 @@ include ':core:core-api'
 include ':log:log-api'
 include ':log:log-di'
 include ':log:log-impl'
+include ':remote:remote-api'
+include ':remote:remote-di'
+include ':remote:remote-impl'

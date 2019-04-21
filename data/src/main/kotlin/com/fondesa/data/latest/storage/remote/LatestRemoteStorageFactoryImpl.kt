@@ -16,12 +16,12 @@
 
 package com.fondesa.data.latest.storage.remote
 
-import com.fondesa.common.remote.client.RemoteClient
 import com.fondesa.data.latest.converter.LatestJsonConverter
 import com.fondesa.data.latest.storage.LatestRemoteStorage
 import com.fondesa.data.latest.storage.LatestRemoteStorageFactory
 import com.fondesa.data.remote.RemoteApi
 import com.fondesa.data.storage.remote.JsonRemoteStorage
+import com.fondesa.remote.api.client.RemoteClient
 import javax.inject.Inject
 
 class LatestRemoteStorageFactoryImpl @Inject constructor(private val remoteClient: RemoteClient) :
