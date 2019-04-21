@@ -20,7 +20,7 @@ import com.fondesa.remote.api.client.RemoteClient
 import com.fondesa.remote.api.connectivity.ConnectivityManager
 import com.fondesa.remote.impl.client.HttpClient
 import com.fondesa.remote.impl.connectivity.AndroidSystemConnectivityManager
-import com.fondesa.remote.impl.injection.HttpClientInfo
+import com.fondesa.remote.impl.qualifiers.HttpClientInfo
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

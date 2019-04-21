@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.remote.impl.injection
+package com.fondesa.remote.impl.qualifiers
 
 import com.fondesa.remote.impl.client.HttpClient
 import javax.inject.Qualifier

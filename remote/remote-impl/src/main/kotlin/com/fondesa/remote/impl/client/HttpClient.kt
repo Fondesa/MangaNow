@@ -19,7 +19,7 @@ package com.fondesa.remote.impl.client
 import com.fondesa.remote.api.client.RemoteClient
 import com.fondesa.remote.api.connectivity.ConnectivityManager
 import com.fondesa.remote.api.task.RemoteTask
-import com.fondesa.remote.impl.injection.HttpClientInfo
+import com.fondesa.remote.impl.qualifiers.HttpClientInfo
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import okhttp3.*
