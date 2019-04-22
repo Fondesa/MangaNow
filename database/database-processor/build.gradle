@@ -21,6 +21,7 @@ dependencies {
     compile project(':database:database-api-structure')
 
     compile deps.javaxInject
+    compile deps.dagger
     compile deps.kotlinStdLib
     compile deps.kotlinPoet
     compile deps.autoService

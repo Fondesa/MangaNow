@@ -21,6 +21,10 @@ import com.fondesa.manganow.database.processor.extension.*
 import com.google.common.base.CaseFormat
 import com.google.common.collect.SetMultimap
 import com.squareup.kotlinpoet.*
+import dagger.Binds
+import dagger.Module
+import dagger.Reusable
+import dagger.multibindings.IntoSet
 import java.io.File
 import javax.annotation.processing.Messager
 import javax.inject.Inject
@@ -41,8 +45,6 @@ class StructureProcessingStep(
     messenger: Messager
 ) : BasicProcessingStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
 
-    private val graphElement by lazyTypeElement(Graph::class)
-
     private val tableElement by lazyTypeElement(Table::class)
 
     private val foreignKeyElement by lazyTypeElement(ForeignKey::class)
@@ -62,37 +64,34 @@ class StructureProcessingStep(
         val tableClassNames = tableElements.map {
             generateTable(it)
         }
-        // Generate the graph with the processed elements.
-        generateGraph(tableClassNames)
+
+        tableClassNames.forEach {
+            generateDaggerTableModule(it)
+        }
     }
 
-    private fun generateGraph(tableClassNames: List<ClassName>) {
-        val contentBuilder = TypeSpec.classBuilder(GENERATED_GRAPH_CLASS)
-            // It will implement the interface and its methods.
-            .addSuperinterface(graphElement.asType().asTypeName())
+    private fun generateDaggerTableModule(tableClassName: ClassName) {
+        val daggerTableModuleClassName =
+            ClassName(tableClassName.packageName(), "${tableClassName.simpleName()}Module")
+        val contentBuilder = TypeSpec.interfaceBuilder(daggerTableModuleClassName)
+            .addAnnotation(Module::class)
 
-        val constructor = FunSpec.constructorBuilder()
-            .addAnnotation(Inject::class)
+        val tableParameter = ParameterSpec.builder("table", tableClassName)
             .build()
 
-        contentBuilder.primaryConstructor(constructor)
-
-        // Generate all the placeholders.
-        val placeholder = tableClassNames.joinToString { "%T()" }
-        // Generate the body of the  // Generate the body of the method.
-        val getTablesBody = CodeBlock.builder()
-            .addStatement("return arrayOf($placeholder)", *tableClassNames.toTypedArray())
+        val provideTableFunction = FunSpec.builder("provideTable")
+            .addAnnotation(IntoSet::class)
+            .addAnnotation(Binds::class)
+            .addModifiers(KModifier.ABSTRACT)
+            .returns(Table::class)
+            .addParameter(tableParameter)
             .build()
 
-        val getTablesFunction = FunSpec.overriding(graphElement.functionWithName("getTables"))
-            .addCode(getTablesBody)
-            .build()
-
-        contentBuilder.addFunction(getTablesFunction)
+        contentBuilder.addFunction(provideTableFunction)
 
         val file = FileSpec.builder(
-            Graph::class.asClassName().packageName(),
-            GENERATED_GRAPH_CLASS.simpleName()
+            daggerTableModuleClassName.packageName(),
+            daggerTableModuleClassName.simpleName()
         ).addType(contentBuilder.build())
             .build()
 
@@ -111,6 +110,13 @@ class StructureProcessingStep(
         val contentBuilder = TypeSpec.classBuilder(className)
             // It will implement the interface and its methods.
             .addSuperinterface(this.tableElement.asType().asTypeName())
+            .addAnnotation(Reusable::class)
+
+        val constructor = FunSpec.constructorBuilder()
+            .addAnnotation(Inject::class)
+            .build()
+
+        contentBuilder.primaryConstructor(constructor)
 
         val tableNameProperty = PropertySpec.builder("NAME", String::class)
             .initializer("%S", tableName)
@@ -280,9 +286,4 @@ class StructureProcessingStep(
 
     private fun lazyErasedType(element: TypeElement) =
         lazy { typeUtil.erasure(element.asType()) }
-
-    companion object {
-        private val GENERATED_GRAPH_CLASS =
-            ClassName(Graph::class.asClassName().packageName(), "AppGraph")
-    }
 }

@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.injection.database
+package com.fondesa.manganow.database.impl
 
-import com.fondesa.manganow.database.api.structure.AppGraph
 import com.fondesa.manganow.database.api.structure.Graph
-import dagger.Module
-import dagger.Provides
+import com.fondesa.manganow.database.api.structure.Table
+import dagger.Reusable
+import javax.inject.Inject
 
-@Module
-object DatabaseGraphModule {
+@Reusable
+class GraphImpl @Inject constructor(private val tables: Set<@JvmSuppressWildcards Table>) : Graph {
 
-    @JvmStatic
-    @Provides
-    fun provideGraph(graph: AppGraph): Graph = graph
+    override fun getTables(): Array<Table> = tables.toTypedArray()
 }

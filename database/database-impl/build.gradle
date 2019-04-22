@@ -25,5 +25,6 @@ dependencies {
     api project(":log:log-api")
     api project(':database:database-annotations')
     api project(':database:database-api-client')
+    api deps.dagger
     api deps.kotlinStdLib
 }

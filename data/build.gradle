@@ -24,6 +24,7 @@ dependencies {
     api project(":remote:remote-api")
     api project(':domain-old')
 
+    api deps.dagger
     api deps.kotlinStdLib
     api deps.javaxInject
     api deps.gson

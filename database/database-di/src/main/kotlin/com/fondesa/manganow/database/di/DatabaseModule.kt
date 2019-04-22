@@ -18,7 +18,9 @@ package com.fondesa.manganow.database.di
 
 import com.fondesa.manganow.core.api.AppInitializer
 import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.database.api.structure.Graph
 import com.fondesa.manganow.database.impl.DatabaseInitializer
+import com.fondesa.manganow.database.impl.GraphImpl
 import com.fondesa.manganow.database.impl.SQLiteClient
 import com.fondesa.manganow.database.impl.qualifiers.SQLiteDatabaseInfo
 import com.fondesa.manganow.database.impl.strategy.DropAllUpgradeStrategy
@@ -41,6 +43,9 @@ interface DatabaseModule {
     @Binds
     @IntoSet
     fun provideDatabaseInitializer(initializer: DatabaseInitializer): AppInitializer
+
+    @Binds
+    fun provideGraph(graph: GraphImpl): Graph
 
     @Module
     object WithProvides {

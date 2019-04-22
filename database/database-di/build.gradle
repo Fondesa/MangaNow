@@ -21,7 +21,6 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(":database:database-impl")
-    api deps.dagger
 
     kapt deps.daggerAndroidProcessor
     kapt deps.daggerCompiler
