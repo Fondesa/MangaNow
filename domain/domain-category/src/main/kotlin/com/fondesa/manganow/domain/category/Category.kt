@@ -14,27 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.model
-
-import org.junit.Test
+package com.fondesa.manganow.domain.category
 
 /**
- * Tests for [Category].
+ * Identifies a category of a manga.
+ *
+ * @param id the category's id.
+ * @param name the category's name.
  */
-class CategoryTest {
-
-    @Test
-    fun areEquals() {
-        assert(createCategory() == createCategory())
-    }
-
-    @Test
-    fun sameHashCode() {
-        assert(createCategory().hashCode() == createCategory().hashCode())
-    }
-
-    private fun createCategory() = Category(
-        id = 1L,
-        name = "dummy-name"
-    )
-}
+data class Category(
+    val id: Long,
+    val name: String
+)

@@ -17,7 +17,7 @@
 package com.fondesa.domain.category.repository
 
 import com.fondesa.domain.category.CategoryList
-import com.fondesa.domain.category.model.Category
+import com.fondesa.manganow.domain.category.Category
 
 /**
  * Manages all the data operations about a [Category] model.

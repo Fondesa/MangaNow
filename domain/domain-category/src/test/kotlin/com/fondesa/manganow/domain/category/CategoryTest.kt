@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,27 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.model
+package com.fondesa.manganow.domain.category
+
+import org.junit.Test
 
 /**
- * Identifies a category of a manga.
- *
- * @param id the category's id.
- * @param name the category's name.
+ * Tests for [Category].
  */
-data class Category(
-    val id: Long,
-    val name: String
-)
+class CategoryTest {
+
+    @Test
+    fun areEquals() {
+        assert(createCategory() == createCategory())
+    }
+
+    @Test
+    fun sameHashCode() {
+        assert(createCategory().hashCode() == createCategory().hashCode())
+    }
+
+    private fun createCategory() = Category(
+        id = 1L,
+        name = "dummy-name"
+    )
+}

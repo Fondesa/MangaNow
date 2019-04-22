@@ -16,8 +16,8 @@
 
 package com.fondesa.domain.category.usecase
 
-import com.fondesa.domain.category.model.Category
 import com.fondesa.domain.category.repository.CategoryRepository
+import com.fondesa.manganow.domain.category.Category
 import com.fondesa.manganow.testing.jvm.runUnitBlocking
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify

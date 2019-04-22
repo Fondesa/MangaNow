@@ -19,7 +19,7 @@ package com.fondesa.data.category.converter
 import com.fondesa.data.serialization.FromJsonConverter
 import com.fondesa.data.serialization.mapJsonObject
 import com.fondesa.domain.category.CategoryList
-import com.fondesa.domain.category.model.Category
+import com.fondesa.manganow.domain.category.Category
 import com.google.gson.JsonElement
 import javax.inject.Inject
 

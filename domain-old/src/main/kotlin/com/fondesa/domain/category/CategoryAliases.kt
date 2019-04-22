@@ -16,7 +16,7 @@
 
 package com.fondesa.domain.category
 
-import com.fondesa.domain.category.model.Category
+import com.fondesa.manganow.domain.category.Category
 
 /**
  * Identifies a list of [Category] which suppress the wildcards.

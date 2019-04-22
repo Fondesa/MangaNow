@@ -18,7 +18,10 @@ apply plugin: 'common-jvm'
 
 dependencies {
     compile project(':thread:thread-api')
+    compile project(':domain:domain-category')
     compile project(':domain:domain-chapter')
+    compile project(':domain:domain-manga')
+    compile project(':domain:domain-page')
     compile deps.kotlinStdLib
     compile deps.javaxInject
 
