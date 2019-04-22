@@ -16,21 +16,23 @@
 
 package com.fondesa.manganow.database.processor.step
 
-import com.fondesa.manganow.database.annotations.Column
-import com.fondesa.manganow.database.annotations.ForeignKey
-import com.fondesa.manganow.database.annotations.Table
+import com.fondesa.manganow.database.api.structure.*
 import com.fondesa.manganow.database.processor.extension.*
 import com.google.common.base.CaseFormat
 import com.google.common.collect.SetMultimap
 import com.squareup.kotlinpoet.*
 import java.io.File
 import javax.annotation.processing.Messager
+import javax.inject.Inject
 import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 import javax.lang.model.type.TypeMirror
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 import kotlin.reflect.KClass
+import com.fondesa.manganow.database.annotations.Column as ColumnAnnotation
+import com.fondesa.manganow.database.annotations.ForeignKey as ForeignKeyAnnotation
+import com.fondesa.manganow.database.annotations.Table as TableAnnotation
 
 class StructureProcessingStep(
     kaptGeneratedDir: File,
@@ -39,24 +41,24 @@ class StructureProcessingStep(
     messenger: Messager
 ) : BasicProcessingStep(kaptGeneratedDir, elementUtil, typeUtil, messenger) {
 
-    private val graphElement by lazyTypeElement(GRAPH_CLASS)
+    private val graphElement by lazyTypeElement(Graph::class)
 
-    private val tableElement by lazyTypeElement(TABLE_CLASS)
+    private val tableElement by lazyTypeElement(Table::class)
 
-    private val foreignKeyElement by lazyTypeElement(FOREIGN_KEY_CLASS)
-    private val foreignKeyConfigElement by lazyTypeElement(FOREIGN_KEY_CONFIG_CLASS)
+    private val foreignKeyElement by lazyTypeElement(ForeignKey::class)
+    private val foreignKeyConfigElement by lazyTypeElement(ForeignKeyConfig::class)
 
-    private val columnConfigElement by lazyTypeElement(COLUMN_CONFIG_CLASS)
+    private val columnConfigElement by lazyTypeElement(ColumnConfig::class)
     private val erasedColumnConfigType by lazyErasedType(columnConfigElement)
 
-    private val columnElement by lazyTypeElement(COLUMN_CLASS)
+    private val columnElement by lazyTypeElement(Column::class)
     private val erasedColumnType by lazyErasedType(columnElement)
 
-    override fun filter() = arrayOf(Table::class)
+    override fun filter() = arrayOf(TableAnnotation::class)
 
     override fun process(elementsByAnnotation: SetMultimap<KClass<out Annotation>, Element>) {
         // Get all elements which must be added to the graph.
-        val tableElements = elementsByAnnotation[Table::class]
+        val tableElements = elementsByAnnotation[TableAnnotation::class]
         val tableClassNames = tableElements.map {
             generateTable(it)
         }
@@ -70,7 +72,7 @@ class StructureProcessingStep(
             .addSuperinterface(graphElement.asType().asTypeName())
 
         val constructor = FunSpec.constructorBuilder()
-            .addAnnotation(JAVAX_INJECT_CLASS)
+            .addAnnotation(Inject::class)
             .build()
 
         contentBuilder.primaryConstructor(constructor)
@@ -89,7 +91,7 @@ class StructureProcessingStep(
         contentBuilder.addFunction(getTablesFunction)
 
         val file = FileSpec.builder(
-            GENERATED_GRAPH_CLASS.packageName(),
+            Graph::class.asClassName().packageName(),
             GENERATED_GRAPH_CLASS.simpleName()
         ).addType(contentBuilder.build())
             .build()
@@ -98,7 +100,7 @@ class StructureProcessingStep(
     }
 
     private fun generateTable(tableElement: Element): ClassName {
-        val tableAnnotation = tableElement.getAnnotation(Table::class.java)
+        val tableAnnotation = tableElement.getAnnotation(TableAnnotation::class.java)
         val tableName = tableAnnotation.name
         val tableWithRowId = tableAnnotation.withRowId
 
@@ -134,7 +136,7 @@ class StructureProcessingStep(
         contentBuilder.addFunction(withRowIdFunction)
 
         val columnsArray = tableElement.enclosedElements.map {
-            it to it.getAnnotation(Column::class.java)
+            it to it.getAnnotation(ColumnAnnotation::class.java)
         }.filter { (_, definition) ->
             definition != null
         }.joinToString { (columnElement, definition) ->
@@ -165,7 +167,7 @@ class StructureProcessingStep(
         contentBuilder.addFunction(getColumnsFunction)
 
         val annotatedWithForeignKeys = tableElement.enclosedElements.filter {
-            it.getAnnotation(ForeignKey::class.java) != null
+            it.getAnnotation(ForeignKeyAnnotation::class.java) != null
         }
         val getForeignKeysBodyBuilder = CodeBlock.builder()
 
@@ -199,7 +201,7 @@ class StructureProcessingStep(
                 val destinationTableElement =
                     elementUtil.getTypeElement(destinationTableType.asTypeName().toString())
                 val destinationTableAnnotation =
-                    destinationTableElement.getAnnotation(Table::class.java)
+                    destinationTableElement.getAnnotation(TableAnnotation::class.java)
                         ?: throw ProcessingException(
                             "The class ${destinationTableElement.qualifiedName}" +
                                     " must be annotate with ${Table::class.java.name}",
@@ -239,7 +241,7 @@ class StructureProcessingStep(
         tableElement: Element,
         tableNamePropertyName: String,
         columnElement: Element,
-        definition: Column
+        definition: ColumnAnnotation
     ): PropertySpec {
         val elementType = columnElement.asType()
         if (!typeUtil.isAssignable(typeUtil.erasure(elementType), erasedColumnConfigType)) {
@@ -273,26 +275,14 @@ class StructureProcessingStep(
             .build()
     }
 
-    private fun lazyTypeElement(className: ClassName) =
-        lazy { elementUtil.getTypeElement(className.canonicalName) }
+    private fun lazyTypeElement(kClass: KClass<*>) =
+        lazy { elementUtil.getTypeElement(kClass.asClassName().canonicalName) }
 
     private fun lazyErasedType(element: TypeElement) =
         lazy { typeUtil.erasure(element.asType()) }
 
     companion object {
-        private val JAVAX_INJECT_CLASS = ClassName("javax.inject", "Inject")
-
-        private val COLUMN_CONFIG_CLASS =
-            ClassName("com.fondesa.manganow.database.api.structure", "ColumnConfig")
-        private val FOREIGN_KEY_CONFIG_CLASS =
-            ClassName("com.fondesa.manganow.database.api.structure", "ForeignKeyConfig")
-        private val FOREIGN_KEY_CLASS =
-            ClassName("com.fondesa.manganow.database.api.structure", "ForeignKey")
-        private val COLUMN_CLASS =
-            ClassName("com.fondesa.manganow.database.api.structure", "Column")
-        private val TABLE_CLASS = ClassName("com.fondesa.manganow.database.api.structure", "Table")
-        private val GRAPH_CLASS = ClassName("com.fondesa.manganow.database.api.structure", "Graph")
-
-        private val GENERATED_GRAPH_CLASS = ClassName("com.fondesa.data.database", "AppGraph")
+        private val GENERATED_GRAPH_CLASS =
+            ClassName(Graph::class.asClassName().packageName(), "AppGraph")
     }
 }
