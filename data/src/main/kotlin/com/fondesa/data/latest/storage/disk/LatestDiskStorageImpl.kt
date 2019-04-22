@@ -20,20 +20,15 @@ import com.fondesa.data.chapter.ChapterTable
 import com.fondesa.data.latest.database.LatestTable
 import com.fondesa.data.manga.database.MangaTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
-import com.fondesa.domain.chapter.model.Chapter
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.manga.model.Manga
-import com.fondesa.manganow.database.api.DatabaseClient
-import com.fondesa.manganow.database.api.clause.ConflictType
-import com.fondesa.manganow.database.api.extension.equalTo
-import com.fondesa.manganow.database.api.statement.Insert
-import com.fondesa.manganow.database.api.statement.Select
-import com.fondesa.manganow.database.api.statement.Update
+import com.fondesa.manganow.chapter.api.Chapter
+import com.fondesa.manganow.database.api.client.extension.equalTo
 import java.util.*
 
 class LatestDiskStorageImpl(
-    client: DatabaseClient,
+    client: com.fondesa.manganow.database.api.client.DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String
 ) : SQLiteDiskStorage<LatestList>(client, expirationTimeMs, remoteTaskKey) {
@@ -107,7 +102,7 @@ class LatestDiskStorageImpl(
 
     private object Statements {
 
-        fun selectLatest(cacheId: Long) = Select.from(LatestTable.NAME)
+        fun selectLatest(cacheId: Long) = com.fondesa.manganow.database.api.client.statement.Select.from(LatestTable.NAME)
             .columns(
                 LatestTable.COL_REMOTE_TASK_ID,
                 LatestTable.COL_MANGA_ID,
@@ -125,8 +120,8 @@ class LatestDiskStorageImpl(
             .orderDesc(ChapterTable.COL_RELEASE_DATE)
             .build()
 
-        fun insertManga() = Insert.into(MangaTable.NAME)
-            .conflictType(ConflictType.IGNORE)
+        fun insertManga() = com.fondesa.manganow.database.api.client.statement.Insert.into(MangaTable.NAME)
+            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
             .columns(
                 MangaTable.COL_ID,
                 MangaTable.COL_ALIAS,
@@ -135,8 +130,8 @@ class LatestDiskStorageImpl(
             )
             .build()
 
-        fun updateManga(mangaId: Long) = Update.table(MangaTable.NAME)
-            .conflictType(ConflictType.IGNORE)
+        fun updateManga(mangaId: Long) = com.fondesa.manganow.database.api.client.statement.Update.table(MangaTable.NAME)
+            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
             .columns(
                 MangaTable.COL_IMAGE_URL,
                 MangaTable.COL_TITLE
@@ -144,8 +139,8 @@ class LatestDiskStorageImpl(
             .where(MangaTable.COL_ID.equalTo(mangaId))
             .build()
 
-        fun insertChapter() = Insert.into(ChapterTable.NAME)
-            .conflictType(ConflictType.REPLACE)
+        fun insertChapter() = com.fondesa.manganow.database.api.client.statement.Insert.into(ChapterTable.NAME)
+            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
             .columns(
                 ChapterTable.COL_ID,
                 ChapterTable.COL_MANGA_ID,
@@ -155,8 +150,8 @@ class LatestDiskStorageImpl(
             )
             .build()
 
-        fun insertLatest() = Insert.into(LatestTable.NAME)
-            .conflictType(ConflictType.IGNORE)
+        fun insertLatest() = com.fondesa.manganow.database.api.client.statement.Insert.into(LatestTable.NAME)
+            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
             .columns(
                 LatestTable.COL_REMOTE_TASK_ID,
                 LatestTable.COL_MANGA_ID,

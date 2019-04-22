@@ -16,11 +16,10 @@
 
 package com.fondesa.manganow.database.impl.strategy
 
-import com.fondesa.manganow.database.api.Database
-import com.fondesa.manganow.database.api.statement.CreateTable
-import com.fondesa.manganow.database.api.statement.Delete
-import com.fondesa.manganow.database.api.statement.Pragma
-import com.fondesa.manganow.database.api.statement.Vacuum
+import com.fondesa.manganow.database.api.client.Database
+import com.fondesa.manganow.database.api.client.statement.CreateTable
+import com.fondesa.manganow.database.api.client.statement.Pragma
+import com.fondesa.manganow.database.api.client.statement.Vacuum
 import com.fondesa.manganow.database.api.structure.Graph
 import javax.inject.Inject
 
@@ -42,7 +41,7 @@ class DropAllUpgradeStrategy @Inject constructor() :
         val enableWritableSchema = Pragma.write(pragmaWritableSchemaRaw, true)
         database.compile(enableWritableSchema).execute(close = true)
 
-        val dropAll = Delete.from("sqlite_master")
+        val dropAll = com.fondesa.manganow.database.api.client.statement.Delete.from("sqlite_master")
             .where("type in ('table', 'index', 'trigger')")
             .build()
 

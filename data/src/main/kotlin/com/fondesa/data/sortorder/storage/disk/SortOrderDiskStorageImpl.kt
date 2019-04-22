@@ -20,13 +20,9 @@ import com.fondesa.data.sortorder.database.SortOrderTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.model.SortOrder
-import com.fondesa.manganow.database.api.DatabaseClient
-import com.fondesa.manganow.database.api.clause.ConflictType
-import com.fondesa.manganow.database.api.statement.Insert
-import com.fondesa.manganow.database.api.statement.Select
 
 class SortOrderDiskStorageImpl(
-    client: DatabaseClient,
+    client: com.fondesa.manganow.database.api.client.DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String
 ) : SQLiteDiskStorage<SortOrderList>(client, expirationTimeMs, remoteTaskKey) {
@@ -55,7 +51,7 @@ class SortOrderDiskStorageImpl(
 
     private object Statements {
 
-        fun selectSortOrders() = Select.from(SortOrderTable.NAME)
+        fun selectSortOrders() = com.fondesa.manganow.database.api.client.statement.Select.from(SortOrderTable.NAME)
             .columns(
                 SortOrderTable.COL_ID,
                 SortOrderTable.COL_NAME,
@@ -64,8 +60,8 @@ class SortOrderDiskStorageImpl(
             .orderAsc(SortOrderTable.COL_PRIORITY)
             .build()
 
-        fun insertSortOrder() = Insert.into(SortOrderTable.NAME)
-            .conflictType(ConflictType.REPLACE)
+        fun insertSortOrder() = com.fondesa.manganow.database.api.client.statement.Insert.into(SortOrderTable.NAME)
+            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
             .columns(
                 SortOrderTable.COL_ID,
                 SortOrderTable.COL_NAME,

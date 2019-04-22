@@ -16,6 +16,7 @@
 
 package com.fondesa.domain.chapter.model
 
+import com.fondesa.manganow.chapter.api.Chapter
 import org.junit.Test
 import java.util.*
 

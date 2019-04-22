@@ -18,11 +18,10 @@ package com.fondesa.data.category.storage.disk
 
 import com.fondesa.data.category.storage.CategoryDiskStorage
 import com.fondesa.data.category.storage.CategoryDiskStorageFactory
-import com.fondesa.manganow.database.api.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class CategoryDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
+class CategoryDiskStorageFactoryImpl @Inject constructor(private val client: com.fondesa.manganow.database.api.client.DatabaseClient) :
     CategoryDiskStorageFactory {
 
     override fun provideStorage(): CategoryDiskStorage {

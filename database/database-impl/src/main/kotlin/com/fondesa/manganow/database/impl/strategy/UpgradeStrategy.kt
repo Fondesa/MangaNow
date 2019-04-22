@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.database.impl.strategy
 
-import com.fondesa.manganow.database.api.Database
+import com.fondesa.manganow.database.api.client.Database
 import com.fondesa.manganow.database.api.structure.Graph
 
 /**
@@ -34,7 +34,7 @@ interface UpgradeStrategy {
      * @param newVersion new version of the schema.
      * @param newGraph graph related to the new schema's version.
      */
-    fun onUpgrade(database: Database, oldVersion: Int, newVersion: Int, newGraph: Graph)
+    fun onUpgrade(database: com.fondesa.manganow.database.api.client.Database, oldVersion: Int, newVersion: Int, newGraph: Graph)
 
     /**
      * Useful to finalize the upgrade outside of a transaction.
@@ -45,5 +45,5 @@ interface UpgradeStrategy {
      * @param newVersion new version of the schema.
      * @param newGraph graph related to the new schema's version.
      */
-    fun onPostUpgrade(database: Database, oldVersion: Int, newVersion: Int, newGraph: Graph)
+    fun onPostUpgrade(database: com.fondesa.manganow.database.api.client.Database, oldVersion: Int, newVersion: Int, newGraph: Graph)
 }

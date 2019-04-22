@@ -19,7 +19,7 @@ apply plugin: 'common-android'
 
 dependencies {
     api project(':thread:thread-api')
-    api project(':database:database-api')
+    api project(':database:database-api-client')
     api project(':database:database-annotations')
     api project(":remote:remote-api")
     api project(":domain")

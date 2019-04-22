@@ -17,16 +17,12 @@
 package com.fondesa.data.storage.disk
 
 import com.fondesa.data.remote.database.RemoteTaskTable
-import com.fondesa.manganow.database.api.DatabaseClient
-import com.fondesa.manganow.database.api.clause.ConflictType
-import com.fondesa.manganow.database.api.extension.and
-import com.fondesa.manganow.database.api.extension.equalTo
-import com.fondesa.manganow.database.api.extension.majorThan
-import com.fondesa.manganow.database.api.statement.Insert
-import com.fondesa.manganow.database.api.statement.Select
+import com.fondesa.manganow.database.api.client.extension.and
+import com.fondesa.manganow.database.api.client.extension.equalTo
+import com.fondesa.manganow.database.api.client.extension.majorThan
 
 abstract class SQLiteDiskStorage<T>(
-    client: DatabaseClient,
+    client: com.fondesa.manganow.database.api.client.DatabaseClient,
     private val expirationTimeMs: Long,
     private val remoteTaskKey: String
 ) : DiskStorage<T> {
@@ -84,7 +80,7 @@ abstract class SQLiteDiskStorage<T>(
     private object Statements {
 
         fun countCache(remoteTaskPath: String, validDate: Long) =
-            Select.from(RemoteTaskTable.NAME)
+            com.fondesa.manganow.database.api.client.statement.Select.from(RemoteTaskTable.NAME)
                 .count()
                 .where(
                     RemoteTaskTable.COL_KEY.equalTo(remoteTaskPath) and
@@ -92,14 +88,14 @@ abstract class SQLiteDiskStorage<T>(
                 )
                 .build()
 
-        fun selectCache(remoteTaskPath: String) = Select.from(RemoteTaskTable.NAME)
+        fun selectCache(remoteTaskPath: String) = com.fondesa.manganow.database.api.client.statement.Select.from(RemoteTaskTable.NAME)
             .columns(RemoteTaskTable.COL_ID)
             .where(RemoteTaskTable.COL_KEY.equalTo(remoteTaskPath))
             .limit(1)
             .build()
 
-        fun insertCache() = Insert.into(RemoteTaskTable.NAME)
-            .conflictType(ConflictType.REPLACE)
+        fun insertCache() = com.fondesa.manganow.database.api.client.statement.Insert.into(RemoteTaskTable.NAME)
+            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
             .columns(
                 RemoteTaskTable.COL_ID,
                 RemoteTaskTable.COL_DATE_MS,

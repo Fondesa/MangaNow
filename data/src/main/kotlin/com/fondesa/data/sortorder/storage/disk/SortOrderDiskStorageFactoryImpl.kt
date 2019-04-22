@@ -18,11 +18,10 @@ package com.fondesa.data.sortorder.storage.disk
 
 import com.fondesa.data.sortorder.storage.SortOrderDiskStorage
 import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
-import com.fondesa.manganow.database.api.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
+class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: com.fondesa.manganow.database.api.client.DatabaseClient) :
     SortOrderDiskStorageFactory {
 
     override fun provideStorage(): SortOrderDiskStorage {

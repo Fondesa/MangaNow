@@ -17,7 +17,7 @@
 package com.fondesa.manganow.database.di
 
 import com.fondesa.manganow.core.api.AppInitializer
-import com.fondesa.manganow.database.api.DatabaseClient
+import com.fondesa.manganow.database.api.client.DatabaseClient
 import com.fondesa.manganow.database.impl.DatabaseInitializer
 import com.fondesa.manganow.database.impl.SQLiteClient
 import com.fondesa.manganow.database.impl.qualifiers.SQLiteDatabaseInfo

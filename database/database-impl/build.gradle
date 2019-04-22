@@ -24,6 +24,6 @@ dependencies {
     api project(':thread:thread-api')
     api project(":log:log-api")
     api project(':database:database-annotations')
-    api project(":database:database-api")
+    api project(':database:database-api-client')
     api deps.kotlinStdLib
 }

@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.database.impl.strategy
 
-import com.fondesa.manganow.database.api.Database
+import com.fondesa.manganow.database.api.client.Database
 
 /**
  * Used to define an action to take when database corruption is detected.
@@ -29,5 +29,5 @@ interface ErrorStrategy {
      * @param database [Database] object representing the database on which corruption
      * is detected.
      */
-    fun onCorruption(database: Database)
+    fun onCorruption(database: com.fondesa.manganow.database.api.client.Database)
 }

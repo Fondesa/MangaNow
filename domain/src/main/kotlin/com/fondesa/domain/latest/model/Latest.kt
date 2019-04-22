@@ -16,8 +16,8 @@
 
 package com.fondesa.domain.latest.model
 
-import com.fondesa.domain.chapter.model.Chapter
 import com.fondesa.domain.manga.model.Manga
+import com.fondesa.manganow.chapter.api.Chapter
 
 /**
  * Identifies a new available chapter or a new available manga.

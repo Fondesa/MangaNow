@@ -16,8 +16,8 @@
 
 package com.fondesa.manganow.database.impl.strategy
 
-import com.fondesa.manganow.database.api.Database
-import com.fondesa.manganow.database.api.statement.Vacuum
+import com.fondesa.manganow.database.api.client.Database
+import com.fondesa.manganow.database.api.client.statement.Vacuum
 import javax.inject.Inject
 
 /**

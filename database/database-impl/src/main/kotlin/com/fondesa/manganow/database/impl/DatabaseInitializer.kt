@@ -17,7 +17,7 @@
 package com.fondesa.manganow.database.impl
 
 import com.fondesa.manganow.core.api.AppInitializer
-import com.fondesa.manganow.database.api.DatabaseClient
+import com.fondesa.manganow.database.api.client.DatabaseClient
 import javax.inject.Inject
 
 class DatabaseInitializer @Inject constructor(private val client: DatabaseClient): AppInitializer {

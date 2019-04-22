@@ -20,13 +20,9 @@ import com.fondesa.data.category.database.CategoryTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.model.Category
-import com.fondesa.manganow.database.api.DatabaseClient
-import com.fondesa.manganow.database.api.clause.ConflictType
-import com.fondesa.manganow.database.api.statement.Insert
-import com.fondesa.manganow.database.api.statement.Select
 
 class CategoryDiskStorageImpl(
-    client: DatabaseClient,
+    client: com.fondesa.manganow.database.api.client.DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String
 ) : SQLiteDiskStorage<CategoryList>(client, expirationTimeMs, remoteTaskKey) {
@@ -53,15 +49,15 @@ class CategoryDiskStorageImpl(
 
     private object Statements {
 
-        fun selectCategories() = Select.from(CategoryTable.NAME)
+        fun selectCategories() = com.fondesa.manganow.database.api.client.statement.Select.from(CategoryTable.NAME)
             .columns(
                 CategoryTable.COL_ID,
                 CategoryTable.COL_NAME
             )
             .build()
 
-        fun insertCategory() = Insert.into(CategoryTable.NAME)
-            .conflictType(ConflictType.REPLACE)
+        fun insertCategory() = com.fondesa.manganow.database.api.client.statement.Insert.into(CategoryTable.NAME)
+            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
             .columns(
                 CategoryTable.COL_ID,
                 CategoryTable.COL_NAME

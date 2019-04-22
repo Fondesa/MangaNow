@@ -17,11 +17,11 @@
 package com.fondesa.manganow.database.impl
 
 import android.database.sqlite.SQLiteDatabase
-import com.fondesa.manganow.database.api.Database
-import com.fondesa.manganow.database.api.execution.Closeable
-import com.fondesa.manganow.database.api.execution.Executor
-import com.fondesa.manganow.database.api.statement.Statement
-import com.fondesa.manganow.database.api.statement.base.SQLiteDatabaseReceiver
+import com.fondesa.manganow.database.api.client.Database
+import com.fondesa.manganow.database.api.client.execution.Closeable
+import com.fondesa.manganow.database.api.client.execution.Executor
+import com.fondesa.manganow.database.api.client.statement.Statement
+import com.fondesa.manganow.database.api.client.statement.base.SQLiteDatabaseReceiver
 
 /**
  * Used to define the behavior of a SQLite database.

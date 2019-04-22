@@ -18,11 +18,10 @@ package com.fondesa.data.latest.storage.disk
 
 import com.fondesa.data.latest.storage.LatestDiskStorage
 import com.fondesa.data.latest.storage.LatestDiskStorageFactory
-import com.fondesa.manganow.database.api.DatabaseClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class LatestDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
+class LatestDiskStorageFactoryImpl @Inject constructor(private val client: com.fondesa.manganow.database.api.client.DatabaseClient) :
     LatestDiskStorageFactory {
 
     override fun provideStorage(page: Int, pageSize: Int): LatestDiskStorage {

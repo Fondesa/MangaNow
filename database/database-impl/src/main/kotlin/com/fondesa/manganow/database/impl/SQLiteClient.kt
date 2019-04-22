@@ -19,10 +19,10 @@ package com.fondesa.manganow.database.impl
 import android.content.Context
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteException
-import com.fondesa.manganow.database.api.Database
-import com.fondesa.manganow.database.api.DatabaseClient
-import com.fondesa.manganow.database.api.statement.CreateTable
-import com.fondesa.manganow.database.api.statement.Pragma
+import com.fondesa.manganow.database.api.client.Database
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.database.api.client.statement.CreateTable
+import com.fondesa.manganow.database.api.client.statement.Pragma
 import com.fondesa.manganow.database.api.structure.Graph
 import com.fondesa.manganow.database.impl.qualifiers.SQLiteDatabaseInfo
 import com.fondesa.manganow.database.impl.strategy.ErrorStrategy
