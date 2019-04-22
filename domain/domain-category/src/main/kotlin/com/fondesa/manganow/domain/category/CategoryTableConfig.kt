@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.database
+package com.fondesa.manganow.domain.category
 
 import com.fondesa.manganow.database.annotations.Column
 import com.fondesa.manganow.database.annotations.Table

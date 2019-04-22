@@ -16,22 +16,22 @@
 
 package com.fondesa.manganow.injection.database
 
-import com.fondesa.data.category.database.CategoryTableModule
 import com.fondesa.data.chapter.ChapterTableModule
 import com.fondesa.data.latest.database.LatestTableModule
 import com.fondesa.data.manga.database.MangaTableModule
 import com.fondesa.data.remote.database.RemoteTaskTableModule
 import com.fondesa.data.sortorder.database.SortOrderTableModule
+import com.fondesa.manganow.domain.category.CategoryTableModule
 import dagger.Module
 
 @Module(
     includes = [
-        CategoryTableModule::class,
         LatestTableModule::class,
         SortOrderTableModule::class,
         MangaTableModule::class,
         ChapterTableModule::class,
-        RemoteTaskTableModule::class
+        RemoteTaskTableModule::class,
+        CategoryTableModule::class
     ]
 )
 interface DatabaseTablesModule

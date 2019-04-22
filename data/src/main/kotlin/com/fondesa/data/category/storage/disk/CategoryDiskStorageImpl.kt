@@ -16,10 +16,10 @@
 
 package com.fondesa.data.category.storage.disk
 
-import com.fondesa.data.category.database.CategoryTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.manganow.domain.category.Category
+import com.fondesa.manganow.domain.category.CategoryTable
 
 class CategoryDiskStorageImpl(
     client: com.fondesa.manganow.database.api.client.DatabaseClient,
@@ -49,19 +49,21 @@ class CategoryDiskStorageImpl(
 
     private object Statements {
 
-        fun selectCategories() = com.fondesa.manganow.database.api.client.statement.Select.from(CategoryTable.NAME)
-            .columns(
-                CategoryTable.COL_ID,
-                CategoryTable.COL_NAME
-            )
-            .build()
+        fun selectCategories() =
+            com.fondesa.manganow.database.api.client.statement.Select.from(CategoryTable.NAME)
+                .columns(
+                    CategoryTable.COL_ID,
+                    CategoryTable.COL_NAME
+                )
+                .build()
 
-        fun insertCategory() = com.fondesa.manganow.database.api.client.statement.Insert.into(CategoryTable.NAME)
-            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
-            .columns(
-                CategoryTable.COL_ID,
-                CategoryTable.COL_NAME
-            )
-            .build()
+        fun insertCategory() =
+            com.fondesa.manganow.database.api.client.statement.Insert.into(CategoryTable.NAME)
+                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
+                .columns(
+                    CategoryTable.COL_ID,
+                    CategoryTable.COL_NAME
+                )
+                .build()
     }
 }

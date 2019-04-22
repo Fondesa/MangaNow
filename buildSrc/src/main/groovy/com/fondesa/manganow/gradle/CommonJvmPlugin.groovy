@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.gradle
 
+import groovy.io.FileType
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -26,6 +27,15 @@ class CommonJvmPlugin implements Plugin<Project> {
         target.with {
             apply plugin: 'kotlin'
             apply plugin: 'kotlin-kapt'
+
+            kapt.useBuildCache = true
+
+            def kaptDir = new File("$buildDir/generated/source/kapt/main/")
+            if (kaptDir.exists()) {
+                kaptDir.eachFileRecurse(FileType.DIRECTORIES) {
+                    sourceSets.main.java.srcDirs += it.absolutePath
+                }
+            }
         }
     }
 }

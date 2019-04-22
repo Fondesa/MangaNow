@@ -48,6 +48,8 @@ class CommonAndroidPlugin implements Plugin<Project> {
                     animationsDisabled = true
                 }
 
+                kapt.useBuildCache = true
+
                 sourceSets.forEach {
                     it.java.srcDirs += "src/${it.name}/kotlin"
                 }
