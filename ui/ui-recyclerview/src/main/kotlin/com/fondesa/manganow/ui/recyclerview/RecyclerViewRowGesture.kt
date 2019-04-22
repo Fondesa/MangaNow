@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.adapter
+package com.fondesa.manganow.ui.recyclerview
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Interface used to specify an element that can define its [RecyclerViewInteraction]s.
+ * Types of gestures that user could perform on a [RecyclerView]'s row.
  */
-abstract class InteractiveRecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+enum class RecyclerViewRowGesture {
 
     /**
-     * @return interactions added to the [View]s of the row.
+     * Used to identify a click gesture.
      */
-    open val interactions: Array<RecyclerViewInteraction> = emptyArray()
+    CLICK,
+
+    /**
+     * Used to identify a long-click gesture.
+     */
+    LONG_CLICK,
+
+    /**
+     * Used to identify a touch gesture.
+     */
+    TOUCH
 }

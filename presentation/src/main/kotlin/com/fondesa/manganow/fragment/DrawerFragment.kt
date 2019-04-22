@@ -30,7 +30,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import com.fondesa.manganow.R
 import com.fondesa.manganow.navigation.Navigator
-import com.fondesa.manganow.view.doOnLayout
+import com.fondesa.manganow.ui.util.doOnLayout
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.partial_toolbar.*
 import kotlinx.android.synthetic.main.screen_base_drawer.*

@@ -21,12 +21,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.manganow.R
-import com.fondesa.manganow.adapter.InteractiveRecyclerViewHolder
-import com.fondesa.manganow.adapter.RecyclerViewInteraction
-import com.fondesa.manganow.adapter.RecyclerViewRowGesture
 import com.fondesa.manganow.converter.ChapterNumberConverter
 import com.fondesa.manganow.converter.PreviewDateConverter
-import com.fondesa.manganow.view.inflateChild
+import com.fondesa.manganow.ui.recyclerview.InteractiveRecyclerViewHolder
+import com.fondesa.manganow.ui.recyclerview.RecyclerViewInteraction
+import com.fondesa.manganow.ui.recyclerview.RecyclerViewRowGesture
+import com.fondesa.manganow.ui.util.inflateChild
 import kotlinx.android.synthetic.main.row_latest.view.*
 import java.util.*
 

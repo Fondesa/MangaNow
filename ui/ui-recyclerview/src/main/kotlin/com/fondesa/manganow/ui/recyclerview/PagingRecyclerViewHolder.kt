@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.adapter
+package com.fondesa.manganow.ui.recyclerview
 
 import android.view.ViewGroup
-import com.fondesa.manganow.R
-import com.fondesa.manganow.view.inflateChild
+import com.fondesa.manganow.ui.util.inflateChild
 
 /**
  * Type of [InteractiveRecyclerViewHolder] used to show the progress in a [PagingRecyclerViewAdapter].

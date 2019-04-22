@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.adapter
+package com.fondesa.manganow.ui.recyclerview
 
 import androidx.recyclerview.widget.RecyclerView
 
-/**
- * Types of gestures that user could perform on a [RecyclerView]'s row.
- */
-enum class RecyclerViewRowGesture {
+class RecyclerViewScrollEndedListener(private inline val onEnd: () -> Unit) :
+    RecyclerView.OnScrollListener() {
 
-    /**
-     * Used to identify a click gesture.
-     */
-    CLICK,
-
-    /**
-     * Used to identify a long-click gesture.
-     */
-    LONG_CLICK,
-
-    /**
-     * Used to identify a touch gesture.
-     */
-    TOUCH
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        super.onScrollStateChanged(recyclerView, newState)
+        if (!recyclerView.canScrollVertically(1)) {
+            onEnd()
+        }
+    }
 }

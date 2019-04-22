@@ -20,8 +20,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
-import com.fondesa.manganow.adapter.InteractiveRecyclerViewHolder
-import com.fondesa.manganow.adapter.PagingRecyclerViewAdapter
+import com.fondesa.manganow.ui.recyclerview.InteractiveRecyclerViewHolder
+import com.fondesa.manganow.ui.recyclerview.PagingRecyclerViewAdapter
 
 class LatestRecyclerViewAdapter : PagingRecyclerViewAdapter(LatestContract.PAGE_SIZE) {
 
