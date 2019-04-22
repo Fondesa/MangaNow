@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.test
+package com.fondesa.manganow.testing.jvm
 
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit

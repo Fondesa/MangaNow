@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.test
+package com.fondesa.manganow.testing.jvm
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking

@@ -22,5 +22,5 @@ dependencies {
     compile deps.kotlinStdLib
     compile deps.javaxInject
 
-    testCompile project(':core:core-test')
+    testCompile project(':testing:testing-jvm')
 }

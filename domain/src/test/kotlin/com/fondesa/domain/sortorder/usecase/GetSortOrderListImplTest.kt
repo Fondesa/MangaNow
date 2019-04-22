@@ -18,7 +18,7 @@ package com.fondesa.domain.sortorder.usecase
 
 import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.manganow.core.test.runUnitBlocking
+import com.fondesa.manganow.testing.jvm.runUnitBlocking
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever

@@ -21,6 +21,7 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(':core:core-api')
+    api project(':thread:thread-api')
     api project(":log:log-api")
     api project(':database:database-annotations')
     api project(":database:database-api")

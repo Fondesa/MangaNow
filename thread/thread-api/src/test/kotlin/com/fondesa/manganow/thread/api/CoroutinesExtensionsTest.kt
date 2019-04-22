@@ -16,8 +16,8 @@
 
 package com.fondesa.manganow.thread.api
 
-import com.fondesa.manganow.core.test.TestLock
-import com.fondesa.manganow.core.test.runUnitBlocking
+import com.fondesa.manganow.testing.jvm.TestLock
+import com.fondesa.manganow.testing.jvm.runUnitBlocking
 import kotlinx.coroutines.launch
 import org.junit.Test
 
