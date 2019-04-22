@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.presenter
+package com.fondesa.manganow.ui.mvp
 
 /**
  * Defines the presenter in an MVP pattern.

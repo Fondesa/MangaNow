@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.presenter
+package com.fondesa.manganow.ui.mvp
 
 /**
  * Exception thrown when the presenter is trying to access a view that is not attached.

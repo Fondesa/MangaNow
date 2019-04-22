@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.manga.list
 
-import com.fondesa.manganow.presenter.BasePresenter
+import com.fondesa.manganow.ui.mvp.BasePresenter
 
 /**
  * Used to specify the contract between the view and the presenter for the manga list section.

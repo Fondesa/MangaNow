@@ -18,7 +18,7 @@ package com.fondesa.manganow.latest
 
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
-import com.fondesa.manganow.presenter.BasePresenter
+import com.fondesa.manganow.ui.mvp.BasePresenter
 
 /**
  * Used to specify the contract between the view and the presenter for the latest section.

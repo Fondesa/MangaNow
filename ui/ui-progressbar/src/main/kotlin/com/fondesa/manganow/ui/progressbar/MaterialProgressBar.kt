@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.widget
+package com.fondesa.manganow.ui.progressbar
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -24,8 +24,7 @@ import android.util.AttributeSet
 import android.widget.ProgressBar
 import androidx.annotation.ColorInt
 import androidx.core.graphics.drawable.DrawableCompat
-import com.fondesa.manganow.R
-import com.fondesa.manganow.util.ColorUtil
+import com.fondesa.manganow.ui.util.ColorUtil
 
 /**
  * Custom [ProgressBar] according to material design that can be tinted across all system apis.

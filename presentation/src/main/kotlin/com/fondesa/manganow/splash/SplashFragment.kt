@@ -24,7 +24,7 @@ import android.view.ViewGroup
 import com.fondesa.manganow.R
 import com.fondesa.manganow.fragment.AdditionalNavigationArgumentsProvider
 import com.fondesa.manganow.fragment.DrawerFragment
-import com.fondesa.manganow.util.ColorUtil
+import com.fondesa.manganow.ui.util.ColorUtil
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.screen_splash.*
 import javax.inject.Inject

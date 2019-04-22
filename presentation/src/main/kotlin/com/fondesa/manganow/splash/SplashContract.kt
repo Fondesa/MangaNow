@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.manganow.presenter.BasePresenter
+import com.fondesa.manganow.ui.mvp.BasePresenter
 
 /**
  * Used to specify the contract between the view and the presenter for the splash screen section.

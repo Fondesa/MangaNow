@@ -41,6 +41,7 @@ dependencies {
     implementation project(":remote:remote-di")
     implementation project(":ui:ui-mvp")
     implementation project(":ui:ui-progressbar")
+    implementation project(":ui:ui-progressbar")
     implementation project(":ui:ui-recyclerview")
     implementation project(":ui:ui-util")
 

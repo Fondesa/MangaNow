@@ -25,7 +25,7 @@ import com.fondesa.manganow.core.api.coroutines.trying
 import com.fondesa.manganow.core.api.time.Scheduler
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
-import com.fondesa.manganow.presenter.AbstractPresenter
+import com.fondesa.manganow.ui.mvp.AbstractPresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

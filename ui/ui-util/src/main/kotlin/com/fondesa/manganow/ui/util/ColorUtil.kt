@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.util
+package com.fondesa.manganow.ui.util
 
 import android.content.Context
 import android.util.TypedValue
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
-import com.fondesa.manganow.R
 
 /**
  * Utility class used to manage colors.
@@ -55,10 +54,12 @@ object ColorUtil {
     fun getAccent(context: Context): Int = getColorAttr(context, R.attr.colorAccent)
 
     @ColorInt
-    fun getTextPrimary(context: Context): Int = getColorAttr(context, android.R.attr.textColorPrimary)
+    fun getTextPrimary(context: Context): Int =
+        getColorAttr(context, android.R.attr.textColorPrimary)
 
     @ColorInt
-    fun getTextSecondary(context: Context): Int = getColorAttr(context, android.R.attr.textColorSecondary)
+    fun getTextSecondary(context: Context): Int =
+        getColorAttr(context, android.R.attr.textColorSecondary)
 
     @ColorInt
     private fun getColorAttr(context: Context, @AttrRes colorAttr: Int): Int {

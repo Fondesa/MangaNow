@@ -17,7 +17,7 @@
 package com.fondesa.manganow.manga.list
 
 import com.fondesa.domain.manga.usecase.GetMangaList
-import com.fondesa.manganow.presenter.AbstractPresenter
+import com.fondesa.manganow.ui.mvp.AbstractPresenter
 import javax.inject.Inject
 
 class MangaListPresenter @Inject constructor(
