@@ -1,0 +1,1 @@
+- Alphabetical order for settings.gradle entries when create-module.sh is run
