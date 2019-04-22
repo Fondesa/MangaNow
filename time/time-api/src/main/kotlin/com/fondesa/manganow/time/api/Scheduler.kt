@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.api.time
+package com.fondesa.manganow.time.api
 
 /**
  * Used to schedule a task which will be executed after a certain period of time.

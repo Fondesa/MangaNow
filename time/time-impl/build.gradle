@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.di
+apply plugin: 'com.android.library'
+apply plugin: 'common-android'
 
-import com.fondesa.manganow.core.di.coroutines.CoroutinesModule
-import dagger.Module
+dependencies {
+    compileOnly deps.javaxInject
 
-@Module(includes = [CoroutinesModule::class])
-interface CoreModule
+    api project(":time:time-api")
+    api deps.kotlinStdLib
+}

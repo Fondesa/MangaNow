@@ -22,7 +22,6 @@ import com.fondesa.domain.category.usecase.GetCategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
 import com.fondesa.manganow.core.api.coroutines.trying
-import com.fondesa.manganow.core.api.time.Scheduler
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
 import com.fondesa.manganow.ui.mvp.AbstractPresenter
@@ -39,7 +38,7 @@ import kotlin.coroutines.CoroutineContext
 class SplashPresenter @Inject constructor(
     private val getCategoryListUseCase: GetCategoryList,
     private val getSortOrderListUseCase: GetSortOrderList,
-    private val scheduler: Scheduler,
+    private val scheduler: com.fondesa.manganow.time.api.Scheduler,
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
     private val uiCoroutinesContext: CoroutineContext,
     private val navigator: Navigator

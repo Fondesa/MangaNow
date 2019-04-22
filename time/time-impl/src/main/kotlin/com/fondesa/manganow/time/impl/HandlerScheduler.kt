@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.impl.time
+package com.fondesa.manganow.time.impl
 
 import android.os.Handler
-import com.fondesa.manganow.core.api.time.Scheduler
+import com.fondesa.manganow.time.api.Scheduler
 import javax.inject.Inject
 
 /**
