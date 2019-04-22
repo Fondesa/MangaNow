@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.api.coroutines
+package com.fondesa.manganow.thread.api
 
 import com.fondesa.manganow.core.test.TestLock
 import com.fondesa.manganow.core.test.runUnitBlocking

@@ -18,7 +18,7 @@ package com.fondesa.domain.category.usecase
 
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
-import com.fondesa.manganow.core.api.coroutines.asyncAwait
+import com.fondesa.manganow.thread.api.asyncAwait
 import javax.inject.Inject
 
 /**

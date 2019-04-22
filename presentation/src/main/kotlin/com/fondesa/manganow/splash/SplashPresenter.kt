@@ -21,9 +21,9 @@ import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.usecase.GetCategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
-import com.fondesa.manganow.core.api.coroutines.trying
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
+import com.fondesa.manganow.thread.api.trying
 import com.fondesa.manganow.ui.mvp.AbstractPresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

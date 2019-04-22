@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.api.coroutines
+package com.fondesa.manganow.thread.api
 
 /**
  * Defines the way the callbacks of [trying] should be managed.

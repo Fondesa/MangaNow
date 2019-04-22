@@ -40,6 +40,7 @@ dependencies {
     implementation project(":log:log-di")
     implementation project(":remote:remote-di")
     implementation project(":time:time-di")
+    implementation project(":thread:thread-di")
     implementation project(":ui:ui-mvp")
     implementation project(":ui:ui-progressbar")
     implementation project(":ui:ui-progressbar")

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.di.coroutines
+package com.fondesa.manganow.thread.di
 
 import dagger.Module
 import dagger.Provides
@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
 @Module
-class CoroutinesModule {
+class ThreadModule {
 
     @Provides
     fun provideUiCoroutinesDispatcher(): CoroutineContext = Dispatchers.Main

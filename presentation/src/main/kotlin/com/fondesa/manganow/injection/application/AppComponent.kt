@@ -18,11 +18,11 @@ package com.fondesa.manganow.injection.application
 
 import android.app.Application
 import com.fondesa.manganow.application.App
-import com.fondesa.manganow.core.di.CoreModule
 import com.fondesa.manganow.database.di.DatabaseModule
 import com.fondesa.manganow.injection.database.DatabaseGraphModule
 import com.fondesa.manganow.log.di.LogModule
 import com.fondesa.manganow.remote.di.RemoteModule
+import com.fondesa.manganow.thread.di.ThreadModule
 import com.fondesa.manganow.time.di.TimeModule
 import dagger.BindsInstance
 import dagger.Component
@@ -35,7 +35,7 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         AppModule::class,
-        CoreModule::class,
+        ThreadModule::class,
         TimeModule::class,
         LogModule::class,
         RemoteModule::class,
