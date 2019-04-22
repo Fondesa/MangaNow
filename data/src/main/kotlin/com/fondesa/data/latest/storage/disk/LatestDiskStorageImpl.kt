@@ -23,8 +23,8 @@ import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.manga.model.Manga
-import com.fondesa.manganow.chapter.api.Chapter
 import com.fondesa.manganow.database.api.client.extension.equalTo
+import com.fondesa.manganow.domain.chapter.Chapter
 import java.util.*
 
 class LatestDiskStorageImpl(

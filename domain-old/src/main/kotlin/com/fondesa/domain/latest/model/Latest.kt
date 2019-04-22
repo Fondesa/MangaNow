@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.domain.latest.model
 
-dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(':domain-old')
+import com.fondesa.domain.manga.model.Manga
+import com.fondesa.manganow.domain.chapter.Chapter
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database:database-processor')
-}
+/**
+ * Identifies a new available chapter or a new available manga.
+ *
+ * @param manga the new available manga or the manga of the new available [chapter].
+ * @param chapter the new available chapter.
+ */
+data class Latest(
+    val manga: Manga,
+    val chapter: Chapter
+)

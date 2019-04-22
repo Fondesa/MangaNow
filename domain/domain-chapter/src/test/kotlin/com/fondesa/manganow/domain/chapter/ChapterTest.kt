@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,30 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.domain.chapter
 
-dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(':domain-old')
+import org.junit.Test
+import java.util.*
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
+/**
+ * Tests for [Chapter].
+ */
+class ChapterTest {
 
-    kapt project(':database:database-processor')
+    @Test
+    fun areEquals() {
+        assert(createChapter() == createChapter())
+    }
+
+    @Test
+    fun sameHashCode() {
+        assert(createChapter().hashCode() == createChapter().hashCode())
+    }
+
+    private fun createChapter() = Chapter(
+        id = "dummy-id",
+        releaseDate = Date(1526746822797),
+        number = 34.5,
+        title = null
+    )
 }

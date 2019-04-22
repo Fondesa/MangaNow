@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.domain.chapter
 
-dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(':domain-old')
+import java.util.*
 
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database:database-processor')
-}
+/**
+ * Identifies a chapter of a manga.
+ *
+ * @param id the chapter's id.
+ * @param releaseDate the date in which the chapter was released.
+ * @param number the chapter's number.
+ * @param title the optional chapter's title.
+ */
+data class Chapter(
+    val id: String,
+    val releaseDate: Date,
+    val number: Double,
+    val title: String?
+)

@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
-}
-
-add "data"
-add "domain"
-add "presentation"
+include ':data'
+include ':domain-old'
+include ':presentation'
 
 include ':core:core-api'
 include ':core:core-di'
@@ -48,4 +44,7 @@ include ':thread:thread-api'
 include ':thread:thread-di'
 include ':testing:testing-jvm'
 include ':testing:testing-android'
-include ':chapter:chapter-api'
+include ':domain:domain-chapter'
+include ':domain:domain-manga'
+include ':domain:domain-category'
+include ':domain:domain-page'
