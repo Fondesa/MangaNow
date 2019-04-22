@@ -2,15 +2,18 @@
 
 scriptDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 projectDir=$(dirname ${scriptDir})
-constantSourcePath=src/main/kotlin/com/fondesa/manganow
 
 function createSubModuleFoldersAndFiles() {
     local moduleName=$1
     local subModuleName=$2
     local subModuleDir=${projectDir}/${moduleName}/${moduleName}-${subModuleName}
 
+    local constantSourcePath=src/main/kotlin/com/fondesa/manganow
+    local constantTestSourcePath=src/test/kotlin/com/fondesa/manganow
+
     # Create all the default folders.
     mkdir -p ${subModuleDir}/${constantSourcePath}/${moduleName}/${subModuleName}
+    mkdir -p ${subModuleDir}/${constantTestSourcePath}/${moduleName}/${subModuleName}
     # Create an empty build.gradle file.
     touch -a ${subModuleDir}/build.gradle
 }
