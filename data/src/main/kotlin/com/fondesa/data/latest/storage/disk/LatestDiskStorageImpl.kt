@@ -20,16 +20,16 @@ import com.fondesa.data.chapter.ChapterTable
 import com.fondesa.data.latest.database.LatestTable
 import com.fondesa.data.manga.database.MangaTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
-import com.fondesa.database.api.DatabaseClient
-import com.fondesa.database.api.clause.ConflictType
-import com.fondesa.database.api.extension.equalTo
-import com.fondesa.database.api.statement.Insert
-import com.fondesa.database.api.statement.Select
-import com.fondesa.database.api.statement.Update
 import com.fondesa.domain.chapter.model.Chapter
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.manga.model.Manga
+import com.fondesa.manganow.database.api.DatabaseClient
+import com.fondesa.manganow.database.api.clause.ConflictType
+import com.fondesa.manganow.database.api.extension.equalTo
+import com.fondesa.manganow.database.api.statement.Insert
+import com.fondesa.manganow.database.api.statement.Select
+import com.fondesa.manganow.database.api.statement.Update
 import java.util.*
 
 class LatestDiskStorageImpl(

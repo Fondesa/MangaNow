@@ -16,11 +16,11 @@
 
 package com.fondesa.data.remote.database
 
-import com.fondesa.database.annotations.Column
-import com.fondesa.database.annotations.Table
-import com.fondesa.database.api.structure.IntegerColumnConfig
-import com.fondesa.database.api.structure.RealColumnConfig
-import com.fondesa.database.api.structure.TextColumnConfig
+import com.fondesa.manganow.database.annotations.Column
+import com.fondesa.manganow.database.annotations.Table
+import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
+import com.fondesa.manganow.database.api.structure.RealColumnConfig
+import com.fondesa.manganow.database.api.structure.TextColumnConfig
 
 @Table("remote_task")
 object RemoteTaskTableConfig {

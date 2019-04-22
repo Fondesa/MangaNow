@@ -18,12 +18,12 @@ package com.fondesa.data.sortorder.storage.disk
 
 import com.fondesa.data.sortorder.database.SortOrderTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
-import com.fondesa.database.api.DatabaseClient
-import com.fondesa.database.api.clause.ConflictType
-import com.fondesa.database.api.statement.Insert
-import com.fondesa.database.api.statement.Select
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.manganow.database.api.DatabaseClient
+import com.fondesa.manganow.database.api.clause.ConflictType
+import com.fondesa.manganow.database.api.statement.Insert
+import com.fondesa.manganow.database.api.statement.Select
 
 class SortOrderDiskStorageImpl(
     client: DatabaseClient,

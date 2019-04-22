@@ -17,8 +17,8 @@
 package com.fondesa.data.storage.remote
 
 import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.remote.api.client.RemoteClient
-import com.fondesa.remote.api.task.RemoteTask
+import com.fondesa.manganow.remote.api.client.RemoteClient
+import com.fondesa.manganow.remote.api.task.RemoteTask
 
 class JsonRemoteStorage<out T>(
     private val remoteClient: RemoteClient,

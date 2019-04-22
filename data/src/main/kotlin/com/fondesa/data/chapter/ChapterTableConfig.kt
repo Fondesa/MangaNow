@@ -17,13 +17,13 @@
 package com.fondesa.data.chapter
 
 import com.fondesa.data.manga.database.MangaTableConfig
-import com.fondesa.database.annotations.Column
-import com.fondesa.database.annotations.ForeignKey
-import com.fondesa.database.annotations.Table
-import com.fondesa.database.api.structure.ForeignKeyAction
-import com.fondesa.database.api.structure.ForeignKeyConfig
-import com.fondesa.database.api.structure.IntegerColumnConfig
-import com.fondesa.database.api.structure.TextColumnConfig
+import com.fondesa.manganow.database.annotations.Column
+import com.fondesa.manganow.database.annotations.ForeignKey
+import com.fondesa.manganow.database.annotations.Table
+import com.fondesa.manganow.database.api.structure.ForeignKeyAction
+import com.fondesa.manganow.database.api.structure.ForeignKeyConfig
+import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
+import com.fondesa.manganow.database.api.structure.TextColumnConfig
 
 @Table("chapter")
 object ChapterTableConfig {

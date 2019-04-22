@@ -16,12 +16,12 @@
 
 package com.fondesa.manganow.splash
 
-import com.fondesa.core.coroutines.trying
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.usecase.GetCategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
+import com.fondesa.manganow.core.coroutines.trying
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
 import com.fondesa.manganow.presenter.AbstractPresenter

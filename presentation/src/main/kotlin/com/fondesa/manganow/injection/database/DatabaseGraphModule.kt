@@ -17,7 +17,7 @@
 package com.fondesa.manganow.injection.database
 
 import com.fondesa.data.database.AppGraph
-import com.fondesa.database.api.structure.Graph
+import com.fondesa.manganow.database.api.structure.Graph
 import dagger.Module
 import dagger.Provides
 

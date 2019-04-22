@@ -16,10 +16,10 @@
 
 package com.fondesa.data.sortorder.database
 
-import com.fondesa.database.annotations.Column
-import com.fondesa.database.annotations.Table
-import com.fondesa.database.api.structure.IntegerColumnConfig
-import com.fondesa.database.api.structure.TextColumnConfig
+import com.fondesa.manganow.database.annotations.Column
+import com.fondesa.manganow.database.annotations.Table
+import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
+import com.fondesa.manganow.database.api.structure.TextColumnConfig
 
 @Table("sort_order")
 object SortOrderTableConfig {

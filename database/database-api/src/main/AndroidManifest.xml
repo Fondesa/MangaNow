@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.fondesa.database.api" />
+<manifest package="com.fondesa.manganow.database.api" />

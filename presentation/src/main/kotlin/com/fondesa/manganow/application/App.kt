@@ -16,11 +16,11 @@
 
 package com.fondesa.manganow.application
 
-import com.fondesa.core.lifecycle.AppInitializer
-import com.fondesa.database.api.DatabaseClient
-import com.fondesa.log.api.Log
-import com.fondesa.log.api.Logger
+import com.fondesa.manganow.core.lifecycle.AppInitializer
+import com.fondesa.manganow.database.api.DatabaseClient
 import com.fondesa.manganow.injection.application.DaggerAppComponent
+import com.fondesa.manganow.log.api.Log
+import com.fondesa.manganow.log.api.Logger
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

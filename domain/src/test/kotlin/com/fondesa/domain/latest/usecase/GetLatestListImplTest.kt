@@ -16,11 +16,11 @@
 
 package com.fondesa.domain.latest.usecase
 
-import com.fondesa.core.test.runUnitBlocking
 import com.fondesa.domain.chapter.model.Chapter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.repository.LatestRepository
 import com.fondesa.domain.manga.model.Manga
+import com.fondesa.manganow.core.test.runUnitBlocking
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever

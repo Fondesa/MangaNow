@@ -17,13 +17,13 @@
 package com.fondesa.data.storage.disk
 
 import com.fondesa.data.remote.database.RemoteTaskTable
-import com.fondesa.database.api.DatabaseClient
-import com.fondesa.database.api.clause.ConflictType
-import com.fondesa.database.api.extension.and
-import com.fondesa.database.api.extension.equalTo
-import com.fondesa.database.api.extension.majorThan
-import com.fondesa.database.api.statement.Insert
-import com.fondesa.database.api.statement.Select
+import com.fondesa.manganow.database.api.DatabaseClient
+import com.fondesa.manganow.database.api.clause.ConflictType
+import com.fondesa.manganow.database.api.extension.and
+import com.fondesa.manganow.database.api.extension.equalTo
+import com.fondesa.manganow.database.api.extension.majorThan
+import com.fondesa.manganow.database.api.statement.Insert
+import com.fondesa.manganow.database.api.statement.Select
 
 abstract class SQLiteDiskStorage<T>(
     client: DatabaseClient,

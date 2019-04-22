@@ -16,9 +16,9 @@
 
 package com.fondesa.domain.category.usecase
 
-import com.fondesa.core.test.runUnitBlocking
 import com.fondesa.domain.category.model.Category
 import com.fondesa.domain.category.repository.CategoryRepository
+import com.fondesa.manganow.core.test.runUnitBlocking
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
