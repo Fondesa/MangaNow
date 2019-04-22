@@ -21,9 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
-import com.google.android.material.navigation.NavigationView
 
 inline fun View.doOnLayout(crossinline block: () -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -44,13 +42,3 @@ fun ViewGroup.inflateChild(@LayoutRes layout: Int): View = LayoutInflater.from(c
     this,
     false
 )
-
-@IdRes
-fun NavigationView.getCheckedItem(): Int {
-    val menu = menu
-    return (0 until menu.size()).map {
-        menu.getItem(it)
-    }.firstOrNull {
-        it.isChecked
-    }?.itemId ?: View.NO_ID
-}

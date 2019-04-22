@@ -24,7 +24,8 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Adapter used to define the gestures on the rows of a [RecyclerView].
  */
-abstract class InteractiveRecyclerViewAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<InteractiveRecyclerViewHolder>() {
+abstract class InteractiveRecyclerViewAdapter :
+    RecyclerView.Adapter<InteractiveRecyclerViewHolder>() {
 
     /**
      * Constructs the [InteractiveRecyclerViewHolder] for a given [View].
@@ -33,7 +34,10 @@ abstract class InteractiveRecyclerViewAdapter: androidx.recyclerview.widget.Recy
      * @param viewType the view type of the new [View].
      * @return new instance of [InteractiveRecyclerViewHolder].
      */
-    abstract fun onConstructViewHolder(parent: ViewGroup, viewType: Int): InteractiveRecyclerViewHolder
+    abstract fun onConstructViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): InteractiveRecyclerViewHolder
 
     /**
      * Called when a view in a row (or its root view) is clicked.
@@ -60,7 +64,10 @@ abstract class InteractiveRecyclerViewAdapter: androidx.recyclerview.widget.Recy
      */
     open fun onCellTouch(view: View, position: Int, event: MotionEvent): Boolean = false
 
-    final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InteractiveRecyclerViewHolder {
+    final override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): InteractiveRecyclerViewHolder {
         val holder = onConstructViewHolder(parent, viewType)
         holder.interactions.forEach {
             addGestureToView(holder, it.view, it.gesture)
@@ -68,7 +75,11 @@ abstract class InteractiveRecyclerViewAdapter: androidx.recyclerview.widget.Recy
         return holder
     }
 
-    private fun addGestureToView(holder: InteractiveRecyclerViewHolder, v: View, gesture: RecyclerViewRowGesture) {
+    private fun addGestureToView(
+        holder: InteractiveRecyclerViewHolder,
+        v: View,
+        gesture: RecyclerViewRowGesture
+    ) {
         when (gesture) {
             RecyclerViewRowGesture.CLICK -> v.setOnClickListener { view ->
                 onCellClick(view, holder.adapterPosition)
