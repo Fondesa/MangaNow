@@ -18,6 +18,7 @@ package com.fondesa.manganow.injection.application
 
 import android.app.Application
 import com.fondesa.manganow.application.App
+import com.fondesa.manganow.core.di.CoreModule
 import com.fondesa.manganow.database.di.DatabaseModule
 import com.fondesa.manganow.injection.database.DatabaseGraphModule
 import com.fondesa.manganow.log.di.LogModule
@@ -30,8 +31,8 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [AndroidSupportInjectionModule::class, AppModule::class, LogModule::class,
-        RemoteModule::class, DatabaseModule::class, DatabaseGraphModule::class]
+    modules = [AndroidSupportInjectionModule::class, AppModule::class, CoreModule::class,
+        LogModule::class, RemoteModule::class, DatabaseModule::class, DatabaseGraphModule::class]
 )
 interface AppComponent : AndroidInjector<App> {
 

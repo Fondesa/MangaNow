@@ -22,10 +22,10 @@ import com.fondesa.domain.category.usecase.GetCategoryList
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.usecase.GetSortOrderList
 import com.fondesa.manganow.core.api.coroutines.trying
+import com.fondesa.manganow.core.api.time.Scheduler
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.navigation.Screen
 import com.fondesa.manganow.presenter.AbstractPresenter
-import com.fondesa.manganow.time.Scheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

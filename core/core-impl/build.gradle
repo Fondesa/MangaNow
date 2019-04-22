@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,12 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+apply plugin: 'com.android.library'
+apply plugin: 'common-android'
+
+dependencies {
+    compileOnly deps.javaxInject
+
+    api project(':core:core-api')
+    api deps.kotlinStdLib
 }
-
-add "data"
-add "domain"
-add "presentation"
-
-include ':core:core-api'
-include ':core:core-di'
-include ':core:core-impl'
-include ':core:core-test'
-include ':log:log-api'
-include ':log:log-di'
-include ':log:log-impl'
-include ':remote:remote-api'
-include ':remote:remote-di'
-include ':remote:remote-impl'
-include ':database:database-annotations'
-include ':database:database-api'
-include ':database:database-di'
-include ':database:database-impl'
-include ':database:database-processor'

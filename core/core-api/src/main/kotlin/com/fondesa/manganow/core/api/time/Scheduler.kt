@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.time
-
-import android.os.Handler
-import java.util.*
+package com.fondesa.manganow.core.api.time
 
 /**
  * Used to schedule a task which will be executed after a certain period of time.
- * The [Scheduler] is only a layer to avoid the direct usage of [Handler] or [Timer].
+ * The [Scheduler] is only a layer to avoid the direct usage of Android time API.
  */
 interface Scheduler {
 

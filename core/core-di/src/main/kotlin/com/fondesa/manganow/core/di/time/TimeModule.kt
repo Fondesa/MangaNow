@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+package com.fondesa.manganow.core.di.time
+
+import com.fondesa.manganow.core.api.time.Scheduler
+import com.fondesa.manganow.core.impl.time.HandlerScheduler
+import dagger.Binds
+import dagger.Module
+
+@Module
+interface TimeModule {
+
+    @Binds
+    fun provideScheduler(scheduler: HandlerScheduler): Scheduler
 }
-
-add "data"
-add "domain"
-add "presentation"
-
-include ':core:core-api'
-include ':core:core-di'
-include ':core:core-impl'
-include ':core:core-test'
-include ':log:log-api'
-include ':log:log-di'
-include ':log:log-impl'
-include ':remote:remote-api'
-include ':remote:remote-di'
-include ':remote:remote-impl'
-include ':database:database-annotations'
-include ':database:database-api'
-include ':database:database-di'
-include ':database:database-impl'
-include ':database:database-processor'

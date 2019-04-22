@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-def add(String module) {
-    include ":$module"
+package com.fondesa.manganow.core.di.coroutines
+
+import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
+
+@Module
+class CoroutinesModule {
+
+    @Provides
+    fun provideUiCoroutinesDispatcher(): CoroutineContext = Dispatchers.Main
 }
-
-add "data"
-add "domain"
-add "presentation"
-
-include ':core:core-api'
-include ':core:core-di'
-include ':core:core-impl'
-include ':core:core-test'
-include ':log:log-api'
-include ':log:log-di'
-include ':log:log-impl'
-include ':remote:remote-api'
-include ':remote:remote-di'
-include ':remote:remote-impl'
-include ':database:database-annotations'
-include ':database:database-api'
-include ':database:database-di'
-include ':database:database-impl'
-include ':database:database-processor'

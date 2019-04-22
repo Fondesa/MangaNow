@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.time
+package com.fondesa.manganow.core.impl.time
 
 import android.os.Handler
+import com.fondesa.manganow.core.api.time.Scheduler
 import javax.inject.Inject
 
 /**
