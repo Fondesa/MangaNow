@@ -20,7 +20,7 @@ apply plugin: 'common-android'
 dependencies {
     compileOnly deps.javaxInject
 
-    api project(':core:core-coroutines')
+    api project(':core:core-api')
     api project(":log:log-api")
     api project(':database:database-annotations')
     api project(":database:database-api")

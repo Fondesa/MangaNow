@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.coroutines
+package com.fondesa.manganow.core.api.coroutines
 
 import kotlinx.coroutines.*
 

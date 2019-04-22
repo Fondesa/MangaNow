@@ -19,7 +19,7 @@ package com.fondesa.domain.latest.usecase
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.repository.LatestRepository
-import com.fondesa.manganow.core.coroutines.asyncAwait
+import com.fondesa.manganow.core.api.coroutines.asyncAwait
 import javax.inject.Inject
 
 /**

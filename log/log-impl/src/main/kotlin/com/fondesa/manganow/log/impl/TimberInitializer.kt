@@ -16,11 +16,10 @@
 
 package com.fondesa.manganow.log.impl
 
-import com.fondesa.manganow.core.lifecycle.AppInitializer
 import timber.log.Timber
 import javax.inject.Inject
 
-class TimberInitializer @Inject constructor() : AppInitializer {
+class TimberInitializer @Inject constructor() : com.fondesa.manganow.core.api.AppInitializer {
 
     override fun initialize() {
         if (BuildConfig.DEBUG) {

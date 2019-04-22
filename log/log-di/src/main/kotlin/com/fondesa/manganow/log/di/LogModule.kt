@@ -16,7 +16,6 @@
 
 package com.fondesa.manganow.log.di
 
-import com.fondesa.manganow.core.lifecycle.AppInitializer
 import com.fondesa.manganow.log.api.Logger
 import com.fondesa.manganow.log.impl.TimberInitializer
 import com.fondesa.manganow.log.impl.TimberLogger
@@ -32,5 +31,5 @@ interface LogModule {
 
     @Binds
     @IntoSet
-    fun provideTimberInitializer(initializer: TimberInitializer): AppInitializer
+    fun provideTimberInitializer(initializer: TimberInitializer): com.fondesa.manganow.core.api.AppInitializer
 }

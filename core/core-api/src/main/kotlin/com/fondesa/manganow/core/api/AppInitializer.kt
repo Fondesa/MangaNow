@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.core.lifecycle
+package com.fondesa.manganow.core.api
 
 interface AppInitializer {
 

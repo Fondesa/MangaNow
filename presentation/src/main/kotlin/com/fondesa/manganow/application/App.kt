@@ -16,8 +16,7 @@
 
 package com.fondesa.manganow.application
 
-import com.fondesa.manganow.core.lifecycle.AppInitializer
-import com.fondesa.manganow.database.api.DatabaseClient
+import com.fondesa.manganow.core.api.AppInitializer
 import com.fondesa.manganow.injection.application.DaggerAppComponent
 import com.fondesa.manganow.log.api.Log
 import com.fondesa.manganow.log.api.Logger
@@ -33,9 +32,6 @@ class App : DaggerApplication() {
 
     @Inject
     lateinit var appInitializers: Set<@JvmSuppressWildcards AppInitializer>
-
-    @Inject
-    lateinit var databaseClient: DatabaseClient
 
     override fun onCreate() {
         super.onCreate()
@@ -53,8 +49,6 @@ class App : DaggerApplication() {
         appInitializers.forEach {
             it.initialize()
         }
-
-        databaseClient.createDatabase()
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =

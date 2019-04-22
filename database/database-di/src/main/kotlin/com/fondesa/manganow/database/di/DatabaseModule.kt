@@ -16,7 +16,9 @@
 
 package com.fondesa.manganow.database.di
 
+import com.fondesa.manganow.core.api.AppInitializer
 import com.fondesa.manganow.database.api.DatabaseClient
+import com.fondesa.manganow.database.impl.DatabaseInitializer
 import com.fondesa.manganow.database.impl.SQLiteClient
 import com.fondesa.manganow.database.impl.qualifiers.SQLiteDatabaseInfo
 import com.fondesa.manganow.database.impl.strategy.DropAllUpgradeStrategy
@@ -26,6 +28,7 @@ import com.fondesa.manganow.database.impl.strategy.VacuumErrorStrategy
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.IntoSet
 import javax.inject.Singleton
 
 @Module(includes = [DatabaseModule.WithProvides::class])
@@ -34,6 +37,10 @@ interface DatabaseModule {
     @Singleton
     @Binds
     fun provideDatabaseClient(client: SQLiteClient): DatabaseClient
+
+    @Binds
+    @IntoSet
+    fun provideDatabaseInitializer(initializer: DatabaseInitializer): AppInitializer
 
     @Module
     object WithProvides {

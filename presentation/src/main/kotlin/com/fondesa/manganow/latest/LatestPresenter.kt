@@ -19,7 +19,7 @@ package com.fondesa.manganow.latest
 import com.fondesa.data.converter.Converter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.usecase.GetLatestList
-import com.fondesa.manganow.core.coroutines.trying
+import com.fondesa.manganow.core.api.coroutines.trying
 import com.fondesa.manganow.log.api.Log
 import com.fondesa.manganow.navigation.Navigator
 import com.fondesa.manganow.presenter.AbstractPresenter

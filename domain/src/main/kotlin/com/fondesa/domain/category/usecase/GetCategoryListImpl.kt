@@ -18,7 +18,7 @@ package com.fondesa.domain.category.usecase
 
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.domain.category.repository.CategoryRepository
-import com.fondesa.manganow.core.coroutines.asyncAwait
+import com.fondesa.manganow.core.api.coroutines.asyncAwait
 import javax.inject.Inject
 
 /**
@@ -30,7 +30,8 @@ import javax.inject.Inject
 class GetCategoryListImpl @Inject constructor(private val repository: CategoryRepository) :
     GetCategoryList {
 
-    override suspend fun execute(): CategoryList = asyncAwait {
-        repository.getAll()
-    }
+    override suspend fun execute(): CategoryList =
+        asyncAwait {
+            repository.getAll()
+        }
 }

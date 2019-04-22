@@ -18,7 +18,7 @@ package com.fondesa.domain.sortorder.usecase
 
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.repository.SortOrderRepository
-import com.fondesa.manganow.core.coroutines.asyncAwait
+import com.fondesa.manganow.core.api.coroutines.asyncAwait
 import javax.inject.Inject
 
 /**

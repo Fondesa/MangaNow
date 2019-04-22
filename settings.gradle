@@ -22,8 +22,7 @@ add "data"
 add "domain"
 add "presentation"
 
-include ':core:core-coroutines'
-include ':core:core-lifecycle'
+include ':core:core-api'
 include ':core:core-test'
 include ':log:log-api'
 include ':log:log-di'

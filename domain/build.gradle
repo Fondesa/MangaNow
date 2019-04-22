@@ -17,7 +17,7 @@
 apply plugin: 'common-jvm'
 
 dependencies {
-    compile project(':core:core-coroutines')
+    compile project(':core:core-api')
 
     compile deps.kotlinStdLib
     compile deps.javaxInject

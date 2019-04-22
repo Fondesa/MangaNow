@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+package com.fondesa.manganow.database.impl
 
-dependencies {
-    compile deps.kotlinStdLib
+import com.fondesa.manganow.core.api.AppInitializer
+import com.fondesa.manganow.database.api.DatabaseClient
+import javax.inject.Inject
+
+class DatabaseInitializer @Inject constructor(private val client: DatabaseClient): AppInitializer {
+
+    override fun initialize() {
+        client.createDatabase()
+    }
 }
