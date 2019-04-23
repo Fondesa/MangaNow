@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.chapter
+package com.fondesa.manganow.domain.page
 
 import com.fondesa.manganow.database.annotations.Column
 import com.fondesa.manganow.database.annotations.ForeignKey
@@ -23,28 +23,22 @@ import com.fondesa.manganow.database.api.structure.ForeignKeyAction
 import com.fondesa.manganow.database.api.structure.ForeignKeyConfig
 import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
 import com.fondesa.manganow.database.api.structure.TextColumnConfig
-import com.fondesa.manganow.domain.manga.MangaTableConfig
+import com.fondesa.manganow.domain.chapter.ChapterTableConfig
 
-@Table("chapter")
-object ChapterTableConfig {
-
-    @Column("id")
-    val COL_ID = TextColumnConfig().primaryKey()
-
-    @Column("title")
-    val COL_TITLE = TextColumnConfig()
+@Table("page", withRowId = false)
+object PageTableConfig {
 
     @Column("number")
-    val COL_NUMBER = IntegerColumnConfig().notNull()
+    val COL_NUMBER = IntegerColumnConfig().primaryKey()
 
-    @Column("release_date")
-    val COL_RELEASE_DATE = IntegerColumnConfig().notNull()
+    @Column("image_url")
+    val COL_IMAGE_URL = TextColumnConfig().notNull()
 
-    @Column("manga_id")
-    val COL_MANGA_ID = IntegerColumnConfig().notNull()
+    @Column("chapter_id")
+    val COL_CHAPTER_ID = IntegerColumnConfig().primaryKey().notNull()
 
-    @ForeignKey(MangaTableConfig::class)
-    val MANGA_ID_FK = ForeignKeyConfig.from("manga_id")
+    @ForeignKey(ChapterTableConfig::class)
+    val MANGA_ID_FK = ForeignKeyConfig.from("chapter_id")
         .to("id")
         .onDelete(ForeignKeyAction.CASCADE)
         .onUpdate(ForeignKeyAction.CASCADE)

@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.domain.category
+package com.fondesa.manganow.domain.page
 
-import com.fondesa.manganow.database.annotations.Column
-import com.fondesa.manganow.database.annotations.Table
-import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
-import com.fondesa.manganow.database.api.structure.TextColumnConfig
-
-@Table("category")
-object CategoryTableConfig {
-
-    @Column("id")
-    val COL_ID = IntegerColumnConfig().primaryKey()
-
-    @Column("name")
-    val COL_NAME = TextColumnConfig().unique()
-}
+/**
+ * Created by antoniolig on 17/09/17.
+ */
+data class Page(val number: Int, val imageUrl: String)

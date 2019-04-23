@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.latest.database
+package com.fondesa.manganow.domain.chapter
 
-import com.fondesa.data.remote.database.RemoteTaskTableConfig
 import com.fondesa.manganow.database.annotations.Column
 import com.fondesa.manganow.database.annotations.ForeignKey
 import com.fondesa.manganow.database.annotations.Table
@@ -24,35 +23,28 @@ import com.fondesa.manganow.database.api.structure.ForeignKeyAction
 import com.fondesa.manganow.database.api.structure.ForeignKeyConfig
 import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
 import com.fondesa.manganow.database.api.structure.TextColumnConfig
-import com.fondesa.manganow.domain.chapter.ChapterTableConfig
 import com.fondesa.manganow.domain.manga.MangaTableConfig
 
-@Table("latest", withRowId = false)
-object LatestTableConfig {
+@Table("chapter", withRowId = false)
+object ChapterTableConfig {
 
-    @Column("remote_task_id")
-    val COL_REMOTE_TASK_ID = IntegerColumnConfig().primaryKey()
+    @Column("id")
+    val COL_ID = TextColumnConfig().primaryKey()
+
+    @Column("title")
+    val COL_TITLE = TextColumnConfig()
+
+    @Column("number")
+    val COL_NUMBER = IntegerColumnConfig().notNull()
+
+    @Column("release_date")
+    val COL_RELEASE_DATE = IntegerColumnConfig().notNull()
 
     @Column("manga_id")
-    val COL_MANGA_ID = IntegerColumnConfig().primaryKey()
-
-    @Column("chapter_id")
-    val COL_CHAPTER_ID = TextColumnConfig().primaryKey()
-
-    @ForeignKey(RemoteTaskTableConfig::class)
-    val REMOTE_TASK_ID_FK = ForeignKeyConfig.from("remote_task_id")
-        .to("id")
-        .onDelete(ForeignKeyAction.CASCADE)
-        .onUpdate(ForeignKeyAction.CASCADE)
+    val COL_MANGA_ID = IntegerColumnConfig().notNull()
 
     @ForeignKey(MangaTableConfig::class)
     val MANGA_ID_FK = ForeignKeyConfig.from("manga_id")
-        .to("id")
-        .onDelete(ForeignKeyAction.CASCADE)
-        .onUpdate(ForeignKeyAction.CASCADE)
-
-    @ForeignKey(ChapterTableConfig::class)
-    val CHAPTER_ID_FK = ForeignKeyConfig.from("chapter_id")
         .to("id")
         .onDelete(ForeignKeyAction.CASCADE)
         .onUpdate(ForeignKeyAction.CASCADE)

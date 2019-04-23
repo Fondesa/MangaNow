@@ -19,6 +19,7 @@ apply plugin: 'common-jvm'
 dependencies {
     compile project(":database:database-annotations")
     compile project(":database:database-api-structure")
+    compile project(":domain:domain-manga")
     compile deps.dagger
     compile deps.kotlinStdLib
 
