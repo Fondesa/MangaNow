@@ -36,14 +36,19 @@ class DatabaseProcessor : BasicAnnotationProcessor() {
 
     override fun initSteps(): Iterable<ProcessingStep> {
         // Get the source directory.
-        val kaptGeneratedDirPath = options["kapt.kotlin.generated"]?.replace("kaptKotlin", "kapt")
-
+        val kaptGeneratedDirPath = options["kapt.kotlin.generated"]
         if (kaptGeneratedDirPath == null) {
             messenger.printError("Can't find the target directory for generated Kotlin files.")
             return emptyList()
         }
 
-        val kaptGeneratedDir = File(kaptGeneratedDirPath)
+        val normalizedKaptGeneratedDirPath = if (options.containsKey("androidProcessing")) {
+            kaptGeneratedDirPath.replace("kaptKotlin", "kapt")
+        } else {
+            kaptGeneratedDirPath
+        }
+
+        val kaptGeneratedDir = File(normalizedKaptGeneratedDirPath)
         val parentFile = kaptGeneratedDir.parentFile
         if (!parentFile.exists()) {
             parentFile.mkdirs()

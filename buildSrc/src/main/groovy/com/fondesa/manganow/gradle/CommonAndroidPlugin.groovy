@@ -48,10 +48,21 @@ class CommonAndroidPlugin implements Plugin<Project> {
                     animationsDisabled = true
                 }
 
-                kapt.useBuildCache = true
 
                 sourceSets.forEach {
                     it.java.srcDirs += "src/${it.name}/kotlin"
+                }
+            }
+
+            kapt {
+                useBuildCache = true
+                // All the kapt arguments are ignored if they can't be handled by the single module.
+                arguments {
+                    // Arguments needed by Dagger.
+                    arg("dagger.formatGeneratedSource", "disabled")
+                    arg("dagger.gradle.incremental")
+                    // Arguments needed by DatabaseProcessor.
+                    arg("androidProcessing")
                 }
             }
         }

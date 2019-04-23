@@ -16,7 +16,6 @@
 
 package com.fondesa.manganow.gradle
 
-import groovy.io.FileType
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -28,14 +27,17 @@ class CommonJvmPlugin implements Plugin<Project> {
             apply plugin: 'kotlin'
             apply plugin: 'kotlin-kapt'
 
-            kapt.useBuildCache = true
-
-            def kaptDir = new File("$buildDir/generated/source/kapt/main/")
-            if (kaptDir.exists()) {
-                kaptDir.eachFileRecurse(FileType.DIRECTORIES) {
-                    sourceSets.main.java.srcDirs += it.absolutePath
+            kapt {
+                useBuildCache = true
+                // All the kapt arguments are ignored if they can't be handled by the single module.
+                arguments {
+                    // Arguments needed by Dagger.
+                    arg("dagger.formatGeneratedSource", "disabled")
+                    arg("dagger.gradle.incremental")
                 }
             }
+
+            sourceSets.main.java.srcDir "$buildDir/generated/source/kaptKotlin/main"
         }
     }
 }
