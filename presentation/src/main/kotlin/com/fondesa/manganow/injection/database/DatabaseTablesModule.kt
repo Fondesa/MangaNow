@@ -18,10 +18,10 @@ package com.fondesa.manganow.injection.database
 
 import com.fondesa.data.chapter.ChapterTableModule
 import com.fondesa.data.latest.database.LatestTableModule
-import com.fondesa.data.manga.database.MangaTableModule
 import com.fondesa.data.remote.database.RemoteTaskTableModule
 import com.fondesa.data.sortorder.database.SortOrderTableModule
 import com.fondesa.manganow.domain.category.CategoryTableModule
+import com.fondesa.manganow.domain.manga.MangaTableModule
 import dagger.Module
 
 @Module(

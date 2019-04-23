@@ -18,13 +18,13 @@ package com.fondesa.data.latest.storage.disk
 
 import com.fondesa.data.chapter.ChapterTable
 import com.fondesa.data.latest.database.LatestTable
-import com.fondesa.data.manga.database.MangaTable
 import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.database.api.client.extension.equalTo
 import com.fondesa.manganow.domain.chapter.Chapter
+import com.fondesa.manganow.domain.manga.Manga
+import com.fondesa.manganow.domain.manga.MangaTable
 import java.util.*
 
 class LatestDiskStorageImpl(
@@ -102,61 +102,69 @@ class LatestDiskStorageImpl(
 
     private object Statements {
 
-        fun selectLatest(cacheId: Long) = com.fondesa.manganow.database.api.client.statement.Select.from(LatestTable.NAME)
-            .columns(
-                LatestTable.COL_REMOTE_TASK_ID,
-                LatestTable.COL_MANGA_ID,
-                LatestTable.COL_CHAPTER_ID,
-                MangaTable.COL_TITLE,
-                MangaTable.COL_ALIAS,
-                MangaTable.COL_IMAGE_URL,
-                ChapterTable.COL_TITLE,
-                ChapterTable.COL_NUMBER,
-                ChapterTable.COL_RELEASE_DATE
-            )
-            .where(LatestTable.COL_REMOTE_TASK_ID.equalTo(cacheId))
-            .innerJoin(ChapterTable.NAME, LatestTable.COL_CHAPTER_ID.equalTo(ChapterTable.COL_ID))
-            .innerJoin(MangaTable.NAME, LatestTable.COL_MANGA_ID.equalTo(MangaTable.COL_ID))
-            .orderDesc(ChapterTable.COL_RELEASE_DATE)
-            .build()
+        fun selectLatest(cacheId: Long) =
+            com.fondesa.manganow.database.api.client.statement.Select.from(LatestTable.NAME)
+                .columns(
+                    LatestTable.COL_REMOTE_TASK_ID,
+                    LatestTable.COL_MANGA_ID,
+                    LatestTable.COL_CHAPTER_ID,
+                    MangaTable.COL_TITLE,
+                    MangaTable.COL_ALIAS,
+                    MangaTable.COL_IMAGE_URL,
+                    ChapterTable.COL_TITLE,
+                    ChapterTable.COL_NUMBER,
+                    ChapterTable.COL_RELEASE_DATE
+                )
+                .where(LatestTable.COL_REMOTE_TASK_ID.equalTo(cacheId))
+                .innerJoin(
+                    ChapterTable.NAME,
+                    LatestTable.COL_CHAPTER_ID.equalTo(ChapterTable.COL_ID)
+                )
+                .innerJoin(MangaTable.NAME, LatestTable.COL_MANGA_ID.equalTo(MangaTable.COL_ID))
+                .orderDesc(ChapterTable.COL_RELEASE_DATE)
+                .build()
 
-        fun insertManga() = com.fondesa.manganow.database.api.client.statement.Insert.into(MangaTable.NAME)
-            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
-            .columns(
-                MangaTable.COL_ID,
-                MangaTable.COL_ALIAS,
-                MangaTable.COL_IMAGE_URL,
-                MangaTable.COL_TITLE
-            )
-            .build()
+        fun insertManga() =
+            com.fondesa.manganow.database.api.client.statement.Insert.into(MangaTable.NAME)
+                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
+                .columns(
+                    MangaTable.COL_ID,
+                    MangaTable.COL_ALIAS,
+                    MangaTable.COL_IMAGE_URL,
+                    MangaTable.COL_TITLE
+                )
+                .build()
 
-        fun updateManga(mangaId: Long) = com.fondesa.manganow.database.api.client.statement.Update.table(MangaTable.NAME)
-            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
-            .columns(
-                MangaTable.COL_IMAGE_URL,
-                MangaTable.COL_TITLE
-            )
-            .where(MangaTable.COL_ID.equalTo(mangaId))
-            .build()
+        fun updateManga(mangaId: Long) =
+            com.fondesa.manganow.database.api.client.statement.Update.table(MangaTable.NAME)
+                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
+                .columns(
+                    MangaTable.COL_IMAGE_URL,
+                    MangaTable.COL_TITLE
+                )
+                .where(MangaTable.COL_ID.equalTo(mangaId))
+                .build()
 
-        fun insertChapter() = com.fondesa.manganow.database.api.client.statement.Insert.into(ChapterTable.NAME)
-            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
-            .columns(
-                ChapterTable.COL_ID,
-                ChapterTable.COL_MANGA_ID,
-                ChapterTable.COL_RELEASE_DATE,
-                ChapterTable.COL_NUMBER,
-                ChapterTable.COL_TITLE
-            )
-            .build()
+        fun insertChapter() =
+            com.fondesa.manganow.database.api.client.statement.Insert.into(ChapterTable.NAME)
+                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
+                .columns(
+                    ChapterTable.COL_ID,
+                    ChapterTable.COL_MANGA_ID,
+                    ChapterTable.COL_RELEASE_DATE,
+                    ChapterTable.COL_NUMBER,
+                    ChapterTable.COL_TITLE
+                )
+                .build()
 
-        fun insertLatest() = com.fondesa.manganow.database.api.client.statement.Insert.into(LatestTable.NAME)
-            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
-            .columns(
-                LatestTable.COL_REMOTE_TASK_ID,
-                LatestTable.COL_MANGA_ID,
-                LatestTable.COL_CHAPTER_ID
-            )
-            .build()
+        fun insertLatest() =
+            com.fondesa.manganow.database.api.client.statement.Insert.into(LatestTable.NAME)
+                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.IGNORE)
+                .columns(
+                    LatestTable.COL_REMOTE_TASK_ID,
+                    LatestTable.COL_MANGA_ID,
+                    LatestTable.COL_CHAPTER_ID
+                )
+                .build()
     }
 }

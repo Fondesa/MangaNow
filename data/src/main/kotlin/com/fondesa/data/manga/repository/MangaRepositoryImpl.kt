@@ -16,8 +16,8 @@
 
 package com.fondesa.data.manga.repository
 
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
+import com.fondesa.manganow.domain.manga.Manga
 import javax.inject.Inject
 
 class MangaRepositoryImpl @Inject constructor(

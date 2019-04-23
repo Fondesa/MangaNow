@@ -21,8 +21,8 @@ import com.fondesa.data.serialization.asNullableString
 import com.fondesa.data.serialization.mapJsonObject
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.domain.chapter.Chapter
+import com.fondesa.manganow.domain.manga.Manga
 import com.google.gson.JsonElement
 import java.util.*
 import javax.inject.Inject

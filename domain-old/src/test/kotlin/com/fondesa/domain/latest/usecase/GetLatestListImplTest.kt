@@ -18,8 +18,8 @@ package com.fondesa.domain.latest.usecase
 
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.repository.LatestRepository
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.domain.chapter.Chapter
+import com.fondesa.manganow.domain.manga.Manga
 import com.fondesa.manganow.testing.jvm.runUnitBlocking
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify

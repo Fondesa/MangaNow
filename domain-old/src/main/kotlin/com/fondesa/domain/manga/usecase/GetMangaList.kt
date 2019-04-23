@@ -16,7 +16,7 @@
 
 package com.fondesa.domain.manga.usecase
 
-import com.fondesa.domain.manga.model.Manga
+import com.fondesa.manganow.domain.manga.Manga
 
 interface GetMangaList {
 

@@ -19,7 +19,11 @@ apply plugin: 'common-jvm'
 dependencies {
     compile project(":database:database-annotations")
     compile project(":database:database-api-structure")
+    compile deps.dagger
     compile deps.kotlinStdLib
 
     testCompile project(':testing:testing-jvm')
+
+    kapt deps.daggerCompiler
+    kapt project(':database:database-processor')
 }

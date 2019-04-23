@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.manga.database
+package com.fondesa.manganow.domain.manga
 
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.manganow.database.annotations.Column
 import com.fondesa.manganow.database.annotations.Table
 import com.fondesa.manganow.database.api.structure.IntegerColumnConfig

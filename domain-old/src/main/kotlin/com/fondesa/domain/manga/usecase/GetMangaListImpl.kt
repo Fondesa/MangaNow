@@ -16,8 +16,8 @@
 
 package com.fondesa.domain.manga.usecase
 
-import com.fondesa.domain.manga.model.Manga
 import com.fondesa.domain.manga.repository.MangaRepository
+import com.fondesa.manganow.domain.manga.Manga
 import com.fondesa.manganow.thread.api.asyncAwait
 import javax.inject.Inject
 
