@@ -17,6 +17,6 @@
 apply plugin: 'common-jvm'
 
 dependencies {
-    api deps.kotlinReflect
-    api deps.kotlinStdLib
+    compile deps.kotlinReflect
+    compile deps.kotlinStdLib
 }

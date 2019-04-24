@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.ui.navigation
+package com.fondesa.manganow.navigation.api
 
-interface Router {
+interface RouteConsumer {
 
-    fun navigate(route: Route)
+    fun consume(route: Route)
 }

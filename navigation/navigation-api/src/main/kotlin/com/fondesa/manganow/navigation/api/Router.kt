@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.ui.navigation
+package com.fondesa.manganow.navigation.api
 
-import kotlin.reflect.KClass
-import kotlin.reflect.full.cast
+interface Router {
 
-abstract class TypedRouteConsumer<T : Route>(private val routeClass: KClass<T>) : RouteConsumer {
-
-    final override fun consume(route: Route) {
-        if (routeClass.isInstance(route)) {
-            consume(routeClass.cast(route))
-        }
-    }
-
-    protected abstract fun consumeRoute(route: T)
+    fun navigate(route: Route)
 }

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.ui.navigation
+package com.fondesa.manganow.splash.di
 
-interface Route
+import dagger.Module
+
+@Module
+interface SplashModule {
+}

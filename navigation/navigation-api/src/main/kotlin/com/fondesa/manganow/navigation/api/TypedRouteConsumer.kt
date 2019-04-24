@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.navigation.api
 
-dependencies {
-    api project(":log:log-api")
-    api deps.appCompat
-    api deps.kotlinStdLib
+import kotlin.reflect.KClass
+import kotlin.reflect.full.cast
+
+abstract class TypedRouteConsumer<T : Route>(private val routeClass: KClass<T>) :
+    RouteConsumer {
+
+    final override fun consume(route: Route) {
+        if (routeClass.isInstance(route)) {
+            consume(routeClass.cast(route))
+        }
+    }
+
+    protected abstract fun consumeRoute(route: T)
 }

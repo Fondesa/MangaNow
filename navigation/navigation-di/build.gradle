@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+apply plugin: 'common-jvm'
 
 dependencies {
-    api project(":log:log-api")
-    api deps.appCompat
-    api deps.kotlinStdLib
+    compileOnly deps.javaxInject
+
+    api project(":navigation:navigation-impl")
+    api deps.dagger
+
+    kapt deps.daggerCompiler
 }

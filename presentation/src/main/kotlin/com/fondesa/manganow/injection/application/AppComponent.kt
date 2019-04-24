@@ -21,6 +21,7 @@ import com.fondesa.manganow.application.App
 import com.fondesa.manganow.database.di.DatabaseModule
 import com.fondesa.manganow.injection.database.DatabaseTablesModule
 import com.fondesa.manganow.log.di.LogModule
+import com.fondesa.manganow.navigation.di.NavigationModule
 import com.fondesa.manganow.remote.di.RemoteModule
 import com.fondesa.manganow.thread.di.ThreadModule
 import com.fondesa.manganow.time.di.TimeModule
@@ -36,6 +37,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         ThreadModule::class,
+        NavigationModule::class,
         TimeModule::class,
         LogModule::class,
         RemoteModule::class,

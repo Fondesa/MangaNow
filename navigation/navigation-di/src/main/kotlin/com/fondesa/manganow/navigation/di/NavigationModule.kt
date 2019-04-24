@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.navigation.di
 
-dependencies {
-    api project(":log:log-api")
-    api deps.appCompat
-    api deps.kotlinStdLib
+import com.fondesa.manganow.navigation.api.Router
+import com.fondesa.manganow.navigation.impl.RouterImpl
+import dagger.Binds
+import dagger.Module
+
+@Module
+interface NavigationModule {
+
+    @Binds
+    fun provideRouter(router: RouterImpl): Router
 }
