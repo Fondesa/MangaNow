@@ -22,6 +22,8 @@ dependencies {
 
     api project(":splash:splash-api")
     api project(':thread:thread-api')
+    api project(":ui:ui-mvp")
+    api project(":ui:ui-progressbar")
     api deps.dagger
     api deps.kotlinStdLib
 }
