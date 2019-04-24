@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.ui.navigation
 
-dependencies {
-    api project(":log:log-api")
-    api deps.appCompat
-    api deps.kotlinReflect
-    api deps.kotlinStdLib
-}
+interface Route

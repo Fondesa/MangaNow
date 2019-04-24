@@ -18,6 +18,7 @@ package com.fondesa.manganow.ui.screen.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import androidx.annotation.IdRes
 
 /**
@@ -34,7 +35,5 @@ class DefaultIntentNavigator : IntentNavigator() {
     }
 }
 
-interface Router {
-
-
+fun example(intent: Intent, bundle: Bundle) {
 }
