@@ -42,6 +42,7 @@ dependencies {
     implementation project(":remote:remote-di")
     implementation project(":time:time-di")
     implementation project(":thread:thread-di")
+    implementation project(":splash:splash-di")
     implementation project(":ui:ui-di")
 
     implementation deps.kotlinStdLib
