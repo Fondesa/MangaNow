@@ -23,7 +23,7 @@ class SplashActivity : BaseActivity<FullScreenViewManager>(), SplashContract.Vie
     @Inject
     internal lateinit var lifecycleObservers: Set<@JvmSuppressWildcards LifecycleObserver>
 
-    override fun createViewManager() = FullScreenViewManager(R.layout.activity_splash, true)
+    override fun createViewManager() = FullScreenViewManager(R.layout.activity_splash, false)
 
     override fun onViewCreated(view: ViewGroup, savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)

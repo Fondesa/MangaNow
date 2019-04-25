@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.ui.api
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -54,13 +55,7 @@ class FullScreenViewManager(@LayoutRes private val contentLayout: Int, val fitsS
         coordinatorLayout = rootView.findViewById(R.id.coordinator)
 
         // Get the content layout that will be added to the CoordinatorLayout.
-        val contentLayout = View.inflate(activity, contentLayout, null)
-        val layoutParams = CoordinatorLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-
-        coordinatorLayout.addView(contentLayout, layoutParams)
+        LayoutInflater.from(activity).inflate(contentLayout, coordinatorLayout, true)
     }
 
     override fun detach(activity: AppCompatActivity, rootView: ViewGroup) {

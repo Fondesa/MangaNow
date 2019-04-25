@@ -18,7 +18,9 @@
     package="com.fondesa.manganow.splash.impl">
 
     <application>
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Screen.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
