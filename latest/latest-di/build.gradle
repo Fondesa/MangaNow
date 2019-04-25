@@ -20,7 +20,7 @@ apply plugin: 'common-android'
 dependencies {
     compileOnly deps.javaxInject
 
-    api project(":latest:latest-di")
+    api project(":latest:latest-impl")
     api deps.daggerAndroid
 
     kapt deps.daggerAndroidProcessor
