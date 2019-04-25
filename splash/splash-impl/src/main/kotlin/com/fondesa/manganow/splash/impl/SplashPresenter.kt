@@ -136,9 +136,7 @@ class SplashPresenter @Inject constructor(
 
     private fun handleOperationsErrors(t: Throwable) {
         view.hideProgressIndicator()
-
-//        val msg = errorConverter.convert(e)
-        view.showErrorMessage("EXAMPLE")
+        view.showErrorForCause(t.toErrorCause())
         view.showRetryButton()
     }
 

@@ -53,8 +53,8 @@ class SplashActivity : BaseActivity<FullScreenViewManager>(), SplashContract.Vie
         retryButton.visibility = View.INVISIBLE
     }
 
-    override fun showErrorMessage(msg: String) {
-        errorTextView.text = msg
+    override fun showErrorForCause(cause: ErrorCause) {
+        errorTextView.setText(cause.toErrorMessage())
         errorTextView.visibility = View.VISIBLE
     }
 

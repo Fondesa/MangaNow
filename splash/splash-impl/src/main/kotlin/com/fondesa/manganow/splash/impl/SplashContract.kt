@@ -52,9 +52,9 @@ object SplashContract {
          * Called when an error occurs and the readable explanation of this message must
          * be shown to the user.
          *
-         * @param msg message that must be shown to the user.
+         * @param cause the cause of the error.
          */
-        fun showErrorMessage(msg: String)
+        fun showErrorForCause(cause: ErrorCause)
 
         /**
          * Called when the error message previously shown to the user must disappear from the screen.
