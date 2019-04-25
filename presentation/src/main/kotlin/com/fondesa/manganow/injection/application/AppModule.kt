@@ -18,13 +18,12 @@ package com.fondesa.manganow.injection.application
 
 import android.app.Application
 import android.content.Context
-import com.fondesa.manganow.injection.screen.ScreenModule
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [ScreenModule::class])
+@Module
 class AppModule {
 
     @Singleton

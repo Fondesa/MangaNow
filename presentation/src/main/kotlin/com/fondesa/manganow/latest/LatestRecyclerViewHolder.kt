@@ -18,17 +18,13 @@ package com.fondesa.manganow.latest
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fondesa.data.converter.Converter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.manganow.R
-import com.fondesa.manganow.converter.ChapterNumberConverter
-import com.fondesa.manganow.converter.PreviewDateConverter
-import com.fondesa.manganow.ui.recyclerview.InteractiveRecyclerViewHolder
-import com.fondesa.manganow.ui.recyclerview.RecyclerViewInteraction
-import com.fondesa.manganow.ui.recyclerview.RecyclerViewRowGesture
-import com.fondesa.manganow.ui.util.inflateChild
+import com.fondesa.manganow.ui.api.util.inflateChild
+import com.fondesa.manganow.ui.api.view.InteractiveRecyclerViewHolder
+import com.fondesa.manganow.ui.api.view.RecyclerViewInteraction
+import com.fondesa.manganow.ui.api.view.RecyclerViewRowGesture
 import kotlinx.android.synthetic.main.row_latest.view.*
-import java.util.*
 
 /**
  * Type of [RecyclerView.ViewHolder] used to show the view of the cell for the latest section.
@@ -43,21 +39,21 @@ class LatestRecyclerViewHolder(parent: ViewGroup) :
     private val context get() = itemView.context
 
     //TODO: inject them
-    private val chapterNumberConverter: Converter<Double, String> by lazy { ChapterNumberConverter() }
-    private val dateConverter: Converter<Date, String> by lazy { PreviewDateConverter(context) }
+//    private val chapterNumberConverter: Converter<Double, String> by lazy { ChapterNumberConverter() }
+//    private val dateConverter: Converter<Date, String> by lazy { PreviewDateConverter(context) }
 
     fun bind(item: Latest) {
         val manga = item.manga
         val chapter = item.chapter
         val chapterDate = chapter.releaseDate
-        val chapterTextNumber = chapterNumberConverter.convert(chapter.number)
+//        val chapterTextNumber = chapterNumberConverter.convert(chapter.number)
 
         itemView.titleTextView.text = manga.title
-        itemView.subtitleTextView.text = String.format(
-            context.getString(R.string.label_chapter_number),
-            chapterTextNumber
-        )
-        itemView.dateTextView.text = dateConverter.convert(chapterDate)
+//        itemView.subtitleTextView.text = String.format(
+//            context.getString(R.string.label_chapter_number),
+//            chapterTextNumber
+//        )
+//        itemView.dateTextView.text = dateConverter.convert(chapterDate)
 
 //        // Retrieve the image task externally.
 //        val imageTask = listener.getImageTask(item)

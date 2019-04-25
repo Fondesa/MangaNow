@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,17 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+package com.fondesa.manganow.ui.api.view
 
-dependencies {
-    implementation deps.kotlinStdLib
-}
+import android.view.View
+
+/**
+ * Used to add gestures and interactions to a [View].
+ *
+ * @param view [View] on which the interactions will be added.
+ * @param gesture type of [RecyclerViewRowGesture] allowed on this [View].
+ */
+data class RecyclerViewInteraction constructor(
+    val view: View,
+    val gesture: RecyclerViewRowGesture
+)

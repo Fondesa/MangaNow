@@ -16,7 +16,7 @@
 
 package com.fondesa.manganow.splash.impl
 
-import com.fondesa.manganow.ui.mvp.BasePresenter
+import com.fondesa.manganow.ui.api.mvp.BasePresenter
 
 /**
  * Used to specify the contract between the view and the presenter for the splash screen section.
@@ -70,7 +70,7 @@ object SplashContract {
     /**
      * Specify the presenter methods for the splash screen section linked to [View].
      */
-    interface Presenter : BasePresenter<View> {
+    interface Presenter : BasePresenter {
 
 //        /**
 //         * Locks the navigation to the main section.

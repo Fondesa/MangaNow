@@ -42,11 +42,7 @@ dependencies {
     implementation project(":remote:remote-di")
     implementation project(":time:time-di")
     implementation project(":thread:thread-di")
-    implementation project(":ui:ui-mvp")
-    implementation project(":ui:ui-progressbar")
-    implementation project(":ui:ui-progressbar")
-    implementation project(":ui:ui-recyclerview")
-    implementation project(":ui:ui-util")
+    implementation project(":ui:ui-di")
 
     implementation deps.kotlinStdLib
     implementation deps.kotlinReflect

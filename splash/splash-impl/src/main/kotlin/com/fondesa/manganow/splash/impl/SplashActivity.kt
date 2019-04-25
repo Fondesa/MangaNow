@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+package com.fondesa.manganow.splash.impl
 
-dependencies {
-    implementation deps.kotlinStdLib
+import android.os.Bundle
+import android.view.ViewGroup
+import com.fondesa.manganow.ui.api.BaseActivity
+import com.fondesa.manganow.ui.api.FullScreenViewManager
+
+class SplashActivity : BaseActivity<FullScreenViewManager>() {
+    override fun createViewManager(): FullScreenViewManager {
+        TODO("not implemented")
+    }
+
+    override fun onViewCreated(view: ViewGroup, savedInstanceState: Bundle?) {
+        TODO("not implemented")
+    }
 }

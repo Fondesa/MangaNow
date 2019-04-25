@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,21 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+package com.fondesa.manganow.ui.api
 
-dependencies {
-    implementation deps.kotlinStdLib
+import android.app.Activity
+
+/**
+ * Used to handle the back press in another component.
+ */
+interface BackPressHandler {
+
+    /**
+     * Manages the back press for the component that implements it.
+     *
+     * @return true if the back press is totally handled by this component,
+     * false if after the handling done by this component, the back press must be handled
+     * by the [Activity].
+     */
+    fun handleBackPress(): Boolean
 }

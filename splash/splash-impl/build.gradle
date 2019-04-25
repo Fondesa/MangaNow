@@ -20,10 +20,11 @@ apply plugin: 'common-android'
 dependencies {
     compileOnly deps.javaxInject
 
+    api project(":core:core-api")
     api project(":splash:splash-api")
     api project(':thread:thread-api')
-    api project(":ui:ui-mvp")
-    api project(":ui:ui-progressbar")
+    api project(':time:time-api')
+    api project(":ui:ui-api")
     api deps.dagger
     api deps.kotlinStdLib
 }

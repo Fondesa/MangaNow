@@ -20,13 +20,10 @@ import com.fondesa.data.converter.Converter
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.domain.latest.usecase.GetLatestList
 import com.fondesa.manganow.log.api.Log
-import com.fondesa.manganow.navigation.Navigator
-import com.fondesa.manganow.thread.api.trying
-import com.fondesa.manganow.ui.mvp.AbstractPresenter
+import com.fondesa.manganow.ui.api.navigation.Navigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -38,9 +35,16 @@ class LatestPresenter @Inject constructor(
     private val throwableConverter: @JvmSuppressWildcards Converter<Throwable, String>,
     private val uiCoroutinesContext: CoroutineContext,
     private val navigator: Navigator
-) : AbstractPresenter<LatestContract.View>(),
-    LatestContract.Presenter,
+) : LatestContract.Presenter,
     CoroutineScope {
+
+    override fun attach() {
+        TODO("not implemented")
+    }
+
+    override fun detach() {
+        TODO("not implemented")
+    }
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + job
@@ -51,24 +55,24 @@ class LatestPresenter @Inject constructor(
     private var currentPage = 0
     private var currentExecutingPage: Int? = null
 
-    override fun attachView(view: LatestContract.View) {
-        super.attachView(view)
-        // Bring the current page to 1 if other pages were loaded before.
-        currentPage = 1
-        // Clear the list other pages were loaded before.
-        latestList.clear()
+//    override fun attachView(view: LatestContract.View) {
+//        super.attachView(view)
+//        // Bring the current page to 1 if other pages were loaded before.
+//        currentPage = 1
+//        // Clear the list other pages were loaded before.
+//        latestList.clear()
+//
+//        // At the first page show the progress because there aren't elements.
+//        view.showProgressIndicator()
+//        view.hideListContainer()
+//
+//        loadNextPage()
+//    }
 
-        // At the first page show the progress because there aren't elements.
-        view.showProgressIndicator()
-        view.hideListContainer()
-
-        loadNextPage()
-    }
-
-    override fun detachView() {
-        job.cancel()
-        super.detachView()
-    }
+//    override fun detachView() {
+//        job.cancel()
+//        super.detachView()
+//    }
 
     override fun pageEnded() {
         if (currentExecutingPage != currentPage) {
@@ -83,47 +87,47 @@ class LatestPresenter @Inject constructor(
     private fun loadNextPage() {
         currentExecutingPage = currentPage
 
-        launch(uiCoroutinesContext) {
-            trying {
-                getLatestListUseCase.execute(currentPage, LatestContract.PAGE_SIZE)
-            }.onSuccess(::onLatestLoadCompleted)
-                .onError(::onLatestLoadFailed)
-        }
+//        launch(uiCoroutinesContext) {
+//            trying {
+//                getLatestListUseCase.execute(currentPage, LatestContract.PAGE_SIZE)
+//            }.onSuccess(::onLatestLoadCompleted)
+//                .onError(::onLatestLoadFailed)
+//        }
     }
 
-    private fun onLatestLoadCompleted(result: List<Latest>) {
-        if (!isViewAttached())
-            return
+//    private fun onLatestLoadCompleted(result: List<Latest>) {
+//        if (!isViewAttached())
+//            return
+//
+//        currentExecutingPage = null
+//
+//        latestList.addAll(result)
+//
+//        view.updateLatestList(latestList)
+//
+//        if (isFirstLoad()) {
+//            view.hideProgressIndicator()
+//            view.showListContainer()
+//        }
+//
+//        // Increment the current page when the load completes.
+//        currentPage++
+//    }
 
-        currentExecutingPage = null
-
-        latestList.addAll(result)
-
-        view.updateLatestList(latestList)
-
-        if (isFirstLoad()) {
-            view.hideProgressIndicator()
-            view.showListContainer()
-        }
-
-        // Increment the current page when the load completes.
-        currentPage++
-    }
-
-    private fun onLatestLoadFailed(t: Throwable) {
-        if (!isViewAttached())
-            return
-
-        currentExecutingPage = null
-
-        val msg = throwableConverter.convert(t)
-        view.showErrorMessage(msg)
-
-        if (isFirstLoad()) {
-            view.hideProgressIndicator()
-            view.showListContainer()
-        }
-    }
+//    private fun onLatestLoadFailed(t: Throwable) {
+//        if (!isViewAttached())
+//            return
+//
+//        currentExecutingPage = null
+//
+//        val msg = throwableConverter.convert(t)
+//        view.showErrorMessage(msg)
+//
+//        if (isFirstLoad()) {
+//            view.hideProgressIndicator()
+//            view.showListContainer()
+//        }
+//    }
 
     private fun isFirstLoad() = currentPage == 1
 }

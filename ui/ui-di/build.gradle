@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+apply plugin: 'com.android.library'
+apply plugin: 'common-android'
 
 dependencies {
-    implementation deps.kotlinStdLib
+    compileOnly deps.javaxInject
+
+    api project(":ui:ui-impl")
+
+    kapt deps.daggerAndroidProcessor
+    kapt deps.daggerCompiler
 }

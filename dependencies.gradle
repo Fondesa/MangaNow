@@ -37,6 +37,7 @@ def timber = '4.7.1'
 
 ext.deps = [
         appCompat               : "androidx.appcompat:appcompat:$androidSupport",
+        androidAnnotation       : "androidx.annotation:annotation:$androidSupport",
         cardView                : "androidx.cardview:cardview:$androidSupport",
         recyclerView            : "androidx.recyclerview:recyclerview:$androidSupport",
         design                  : "com.google.android.material:material:$androidSupport",

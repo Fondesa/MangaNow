@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,17 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+package com.fondesa.manganow.ui.api.view
 
-dependencies {
-    implementation deps.kotlinStdLib
+import androidx.recyclerview.widget.RecyclerView
+
+class RecyclerViewScrollEndedListener(private inline val onEnd: () -> Unit) :
+    RecyclerView.OnScrollListener() {
+
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        super.onScrollStateChanged(recyclerView, newState)
+        if (!recyclerView.canScrollVertically(1)) {
+            onEnd()
+        }
+    }
 }

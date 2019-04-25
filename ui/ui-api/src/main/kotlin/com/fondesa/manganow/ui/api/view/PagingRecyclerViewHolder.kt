@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+package com.fondesa.manganow.ui.api.view
 
-dependencies {
-    implementation deps.kotlinStdLib
-}
+import android.view.ViewGroup
+import com.fondesa.manganow.ui.api.R
+import com.fondesa.manganow.ui.api.util.inflateChild
+
+/**
+ * Type of [InteractiveRecyclerViewHolder] used to show the progress in a [PagingRecyclerViewAdapter].
+ * The progress will be shown when the page size is reached.
+ */
+class PagingRecyclerViewHolder(parent: ViewGroup) :
+    InteractiveRecyclerViewHolder(parent.inflateChild(R.layout.row_progress))
