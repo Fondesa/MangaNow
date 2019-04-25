@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.navigation.di.qualifiers
 
-dependencies {
-    compileOnly deps.javaxInject
+import com.fondesa.manganow.navigation.api.Route
+import dagger.MapKey
+import kotlin.reflect.KClass
 
-    api project(":core:core-api")
-    api project(":domain:domain-category")
-    api project(":storage:storage-api")
-    api project(":latest:latest-api")
-    api project(":serialization:serialization-api")
-    api project(":splash:splash-api")
-    api project(':thread:thread-api')
-    api project(':time:time-api')
-    api project(":ui:ui-api")
-    api deps.dagger
-    api deps.daggerAndroid
-    api deps.kotlinStdLib
-
-    kapt project(':database:database-processor')
-}
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
+@MapKey
+annotation class RouteKey(val value: KClass<out Route>)

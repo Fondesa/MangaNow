@@ -61,11 +61,4 @@ class SplashActivity : BaseActivity<FullScreenViewManager>(), SplashContract.Vie
     override fun hideErrorMessage() {
         errorTextView.visibility = View.INVISIBLE
     }
-
-    override fun navigateToMainScreen() {
-//        val intent = LatestActivity.createIntent(this)
-//        // Don't retain this Activity in the stack.
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//        startActivity(intent)
-    }
 }

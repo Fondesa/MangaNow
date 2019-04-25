@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.latest.di
 
-dependencies {
-    compileOnly deps.javaxInject
+import com.fondesa.manganow.latest.api.LatestRoute
+import com.fondesa.manganow.latest.impl.LatestRouteConsumer
+import com.fondesa.manganow.navigation.api.RouteConsumer
+import com.fondesa.manganow.navigation.di.qualifiers.RouteKey
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
 
-    api project(":core:core-api")
-    api project(":domain:domain-category")
-    api project(":storage:storage-api")
-    api project(":latest:latest-api")
-    api project(":serialization:serialization-api")
-    api project(":splash:splash-api")
-    api project(':thread:thread-api')
-    api project(':time:time-api')
-    api project(":ui:ui-api")
-    api deps.dagger
-    api deps.daggerAndroid
-    api deps.kotlinStdLib
+@Module
+interface LatestRouteModule {
 
-    kapt project(':database:database-processor')
+    @Binds
+    @IntoMap
+    @RouteKey(LatestRoute::class)
+    fun provideLatestRouteConsumer(consumer: LatestRouteConsumer): RouteConsumer
 }

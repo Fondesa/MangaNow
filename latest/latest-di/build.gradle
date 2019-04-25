@@ -21,6 +21,7 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(":latest:latest-impl")
+    api project(":navigation:navigation-di")
     api deps.daggerAndroid
 
     kapt deps.daggerAndroidProcessor

@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.latest.impl
 
-dependencies {
-    compileOnly deps.javaxInject
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 
-    api project(":core:core-api")
-    api project(":domain:domain-category")
-    api project(":storage:storage-api")
-    api project(":latest:latest-api")
-    api project(":serialization:serialization-api")
-    api project(":splash:splash-api")
-    api project(':thread:thread-api')
-    api project(':time:time-api')
-    api project(":ui:ui-api")
-    api deps.dagger
-    api deps.daggerAndroid
-    api deps.kotlinStdLib
+class LatestActivity : AppCompatActivity() {
 
-    kapt project(':database:database-processor')
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(View(this))
+    }
 }

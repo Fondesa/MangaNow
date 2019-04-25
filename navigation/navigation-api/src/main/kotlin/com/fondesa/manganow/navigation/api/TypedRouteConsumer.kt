@@ -24,7 +24,12 @@ abstract class TypedRouteConsumer<T : Route>(private val routeClass: KClass<T>) 
 
     final override fun consume(route: Route) {
         if (routeClass.isInstance(route)) {
-            consume(routeClass.cast(route))
+            consumeRoute(routeClass.cast(route))
+        } else {
+            throw IllegalArgumentException(
+                "The router \"${this::class.java.name}\" does not " +
+                        "support a route of type \"${routeClass.java.name}\"."
+            )
         }
     }
 

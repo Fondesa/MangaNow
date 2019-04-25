@@ -19,6 +19,8 @@ package com.fondesa.manganow.splash.impl
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.fondesa.manganow.latest.api.LatestRoute
+import com.fondesa.manganow.navigation.api.Router
 import com.fondesa.manganow.splash.impl.category.GetCategoryList
 import com.fondesa.manganow.splash.impl.sortorder.GetSortOrderList
 import com.fondesa.manganow.thread.api.DispatchOnMainExceptionHandler
@@ -32,7 +34,8 @@ import kotlin.coroutines.CoroutineContext
 class SplashPresenter @Inject constructor(
     private val view: SplashContract.View,
     private val getCategoryList: GetCategoryList,
-    private val getSortOrderList: GetSortOrderList
+    private val getSortOrderList: GetSortOrderList,
+    private val router: Router
 ) : SplashContract.Presenter, CoroutineScope, LifecycleObserver {
 
     override val coroutineContext: CoroutineContext
@@ -133,7 +136,8 @@ class SplashPresenter @Inject constructor(
 
     private fun executeNavigation() {
         view.hideProgressIndicator()
-        view.navigateToMainScreen()
+        router.navigate(LatestRoute)
+//        view.navigateToMainScreen()
     }
 
     private fun handleOperationsErrors(t: Throwable) {

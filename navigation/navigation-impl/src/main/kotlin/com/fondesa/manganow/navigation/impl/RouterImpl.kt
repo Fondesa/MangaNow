@@ -21,7 +21,7 @@ import com.fondesa.manganow.navigation.api.RouteConsumer
 import com.fondesa.manganow.navigation.api.Router
 import javax.inject.Inject
 
-class RouterImpl @Inject constructor(private val consumerMap: Map<Class<Route>, RouteConsumer>) :
+class RouterImpl @Inject constructor(private val consumerMap: Map<Class<out Route>, @JvmSuppressWildcards RouteConsumer>) :
     Router {
 
     override fun navigate(route: Route) {

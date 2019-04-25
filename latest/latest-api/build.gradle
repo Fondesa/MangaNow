@@ -17,5 +17,6 @@
 apply plugin: 'common-jvm'
 
 dependencies {
+    compile project(':navigation:navigation-api')
     compile deps.kotlinStdLib
 }
