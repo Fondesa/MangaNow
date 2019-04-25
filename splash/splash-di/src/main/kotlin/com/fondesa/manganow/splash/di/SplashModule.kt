@@ -16,8 +16,37 @@
 
 package com.fondesa.manganow.splash.di
 
+import androidx.lifecycle.LifecycleObserver
+import com.fondesa.manganow.splash.impl.SplashActivity
+import com.fondesa.manganow.splash.impl.SplashContract
+import com.fondesa.manganow.splash.impl.SplashPresenter
+import com.fondesa.manganow.ui.di.ScreenScope
+import dagger.Binds
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.IntoSet
 
 @Module
 interface SplashModule {
+
+    @ScreenScope
+    @ContributesAndroidInjector(modules = [ScreenBinds::class])
+    fun splashActivity(): SplashActivity
+
+    @Module
+    interface ScreenBinds {
+
+        @ScreenScope
+        @Binds
+        fun provideView(activity: SplashActivity): SplashContract.View
+
+        @ScreenScope
+        @Binds
+        fun providePresenter(presenter: SplashPresenter): SplashContract.Presenter
+
+        @ScreenScope
+        @Binds
+        @IntoSet
+        fun providePresenterLifecycleObserver(presenter: SplashPresenter): LifecycleObserver
+    }
 }

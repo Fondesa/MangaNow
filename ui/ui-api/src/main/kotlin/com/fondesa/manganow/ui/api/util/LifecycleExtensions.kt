@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.ui.api.util
 
-dependencies {
-    compileOnly deps.javaxInject
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 
-    api project(":splash:splash-impl")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
-
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+fun Lifecycle.addObservers(observers: Collection<LifecycleObserver>) {
+    observers.forEach { addObserver(it) }
 }

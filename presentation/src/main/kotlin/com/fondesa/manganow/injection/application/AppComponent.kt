@@ -23,6 +23,7 @@ import com.fondesa.manganow.injection.database.DatabaseTablesModule
 import com.fondesa.manganow.log.di.LogModule
 import com.fondesa.manganow.navigation.di.NavigationModule
 import com.fondesa.manganow.remote.di.RemoteModule
+import com.fondesa.manganow.splash.di.SplashModule
 import com.fondesa.manganow.thread.di.ThreadModule
 import com.fondesa.manganow.time.di.TimeModule
 import dagger.BindsInstance
@@ -42,7 +43,8 @@ import javax.inject.Singleton
         LogModule::class,
         RemoteModule::class,
         DatabaseModule::class,
-        DatabaseTablesModule::class
+        DatabaseTablesModule::class,
+        SplashModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

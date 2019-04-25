@@ -17,24 +17,19 @@
 package com.fondesa.manganow.splash.impl
 
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.fondesa.manganow.time.api.Scheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-/**
- * Default implementation of [SplashContract.Presenter] for the splash section.
- *
- * @param loaderFactory factory used to create the [Loader]s.
- * @param errorConverter [Converter] used to convert an exception to a readable message by the user.
- * @param scheduler [Scheduler] used to schedule a task that will be executed after a certain amount of time.
- */
-class SplashPresenter(
+class SplashPresenter @Inject constructor(
     private val view: SplashContract.View,
     private val scheduler: Scheduler
-) : SplashContract.Presenter, CoroutineScope {
+) : SplashContract.Presenter, CoroutineScope, LifecycleObserver {
 
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
@@ -58,7 +53,11 @@ class SplashPresenter(
         // TODO
     }
 
-    override fun detach() {
+    override fun retryButtonClicked() {
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    private fun detach() {
         // Release the scheduler.
         scheduler.release()
         job.cancel()

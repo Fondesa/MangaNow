@@ -29,10 +29,10 @@ interface BasePresenter {
      * The view must be attached to be updated.
      */
     fun attach()
-
-    /**
-     * Detach the view from the presenter and release any resource related to it.
-     * The view can't be updated after the detach.
-     */
-    fun detach()
+//
+//    /**
+//     * Detach the view from the presenter and release any resource related to it.
+//     * The view can't be updated after the detach.
+//     */
+//    fun detach()
 }

@@ -1,32 +1,71 @@
-/*
- * Copyright (c) 2019 Fondesa
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.fondesa.manganow.splash.impl
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleObserver
 import com.fondesa.manganow.ui.api.BaseActivity
 import com.fondesa.manganow.ui.api.FullScreenViewManager
+import com.fondesa.manganow.ui.api.util.addObservers
+import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_splash.*
+import javax.inject.Inject
 
-class SplashActivity : BaseActivity<FullScreenViewManager>() {
-    override fun createViewManager(): FullScreenViewManager {
-        TODO("not implemented")
-    }
+/**
+ * Section that shows the launch screen.
+ * This section will be dismissed automatically after a certain amount of time.
+ */
+class SplashActivity : BaseActivity<FullScreenViewManager>(), SplashContract.View {
+
+    @Inject
+    internal lateinit var presenter: SplashContract.Presenter
+
+    @Inject
+    internal lateinit var lifecycleObservers: Set<@JvmSuppressWildcards LifecycleObserver>
+
+    override fun createViewManager() = FullScreenViewManager(R.layout.activity_splash, true)
 
     override fun onViewCreated(view: ViewGroup, savedInstanceState: Bundle?) {
-        TODO("not implemented")
+        AndroidInjection.inject(this)
+        // Add all the lifecycle observers
+        lifecycle.addObservers(lifecycleObservers)
+        // Attach the view to the presenter.
+        presenter.attach()
+
+        retryButton.setOnClickListener {
+            presenter.retryButtonClicked()
+        }
+    }
+
+    override fun showProgressIndicator() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressIndicator() {
+        progressBar.visibility = View.INVISIBLE
+    }
+
+    override fun showRetryButton() {
+        retryButton.visibility = View.VISIBLE
+    }
+
+    override fun hideRetryButton() {
+        retryButton.visibility = View.INVISIBLE
+    }
+
+    override fun showErrorMessage(msg: String) {
+        errorTextView.text = msg
+        errorTextView.visibility = View.VISIBLE
+    }
+
+    override fun hideErrorMessage() {
+        errorTextView.visibility = View.INVISIBLE
+    }
+
+    override fun navigateToMainScreen() {
+//        val intent = LatestActivity.createIntent(this)
+//        // Don't retain this Activity in the stack.
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//        startActivity(intent)
     }
 }

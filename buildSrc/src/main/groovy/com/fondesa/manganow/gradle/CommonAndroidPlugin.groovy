@@ -27,6 +27,7 @@ class CommonAndroidPlugin implements Plugin<Project> {
         target.with {
             apply plugin: 'kotlin-android'
             apply plugin: 'kotlin-kapt'
+            apply plugin: 'kotlin-android-extensions'
 
             android {
                 compileSdkVersion androidConfig.compileSdk
@@ -48,9 +49,12 @@ class CommonAndroidPlugin implements Plugin<Project> {
                     animationsDisabled = true
                 }
 
-
                 sourceSets.forEach {
                     it.java.srcDirs += "src/${it.name}/kotlin"
+                }
+
+                androidExtensions {
+                    experimental = true
                 }
             }
 

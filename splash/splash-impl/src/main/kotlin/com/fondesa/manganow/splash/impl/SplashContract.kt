@@ -72,6 +72,9 @@ object SplashContract {
      */
     interface Presenter : BasePresenter {
 
+        fun retryButtonClicked()
+
+
 //        /**
 //         * Locks the navigation to the main section.
 //         */

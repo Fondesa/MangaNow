@@ -26,5 +26,6 @@ dependencies {
     api project(':time:time-api')
     api project(":ui:ui-api")
     api deps.dagger
+    api deps.daggerAndroid
     api deps.kotlinStdLib
 }

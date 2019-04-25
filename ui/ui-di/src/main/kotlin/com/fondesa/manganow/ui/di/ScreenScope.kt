@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.ui.di
 
-dependencies {
-    compileOnly deps.javaxInject
+import javax.inject.Scope
 
-    api project(":splash:splash-impl")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
-
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
-}
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ScreenScope
