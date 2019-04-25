@@ -25,7 +25,7 @@ class JsonRemoteStorage<out T>(
     private val converter: RemoteStorageConverter<T>
 ) : RemoteStorage<T> {
 
-    override suspend fun get(): T {
+    override fun get(): T {
         val json = remoteClient.load(remoteTask)
         return converter.convert(json)
     }

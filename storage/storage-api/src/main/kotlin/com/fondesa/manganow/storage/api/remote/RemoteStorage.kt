@@ -18,5 +18,5 @@ package com.fondesa.manganow.storage.api.remote
 
 interface RemoteStorage<out T> {
 
-    suspend fun get(): T
+    fun get(): T
 }

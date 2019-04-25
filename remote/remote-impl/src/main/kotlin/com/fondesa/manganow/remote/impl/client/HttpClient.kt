@@ -66,7 +66,7 @@ class HttpClient @Inject constructor(
         httpClient = httpClientBuilder.build()
     }
 
-    override suspend fun load(task: RemoteTask): JsonElement {
+    override fun load(task: RemoteTask): JsonElement {
         // Check the connectivity before sending the request.
         if (!connectivityManager.isConnected())
             throw ConnectivityException()

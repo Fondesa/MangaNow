@@ -60,11 +60,6 @@ class SplashPresenter @Inject constructor(
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun detach() {
-        job.cancel()
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun viewEntersForegroundState() {
         canNavigate = true
         if (canNavigate && navigationWasDispatched) {
@@ -77,6 +72,11 @@ class SplashPresenter @Inject constructor(
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     private fun viewEntersBackgroundState() {
         canNavigate = false
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    private fun detach() {
+        job.cancel()
     }
 
     private fun loadDataAndNavigate() {
