@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.converter
+package com.fondesa.manganow.splash.impl.category.storage.remote
 
-import com.fondesa.domain.category.CategoryList
 import com.fondesa.manganow.domain.category.Category
 import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.splash.impl.category.CategoryList
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
 import javax.inject.Inject
 
-class CategoryJsonConverter @Inject constructor() : RemoteStorageConverter<CategoryList> {
+class CategoryRemoteStorageConverter @Inject constructor() :
+    RemoteStorageConverter<CategoryList> {
 
     override fun convert(value: JsonElement): CategoryList = value.asJsonArray.mapJsonObject {
         Category(

@@ -19,15 +19,18 @@ package com.fondesa.manganow.splash.impl
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.fondesa.manganow.splash.impl.category.GetCategoryList
 import com.fondesa.manganow.time.api.Scheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class SplashPresenter @Inject constructor(
     private val view: SplashContract.View,
+    private val getCategoryList: GetCategoryList,
     private val scheduler: Scheduler
 ) : SplashContract.Presenter, CoroutineScope, LifecycleObserver {
 
@@ -51,6 +54,9 @@ class SplashPresenter @Inject constructor(
 
         // Create and load the task used to download the categories and sort orders.
         // TODO
+        async {
+            getCategoryList.execute()
+        }
     }
 
     override fun retryButtonClicked() {

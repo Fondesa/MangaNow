@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage
+package com.fondesa.manganow.splash.impl.category.storage.remote
 
-import com.fondesa.domain.category.CategoryList
-import com.fondesa.manganow.storage.api.disk.DiskStorage
+import com.fondesa.manganow.splash.impl.category.CategoryList
 import com.fondesa.manganow.storage.api.remote.RemoteStorage
 
-typealias CategoryDiskStorage = @JvmSuppressWildcards DiskStorage<CategoryList>
+interface CategoryRemoteStorageFactory {
 
-typealias CategoryRemoteStorage = @JvmSuppressWildcards RemoteStorage<CategoryList>
-
-typealias CategoryDiskStorageFactory = @JvmSuppressWildcards CategoryStorageFactory<CategoryDiskStorage>
-
-typealias CategoryRemoteStorageFactory = @JvmSuppressWildcards CategoryStorageFactory<CategoryRemoteStorage>
+    fun provideStorage(): RemoteStorage<CategoryList>
+}

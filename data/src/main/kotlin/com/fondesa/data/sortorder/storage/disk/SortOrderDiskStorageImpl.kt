@@ -25,7 +25,7 @@ class SortOrderDiskStorageImpl(
     client: com.fondesa.manganow.database.api.client.DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String
-) : SQLiteDiskStorage<SortOrderList>(client, expirationTimeMs, remoteTaskKey) {
+) : SQLiteDiskStorage<SortOrderList>(client, remoteTaskKey, expirationTimeMs) {
 
     override fun get(cacheId: Long): SortOrderList =
         database.compile(Statements.selectSortOrders())
@@ -51,22 +51,24 @@ class SortOrderDiskStorageImpl(
 
     private object Statements {
 
-        fun selectSortOrders() = com.fondesa.manganow.database.api.client.statement.Select.from(SortOrderTable.NAME)
-            .columns(
-                SortOrderTable.COL_ID,
-                SortOrderTable.COL_NAME,
-                SortOrderTable.COL_PRIORITY
-            )
-            .orderAsc(SortOrderTable.COL_PRIORITY)
-            .build()
+        fun selectSortOrders() =
+            com.fondesa.manganow.database.api.client.statement.Select.from(SortOrderTable.NAME)
+                .columns(
+                    SortOrderTable.COL_ID,
+                    SortOrderTable.COL_NAME,
+                    SortOrderTable.COL_PRIORITY
+                )
+                .orderAsc(SortOrderTable.COL_PRIORITY)
+                .build()
 
-        fun insertSortOrder() = com.fondesa.manganow.database.api.client.statement.Insert.into(SortOrderTable.NAME)
-            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
-            .columns(
-                SortOrderTable.COL_ID,
-                SortOrderTable.COL_NAME,
-                SortOrderTable.COL_PRIORITY
-            )
-            .build()
+        fun insertSortOrder() =
+            com.fondesa.manganow.database.api.client.statement.Insert.into(SortOrderTable.NAME)
+                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
+                .columns(
+                    SortOrderTable.COL_ID,
+                    SortOrderTable.COL_NAME,
+                    SortOrderTable.COL_PRIORITY
+                )
+                .build()
     }
 }

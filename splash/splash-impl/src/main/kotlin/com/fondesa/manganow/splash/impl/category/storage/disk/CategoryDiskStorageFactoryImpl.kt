@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage.disk
+package com.fondesa.manganow.splash.impl.category.storage.disk
 
-import com.fondesa.data.category.storage.CategoryDiskStorage
-import com.fondesa.data.category.storage.CategoryDiskStorageFactory
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.splash.impl.category.CategoryList
+import com.fondesa.manganow.storage.api.disk.DiskStorage
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class CategoryDiskStorageFactoryImpl @Inject constructor(private val client: com.fondesa.manganow.database.api.client.DatabaseClient) :
+class CategoryDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
     CategoryDiskStorageFactory {
 
-    override fun provideStorage(): CategoryDiskStorage {
+    override fun provideStorage(): DiskStorage<CategoryList> {
         val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
-        val remoteTaskKey = "categories"
-        return CategoryDiskStorageImpl(client, expirationTimeMs, remoteTaskKey)
+        val cacheKey = "categories"
+        return CategoryDiskStorage(client, expirationTimeMs, cacheKey)
     }
 }

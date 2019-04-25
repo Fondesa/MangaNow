@@ -36,16 +36,9 @@ object RemoteApi {
     }
 
     /**
-     * Default values used in the body of the requests or in query string.
-     */
-    object Values {
-    }
-
-    /**
      * Constant paths appended to the base url.
      */
     object Path {
-        const val CATEGORIES = "categories"
         const val SORT_ORDERS = "sortorders"
         const val LATEST = "latest"
         const val MANGA_LIST = "mangalist"
@@ -55,8 +48,6 @@ object RemoteApi {
      * Wrapper containing built-in requests to use through the application lifetime.
      */
     object Request {
-        fun categories(): RemoteTask = Task.Get(Path.CATEGORIES)
-
         fun sortOrders(): RemoteTask = Task.Get(Path.SORT_ORDERS)
 
         fun latest(page: Int, pageSize: Int): RemoteTask {
@@ -111,25 +102,6 @@ object RemoteApi {
             override val body: JsonElement? = null
 
             override val headers: Map<String, String> = emptyMap()
-        }
-
-        data class ImageTask(private val imageUrl: String) : RemoteTask {
-
-            override val method = RemoteTask.Method.GET
-
-            override val scheme = "https"
-
-            override val host = "cdn.mangaeden.com"
-
-            override val path = "mangasimg/$imageUrl"
-
-            override val port: Int = 443
-
-            override val headers: Map<String, String> = emptyMap()
-
-            override val queryParams: Map<String, String> = emptyMap()
-
-            override val body: JsonElement? = null
         }
 
         /**

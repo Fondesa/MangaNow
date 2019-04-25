@@ -26,8 +26,8 @@ import com.fondesa.manganow.database.api.client.statement.Select
 
 abstract class SQLiteDiskStorage<T>(
     client: DatabaseClient,
-    private val expirationTimeMs: Long,
-    private val cacheKey: String
+    private val cacheKey: String,
+    private val expirationTimeMs: Long
 ) : DiskStorage<T> {
 
     protected val database by lazy { client.getDatabase() }
@@ -82,30 +82,27 @@ abstract class SQLiteDiskStorage<T>(
 
     private object Statements {
 
-        fun countCache(remoteTaskPath: String, validDate: Long) =
-            Select.from(CacheTable.NAME)
-                .count()
-                .where(
-                    CacheTable.COL_KEY.equalTo(remoteTaskPath) and
-                            CacheTable.COL_DATE_MS.majorThan(validDate)
-                )
-                .build()
+        fun countCache(remoteTaskPath: String, validDate: Long) = Select.from(CacheTable.NAME)
+            .count()
+            .where(
+                CacheTable.COL_KEY.equalTo(remoteTaskPath) and
+                        CacheTable.COL_DATE_MS.majorThan(validDate)
+            )
+            .build()
 
-        fun selectCache(remoteTaskPath: String) =
-            Select.from(CacheTable.NAME)
-                .columns(CacheTable.COL_ID)
-                .where(CacheTable.COL_KEY.equalTo(remoteTaskPath))
-                .limit(1)
-                .build()
+        fun selectCache(remoteTaskPath: String) = Select.from(CacheTable.NAME)
+            .columns(CacheTable.COL_ID)
+            .where(CacheTable.COL_KEY.equalTo(remoteTaskPath))
+            .limit(1)
+            .build()
 
-        fun insertCache() =
-            Insert.into(CacheTable.NAME)
-                .conflictType(ConflictType.REPLACE)
-                .columns(
-                    CacheTable.COL_ID,
-                    CacheTable.COL_DATE_MS,
-                    CacheTable.COL_KEY
-                )
-                .build()
+        fun insertCache() = Insert.into(CacheTable.NAME)
+            .conflictType(ConflictType.REPLACE)
+            .columns(
+                CacheTable.COL_ID,
+                CacheTable.COL_DATE_MS,
+                CacheTable.COL_KEY
+            )
+            .build()
     }
 }

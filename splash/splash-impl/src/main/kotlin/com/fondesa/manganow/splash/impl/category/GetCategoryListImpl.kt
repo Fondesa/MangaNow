@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.repository
+package com.fondesa.manganow.splash.impl.category
 
-import com.fondesa.data.category.storage.CategoryDiskStorageFactory
-import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
-import com.fondesa.domain.category.CategoryList
-import com.fondesa.domain.category.repository.CategoryRepository
+import com.fondesa.manganow.splash.impl.category.storage.disk.CategoryDiskStorageFactory
+import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageFactory
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor(
+// TODO USE PROVIDERS
+class GetCategoryListImpl @Inject constructor(
     private val remoteStorageFactory: CategoryRemoteStorageFactory,
     private val diskStorageFactory: CategoryDiskStorageFactory
-) : CategoryRepository {
+) : GetCategoryList {
 
-    override suspend fun getAll(): CategoryList {
-        val cacheStorage = diskStorageFactory.provideStorage()
-        return if (cacheStorage.isValid()) {
-            cacheStorage.get()
+    override suspend fun execute(): CategoryList {
+        val diskStorage = diskStorageFactory.provideStorage()
+        return if (diskStorage.isValid()) {
+            diskStorage.get()
         } else {
             val remoteStorage = remoteStorageFactory.provideStorage()
             remoteStorage.get().also {
-                cacheStorage.put(it)
+                diskStorage.put(it)
             }
         }
     }

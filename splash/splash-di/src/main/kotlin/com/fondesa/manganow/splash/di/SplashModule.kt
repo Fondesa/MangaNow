@@ -20,6 +20,15 @@ import androidx.lifecycle.LifecycleObserver
 import com.fondesa.manganow.splash.impl.SplashActivity
 import com.fondesa.manganow.splash.impl.SplashContract
 import com.fondesa.manganow.splash.impl.SplashPresenter
+import com.fondesa.manganow.splash.impl.category.CategoryList
+import com.fondesa.manganow.splash.impl.category.GetCategoryList
+import com.fondesa.manganow.splash.impl.category.GetCategoryListImpl
+import com.fondesa.manganow.splash.impl.category.storage.disk.CategoryDiskStorageFactory
+import com.fondesa.manganow.splash.impl.category.storage.disk.CategoryDiskStorageFactoryImpl
+import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageConverter
+import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageFactory
+import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageFactoryImpl
+import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.fondesa.manganow.ui.di.ScreenScope
 import dagger.Binds
 import dagger.Module
@@ -48,5 +57,21 @@ interface SplashModule {
         @Binds
         @IntoSet
         fun providePresenterLifecycleObserver(presenter: SplashPresenter): LifecycleObserver
+
+        @ScreenScope
+        @Binds
+        fun provideGetCategoryList(getCategoryList: GetCategoryListImpl): GetCategoryList
+
+        @ScreenScope
+        @Binds
+        fun provideCategoryRemoteStorageConverter(factory: CategoryRemoteStorageConverter): RemoteStorageConverter<CategoryList>
+
+        @ScreenScope
+        @Binds
+        fun provideCategoryRemoteStorageFactory(factory: CategoryRemoteStorageFactoryImpl): CategoryRemoteStorageFactory
+
+        @ScreenScope
+        @Binds
+        fun provideCategoryDiskStorageFactory(factory: CategoryDiskStorageFactoryImpl): CategoryDiskStorageFactory
     }
 }

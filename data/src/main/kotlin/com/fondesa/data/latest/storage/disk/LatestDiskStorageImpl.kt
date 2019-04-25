@@ -31,7 +31,7 @@ class LatestDiskStorageImpl(
     client: com.fondesa.manganow.database.api.client.DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String
-) : SQLiteDiskStorage<LatestList>(client, expirationTimeMs, remoteTaskKey) {
+) : SQLiteDiskStorage<LatestList>(client, remoteTaskKey, expirationTimeMs) {
 
     override fun get(cacheId: Long): LatestList =
         database.compile(Statements.selectLatest(cacheId)).execute().map {

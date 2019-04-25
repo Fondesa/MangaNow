@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.category.storage.disk
+package com.fondesa.manganow.splash.impl.category.storage.disk
 
-import com.fondesa.domain.category.CategoryList
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.database.api.client.clause.ConflictType
+import com.fondesa.manganow.database.api.client.statement.Insert
+import com.fondesa.manganow.database.api.client.statement.Select
 import com.fondesa.manganow.domain.category.Category
 import com.fondesa.manganow.domain.category.CategoryTable
+import com.fondesa.manganow.splash.impl.category.CategoryList
 import com.fondesa.manganow.storage.api.disk.SQLiteDiskStorage
 
-class CategoryDiskStorageImpl(
-    client: com.fondesa.manganow.database.api.client.DatabaseClient,
+class CategoryDiskStorage(
+    client: DatabaseClient,
     expirationTimeMs: Long,
-    remoteTaskKey: String
-) : SQLiteDiskStorage<CategoryList>(client, expirationTimeMs, remoteTaskKey) {
+    cacheKey: String
+) : SQLiteDiskStorage<CategoryList>(
+    client = client,
+    cacheKey = cacheKey,
+    expirationTimeMs = expirationTimeMs) {
 
     override fun get(cacheId: Long): CategoryList =
         database.compile(Statements.selectCategories())
@@ -49,21 +56,19 @@ class CategoryDiskStorageImpl(
 
     private object Statements {
 
-        fun selectCategories() =
-            com.fondesa.manganow.database.api.client.statement.Select.from(CategoryTable.NAME)
-                .columns(
-                    CategoryTable.COL_ID,
-                    CategoryTable.COL_NAME
-                )
-                .build()
+        fun selectCategories() = Select.from(CategoryTable.NAME)
+            .columns(
+                CategoryTable.COL_ID,
+                CategoryTable.COL_NAME
+            )
+            .build()
 
-        fun insertCategory() =
-            com.fondesa.manganow.database.api.client.statement.Insert.into(CategoryTable.NAME)
-                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
-                .columns(
-                    CategoryTable.COL_ID,
-                    CategoryTable.COL_NAME
-                )
-                .build()
+        fun insertCategory() = Insert.into(CategoryTable.NAME)
+            .conflictType(ConflictType.REPLACE)
+            .columns(
+                CategoryTable.COL_ID,
+                CategoryTable.COL_NAME
+            )
+            .build()
     }
 }

@@ -14,9 +14,25 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.storage.api.remote
+package com.fondesa.manganow.remote.api.task
 
-import com.fondesa.manganow.core.api.InjectableConverter
 import com.google.gson.JsonElement
 
-typealias RemoteStorageConverter<T> = InjectableConverter<JsonElement, T>
+data class RemoteImageTask(private val imageUrl: String) : RemoteTask {
+
+    override val method = RemoteTask.Method.GET
+
+    override val scheme = "https"
+
+    override val host = "cdn.mangaeden.com"
+
+    override val path = "mangasimg/$imageUrl"
+
+    override val port: Int = 443
+
+    override val headers: Map<String, String> = emptyMap()
+
+    override val queryParams: Map<String, String> = emptyMap()
+
+    override val body: JsonElement? = null
+}
