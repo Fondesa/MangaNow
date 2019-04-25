@@ -20,9 +20,18 @@ apply plugin: 'common-android'
 dependencies {
     compileOnly deps.javaxInject
 
-    api project(":splash:splash-impl")
+    api project(":core:core-api")
+    api project(":domain:domain-chapter")
+    api project(":domain:domain-manga")
+    api project(":storage:storage-api")
+    api project(":serialization:serialization-api")
+    api project(":latest:latest-api")
+    api project(':thread:thread-api')
+    api project(':time:time-api')
+    api project(":ui:ui-api")
+    api deps.dagger
     api deps.daggerAndroid
+    api deps.kotlinStdLib
 
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    kapt project(':database:database-processor')
 }
