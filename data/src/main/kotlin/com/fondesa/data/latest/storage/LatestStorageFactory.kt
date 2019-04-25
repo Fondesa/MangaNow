@@ -16,9 +16,7 @@
 
 package com.fondesa.data.latest.storage
 
-import com.fondesa.data.storage.Storage
-
-interface LatestStorageFactory<out T : Storage> {
+interface LatestStorageFactory<out T> {
 
     fun provideStorage(page: Int, pageSize: Int): T
 }

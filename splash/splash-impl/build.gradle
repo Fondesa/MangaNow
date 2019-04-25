@@ -21,6 +21,7 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(":core:core-api")
+    api project(":domain:domain-category")
     api project(":splash:splash-api")
     api project(':thread:thread-api')
     api project(':time:time-api')

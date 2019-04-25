@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.splash.impl.category
 
-dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(":storage:storage-api")
-    api project(":serialization:serialization-api")
-    api project(':domain-old')
+import com.fondesa.manganow.domain.category.Category
 
-    api deps.dagger
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database:database-processor')
-}
+/**
+ * Identifies a list of [Category] which suppress the wildcards.
+ */
+typealias CategoryList = List<@JvmSuppressWildcards Category>

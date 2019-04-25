@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.remote.api.task
 
-dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(":storage:storage-api")
-    api project(":serialization:serialization-api")
-    api project(':domain-old')
+import com.google.gson.JsonElement
 
-    api deps.dagger
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
+data class RemoteGetTask(
+    override val apiPath: String,
+    override val queryParams: Map<String, String> = emptyMap()
+) : RemoteBaseTask() {
 
-    kapt project(':database:database-processor')
+    override val method = RemoteTask.Method.GET
+
+    override val body: JsonElement? = null
+
+    override val headers: Map<String, String> = emptyMap()
 }

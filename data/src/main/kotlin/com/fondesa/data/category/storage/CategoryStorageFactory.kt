@@ -16,9 +16,7 @@
 
 package com.fondesa.data.category.storage
 
-import com.fondesa.data.storage.Storage
-
-interface CategoryStorageFactory<out T : Storage> {
+interface CategoryStorageFactory<out T> {
 
     fun provideStorage(): T
 }

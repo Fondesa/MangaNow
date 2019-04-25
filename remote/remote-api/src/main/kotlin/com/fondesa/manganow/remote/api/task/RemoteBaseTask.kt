@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.serialization
+package com.fondesa.manganow.remote.api.task
 
-import com.fondesa.data.converter.Converter
-import com.google.gson.JsonElement
+abstract class RemoteBaseTask : RemoteTask {
 
-typealias FromJsonConverter<T> = Converter<JsonElement, T>
+    /**
+     * @return path that will be appended to the root path of the APIs.
+     */
+    protected abstract val apiPath: String
 
-typealias ToJsonConverter<T> = Converter<T, JsonElement>
+    override val scheme: String = "http"
+
+    override val host: String = "192.168.1.7"
+
+    override val path get() = "api/$apiPath"
+
+    override val port = 8080
+}

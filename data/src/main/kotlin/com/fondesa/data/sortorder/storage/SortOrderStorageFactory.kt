@@ -16,9 +16,7 @@
 
 package com.fondesa.data.sortorder.storage
 
-import com.fondesa.data.storage.Storage
-
-interface SortOrderStorageFactory<out T : Storage> {
+interface SortOrderStorageFactory<out T> {
 
     fun provideStorage(): T
 }

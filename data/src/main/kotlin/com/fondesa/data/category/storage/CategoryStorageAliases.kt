@@ -16,9 +16,9 @@
 
 package com.fondesa.data.category.storage
 
-import com.fondesa.data.storage.disk.DiskStorage
-import com.fondesa.data.storage.remote.RemoteStorage
 import com.fondesa.domain.category.CategoryList
+import com.fondesa.manganow.storage.api.disk.DiskStorage
+import com.fondesa.manganow.storage.api.remote.RemoteStorage
 
 typealias CategoryDiskStorage = @JvmSuppressWildcards DiskStorage<CategoryList>
 

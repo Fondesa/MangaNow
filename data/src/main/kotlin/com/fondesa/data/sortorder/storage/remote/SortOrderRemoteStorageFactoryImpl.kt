@@ -20,8 +20,8 @@ import com.fondesa.data.remote.RemoteApi
 import com.fondesa.data.sortorder.converter.SortOrderJsonConverter
 import com.fondesa.data.sortorder.storage.SortOrderRemoteStorage
 import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
-import com.fondesa.data.storage.remote.JsonRemoteStorage
 import com.fondesa.manganow.remote.api.client.RemoteClient
+import com.fondesa.manganow.storage.api.remote.JsonRemoteStorage
 import javax.inject.Inject
 
 class SortOrderRemoteStorageFactoryImpl @Inject constructor(private val client: RemoteClient) :

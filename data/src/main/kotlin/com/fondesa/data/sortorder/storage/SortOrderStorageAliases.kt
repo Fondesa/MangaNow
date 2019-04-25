@@ -16,9 +16,9 @@
 
 package com.fondesa.data.sortorder.storage
 
-import com.fondesa.data.storage.disk.DiskStorage
-import com.fondesa.data.storage.remote.RemoteStorage
 import com.fondesa.domain.sortorder.SortOrderList
+import com.fondesa.manganow.storage.api.disk.DiskStorage
+import com.fondesa.manganow.storage.api.remote.RemoteStorage
 
 typealias SortOrderDiskStorage = @JvmSuppressWildcards DiskStorage<SortOrderList>
 

@@ -16,18 +16,18 @@
 
 package com.fondesa.data.latest.converter
 
-import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.data.serialization.asNullableString
-import com.fondesa.data.serialization.mapJsonObject
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.manganow.domain.chapter.Chapter
 import com.fondesa.manganow.domain.manga.Manga
+import com.fondesa.manganow.serialization.api.json.asNullableString
+import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
 import java.util.*
 import javax.inject.Inject
 
-class LatestJsonConverter @Inject constructor() : FromJsonConverter<LatestList> {
+class LatestJsonConverter @Inject constructor() : RemoteStorageConverter<LatestList> {
 
     override fun convert(value: JsonElement): LatestList = value.asJsonArray.mapJsonObject {
         val manga = Manga(

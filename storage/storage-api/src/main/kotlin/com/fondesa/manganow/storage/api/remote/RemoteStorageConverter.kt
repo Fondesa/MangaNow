@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.storage.remote
+package com.fondesa.manganow.storage.api.remote
 
-import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.manganow.remote.api.client.RemoteClient
-import com.fondesa.manganow.remote.api.task.RemoteTask
+import com.fondesa.manganow.core.api.Converter
+import com.google.gson.JsonElement
 
-class JsonRemoteStorage<out T>(
-    private val remoteClient: RemoteClient,
-    private val remoteTask: RemoteTask,
-    private val converter: FromJsonConverter<T>
-) : RemoteStorage<T> {
-
-    override fun get(): T {
-        val json = remoteClient.load(remoteTask)
-        return converter.convert(json)
-    }
-}
+typealias RemoteStorageConverter<T> = Converter<JsonElement, T>

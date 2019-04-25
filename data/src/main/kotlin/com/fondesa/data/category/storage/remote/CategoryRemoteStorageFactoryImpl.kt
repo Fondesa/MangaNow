@@ -20,8 +20,8 @@ import com.fondesa.data.category.converter.CategoryJsonConverter
 import com.fondesa.data.category.storage.CategoryRemoteStorage
 import com.fondesa.data.category.storage.CategoryRemoteStorageFactory
 import com.fondesa.data.remote.RemoteApi
-import com.fondesa.data.storage.remote.JsonRemoteStorage
 import com.fondesa.manganow.remote.api.client.RemoteClient
+import com.fondesa.manganow.storage.api.remote.JsonRemoteStorage
 import javax.inject.Inject
 
 class CategoryRemoteStorageFactoryImpl @Inject constructor(private val client: RemoteClient) :

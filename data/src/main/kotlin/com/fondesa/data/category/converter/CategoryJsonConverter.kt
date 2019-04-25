@@ -16,14 +16,14 @@
 
 package com.fondesa.data.category.converter
 
-import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.data.serialization.mapJsonObject
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.manganow.domain.category.Category
+import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
 import javax.inject.Inject
 
-class CategoryJsonConverter @Inject constructor() : FromJsonConverter<CategoryList> {
+class CategoryJsonConverter @Inject constructor() : RemoteStorageConverter<CategoryList> {
 
     override fun convert(value: JsonElement): CategoryList = value.asJsonArray.mapJsonObject {
         Category(

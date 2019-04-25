@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.serialization
+package com.fondesa.manganow.serialization.api.json
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement

@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.storage.disk
+package com.fondesa.manganow.storage.api.disk
 
-import com.fondesa.data.remote.database.RemoteTaskTable
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.database.api.client.clause.ConflictType
 import com.fondesa.manganow.database.api.client.extension.and
 import com.fondesa.manganow.database.api.client.extension.equalTo
 import com.fondesa.manganow.database.api.client.extension.majorThan
+import com.fondesa.manganow.database.api.client.statement.Insert
+import com.fondesa.manganow.database.api.client.statement.Select
 
 abstract class SQLiteDiskStorage<T>(
-    client: com.fondesa.manganow.database.api.client.DatabaseClient,
+    client: DatabaseClient,
     private val expirationTimeMs: Long,
-    private val remoteTaskKey: String
+    private val cacheKey: String
 ) : DiskStorage<T> {
 
     protected val database by lazy { client.getDatabase() }
@@ -55,52 +58,54 @@ abstract class SQLiteDiskStorage<T>(
 
         // If there's at least one record in cache inserted in an acceptable expiration time and
         // with the same path, the cache is valid.
-        val count = database.compile(Statements.countCache(remoteTaskKey, validDate))
+        val count = database.compile(Statements.countCache(cacheKey, validDate))
             .execute()
             .simpleInteger()
         return count > 0
     }
 
     private fun cacheRecordId(): Long {
-        return database.compile(Statements.selectCache(remoteTaskKey))
+        return database.compile(Statements.selectCache(cacheKey))
             .execute()
             .firstOrNull {
                 // Get the record's id.
-                it.getLong(RemoteTaskTable.COL_ID)
+                it.getLong(CacheTable.COL_ID)
             }
-            ?: throw NullPointerException("Cache id for the identifier `$remoteTaskKey` not found")
+            ?: throw NullPointerException("Cache id for the identifier `$cacheKey` not found")
     }
 
     private fun insertCacheRecord(): Long = database.compile(Statements.insertCache())
-        .bindNull(RemoteTaskTable.COL_ID)
-        .bindLong(RemoteTaskTable.COL_DATE_MS, System.currentTimeMillis())
-        .bindString(RemoteTaskTable.COL_KEY, remoteTaskKey)
+        .bindNull(CacheTable.COL_ID)
+        .bindLong(CacheTable.COL_DATE_MS, System.currentTimeMillis())
+        .bindString(CacheTable.COL_KEY, cacheKey)
         .execute(close = true)
 
     private object Statements {
 
         fun countCache(remoteTaskPath: String, validDate: Long) =
-            com.fondesa.manganow.database.api.client.statement.Select.from(RemoteTaskTable.NAME)
+            Select.from(CacheTable.NAME)
                 .count()
                 .where(
-                    RemoteTaskTable.COL_KEY.equalTo(remoteTaskPath) and
-                            RemoteTaskTable.COL_DATE_MS.majorThan(validDate)
+                    CacheTable.COL_KEY.equalTo(remoteTaskPath) and
+                            CacheTable.COL_DATE_MS.majorThan(validDate)
                 )
                 .build()
 
-        fun selectCache(remoteTaskPath: String) = com.fondesa.manganow.database.api.client.statement.Select.from(RemoteTaskTable.NAME)
-            .columns(RemoteTaskTable.COL_ID)
-            .where(RemoteTaskTable.COL_KEY.equalTo(remoteTaskPath))
-            .limit(1)
-            .build()
+        fun selectCache(remoteTaskPath: String) =
+            Select.from(CacheTable.NAME)
+                .columns(CacheTable.COL_ID)
+                .where(CacheTable.COL_KEY.equalTo(remoteTaskPath))
+                .limit(1)
+                .build()
 
-        fun insertCache() = com.fondesa.manganow.database.api.client.statement.Insert.into(RemoteTaskTable.NAME)
-            .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
-            .columns(
-                RemoteTaskTable.COL_ID,
-                RemoteTaskTable.COL_DATE_MS,
-                RemoteTaskTable.COL_KEY
-            )
-            .build()
+        fun insertCache() =
+            Insert.into(CacheTable.NAME)
+                .conflictType(ConflictType.REPLACE)
+                .columns(
+                    CacheTable.COL_ID,
+                    CacheTable.COL_DATE_MS,
+                    CacheTable.COL_KEY
+                )
+                .build()
     }
 }

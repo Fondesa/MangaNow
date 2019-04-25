@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.splash.impl.category
 
-dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(":storage:storage-api")
-    api project(":serialization:serialization-api")
-    api project(':domain-old')
+/**
+ * Defines the operation which must be executed to obtain the list of the categories.
+ */
+interface GetCategoryList {
 
-    api deps.dagger
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database:database-processor')
+    /**
+     * Gets the list of all the categories.
+     *
+     * @return a list containing all the manga's categories.
+     */
+    suspend fun execute(): CategoryList
 }

@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.storage.api.disk
 
-dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(":storage:storage-api")
-    api project(":serialization:serialization-api")
-    api project(':domain-old')
+interface DiskStorage<T> {
 
-    api deps.dagger
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
+    fun get(): T
 
-    kapt project(':database:database-processor')
+    fun put(item: T)
+
+    fun isValid(): Boolean
 }

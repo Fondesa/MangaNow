@@ -16,14 +16,14 @@
 
 package com.fondesa.data.sortorder.converter
 
-import com.fondesa.data.serialization.FromJsonConverter
-import com.fondesa.data.serialization.mapJsonObject
 import com.fondesa.domain.sortorder.SortOrderList
 import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
 import javax.inject.Inject
 
-class SortOrderJsonConverter @Inject constructor() : FromJsonConverter<SortOrderList> {
+class SortOrderJsonConverter @Inject constructor() : RemoteStorageConverter<SortOrderList> {
 
     override fun convert(value: JsonElement): SortOrderList = value.asJsonArray.mapJsonObject {
         SortOrder(

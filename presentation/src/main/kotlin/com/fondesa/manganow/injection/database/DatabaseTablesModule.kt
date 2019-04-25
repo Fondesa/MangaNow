@@ -17,12 +17,12 @@
 package com.fondesa.manganow.injection.database
 
 import com.fondesa.data.latest.database.LatestTableModule
-import com.fondesa.data.remote.database.RemoteTaskTableModule
 import com.fondesa.data.sortorder.database.SortOrderTableModule
 import com.fondesa.manganow.domain.category.CategoryTableModule
 import com.fondesa.manganow.domain.chapter.ChapterTableModule
 import com.fondesa.manganow.domain.manga.MangaTableModule
 import com.fondesa.manganow.domain.page.PageTableModule
+import com.fondesa.manganow.storage.api.disk.CacheTableModule
 import dagger.Module
 
 @Module(
@@ -33,7 +33,7 @@ import dagger.Module
         PageTableModule::class,
         LatestTableModule::class,
         SortOrderTableModule::class,
-        RemoteTaskTableModule::class
+        CacheTableModule::class
     ]
 )
 interface DatabaseTablesModule

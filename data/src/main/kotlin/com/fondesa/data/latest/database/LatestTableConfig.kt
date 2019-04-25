@@ -16,7 +16,6 @@
 
 package com.fondesa.data.latest.database
 
-import com.fondesa.data.remote.database.RemoteTaskTableConfig
 import com.fondesa.manganow.database.annotations.Column
 import com.fondesa.manganow.database.annotations.ForeignKey
 import com.fondesa.manganow.database.annotations.Table
@@ -26,6 +25,7 @@ import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
 import com.fondesa.manganow.database.api.structure.TextColumnConfig
 import com.fondesa.manganow.domain.chapter.ChapterTableConfig
 import com.fondesa.manganow.domain.manga.MangaTableConfig
+import com.fondesa.manganow.storage.api.disk.CacheTableConfig
 
 @Table("latest", withRowId = false)
 object LatestTableConfig {
@@ -39,7 +39,7 @@ object LatestTableConfig {
     @Column("chapter_id")
     val COL_CHAPTER_ID = TextColumnConfig().primaryKey()
 
-    @ForeignKey(RemoteTaskTableConfig::class)
+    @ForeignKey(CacheTableConfig::class)
     val REMOTE_TASK_ID_FK = ForeignKeyConfig.from("remote_task_id")
         .to("id")
         .onDelete(ForeignKeyAction.CASCADE)

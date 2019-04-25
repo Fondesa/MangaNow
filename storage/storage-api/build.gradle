@@ -14,11 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.storage.remote
+apply plugin: 'com.android.library'
+apply plugin: 'common-android'
 
-import com.fondesa.data.storage.Storage
+dependencies {
+    compileOnly deps.javaxInject
 
-interface RemoteStorage<out T> : Storage {
+    api project(':core:core-api')
+    api project(':database:database-annotations')
+    api project(':database:database-api-client')
+    api project(':remote:remote-api')
+    api deps.kotlinStdLib
+    api deps.dagger
 
-    fun get(): T
+    kapt project(':database:database-processor')
 }

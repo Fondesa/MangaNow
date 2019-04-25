@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.storage.disk
+package com.fondesa.manganow.storage.api.remote
 
-import com.fondesa.data.storage.Storage
-
-interface DiskStorage<T> : Storage {
+interface RemoteStorage<out T> {
 
     fun get(): T
-
-    fun put(item: T)
-
-    fun isValid(): Boolean
 }

@@ -14,22 +14,9 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+apply plugin: 'common-jvm'
 
 dependencies {
-    api project(':thread:thread-api')
-    api project(':database:database-api-client')
-    api project(':database:database-annotations')
-    api project(":remote:remote-api")
-    api project(":storage:storage-api")
-    api project(":serialization:serialization-api")
-    api project(':domain-old')
-
-    api deps.dagger
-    api deps.kotlinStdLib
-    api deps.javaxInject
-    api deps.gson
-
-    kapt project(':database:database-processor')
+    compile deps.kotlinStdLib
+    compile deps.gson
 }

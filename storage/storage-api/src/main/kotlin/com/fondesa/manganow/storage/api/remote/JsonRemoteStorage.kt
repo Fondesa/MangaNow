@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.converter
+package com.fondesa.manganow.storage.api.remote
 
-/**
- * Used to convert a value of type [FromType] to a value of type [ToType].
- *
- * @param FromType type of the value that must be converted.
- * @param ToType type of the value after the conversion.
- */
-interface Converter<in FromType, out ToType> {
+import com.fondesa.manganow.remote.api.client.RemoteClient
+import com.fondesa.manganow.remote.api.task.RemoteTask
 
-    /**
-     * Convert the value [value] to a value of type [ToType].
-     *
-     * @param value value that must be converted.
-     * @return value after the conversion.
-     */
-    fun convert(value: FromType): ToType
+class JsonRemoteStorage<out T>(
+    private val remoteClient: RemoteClient,
+    private val remoteTask: RemoteTask,
+    private val converter: RemoteStorageConverter<T>
+) : RemoteStorage<T> {
+
+    override fun get(): T {
+        val json = remoteClient.load(remoteTask)
+        return converter.convert(json)
+    }
 }

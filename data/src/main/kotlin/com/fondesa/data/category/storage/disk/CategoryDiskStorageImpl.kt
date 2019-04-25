@@ -16,10 +16,10 @@
 
 package com.fondesa.data.category.storage.disk
 
-import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.domain.category.CategoryList
 import com.fondesa.manganow.domain.category.Category
 import com.fondesa.manganow.domain.category.CategoryTable
+import com.fondesa.manganow.storage.api.disk.SQLiteDiskStorage
 
 class CategoryDiskStorageImpl(
     client: com.fondesa.manganow.database.api.client.DatabaseClient,

@@ -17,7 +17,6 @@
 package com.fondesa.data.latest.storage.disk
 
 import com.fondesa.data.latest.database.LatestTable
-import com.fondesa.data.storage.disk.SQLiteDiskStorage
 import com.fondesa.domain.latest.LatestList
 import com.fondesa.domain.latest.model.Latest
 import com.fondesa.manganow.database.api.client.extension.equalTo
@@ -25,6 +24,7 @@ import com.fondesa.manganow.domain.chapter.Chapter
 import com.fondesa.manganow.domain.chapter.ChapterTable
 import com.fondesa.manganow.domain.manga.Manga
 import com.fondesa.manganow.domain.manga.MangaTable
+import com.fondesa.manganow.storage.api.disk.SQLiteDiskStorage
 import java.util.*
 
 class LatestDiskStorageImpl(
