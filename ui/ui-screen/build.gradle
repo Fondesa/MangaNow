@@ -19,6 +19,8 @@ apply plugin: 'common-android'
 
 dependencies {
     api project(":log:log-api")
+    api project(":navigation:navigation-api")
+    api project(":time:time-api")
     api deps.appCompat
     api deps.kotlinStdLib
 }
