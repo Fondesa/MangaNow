@@ -21,8 +21,10 @@ import com.fondesa.manganow.splash.impl.sortorder.SortOrder
 import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
+import dagger.Reusable
 import javax.inject.Inject
 
+@Reusable
 class SortOrderRemoteStorageConverter @Inject constructor() :
     RemoteStorageConverter<SortOrderList> {
 

@@ -18,8 +18,10 @@ package com.fondesa.manganow.splash.impl.sortorder
 
 import com.fondesa.manganow.splash.impl.sortorder.storage.disk.SortOrderDiskStorageFactory
 import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemoteStorageFactory
+import dagger.Reusable
 import javax.inject.Inject
 
+@Reusable
 class GetSortOrderListImpl @Inject constructor(
     private val remoteStorageFactory: SortOrderRemoteStorageFactory,
     private val diskStorageFactory: SortOrderDiskStorageFactory

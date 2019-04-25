@@ -37,7 +37,7 @@ import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemote
 import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemoteStorageFactory
 import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemoteStorageFactoryImpl
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
-import com.fondesa.manganow.ui.di.ScreenScope
+import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -57,44 +57,34 @@ interface SplashModule {
         @Binds
         fun provideView(activity: SplashActivity): SplashContract.View
 
-        @ScreenScope
         @Binds
         fun providePresenter(presenter: SplashPresenter): SplashContract.Presenter
 
-        @ScreenScope
         @Binds
         @IntoSet
         fun providePresenterLifecycleObserver(presenter: SplashPresenter): LifecycleObserver
 
-        @ScreenScope
         @Binds
         fun provideGetCategoryList(getCategoryList: GetCategoryListImpl): GetCategoryList
 
-        @ScreenScope
         @Binds
         fun provideCategoryRemoteStorageConverter(factory: CategoryRemoteStorageConverter): RemoteStorageConverter<CategoryList>
 
-        @ScreenScope
         @Binds
         fun provideCategoryRemoteStorageFactory(factory: CategoryRemoteStorageFactoryImpl): CategoryRemoteStorageFactory
 
-        @ScreenScope
         @Binds
         fun provideCategoryDiskStorageFactory(factory: CategoryDiskStorageFactoryImpl): CategoryDiskStorageFactory
 
-        @ScreenScope
         @Binds
         fun provideGetSortOrderList(getSortOrderList: GetSortOrderListImpl): GetSortOrderList
 
-        @ScreenScope
         @Binds
         fun provideSortOrderRemoteStorageConverter(factory: SortOrderRemoteStorageConverter): RemoteStorageConverter<SortOrderList>
 
-        @ScreenScope
         @Binds
         fun provideSortOrderRemoteStorageFactory(factory: SortOrderRemoteStorageFactoryImpl): SortOrderRemoteStorageFactory
 
-        @ScreenScope
         @Binds
         fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
     }

@@ -45,18 +45,16 @@ interface DatabaseModule {
     fun provideDatabaseInitializer(initializer: DatabaseInitializer): AppInitializer
 
     @Binds
+    fun provideUpgradeStrategy(strategy: DropAllUpgradeStrategy): UpgradeStrategy
+
+    @Binds
+    fun provideErrorStrategy(strategy: VacuumErrorStrategy): ErrorStrategy
+
+    @Binds
     fun provideGraph(graph: GraphImpl): Graph
 
     @Module
     object WithProvides {
-
-        @JvmStatic
-        @Provides
-        fun provideUpgradeStrategy(strategy: DropAllUpgradeStrategy): UpgradeStrategy = strategy
-
-        @JvmStatic
-        @Provides
-        fun provideErrorStrategy(strategy: VacuumErrorStrategy): ErrorStrategy = strategy
 
         @JvmStatic
         @SQLiteDatabaseInfo

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.ui.di
+package com.fondesa.manganow.ui.api.qualifiers
 
 import javax.inject.Scope
 

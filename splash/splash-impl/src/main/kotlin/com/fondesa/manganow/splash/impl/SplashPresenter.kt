@@ -23,10 +23,12 @@ import com.fondesa.manganow.splash.impl.category.GetCategoryList
 import com.fondesa.manganow.splash.impl.sortorder.GetSortOrderList
 import com.fondesa.manganow.thread.api.DispatchOnMainExceptionHandler
 import com.fondesa.manganow.thread.api.launchWithDelay
+import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+@ScreenScope
 class SplashPresenter @Inject constructor(
     private val view: SplashContract.View,
     private val getCategoryList: GetCategoryList,

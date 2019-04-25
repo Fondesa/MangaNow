@@ -21,8 +21,10 @@ import com.fondesa.manganow.serialization.api.json.mapJsonObject
 import com.fondesa.manganow.splash.impl.category.CategoryList
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
+import dagger.Reusable
 import javax.inject.Inject
 
+@Reusable
 class CategoryRemoteStorageConverter @Inject constructor() :
     RemoteStorageConverter<CategoryList> {
 

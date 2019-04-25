@@ -18,9 +18,11 @@ package com.fondesa.manganow.database.impl
 
 import com.fondesa.manganow.core.api.AppInitializer
 import com.fondesa.manganow.database.api.client.DatabaseClient
+import dagger.Reusable
 import javax.inject.Inject
 
-class DatabaseInitializer @Inject constructor(private val client: DatabaseClient): AppInitializer {
+@Reusable
+class DatabaseInitializer @Inject constructor(private val client: DatabaseClient) : AppInitializer {
 
     override fun initialize() {
         client.createDatabase()

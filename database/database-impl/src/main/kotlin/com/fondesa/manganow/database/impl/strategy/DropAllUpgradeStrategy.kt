@@ -21,6 +21,7 @@ import com.fondesa.manganow.database.api.client.statement.CreateTable
 import com.fondesa.manganow.database.api.client.statement.Pragma
 import com.fondesa.manganow.database.api.client.statement.Vacuum
 import com.fondesa.manganow.database.api.structure.Graph
+import dagger.Reusable
 import javax.inject.Inject
 
 /**
@@ -31,6 +32,7 @@ import javax.inject.Inject
  * The writing on the <i>sqlite_master</i> table is discouraged so, in production mode,
  * it's better to specify a custom [UpgradeStrategy].
  */
+@Reusable
 class DropAllUpgradeStrategy @Inject constructor() :
     UpgradeStrategy {
 
@@ -41,9 +43,10 @@ class DropAllUpgradeStrategy @Inject constructor() :
         val enableWritableSchema = Pragma.write(pragmaWritableSchemaRaw, true)
         database.compile(enableWritableSchema).execute(close = true)
 
-        val dropAll = com.fondesa.manganow.database.api.client.statement.Delete.from("sqlite_master")
-            .where("type in ('table', 'index', 'trigger')")
-            .build()
+        val dropAll =
+            com.fondesa.manganow.database.api.client.statement.Delete.from("sqlite_master")
+                .where("type in ('table', 'index', 'trigger')")
+                .build()
 
         // Delete all tables, foreign keys, indexes and triggers.
         database.compile(dropAll).execute(close = true)

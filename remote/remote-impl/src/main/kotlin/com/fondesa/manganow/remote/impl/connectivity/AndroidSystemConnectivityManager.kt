@@ -18,6 +18,7 @@ package com.fondesa.manganow.remote.impl.connectivity
 
 import android.content.Context
 import com.fondesa.manganow.remote.api.connectivity.ConnectivityManager
+import dagger.Reusable
 import javax.inject.Inject
 import android.net.ConnectivityManager as AndroidConnectivityManager
 
@@ -27,6 +28,7 @@ import android.net.ConnectivityManager as AndroidConnectivityManager
  *
  * @param context the [Context] used to access to the system services.
  */
+@Reusable
 class AndroidSystemConnectivityManager @Inject constructor(private val context: Context) :
     ConnectivityManager {
 

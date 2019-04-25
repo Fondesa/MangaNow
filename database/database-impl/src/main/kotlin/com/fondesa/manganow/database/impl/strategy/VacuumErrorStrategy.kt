@@ -18,12 +18,14 @@ package com.fondesa.manganow.database.impl.strategy
 
 import com.fondesa.manganow.database.api.client.Database
 import com.fondesa.manganow.database.api.client.statement.Vacuum
+import dagger.Reusable
 import javax.inject.Inject
 
 /**
  * Default implementation of [ErrorStrategy] that will attempt to rebuild
  * the database file when a corruption occurs.
  */
+@Reusable
 class VacuumErrorStrategy @Inject constructor() :
     ErrorStrategy {
 

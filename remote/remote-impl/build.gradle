@@ -23,6 +23,7 @@ dependencies {
     api project(":remote:remote-api")
     api deps.kotlinStdLib
     api deps.gson
+    api deps.dagger
     api deps.okHttpLoggingInterceptor
 
     testImplementation project(":testing:testing-jvm")

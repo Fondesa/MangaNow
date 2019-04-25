@@ -22,8 +22,10 @@ import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
 import com.fondesa.manganow.storage.api.remote.JsonRemoteStorage
 import com.fondesa.manganow.storage.api.remote.RemoteStorage
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import dagger.Reusable
 import javax.inject.Inject
 
+@Reusable
 class SortOrderRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
     private val remoteStorageConverter: RemoteStorageConverter<SortOrderList>

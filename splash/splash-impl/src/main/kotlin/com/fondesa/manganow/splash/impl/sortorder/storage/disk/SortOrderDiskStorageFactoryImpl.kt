@@ -19,9 +19,11 @@ package com.fondesa.manganow.splash.impl.sortorder.storage.disk
 import com.fondesa.manganow.database.api.client.DatabaseClient
 import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
 import com.fondesa.manganow.storage.api.disk.DiskStorage
+import dagger.Reusable
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@Reusable
 class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
     SortOrderDiskStorageFactory {
 
