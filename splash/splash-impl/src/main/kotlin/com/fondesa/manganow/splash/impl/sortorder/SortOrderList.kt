@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.sortorder
-
-import com.fondesa.domain.sortorder.model.SortOrder
+package com.fondesa.manganow.splash.impl.sortorder
 
 /**
  * Identifies a list of [SortOrder] which suppress the wildcards.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.sortorder.storage.disk
+package com.fondesa.manganow.splash.impl.sortorder.storage.disk
 
-import com.fondesa.data.sortorder.database.SortOrderTable
-import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.database.api.client.clause.ConflictType
+import com.fondesa.manganow.database.api.client.statement.Insert
+import com.fondesa.manganow.database.api.client.statement.Select
+import com.fondesa.manganow.splash.impl.sortorder.SortOrder
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderTable
 import com.fondesa.manganow.storage.api.disk.SQLiteDiskStorage
 
-class SortOrderDiskStorageImpl(
-    client: com.fondesa.manganow.database.api.client.DatabaseClient,
+class SortOrderDiskStorage(
+    client: DatabaseClient,
     expirationTimeMs: Long,
     remoteTaskKey: String
 ) : SQLiteDiskStorage<SortOrderList>(client, remoteTaskKey, expirationTimeMs) {
@@ -51,24 +55,22 @@ class SortOrderDiskStorageImpl(
 
     private object Statements {
 
-        fun selectSortOrders() =
-            com.fondesa.manganow.database.api.client.statement.Select.from(SortOrderTable.NAME)
-                .columns(
-                    SortOrderTable.COL_ID,
-                    SortOrderTable.COL_NAME,
-                    SortOrderTable.COL_PRIORITY
-                )
-                .orderAsc(SortOrderTable.COL_PRIORITY)
-                .build()
+        fun selectSortOrders() = Select.from(SortOrderTable.NAME)
+            .columns(
+                SortOrderTable.COL_ID,
+                SortOrderTable.COL_NAME,
+                SortOrderTable.COL_PRIORITY
+            )
+            .orderAsc(SortOrderTable.COL_PRIORITY)
+            .build()
 
-        fun insertSortOrder() =
-            com.fondesa.manganow.database.api.client.statement.Insert.into(SortOrderTable.NAME)
-                .conflictType(com.fondesa.manganow.database.api.client.clause.ConflictType.REPLACE)
-                .columns(
-                    SortOrderTable.COL_ID,
-                    SortOrderTable.COL_NAME,
-                    SortOrderTable.COL_PRIORITY
-                )
-                .build()
+        fun insertSortOrder() = Insert.into(SortOrderTable.NAME)
+            .conflictType(ConflictType.REPLACE)
+            .columns(
+                SortOrderTable.COL_ID,
+                SortOrderTable.COL_NAME,
+                SortOrderTable.COL_PRIORITY
+            )
+            .build()
     }
 }

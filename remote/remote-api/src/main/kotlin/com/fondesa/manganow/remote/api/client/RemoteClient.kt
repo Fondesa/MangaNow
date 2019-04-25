@@ -30,5 +30,5 @@ interface RemoteClient {
      * @param task task containing the request's configurations.
      * @return json returned from the WS.
      */
-    fun load(task: RemoteTask): JsonElement
+    suspend fun load(task: RemoteTask): JsonElement
 }

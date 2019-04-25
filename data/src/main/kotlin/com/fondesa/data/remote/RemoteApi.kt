@@ -16,7 +16,6 @@
 
 package com.fondesa.data.remote
 
-import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.manganow.remote.api.task.RemoteTask
 import com.google.gson.JsonElement
 
@@ -39,7 +38,6 @@ object RemoteApi {
      * Constant paths appended to the base url.
      */
     object Path {
-        const val SORT_ORDERS = "sortorders"
         const val LATEST = "latest"
         const val MANGA_LIST = "mangalist"
     }
@@ -48,33 +46,12 @@ object RemoteApi {
      * Wrapper containing built-in requests to use through the application lifetime.
      */
     object Request {
-        fun sortOrders(): RemoteTask = Task.Get(Path.SORT_ORDERS)
-
         fun latest(page: Int, pageSize: Int): RemoteTask {
             val queryParams = queryMap {
                 put(Key.PAGE, page.toString())
                 put(Key.PAGE_SIZE, pageSize.toString())
             }
             return Task.Get(Path.LATEST, queryParams)
-        }
-
-        fun mangaList(
-            page: Int,
-            pageSize: Int,
-            sortOrder: SortOrder? = null,
-            textFilter: String? = null
-        ): RemoteTask {
-            val queryParams = queryMap {
-                put(Key.PAGE, page.toString())
-                put(Key.PAGE_SIZE, pageSize.toString())
-                sortOrder?.let {
-                    put(Key.SORT_ORDER_ID, it.id.toString())
-                }
-                textFilter?.let {
-                    put(Key.TEXT_FILTER, it)
-                }
-            }
-            return Task.Get(Path.MANGA_LIST, queryParams)
         }
 
         private fun queryMap(values: MutableMap<String, String>.() -> Unit) =

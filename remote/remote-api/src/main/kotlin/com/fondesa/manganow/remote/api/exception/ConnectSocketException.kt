@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.repository
-
-import com.fondesa.domain.category.CategoryList
-import com.fondesa.manganow.domain.category.Category
+package com.fondesa.manganow.remote.api.exception
 
 /**
- * Manages all the data operations about a [Category] model.
+ * Exception thrown when the app can't open a connection towards the server.
+ *
+ * @param host the url's host address.
  */
-interface CategoryRepository {
-
-    /**
-     * Gets the list of all the categories.
-     *
-     * @return a list containing all the manga's categories.
-     */
-    suspend fun getAll(): CategoryList
-}
+class ConnectSocketException(host: String) : Exception("Can't connect to \"$host\"")

@@ -18,14 +18,19 @@ package com.fondesa.manganow.remote.impl.client
 
 import com.fondesa.manganow.remote.api.client.RemoteClient
 import com.fondesa.manganow.remote.api.connectivity.ConnectivityManager
+import com.fondesa.manganow.remote.api.exception.ConnectSocketException
+import com.fondesa.manganow.remote.api.exception.ConnectivityException
+import com.fondesa.manganow.remote.api.exception.ResponseException
 import com.fondesa.manganow.remote.api.task.RemoteTask
 import com.fondesa.manganow.remote.impl.qualifiers.HttpClientInfo
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
 /**
@@ -61,10 +66,10 @@ class HttpClient @Inject constructor(
         httpClient = httpClientBuilder.build()
     }
 
-    override fun load(task: RemoteTask): JsonElement {
+    override suspend fun load(task: RemoteTask): JsonElement {
         // Check the connectivity before sending the request.
         if (!connectivityManager.isConnected())
-            throw com.fondesa.manganow.remote.api.exception.ConnectivityException()
+            throw ConnectivityException()
 
         // Get the task URL.
         val url = task.toHttpUrl()
@@ -91,23 +96,22 @@ class HttpClient @Inject constructor(
         val response = try {
             httpClient.newCall(request).execute()
         } catch (e: SocketTimeoutException) {
-            throw com.fondesa.manganow.remote.api.exception.TimeoutException()
+            throw TimeoutException()
+        } catch (e: ConnectException) {
+            throw ConnectSocketException(url.host())
         }
 
         val code = response.code()
 
         if (!response.isSuccessful) {
             response.close()
-            throw com.fondesa.manganow.remote.api.exception.ResponseException(
-                code,
-                "response not successful"
-            )
+            throw ResponseException(url.toString(), code, "response not successful")
         }
 
         return response.body()?.let {
             // Parse the body as a JsonElement.
             gson.fromJson(it.charStream(), JsonElement::class.java)
-        } ?: throw com.fondesa.manganow.remote.api.exception.ResponseException(code, "response body is null")
+        } ?: throw ResponseException(url.toString(), code, "response body is null")
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.sortorder.converter
+package com.fondesa.manganow.splash.impl.sortorder.storage.remote
 
-import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.model.SortOrder
 import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.splash.impl.sortorder.SortOrder
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
 import javax.inject.Inject
 
-class SortOrderJsonConverter @Inject constructor() : RemoteStorageConverter<SortOrderList> {
+class SortOrderRemoteStorageConverter @Inject constructor() :
+    RemoteStorageConverter<SortOrderList> {
 
     override fun convert(value: JsonElement): SortOrderList = value.asJsonArray.mapJsonObject {
         SortOrder(

@@ -18,5 +18,7 @@ package com.fondesa.manganow.remote.api.exception
 
 /**
  * Exception thrown when the request goes in timeout.
+ *
+ * @param url the url of the server.
  */
-class TimeoutException : Exception("Timeout occurred.")
+class TimeoutException(url: String) : Exception("Timeout occurred requesting \"$url\"")

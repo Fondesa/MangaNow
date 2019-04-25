@@ -14,9 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.sortorder.storage
+package com.fondesa.manganow.splash.impl.sortorder
 
-interface SortOrderStorageFactory<out T> {
+import com.fondesa.manganow.database.annotations.Column
+import com.fondesa.manganow.database.annotations.Table
+import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
+import com.fondesa.manganow.database.api.structure.TextColumnConfig
 
-    fun provideStorage(): T
+@Table("sort_order")
+object SortOrderTableConfig {
+
+    @Column("id")
+    val COL_ID = IntegerColumnConfig().primaryKey()
+
+    @Column("name")
+    val COL_NAME = TextColumnConfig().unique()
+
+    @Column("priority")
+    val COL_PRIORITY = IntegerColumnConfig().unique()
 }

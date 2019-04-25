@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.sortorder.repository
+package com.fondesa.manganow.splash.impl.sortorder.storage.remote
 
-import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.model.SortOrder
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
+import com.fondesa.manganow.storage.api.remote.RemoteStorage
 
-/**
- * Manages all the data operations about a [SortOrder] model.
- */
-interface SortOrderRepository {
+interface SortOrderRemoteStorageFactory {
 
-    /**
-     * Gets the list of all the sort order.
-     *
-     * @return a list containing all the possible sort orders used to sort a list of manga.
-     */
-    suspend fun getAll(): SortOrderList
+    fun provideStorage(): RemoteStorage<SortOrderList>
 }

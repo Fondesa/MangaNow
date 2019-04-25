@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.sortorder.storage.disk
+package com.fondesa.manganow.splash.impl.sortorder.storage.disk
 
-import com.fondesa.data.sortorder.storage.SortOrderDiskStorage
-import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
+import com.fondesa.manganow.storage.api.disk.DiskStorage
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: com.fondesa.manganow.database.api.client.DatabaseClient) :
+class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
     SortOrderDiskStorageFactory {
 
-    override fun provideStorage(): SortOrderDiskStorage {
+    override fun provideStorage(): DiskStorage<SortOrderList> {
         val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
-        val remoteTaskKey = "sort_orders"
-        return SortOrderDiskStorageImpl(client, expirationTimeMs, remoteTaskKey)
+        val cacheKey = "sortorders"
+        return SortOrderDiskStorage(client, expirationTimeMs, cacheKey)
     }
 }

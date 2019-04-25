@@ -17,6 +17,8 @@
 package com.fondesa.manganow.thread.api
 
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * Used to execute an asynchronous operation awaiting for its result.
@@ -32,6 +34,16 @@ suspend fun <T> asyncAwait(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> T
 ): T = coroutineScope { async(dispatcher, start, block = block).await() }
+
+inline fun CoroutineScope.launchWithDelay(
+    delay: Long,
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    crossinline block: suspend CoroutineScope.() -> Unit
+): Job = launch(context, start) {
+    delay(delay)
+    block()
+}
 
 /**
  * Executes a suspending function catching all the [Throwable] thrown by its execution.

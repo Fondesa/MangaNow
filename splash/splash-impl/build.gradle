@@ -31,4 +31,6 @@ dependencies {
     api deps.dagger
     api deps.daggerAndroid
     api deps.kotlinStdLib
+
+    kapt project(':database:database-processor')
 }

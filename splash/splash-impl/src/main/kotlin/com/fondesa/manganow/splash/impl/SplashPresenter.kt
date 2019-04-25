@@ -20,52 +20,45 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.fondesa.manganow.splash.impl.category.GetCategoryList
-import com.fondesa.manganow.time.api.Scheduler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
+import com.fondesa.manganow.splash.impl.sortorder.GetSortOrderList
+import com.fondesa.manganow.thread.api.DispatchOnMainExceptionHandler
+import com.fondesa.manganow.thread.api.launchWithDelay
+import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class SplashPresenter @Inject constructor(
     private val view: SplashContract.View,
     private val getCategoryList: GetCategoryList,
-    private val scheduler: Scheduler
+    private val getSortOrderList: GetSortOrderList
 ) : SplashContract.Presenter, CoroutineScope, LifecycleObserver {
 
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.IO
+        get() = job + Dispatchers.Default + DispatchOnMainExceptionHandler { t ->
+            handleOperationsErrors(t)
+        }
 
-    private val job = Job()
+    private val job = SupervisorJob()
 
     private var openingTime = 0L
-
     private var canNavigate = true
     private var navigationWasDispatched = false
+    private var categoryOpCompleted = false
+    private var sortOrderOpCompleted = false
 
     override fun attach() {
         // Save the millis before the request to calculate the timer gap.
         openingTime = System.currentTimeMillis()
 
-        view.hideRetryButton()
-        view.hideErrorMessage()
-        view.showProgressIndicator()
-
-        // Create and load the task used to download the categories and sort orders.
-        // TODO
-        async {
-            getCategoryList.execute()
-        }
+        loadDataAndNavigate()
     }
 
     override fun retryButtonClicked() {
+        loadDataAndNavigate()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private fun detach() {
-        // Release the scheduler.
-        scheduler.release()
         job.cancel()
     }
 
@@ -84,30 +77,56 @@ class SplashPresenter @Inject constructor(
         canNavigate = false
     }
 
-    private fun onCategoriesLoadFailed(e: Exception) {
-        manageOnLoadFailed(e)
+    private fun loadDataAndNavigate() {
+        view.hideRetryButton()
+        view.hideErrorMessage()
+        view.showProgressIndicator()
+
+        executeAsyncOperations {
+            navigateToMainScreen()
+        }
     }
 
-//    private fun onSortOrdersLoadCompleted(sortOrders: Array<SortOrder>) {
-//        // Calculate the time taken by the request.
-//        var gapTime = System.currentTimeMillis() - openingTime
-//        // If the time is more than the minimum to navigate, the schedule will be immediate.
-//        if (gapTime > SPLASH_SCREEN_MS) {
-//            gapTime = SPLASH_SCREEN_MS
-//        }
-//        scheduler.schedule(SPLASH_SCREEN_MS - gapTime) {
-//            if (canNavigate) {
-//                // Navigate to the main screen.
-//                executeNavigation()
-//            } else {
-//                // Dispatch the navigation when the app comes again to foreground.
-//                navigationWasDispatched = true
-//            }
-//        }
-//    }
+    private inline fun executeAsyncOperations(crossinline onComplete: () -> Unit) {
+        launch {
+            val jobs = mutableListOf<Job>()
+            if (!categoryOpCompleted) {
+                jobs += launch {
+                    getCategoryList.execute()
+                    categoryOpCompleted = true
+                }
+            }
 
-    private fun onSortOrdersLoadFailed(e: Exception) {
-        manageOnLoadFailed(e)
+            if (!sortOrderOpCompleted) {
+                jobs += launch {
+                    getSortOrderList.execute()
+                    sortOrderOpCompleted = true
+                }
+            }
+            jobs.joinAll()
+
+            withContext(Dispatchers.Main) {
+                onComplete()
+            }
+        }
+    }
+
+    private fun navigateToMainScreen() {
+        // Calculate the time taken by the request.
+        var gapTime = System.currentTimeMillis() - openingTime
+        // If the time is more than the minimum to navigate, the schedule will be immediate.
+        if (gapTime > SPLASH_SCREEN_MS) {
+            gapTime = SPLASH_SCREEN_MS
+        }
+        launchWithDelay(delay = SPLASH_SCREEN_MS - gapTime) {
+            if (canNavigate) {
+                // Navigate to the main screen.
+                executeNavigation()
+            } else {
+                // Dispatch the navigation when the app comes again to foreground.
+                navigationWasDispatched = true
+            }
+        }
     }
 
     private fun executeNavigation() {
@@ -115,11 +134,11 @@ class SplashPresenter @Inject constructor(
         view.navigateToMainScreen()
     }
 
-    private fun manageOnLoadFailed(e: Exception) {
+    private fun handleOperationsErrors(t: Throwable) {
         view.hideProgressIndicator()
 
 //        val msg = errorConverter.convert(e)
-//        view.showErrorMessage(msg)
+        view.showErrorMessage("EXAMPLE")
         view.showRetryButton()
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,27 +14,25 @@
  * limitations under the License.
  */
 
-package com.fondesa.data.sortorder.repository
+package com.fondesa.manganow.splash.impl.sortorder
 
-import com.fondesa.data.sortorder.storage.SortOrderDiskStorageFactory
-import com.fondesa.data.sortorder.storage.SortOrderRemoteStorageFactory
-import com.fondesa.domain.sortorder.SortOrderList
-import com.fondesa.domain.sortorder.repository.SortOrderRepository
+import com.fondesa.manganow.splash.impl.sortorder.storage.disk.SortOrderDiskStorageFactory
+import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemoteStorageFactory
 import javax.inject.Inject
 
-class SortOrderRepositoryImpl @Inject constructor(
+class GetSortOrderListImpl @Inject constructor(
     private val remoteStorageFactory: SortOrderRemoteStorageFactory,
     private val diskStorageFactory: SortOrderDiskStorageFactory
-) : SortOrderRepository {
+) : GetSortOrderList {
 
-    override suspend fun getAll(): SortOrderList {
-        val cacheStorage = diskStorageFactory.provideStorage()
-        return if (cacheStorage.isValid()) {
-            cacheStorage.get()
+    override suspend fun execute(): SortOrderList {
+        val diskStorage = diskStorageFactory.provideStorage()
+        return if (diskStorage.isValid()) {
+            diskStorage.get()
         } else {
             val remoteStorage = remoteStorageFactory.provideStorage()
             remoteStorage.get().also {
-                cacheStorage.put(it)
+                diskStorage.put(it)
             }
         }
     }

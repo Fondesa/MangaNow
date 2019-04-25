@@ -28,6 +28,14 @@ import com.fondesa.manganow.splash.impl.category.storage.disk.CategoryDiskStorag
 import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageConverter
 import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageFactory
 import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageFactoryImpl
+import com.fondesa.manganow.splash.impl.sortorder.GetSortOrderList
+import com.fondesa.manganow.splash.impl.sortorder.GetSortOrderListImpl
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
+import com.fondesa.manganow.splash.impl.sortorder.storage.disk.SortOrderDiskStorageFactory
+import com.fondesa.manganow.splash.impl.sortorder.storage.disk.SortOrderDiskStorageFactoryImpl
+import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemoteStorageConverter
+import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemoteStorageFactory
+import com.fondesa.manganow.splash.impl.sortorder.storage.remote.SortOrderRemoteStorageFactoryImpl
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.fondesa.manganow.ui.di.ScreenScope
 import dagger.Binds
@@ -73,5 +81,21 @@ interface SplashModule {
         @ScreenScope
         @Binds
         fun provideCategoryDiskStorageFactory(factory: CategoryDiskStorageFactoryImpl): CategoryDiskStorageFactory
+
+        @ScreenScope
+        @Binds
+        fun provideGetSortOrderList(getSortOrderList: GetSortOrderListImpl): GetSortOrderList
+
+        @ScreenScope
+        @Binds
+        fun provideSortOrderRemoteStorageConverter(factory: SortOrderRemoteStorageConverter): RemoteStorageConverter<SortOrderList>
+
+        @ScreenScope
+        @Binds
+        fun provideSortOrderRemoteStorageFactory(factory: SortOrderRemoteStorageFactoryImpl): SortOrderRemoteStorageFactory
+
+        @ScreenScope
+        @Binds
+        fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
     }
 }

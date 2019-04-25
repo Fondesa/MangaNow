@@ -19,8 +19,9 @@ package com.fondesa.manganow.remote.api.exception
 /**
  * Exception thrown if an error occurs when the response (of a WS request) is received.
  *
+ * @param url the url of the server.
  * @param code HTTP response code.
  * @param reason technical reason explaining why this exception is thrown.
  */
-class ResponseException(val code: Int, val reason: String) :
-    Exception("Unsuccessful response with code: '$code' and reason: '$reason'")
+class ResponseException(url: String, val code: Int, val reason: String) :
+    Exception("Unsuccessful response from \"$url\" with code: '$code' and reason: '$reason'")

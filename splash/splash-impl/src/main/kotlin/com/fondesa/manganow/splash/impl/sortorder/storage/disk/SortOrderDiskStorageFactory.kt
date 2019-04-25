@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category.usecase
+package com.fondesa.manganow.splash.impl.sortorder.storage.disk
 
-import com.fondesa.domain.category.CategoryList
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderList
+import com.fondesa.manganow.storage.api.disk.DiskStorage
 
-/**
- * Defines the operation which must be executed to obtain the list of the categories.
- */
-interface GetCategoryList {
+interface SortOrderDiskStorageFactory {
 
-    /**
-     * Gets the list of all the categories.
-     *
-     * @return a list containing all the manga's categories.
-     */
-    suspend fun execute(): CategoryList
+    fun provideStorage(): DiskStorage<SortOrderList>
 }

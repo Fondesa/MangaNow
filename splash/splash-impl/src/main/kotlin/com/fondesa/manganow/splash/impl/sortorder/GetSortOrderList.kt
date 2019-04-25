@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.sortorder.model
+package com.fondesa.manganow.splash.impl.sortorder
 
 /**
- * Identifies the possible sort orders of a list of manga.
- *
- * @param id the sort order's id.
- * @param name the sort order's name.
- * @param priority the priority of the sort order which identifies its importance. An higher
- * priority means an higher importance.
+ * Defines the operation which must be executed to obtain the list of the sort orders.
  */
-data class SortOrder(
-    val id: Long,
-    val name: String,
-    val priority: Int
-)
+interface GetSortOrderList {
+
+    /**
+     * Gets the list of all the sort order.
+     *
+     * @return a list containing all the possible sort orders used to sort a list of manga.
+     */
+    suspend fun execute(): SortOrderList
+}

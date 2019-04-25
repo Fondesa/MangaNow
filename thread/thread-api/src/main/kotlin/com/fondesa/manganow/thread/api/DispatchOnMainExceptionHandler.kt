@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package com.fondesa.domain.category
+package com.fondesa.manganow.thread.api
 
-import com.fondesa.manganow.domain.category.Category
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-/**
- * Identifies a list of [Category] which suppress the wildcards.
- */
-typealias CategoryList = List<@JvmSuppressWildcards Category>
+inline fun DispatchOnMainExceptionHandler(crossinline handler: (Throwable) -> Unit): CoroutineExceptionHandler =
+    CoroutineExceptionHandler { _, throwable ->
+        GlobalScope.launch(Dispatchers.Main) {
+            handler(throwable)
+        }
+    }

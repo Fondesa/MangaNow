@@ -17,11 +17,11 @@
 package com.fondesa.manganow.injection.database
 
 import com.fondesa.data.latest.database.LatestTableModule
-import com.fondesa.data.sortorder.database.SortOrderTableModule
 import com.fondesa.manganow.domain.category.CategoryTableModule
 import com.fondesa.manganow.domain.chapter.ChapterTableModule
 import com.fondesa.manganow.domain.manga.MangaTableModule
 import com.fondesa.manganow.domain.page.PageTableModule
+import com.fondesa.manganow.splash.impl.sortorder.SortOrderTableModule
 import com.fondesa.manganow.storage.api.disk.CacheTableModule
 import dagger.Module
 
