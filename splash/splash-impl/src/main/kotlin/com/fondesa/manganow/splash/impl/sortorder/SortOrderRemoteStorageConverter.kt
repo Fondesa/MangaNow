@@ -16,24 +16,21 @@
 
 package com.fondesa.manganow.splash.impl.sortorder
 
+import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import com.google.gson.JsonElement
 import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
-class GetSortOrderListImpl @Inject constructor(
-    private val remoteStorageFactory: SortOrderRemoteStorageFactory,
-    private val diskStorageFactory: SortOrderDiskStorageFactory
-) : GetSortOrderList {
+class SortOrderRemoteStorageConverter @Inject constructor() :
+    RemoteStorageConverter<SortOrderList> {
 
-    override suspend fun execute(): SortOrderList {
-        val diskStorage = diskStorageFactory.provideStorage()
-        return if (diskStorage.isValid()) {
-            diskStorage.get()
-        } else {
-            val remoteStorage = remoteStorageFactory.provideStorage()
-            remoteStorage.get().also {
-                diskStorage.put(it)
-            }
-        }
+    override fun convert(value: JsonElement): SortOrderList = value.asJsonArray.mapJsonObject {
+        SortOrder(
+            id = it["id"].asLong,
+            name = it["name"].asString,
+            priority = it["priority"].asInt
+        )
     }
 }

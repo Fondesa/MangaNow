@@ -16,24 +16,19 @@
 
 package com.fondesa.manganow.splash.impl.sortorder
 
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.storage.api.disk.DiskStorage
 import dagger.Reusable
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @Reusable
-class GetSortOrderListImpl @Inject constructor(
-    private val remoteStorageFactory: SortOrderRemoteStorageFactory,
-    private val diskStorageFactory: SortOrderDiskStorageFactory
-) : GetSortOrderList {
+class SortOrderDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
+    SortOrderDiskStorageFactory {
 
-    override suspend fun execute(): SortOrderList {
-        val diskStorage = diskStorageFactory.provideStorage()
-        return if (diskStorage.isValid()) {
-            diskStorage.get()
-        } else {
-            val remoteStorage = remoteStorageFactory.provideStorage()
-            remoteStorage.get().also {
-                diskStorage.put(it)
-            }
-        }
+    override fun provideStorage(): DiskStorage<SortOrderList> {
+        val cacheKey = "sortorders"
+        val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
+        return SortOrderDiskStorage(client, cacheKey, expirationTimeMs)
     }
 }

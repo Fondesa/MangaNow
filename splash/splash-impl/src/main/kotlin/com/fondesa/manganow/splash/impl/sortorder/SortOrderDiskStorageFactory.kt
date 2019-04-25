@@ -16,24 +16,9 @@
 
 package com.fondesa.manganow.splash.impl.sortorder
 
-import dagger.Reusable
-import javax.inject.Inject
+import com.fondesa.manganow.storage.api.disk.DiskStorage
 
-@Reusable
-class GetSortOrderListImpl @Inject constructor(
-    private val remoteStorageFactory: SortOrderRemoteStorageFactory,
-    private val diskStorageFactory: SortOrderDiskStorageFactory
-) : GetSortOrderList {
+interface SortOrderDiskStorageFactory {
 
-    override suspend fun execute(): SortOrderList {
-        val diskStorage = diskStorageFactory.provideStorage()
-        return if (diskStorage.isValid()) {
-            diskStorage.get()
-        } else {
-            val remoteStorage = remoteStorageFactory.provideStorage()
-            remoteStorage.get().also {
-                diskStorage.put(it)
-            }
-        }
-    }
+    fun provideStorage(): DiskStorage<SortOrderList>
 }

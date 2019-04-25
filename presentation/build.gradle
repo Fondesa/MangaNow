@@ -34,8 +34,8 @@ android {
 }
 
 dependencies {
-    implementation project(":data")
     implementation project(":core:core-di")
+    implementation project(":domain:domain-page")
     implementation project(":database:database-di")
     implementation project(":log:log-di")
     implementation project(":latest:latest-di")

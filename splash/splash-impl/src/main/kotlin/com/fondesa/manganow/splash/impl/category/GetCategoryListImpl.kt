@@ -16,8 +16,6 @@
 
 package com.fondesa.manganow.splash.impl.category
 
-import com.fondesa.manganow.splash.impl.category.storage.disk.CategoryDiskStorageFactory
-import com.fondesa.manganow.splash.impl.category.storage.remote.CategoryRemoteStorageFactory
 import dagger.Reusable
 import javax.inject.Inject
 

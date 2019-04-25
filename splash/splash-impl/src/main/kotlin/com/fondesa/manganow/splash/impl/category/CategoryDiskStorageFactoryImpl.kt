@@ -14,26 +14,21 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.splash.impl.category
 
+import com.fondesa.manganow.database.api.client.DatabaseClient
+import com.fondesa.manganow.storage.api.disk.DiskStorage
 import dagger.Reusable
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @Reusable
-class GetSortOrderListImpl @Inject constructor(
-    private val remoteStorageFactory: SortOrderRemoteStorageFactory,
-    private val diskStorageFactory: SortOrderDiskStorageFactory
-) : GetSortOrderList {
+class CategoryDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
+    CategoryDiskStorageFactory {
 
-    override suspend fun execute(): SortOrderList {
-        val diskStorage = diskStorageFactory.provideStorage()
-        return if (diskStorage.isValid()) {
-            diskStorage.get()
-        } else {
-            val remoteStorage = remoteStorageFactory.provideStorage()
-            remoteStorage.get().also {
-                diskStorage.put(it)
-            }
-        }
+    override fun provideStorage(): DiskStorage<CategoryList> {
+        val cacheKey = "categories"
+        val expirationTimeMs = TimeUnit.DAYS.toMillis(7)
+        return CategoryDiskStorage(client, cacheKey, expirationTimeMs)
     }
 }

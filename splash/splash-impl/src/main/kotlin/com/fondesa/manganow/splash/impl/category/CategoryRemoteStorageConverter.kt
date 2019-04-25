@@ -14,26 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.splash.impl.category
 
+import com.fondesa.manganow.domain.category.Category
+import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import com.google.gson.JsonElement
 import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
-class GetSortOrderListImpl @Inject constructor(
-    private val remoteStorageFactory: SortOrderRemoteStorageFactory,
-    private val diskStorageFactory: SortOrderDiskStorageFactory
-) : GetSortOrderList {
+class CategoryRemoteStorageConverter @Inject constructor() :
+    RemoteStorageConverter<CategoryList> {
 
-    override suspend fun execute(): SortOrderList {
-        val diskStorage = diskStorageFactory.provideStorage()
-        return if (diskStorage.isValid()) {
-            diskStorage.get()
-        } else {
-            val remoteStorage = remoteStorageFactory.provideStorage()
-            remoteStorage.get().also {
-                diskStorage.put(it)
-            }
-        }
+    override fun convert(value: JsonElement): CategoryList = value.asJsonArray.mapJsonObject {
+        Category(
+            id = it["id"].asLong,
+            name = it["name"].asString
+        )
     }
 }
