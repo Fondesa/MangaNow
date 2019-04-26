@@ -23,9 +23,6 @@
     <dimen name="cell_chapter_margin_with_image">48dp</dimen>
     <dimen name="cell_chapter_padding">8dp</dimen>
     <dimen name="cell_chapter_padding_between_text">2dp</dimen>
-    <dimen name="cell_latest_image_size">48dp</dimen>
-    <dimen name="cell_latest_padding_horizontal">16dp</dimen>
-    <dimen name="cell_latest_padding_vertical">8dp</dimen>
     <dimen name="cell_manga_favorite_size">56dp</dimen>
     <dimen name="cell_manga_image_size">48dp</dimen>
     <dimen name="cell_manga_padding_horizontal">16dp</dimen>
