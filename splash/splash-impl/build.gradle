@@ -32,6 +32,7 @@ dependencies {
     api deps.dagger
     api deps.daggerAndroid
     api deps.kotlinStdLib
+    api deps.androidConstraintLayout
 
     kapt project(':database:database-processor')
 }
