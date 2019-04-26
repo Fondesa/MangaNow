@@ -20,19 +20,11 @@ package com.fondesa.manganow.ui.api.mvp
  * Defines the presenter in an MVP pattern.
  * The presenter is used to define the logic between the model and the view.
  * It mustn't have any relationship with the Android code to be tested with jUnit tests.
- * The presenter can manage only one view.
  */
 interface BasePresenter {
 
     /**
-     * Attach the view to the presenter.
-     * The view must be attached to be updated.
+     * Attaches the presenter to manage the communication between the model and the view.
      */
     fun attach()
-//
-//    /**
-//     * Detach the view from the presenter and release any resource related to it.
-//     * The view can't be updated after the detach.
-//     */
-//    fun detach()
 }
