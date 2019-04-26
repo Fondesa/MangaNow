@@ -16,15 +16,55 @@
 
 package com.fondesa.manganow.ui.api.view
 
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
-class RecyclerViewScrollEndedListener(private inline val onEnd: () -> Unit) :
-    RecyclerView.OnScrollListener() {
+class RecyclerViewScrollEndedListener(
+    private val threshold: Int = 0,
+    private inline val onEnd: () -> Unit
+) : RecyclerView.OnScrollListener() {
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-        super.onScrollStateChanged(recyclerView, newState)
-        if (!recyclerView.canScrollVertically(1)) {
-            onEnd()
+    private var currentTotalItemCount = 0
+
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        super.onScrolled(recyclerView, dx, dy)
+
+        val layoutManager = recyclerView.layoutManager ?: return
+
+        val totalItemCount = layoutManager.itemCount
+        if (totalItemCount <= 0)
+            return
+
+        if (currentTotalItemCount != totalItemCount) {
+            // Get the visible items in the RecyclerView.
+            val visibleItemCount = recyclerView.childCount
+            // Get the position of the first visible item.
+            val firstVisiblePosition = layoutManager.firstVisiblePosition()
+            if ((totalItemCount - visibleItemCount) <= (firstVisiblePosition + threshold)) {
+                // Reached the end of the list, load the next page.
+                onEnd()
+                // Cache the total item count to avoid unnecessary loadings.
+                currentTotalItemCount = totalItemCount
+            }
         }
     }
+
+    /**
+     * Reset the configurations of the scroll when the content changes.
+     */
+    fun reset() {
+        // Bring the item count to the default value.
+        currentTotalItemCount = 0
+    }
+
+    private fun RecyclerView.LayoutManager.firstVisiblePosition() =
+        when (this) {
+            is LinearLayoutManager -> findFirstVisibleItemPosition()
+            is StaggeredGridLayoutManager -> findFirstVisibleItemPositions(null)[0]
+            else -> throw ClassCastException(
+                "The layout manager needs to subclass ${LinearLayoutManager::class.java.name} or " +
+                        StaggeredGridLayoutManager::class.java.name
+            )
+        }
 }
