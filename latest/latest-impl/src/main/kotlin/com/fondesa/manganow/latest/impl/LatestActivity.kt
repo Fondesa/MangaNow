@@ -17,13 +17,13 @@
 package com.fondesa.manganow.latest.impl
 
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import com.fondesa.manganow.log.api.Log
+import com.fondesa.manganow.ui.api.BaseActivity
+import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
 
-class LatestActivity : AppCompatActivity() {
+class LatestActivity : BaseActivity<NavigationActivityViewDelegate>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(View(this))
+    override fun onViewCreated(savedInstanceState: Bundle?) {
+        Log.d("LYRA")
     }
 }

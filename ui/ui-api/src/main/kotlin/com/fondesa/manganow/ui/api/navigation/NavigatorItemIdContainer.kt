@@ -17,12 +17,19 @@
 package com.fondesa.manganow.ui.api.navigation
 
 import androidx.annotation.IdRes
+import com.fondesa.manganow.ui.api.R
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-data class NavigatorItemIdContainer(@IdRes internal var value: Int = DEFAULT_START_VALUE) {
+class NavigatorItemIdContainer @Inject constructor() {
+
+    @IdRes
+    internal var value = START_NAVIGATION_ID
 
     companion object {
-        private const val DEFAULT_START_VALUE = -1
+
+        @IdRes
+        internal val START_NAVIGATION_ID = R.id.section_home
     }
 }

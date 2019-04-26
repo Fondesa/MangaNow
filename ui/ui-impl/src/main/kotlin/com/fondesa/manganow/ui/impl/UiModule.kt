@@ -17,23 +17,13 @@
 package com.fondesa.manganow.ui.impl
 
 import com.fondesa.manganow.ui.api.navigation.Navigator
-import com.fondesa.manganow.ui.api.navigation.NavigatorItemIdContainer
 import com.fondesa.manganow.ui.api.navigation.RouteNavigator
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 
 @Module
 interface UiModule {
 
     @Binds
     fun provideNavigator(navigator: RouteNavigator): Navigator
-
-    @Module
-    object WithProvides {
-
-        @JvmStatic
-        @Provides
-        fun provideNavigatorItemIdContainer(): NavigatorItemIdContainer = NavigatorItemIdContainer()
-    }
 }

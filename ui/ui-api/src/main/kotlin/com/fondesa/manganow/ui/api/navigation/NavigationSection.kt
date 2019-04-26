@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.ui.api.navigation
 
-dependencies {
-    compileOnly deps.javaxInject
+import androidx.annotation.IdRes
+import com.fondesa.manganow.ui.api.R
 
-    api project(":latest:latest-impl")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
-
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+enum class NavigationSection(@IdRes val itemId: Int) {
+    HOME(R.id.section_home),
+    LIST(R.id.section_list),
+    SETTINGS(R.id.section_settings)
 }

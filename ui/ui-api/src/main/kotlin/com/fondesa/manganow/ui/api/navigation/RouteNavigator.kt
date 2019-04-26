@@ -24,7 +24,6 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.fondesa.manganow.navigation.api.Route
 import com.fondesa.manganow.navigation.api.Router
 import com.fondesa.manganow.thread.api.launchWithDelay
-import com.fondesa.manganow.ui.api.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,7 +33,7 @@ import kotlin.coroutines.CoroutineContext
 class RouteNavigator @Inject constructor(
     private val activity: Activity,
     private val router: Router,
-    private val itemRouteMap: Map<Int, Route>,
+    private val itemRouteMap: Map<NavigationSection, @JvmSuppressWildcards Route>,
     private val itemIdContainer: NavigatorItemIdContainer
 ) : Navigator, LifecycleObserver, CoroutineScope {
 
@@ -49,10 +48,15 @@ class RouteNavigator @Inject constructor(
 
         // Start the navigation 250ms after to not overlap the system animation.
         launchWithDelay(TRANSACTION_DELAY_MS) {
-            val route = itemRouteMap[selectedId]
+            val section = NavigationSection.values().find {
+                it.itemId == selectedId
+            } ?: throw IllegalArgumentException(
+                "Can't find a ${NavigationSection::class.java.name} for the selected id."
+            )
+            val route = itemRouteMap[section]
                 ?: throw IllegalStateException("You should specify a route for the given id.")
 
-            if (itemIdContainer.value != START_NAVIGATION_ID) {
+            if (itemIdContainer.value != NavigatorItemIdContainer.START_NAVIGATION_ID) {
                 // Finish the current Activity if it isn't the main section.
                 activity.finish()
             }
@@ -76,8 +80,6 @@ class RouteNavigator @Inject constructor(
     }
 
     companion object {
-        @IdRes
-        private val START_NAVIGATION_ID = R.id.section_home
         private const val TRANSACTION_DELAY_MS = 250L
     }
 }

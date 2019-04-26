@@ -19,6 +19,7 @@ package com.fondesa.manganow.di
 import android.app.Application
 import com.fondesa.manganow.App
 import com.fondesa.manganow.database.di.DatabaseModule
+import com.fondesa.manganow.latest.di.LatestModule
 import com.fondesa.manganow.log.di.LogModule
 import com.fondesa.manganow.navigation.di.NavigationModule
 import com.fondesa.manganow.remote.di.RemoteModule
@@ -47,7 +48,8 @@ import javax.inject.Singleton
         DatabaseModule::class,
         DatabaseTablesModule::class,
         UiModule::class,
-        SplashModule::class
+        SplashModule::class,
+        LatestModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {

@@ -18,17 +18,31 @@ package com.fondesa.manganow.latest.di
 
 import com.fondesa.manganow.latest.api.LatestRoute
 import com.fondesa.manganow.latest.impl.LatestRouteConsumer
+import com.fondesa.manganow.navigation.api.Route
 import com.fondesa.manganow.navigation.api.RouteConsumer
 import com.fondesa.manganow.navigation.di.qualifiers.RouteKey
+import com.fondesa.manganow.ui.api.navigation.NavigationSection
+import com.fondesa.manganow.ui.di.NavigationSectionKey
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module
+@Module(includes = [LatestRouteModule.WithProvides::class])
 interface LatestRouteModule {
 
     @Binds
     @IntoMap
     @RouteKey(LatestRoute::class)
     fun provideLatestRouteConsumer(consumer: LatestRouteConsumer): RouteConsumer
+
+    @Module
+    object WithProvides {
+
+        @JvmStatic
+        @Provides
+        @IntoMap
+        @NavigationSectionKey(NavigationSection.HOME)
+        fun provideRouteForNavigationSection(): Route = LatestRoute
+    }
 }

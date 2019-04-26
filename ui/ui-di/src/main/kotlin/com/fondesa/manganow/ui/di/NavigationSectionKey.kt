@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.ui.di
 
-dependencies {
-    compileOnly deps.javaxInject
+import com.fondesa.manganow.ui.api.navigation.NavigationSection
+import dagger.MapKey
 
-    api project(":latest:latest-impl")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
-
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
-}
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
+@MapKey
+annotation class NavigationSectionKey(val value: NavigationSection)
