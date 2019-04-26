@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+def androidConstraintLayout = '1.1.3'
 def androidPlugin = '3.4.0'
 def androidSupport = '1.0.0'
 def androidTestRunner = '1.1.0'
@@ -39,6 +40,7 @@ ext.deps = [
         appCompat               : "androidx.appcompat:appcompat:$androidSupport",
         androidAnnotation       : "androidx.annotation:annotation:$androidSupport",
         cardView                : "androidx.cardview:cardview:$androidSupport",
+        androidConstraintLayout : "androidx.constraintlayout:constraintlayout:$androidConstraintLayout",
         recyclerView            : "androidx.recyclerview:recyclerview:$androidSupport",
         design                  : "com.google.android.material:material:$androidSupport",
         androidTestRunner       : "androidx.test:runner:$androidTestRunner",

@@ -17,49 +17,41 @@
 package com.fondesa.manganow.ui.api
 
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleObserver
 
 /**
  * Base [AppCompatActivity] used in this application.
- * Defines the [ViewManager] used to create the root view.
+ * Defines the [ActivityViewDelegate] used to create the root view.
  *
- * @param V type of [ViewManager] used to create the view.
+ * @param V type of [ActivityViewDelegate] used to create the view.
  */
-abstract class BaseActivity<out V : ViewManager> : AppCompatActivity() {
+abstract class BaseActivity<out V : ActivityViewDelegate> : AppCompatActivity() {
 
     /**
-     * [ViewManager] that will be initialized with [createViewManager].
-     * The [ViewManager] will create the root view and will configure it.
+     * [ActivityViewDelegate] that will be initialized with [createViewManager].
+     * The [ActivityViewDelegate] will create the root view and will configure it.
      */
     protected val viewManager by lazy { createViewManager() }
-
-    /**
-     * Root view of this [AppCompatActivity] created with the [viewManager].
-     */
-    protected val rootView by lazy { viewManager.createRootView(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val rootView = viewManager.onCreateView(savedInstanceState)
         // Set the root view created with the ViewManager.
         setContentView(rootView)
 
-        // Configure the view.
-        viewManager.bind(this, rootView)
+        (viewManager as? LifecycleObserver)?.let {
+            lifecycle.addObserver(it)
+        }
+        (viewManager as? OnViewCreatedDelegate)?.onViewCreated(rootView, savedInstanceState)
 
-        onViewCreated(rootView, savedInstanceState)
-    }
-
-    override fun onDestroy() {
-        // Release the view resources.
-        viewManager.detach(this, rootView)
-        super.onDestroy()
+        onViewCreated(savedInstanceState)
     }
 
     override fun onBackPressed() {
         // Try to handle the back press with the view manager.
-        val handled = (viewManager as? BackPressHandler)?.handleBackPress() ?: false
+        val handled = (viewManager as? OnBackPressDelegate)?.onBackPress() ?: false
         if (!handled) {
             // If the back press wasn't handled, invoke the super handling.
             super.onBackPressed()
@@ -67,17 +59,16 @@ abstract class BaseActivity<out V : ViewManager> : AppCompatActivity() {
     }
 
     /**
-     * Creates the [ViewManager] used to create and bind the root view.
+     * Creates the [ActivityViewDelegate] used to create and bind the root view.
      *
-     * @return instance of [ViewManager].
+     * @return instance of [ActivityViewDelegate].
      */
     abstract fun createViewManager(): V
 
     /**
-     * Called when the view is successfully created and configured by the [ViewManager].
+     * Called when the view is successfully created and configured by the [ActivityViewDelegate].
      *
-     * @param view root view created by the [ViewManager].
      * @param savedInstanceState saved state [Bundle] passed in [onCreate].
      */
-    abstract fun onViewCreated(view: ViewGroup, savedInstanceState: Bundle?)
+    abstract fun onViewCreated(savedInstanceState: Bundle?)
 }

@@ -16,6 +16,7 @@
 
 package com.fondesa.manganow.ui.api
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,41 +25,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 
 /**
- * Implementation of [ViewManager] used to show a fullscreen section.
+ * Implementation of [ActivityViewDelegate] used to show a fullscreen section.
  * The [contentLayout] will be inflated ignoring the root layout params defined in XML.
  *
  * @param contentLayout layout resource of the section.
  */
-class FullScreenViewManager(@LayoutRes private val contentLayout: Int, val fitsSystemWindows: Boolean) :
-    ViewManager {
+class FullScreenActivityViewDelegate(
+    private val activity: AppCompatActivity,
+    @LayoutRes private val contentLayout: Int,
+    private val fitsSystemWindows: Boolean
+) : ActivityViewDelegate {
 
     /**
      * Instance of [CoordinatorLayout] which contains the content layout.
-     * The [CoordinatorLayout] will be available only after [bind].
      */
     lateinit var coordinatorLayout: CoordinatorLayout
         private set
 
-    override fun createRootView(activity: AppCompatActivity): ViewGroup {
-        // Inflate the content layout.
-        val view = View.inflate(activity, R.layout.activity_root_full_screen, null)
-        // The root view will be full screen.
-        view.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        view.fitsSystemWindows = fitsSystemWindows
-        return view as ViewGroup
-    }
-
-    override fun bind(activity: AppCompatActivity, rootView: ViewGroup) {
-        coordinatorLayout = rootView.findViewById(R.id.coordinator)
-
-        // Get the content layout that will be added to the CoordinatorLayout.
-        LayoutInflater.from(activity).inflate(contentLayout, coordinatorLayout, true)
-    }
-
-    override fun detach(activity: AppCompatActivity, rootView: ViewGroup) {
-        // Empty implementation.
-    }
+    override fun onCreateView(savedInstanceState: Bundle?): View =
+        CoordinatorLayout(activity).apply {
+            // The root view will be full screen.
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            fitsSystemWindows = this@FullScreenActivityViewDelegate.fitsSystemWindows
+            // Get the content layout that will be added to the CoordinatorLayout.
+            LayoutInflater.from(activity).inflate(contentLayout, this, true)
+            coordinatorLayout = this
+        }
 }

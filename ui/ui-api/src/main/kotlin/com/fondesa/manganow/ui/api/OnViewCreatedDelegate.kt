@@ -16,19 +16,10 @@
 
 package com.fondesa.manganow.ui.api
 
-import android.app.Activity
+import android.os.Bundle
+import android.view.View
 
-/**
- * Used to handle the back press in another component.
- */
-interface BackPressHandler {
+interface OnViewCreatedDelegate {
 
-    /**
-     * Manages the back press for the component that implements it.
-     *
-     * @return true if the back press is totally handled by this component,
-     * false if after the handling done by this component, the back press must be handled
-     * by the [Activity].
-     */
-    fun handleBackPress(): Boolean
+    fun onViewCreated(view: View, savedInstanceState: Bundle?)
 }
