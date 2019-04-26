@@ -28,7 +28,7 @@ class DefaultNavigationActivityViewDelegate(
     activity: AppCompatActivity,
     @LayoutRes private val contentLayout: Int,
     @LayoutRes private val appBarLayoutRes: Int = R.layout.partial_base_app_bar
-) : NavigationActivityViewDelegate(activity) {
+) : BaseNavigationActivityViewDelegate(activity) {
 
     override fun createNavigator(): Navigator = TODO()
 

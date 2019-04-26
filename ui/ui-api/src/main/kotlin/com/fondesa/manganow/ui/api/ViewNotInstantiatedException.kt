@@ -16,9 +16,4 @@
 
 package com.fondesa.manganow.ui.api
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-
-interface FullScreenActivityViewDelegate : ActivityViewDelegate {
-
-    val coordinatorLayout: CoordinatorLayout
-}
+class ViewNotInstantiatedException : Exception("The view isn't instantiated yet.")
