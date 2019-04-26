@@ -24,6 +24,7 @@ dependencies {
     api project(':navigation:navigation-api')
     api project(':time:time-api')
     api deps.appCompat
+    api deps.androidAnnotation
     api deps.design
     api deps.recyclerView
     api deps.kotlinStdLib

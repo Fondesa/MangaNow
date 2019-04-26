@@ -18,18 +18,8 @@ package com.fondesa.manganow.ui.api
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 
-/**
- * Manages the creation of the main view of an [AppCompatActivity].
- */
 interface ActivityViewDelegate {
 
-    /**
-     * Creates the root view of the [AppCompatActivity].
-     * The created view will be set as content view automatically.
-     *
-     * @return view that must be set as content view.
-     */
     fun onCreateView(savedInstanceState: Bundle?): View
 }

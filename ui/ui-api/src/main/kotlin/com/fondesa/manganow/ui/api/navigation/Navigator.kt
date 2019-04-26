@@ -16,41 +16,12 @@
 
 package com.fondesa.manganow.ui.api.navigation
 
-import android.app.Activity
-import android.content.Context
 import androidx.annotation.IdRes
 
-/**
- * Used to define the behavior to navigate in the main sections of the app.
- * The [Navigator] must be attached to an [Activity] in order to be used.
- */
 interface Navigator {
 
-    /**
-     * Attaches an [Activity] instance and initialize the [Context] resources.
-     *
-     * @param activity instance of [Activity] attached to the [Navigator].
-     */
-    fun attach(activity: Activity)
-
-    /**
-     * Detaches the [Activity] instance and release the [Context] resources.
-     */
-    fun detach()
-
-    /**
-     * Called when a new item is selected to start the navigation to that item.
-     *
-     * @param selectedId id of the selected item.
-     */
     fun onItemSelected(@IdRes selectedId: Int)
 
-    /**
-     * Get the current selected item id.
-     * This can be useful to restore the state of the navigation in a new section.
-     *
-     * @return current selected id.
-     */
     @IdRes
     fun getCurrentItemId(): Int
 }
