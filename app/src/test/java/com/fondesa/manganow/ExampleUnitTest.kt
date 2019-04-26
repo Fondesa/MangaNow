@@ -14,23 +14,19 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.injection.application
+package com.fondesa.manganow
 
-import android.app.Application
-import android.content.Context
-import com.google.gson.Gson
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import org.junit.Assert.assertEquals
+import org.junit.Test
 
-@Module
-class AppModule {
-
-    @Singleton
-    @Provides
-    fun provideContext(application: Application): Context = application
-
-    @Singleton
-    @Provides
-    fun provideGson(): Gson = Gson()
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+class ExampleUnitTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
 }

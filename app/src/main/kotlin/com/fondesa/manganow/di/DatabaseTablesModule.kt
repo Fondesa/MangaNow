@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.injection.database
+package com.fondesa.manganow.di
 
 import com.fondesa.manganow.domain.category.CategoryTableModule
 import com.fondesa.manganow.domain.chapter.ChapterTableModule

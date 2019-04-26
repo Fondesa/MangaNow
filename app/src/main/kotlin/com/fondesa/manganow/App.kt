@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.application
+package com.fondesa.manganow
 
 import com.fondesa.manganow.core.api.AppInitializer
-import com.fondesa.manganow.injection.application.DaggerAppComponent
+import com.fondesa.manganow.di.DaggerAppComponent
 import com.fondesa.manganow.log.api.Log
 import com.fondesa.manganow.log.api.Logger
 import com.squareup.leakcanary.LeakCanary

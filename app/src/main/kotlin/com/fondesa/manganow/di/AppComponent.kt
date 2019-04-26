@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Fondesa
+ * Copyright (c) 2019 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.injection.application
+package com.fondesa.manganow.di
 
 import android.app.Application
-import com.fondesa.manganow.application.App
+import com.fondesa.manganow.App
 import com.fondesa.manganow.database.di.DatabaseModule
-import com.fondesa.manganow.injection.database.DatabaseTablesModule
 import com.fondesa.manganow.log.di.LogModule
 import com.fondesa.manganow.navigation.di.NavigationModule
 import com.fondesa.manganow.remote.di.RemoteModule
+import com.fondesa.manganow.serialization.di.SerializationModule
 import com.fondesa.manganow.splash.di.SplashModule
 import com.fondesa.manganow.thread.di.ThreadModule
 import com.fondesa.manganow.time.di.TimeModule
@@ -38,6 +38,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         ThreadModule::class,
+        SerializationModule::class,
         NavigationModule::class,
         TimeModule::class,
         LogModule::class,

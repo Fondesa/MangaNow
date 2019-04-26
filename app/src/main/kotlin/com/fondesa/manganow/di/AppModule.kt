@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow
+package com.fondesa.manganow.di
 
-import org.junit.Test
+import android.app.Application
+import android.content.Context
+import dagger.Binds
+import dagger.Module
+import javax.inject.Singleton
 
-import org.junit.Assert.*
+@Module
+interface AppModule {
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+    @Singleton
+    @Binds
+    fun provideContext(application: Application): Context
 }

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-include ':presentation'
-
+include ':app'
 include ':core:core-api'
 include ':core:core-di'
 include ':core:core-impl'
@@ -56,3 +55,4 @@ include ':serialization:serialization-api'
 include ':latest:latest-api'
 include ':latest:latest-di'
 include ':latest:latest-impl'
+include ':serialization:serialization-di'

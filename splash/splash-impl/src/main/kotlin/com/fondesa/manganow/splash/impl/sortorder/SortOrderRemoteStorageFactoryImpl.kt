@@ -31,7 +31,7 @@ class SortOrderRemoteStorageFactoryImpl @Inject constructor(
 ) : SortOrderRemoteStorageFactory {
 
     override fun provideStorage(): RemoteStorage<SortOrderList> {
-        val task = RemoteGetTask(apiPath = "sortorder")
+        val task = RemoteGetTask(apiPath = "sortorders")
         return JsonRemoteStorage(client, task, remoteStorageConverter)
     }
 }

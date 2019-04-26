@@ -19,7 +19,7 @@
     package="com.fondesa.manganow">
 
     <application
-        android:name=".application.App"
+        android:name=".App"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
