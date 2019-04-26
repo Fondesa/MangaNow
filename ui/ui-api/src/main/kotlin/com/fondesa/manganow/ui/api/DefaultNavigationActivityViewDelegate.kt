@@ -23,14 +23,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.fondesa.manganow.ui.api.navigation.Navigator
 import com.google.android.material.appbar.AppBarLayout
+import javax.inject.Inject
 
-class DefaultNavigationActivityViewDelegate(
+class DefaultNavigationActivityViewDelegate @Inject constructor(
     activity: AppCompatActivity,
+    navigator: Navigator,
     @LayoutRes private val contentLayout: Int,
     @LayoutRes private val appBarLayoutRes: Int = R.layout.partial_base_app_bar
-) : BaseNavigationActivityViewDelegate(activity) {
-
-    override fun createNavigator(): Navigator = TODO()
+) : BaseNavigationActivityViewDelegate(activity, navigator) {
 
     override fun createAppBarLayout(): AppBarLayout {
         val appBar = View.inflate(activity, appBarLayoutRes, null) as AppBarLayout

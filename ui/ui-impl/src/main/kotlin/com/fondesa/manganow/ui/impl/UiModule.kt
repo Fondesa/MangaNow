@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.remote.api.task
+package com.fondesa.manganow.ui.impl
 
-abstract class RemoteBaseTask : RemoteTask {
+import com.fondesa.manganow.ui.api.navigation.Navigator
+import com.fondesa.manganow.ui.api.navigation.NavigatorItemIdContainer
+import com.fondesa.manganow.ui.api.navigation.RouteNavigator
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
 
-    /**
-     * @return path that will be appended to the root path of the APIs.
-     */
-    protected abstract val apiPath: String
+@Module
+interface UiModule {
 
-    override val scheme: String = "http"
+    @Binds
+    fun provideNavigator(navigator: RouteNavigator): Navigator
 
-    override val host: String = "192.168.1.6"
+    @Module
+    object WithProvides {
 
-    override val path get() = "api/$apiPath"
-
-    override val port = 8080
+        @JvmStatic
+        @Provides
+        fun provideNavigatorItemIdContainer(): NavigatorItemIdContainer = NavigatorItemIdContainer()
+    }
 }

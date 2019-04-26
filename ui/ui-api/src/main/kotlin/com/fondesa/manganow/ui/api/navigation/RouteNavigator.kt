@@ -23,65 +23,61 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.fondesa.manganow.navigation.api.Route
 import com.fondesa.manganow.navigation.api.Router
-import com.fondesa.manganow.time.api.Scheduler
+import com.fondesa.manganow.thread.api.launchWithDelay
+import com.fondesa.manganow.ui.api.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class RouteNavigator(
+class RouteNavigator @Inject constructor(
     private val activity: Activity,
-    @IdRes private val startNavigationId: Int,
     private val router: Router,
     private val itemRouteMap: Map<Int, Route>,
-    private val scheduler: Scheduler
-) : Navigator, LifecycleObserver {
+    private val itemIdContainer: NavigatorItemIdContainer
+) : Navigator, LifecycleObserver, CoroutineScope {
 
-    @IdRes
-    private var currentId = DEFAULT_START_ID
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Default
 
-
-    //TODO initial id from singleton in init
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun detach() {
-        // Release the Handler callback.
-        scheduler.release()
-    }
+    private val job = Job()
 
     override fun onItemSelected(@IdRes selectedId: Int) {
-        if (currentId == selectedId)
+        if (itemIdContainer.value == selectedId)
             return
 
-        val runnableBlock = {
-            val route = itemRouteMap[selectedId] ?: throw
-            IllegalStateException("You should specify a route for the given id.")
-            // Put the selected id in the Intent to restore it after.
-            // TODO use singleton
-//                intent.putExtra(ARG_CURRENT_ITEM, selectedId)
+        // Start the navigation 250ms after to not overlap the system animation.
+        launchWithDelay(TRANSACTION_DELAY_MS) {
+            val route = itemRouteMap[selectedId]
+                ?: throw IllegalStateException("You should specify a route for the given id.")
 
-            // TODO handle start id
-//                if (selectedId == startId) {
-            // Clear the stack when the user navigates to the main section.
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//                }
-
-            if (currentId != startNavigationId) {
+            if (itemIdContainer.value != START_NAVIGATION_ID) {
                 // Finish the current Activity if it isn't the main section.
                 activity.finish()
             }
+
+            itemIdContainer.value = selectedId
 
             // Navigate to the given route.
             router.navigate(route)
             // Remove animations
             activity.overridePendingTransition(0, 0)
         }
-        // Start the navigation 250ms after to not overlap the system animation.
-        scheduler.schedule(TRANSACTION_DELAY_MS, runnableBlock)
     }
 
     @IdRes
-    override fun getCurrentItemId() = currentId
+    override fun getCurrentItemId() = itemIdContainer.value
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    private fun detach() {
+        // Release the Handler callback.
+        job.cancel()
+    }
 
     companion object {
-        const val DEFAULT_START_ID = -1
-        //        const val ARG_CURRENT_ITEM = "argCurrentItem"
+        @IdRes
+        private val START_NAVIGATION_ID = R.id.section_home
         private const val TRANSACTION_DELAY_MS = 250L
     }
 }

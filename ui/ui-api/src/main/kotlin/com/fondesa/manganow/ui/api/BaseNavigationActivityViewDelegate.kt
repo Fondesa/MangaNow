@@ -33,8 +33,10 @@ import com.fondesa.manganow.ui.api.navigation.Navigator
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 
-abstract class BaseNavigationActivityViewDelegate(protected val activity: AppCompatActivity) :
-    NavigationActivityViewDelegate,
+abstract class BaseNavigationActivityViewDelegate(
+    protected val activity: AppCompatActivity,
+    private val navigator: Navigator
+) : NavigationActivityViewDelegate,
     OnViewCreatedDelegate,
     OnBackPressDelegate,
     LifecycleObserver {
@@ -57,9 +59,6 @@ abstract class BaseNavigationActivityViewDelegate(protected val activity: AppCom
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
 
-    private val navigator: Navigator by lazy {
-        createNavigator()
-    }
     private val drawerToggle: ActionBarDrawerToggle by lazy {
         ActionBarDrawerToggle(
             activity,
@@ -115,8 +114,6 @@ abstract class BaseNavigationActivityViewDelegate(protected val activity: AppCom
         }
         return false
     }
-
-    protected abstract fun createNavigator(): Navigator
 
     protected abstract fun createAppBarLayout(): AppBarLayout
 

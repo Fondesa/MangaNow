@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.remote.api.task
+package com.fondesa.manganow.ui.api.navigation
 
-abstract class RemoteBaseTask : RemoteTask {
+import androidx.annotation.IdRes
+import javax.inject.Singleton
 
-    /**
-     * @return path that will be appended to the root path of the APIs.
-     */
-    protected abstract val apiPath: String
+@Singleton
+data class NavigatorItemIdContainer(@IdRes internal var value: Int = DEFAULT_START_VALUE) {
 
-    override val scheme: String = "http"
-
-    override val host: String = "192.168.1.6"
-
-    override val path get() = "api/$apiPath"
-
-    override val port = 8080
+    companion object {
+        private const val DEFAULT_START_VALUE = -1
+    }
 }

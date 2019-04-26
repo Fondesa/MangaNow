@@ -21,6 +21,7 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(':log:log-api')
+    api project(':thread:thread-api')
     api project(':navigation:navigation-api')
     api project(':time:time-api')
     api deps.appCompat
