@@ -19,6 +19,8 @@ package com.fondesa.manganow.ui.api
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 /**
  * Base [AppCompatActivity] used in this application.
@@ -26,15 +28,14 @@ import androidx.lifecycle.LifecycleObserver
  *
  * @param V type of [ActivityViewDelegate] used to create the view.
  */
-abstract class BaseActivity<out V : ActivityViewDelegate> : AppCompatActivity() {
+abstract class BaseActivity<V : ActivityViewDelegate> : AppCompatActivity() {
 
-    /**
-     * [ActivityViewDelegate] that will be initialized with [createViewManager].
-     * The [ActivityViewDelegate] will create the root view and will configure it.
-     */
-    protected val viewManager by lazy { createViewManager() }
+    @Inject
+    lateinit var viewManager: V
+        internal set
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         val rootView = viewManager.onCreateView(savedInstanceState)
@@ -57,13 +58,6 @@ abstract class BaseActivity<out V : ActivityViewDelegate> : AppCompatActivity() 
             super.onBackPressed()
         }
     }
-
-    /**
-     * Creates the [ActivityViewDelegate] used to create and bind the root view.
-     *
-     * @return instance of [ActivityViewDelegate].
-     */
-    abstract fun createViewManager(): V
 
     /**
      * Called when the view is successfully created and configured by the [ActivityViewDelegate].

@@ -5,9 +5,7 @@ import android.view.View
 import androidx.lifecycle.LifecycleObserver
 import com.fondesa.manganow.ui.api.BaseActivity
 import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegate
-import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegateImpl
 import com.fondesa.manganow.ui.api.util.addObservers
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
@@ -23,15 +21,7 @@ class SplashActivity : BaseActivity<FullScreenActivityViewDelegate>(), SplashCon
     @Inject
     internal lateinit var lifecycleObservers: Set<@JvmSuppressWildcards LifecycleObserver>
 
-    override fun createViewManager(): FullScreenActivityViewDelegate =
-        FullScreenActivityViewDelegateImpl(
-            activity = this,
-            contentLayout = R.layout.activity_splash,
-            fitsSystemWindows = false
-        )
-
     override fun onViewCreated(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         // Add all the lifecycle observers
         lifecycle.addObservers(lifecycleObservers)
         // Attach the view to the presenter.

@@ -19,15 +19,19 @@ package com.fondesa.manganow.splash.di
 import android.app.Activity
 import androidx.lifecycle.LifecycleObserver
 import com.fondesa.manganow.latest.di.LatestRouteModule
+import com.fondesa.manganow.splash.impl.R
 import com.fondesa.manganow.splash.impl.SplashActivity
 import com.fondesa.manganow.splash.impl.SplashContract
 import com.fondesa.manganow.splash.impl.SplashPresenter
 import com.fondesa.manganow.splash.impl.category.*
 import com.fondesa.manganow.splash.impl.sortorder.*
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegate
+import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegateImpl
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoSet
 
@@ -38,6 +42,7 @@ interface SplashModule {
     @ContributesAndroidInjector(
         modules = [
             ScreenBinds::class,
+            ScreenProvides::class,
             LatestRouteModule::class
         ]
     )
@@ -82,5 +87,18 @@ interface SplashModule {
 
         @Binds
         fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
+    }
+
+    @Module
+    object ScreenProvides {
+
+        @JvmStatic
+        @Provides
+        fun provideActivityViewDelegate(activity: SplashActivity): FullScreenActivityViewDelegate =
+            FullScreenActivityViewDelegateImpl(
+                activity = activity,
+                contentLayout = R.layout.activity_splash,
+                fitsSystemWindows = false
+            )
     }
 }

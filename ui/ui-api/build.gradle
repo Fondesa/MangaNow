@@ -24,6 +24,8 @@ dependencies {
     api project(':navigation:navigation-api')
     api project(':time:time-api')
     api deps.appCompat
+    api deps.dagger
+    api deps.daggerAndroid
     api deps.androidAnnotation
     api deps.design
     api deps.recyclerView

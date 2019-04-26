@@ -23,8 +23,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import javax.inject.Inject
 
-class FullScreenActivityViewDelegateImpl(
+class FullScreenActivityViewDelegateImpl @Inject constructor(
     private val activity: Activity,
     @LayoutRes private val contentLayout: Int,
     private val fitsSystemWindows: Boolean
