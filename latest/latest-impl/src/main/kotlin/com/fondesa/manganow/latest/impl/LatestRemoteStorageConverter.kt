@@ -25,7 +25,8 @@ import com.google.gson.JsonElement
 import java.util.*
 import javax.inject.Inject
 
-class LatestRemoteStorageConverter @Inject constructor() : RemoteStorageConverter<LatestList> {
+class LatestRemoteStorageConverter @Inject constructor() :
+    RemoteStorageConverter<@JvmSuppressWildcards LatestList> {
 
     override fun convert(value: JsonElement): LatestList = value.asJsonArray.mapJsonObject {
         val manga = Manga(

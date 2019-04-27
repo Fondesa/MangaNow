@@ -67,7 +67,7 @@ interface LatestModule {
         fun provideGetLatestList(getLatestList: GetLatestListImpl): GetLatestList
 
         @Binds
-        fun provideLatestRemoteStorageConverter(factory: LatestRemoteStorageConverter): RemoteStorageConverter<LatestList>
+        fun provideLatestRemoteStorageConverter(factory: LatestRemoteStorageConverter): RemoteStorageConverter<@JvmSuppressWildcards LatestList>
 
         @Binds
         fun provideLatestRemoteStorageFactory(factory: LatestRemoteStorageFactoryImpl): LatestRemoteStorageFactory

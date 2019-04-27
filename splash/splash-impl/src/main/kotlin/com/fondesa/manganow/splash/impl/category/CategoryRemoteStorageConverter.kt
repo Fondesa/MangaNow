@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @Reusable
 class CategoryRemoteStorageConverter @Inject constructor() :
-    RemoteStorageConverter<CategoryList> {
+    RemoteStorageConverter<@JvmSuppressWildcards CategoryList> {
 
     override fun convert(value: JsonElement): CategoryList = value.asJsonArray.mapJsonObject {
         Category(

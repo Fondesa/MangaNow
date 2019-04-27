@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @Reusable
 class SortOrderRemoteStorageConverter @Inject constructor() :
-    RemoteStorageConverter<SortOrderList> {
+    RemoteStorageConverter<@JvmSuppressWildcards SortOrderList> {
 
     override fun convert(value: JsonElement): SortOrderList = value.asJsonArray.mapJsonObject {
         SortOrder(

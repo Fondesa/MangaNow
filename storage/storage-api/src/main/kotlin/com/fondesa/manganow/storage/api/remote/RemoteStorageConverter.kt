@@ -16,7 +16,9 @@
 
 package com.fondesa.manganow.storage.api.remote
 
-import com.fondesa.manganow.core.api.InjectableConverter
 import com.google.gson.JsonElement
 
-typealias RemoteStorageConverter<T> = InjectableConverter<JsonElement, T>
+interface RemoteStorageConverter<out T> {
+
+    fun convert(value: JsonElement): T
+}

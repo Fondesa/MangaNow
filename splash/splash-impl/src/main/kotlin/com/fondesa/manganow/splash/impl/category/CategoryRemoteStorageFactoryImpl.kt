@@ -27,7 +27,7 @@ import javax.inject.Inject
 @Reusable
 class CategoryRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
-    private val remoteStorageConverter: RemoteStorageConverter<CategoryList>
+    private val remoteStorageConverter: RemoteStorageConverter<@JvmSuppressWildcards CategoryList>
 ) : CategoryRemoteStorageFactory {
 
     override fun provideStorage(): RemoteStorage<CategoryList> {

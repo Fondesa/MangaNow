@@ -68,7 +68,7 @@ interface SplashModule {
         fun provideGetCategoryList(getCategoryList: GetCategoryListImpl): GetCategoryList
 
         @Binds
-        fun provideCategoryRemoteStorageConverter(factory: CategoryRemoteStorageConverter): RemoteStorageConverter<CategoryList>
+        fun provideCategoryRemoteStorageConverter(factory: CategoryRemoteStorageConverter): RemoteStorageConverter<@JvmSuppressWildcards CategoryList>
 
         @Binds
         fun provideCategoryRemoteStorageFactory(factory: CategoryRemoteStorageFactoryImpl): CategoryRemoteStorageFactory
@@ -80,7 +80,7 @@ interface SplashModule {
         fun provideGetSortOrderList(getSortOrderList: GetSortOrderListImpl): GetSortOrderList
 
         @Binds
-        fun provideSortOrderRemoteStorageConverter(factory: SortOrderRemoteStorageConverter): RemoteStorageConverter<SortOrderList>
+        fun provideSortOrderRemoteStorageConverter(factory: SortOrderRemoteStorageConverter): RemoteStorageConverter<@JvmSuppressWildcards SortOrderList>
 
         @Binds
         fun provideSortOrderRemoteStorageFactory(factory: SortOrderRemoteStorageFactoryImpl): SortOrderRemoteStorageFactory

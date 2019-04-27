@@ -27,7 +27,7 @@ import javax.inject.Inject
 @Reusable
 class LatestRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
-    private val remoteStorageConverter: RemoteStorageConverter<LatestList>
+    private val remoteStorageConverter: RemoteStorageConverter<@JvmSuppressWildcards LatestList>
 ) : LatestRemoteStorageFactory {
 
     override fun provideStorage(page: Int, pageSize: Int): RemoteStorage<LatestList> {
