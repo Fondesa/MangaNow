@@ -17,6 +17,7 @@
 package com.fondesa.manganow.latest.impl
 
 import android.view.ViewGroup
+import com.fondesa.manganow.remote.api.task.RemoteImageUrl
 import com.fondesa.manganow.time.api.isToday
 import com.fondesa.manganow.time.api.isYesterday
 import com.fondesa.manganow.ui.api.util.inflateChild
@@ -51,6 +52,10 @@ class LatestRecyclerViewHolder(parent: ViewGroup) :
         subtitleTextView.text =
             String.format(context.getString(R.string.label_chapter_number), chapterTextNumber)
         dateTextView.text = chapterDate.toReadableDate()
+        val imageUrl = manga.imageUrl?.let {
+            RemoteImageUrl.from(it)
+        }
+        imageView.setImageURI(imageUrl)
     }
 
     private fun Date.toReadableDate(): String = when {

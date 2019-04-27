@@ -16,6 +16,11 @@
 
 package com.fondesa.manganow.remote.impl.client
 
+import android.content.Context
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.drawee.generic.GenericDraweeHierarchy
+import com.facebook.drawee.view.DraweeView
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
 import com.fondesa.manganow.remote.api.client.RemoteClient
 import com.fondesa.manganow.remote.api.connectivity.ConnectivityManager
 import com.fondesa.manganow.remote.api.exception.ConnectSocketException
@@ -43,6 +48,7 @@ import javax.inject.Inject
  * @param timeoutUnit the timeout's [TimeUnit] of the requests.
  */
 class HttpClient @Inject constructor(
+    context: Context,
     private val gson: Gson,
     private val connectivityManager: ConnectivityManager,
     @HttpClientInfo timeout: Long,
@@ -64,6 +70,13 @@ class HttpClient @Inject constructor(
 
         // Build the OkHttpClient.
         httpClient = httpClientBuilder.build()
+
+        // Create the image loading configurations.
+        val imageConfig = OkHttpImagePipelineConfigFactory.newBuilder(context, httpClient).build()
+        // Initialize Fresco client with the image configuration.
+        Fresco.initialize(context, imageConfig)
+
+        lateinit var view: DraweeView<GenericDraweeHierarchy>
     }
 
     override fun load(task: RemoteTask): JsonElement {

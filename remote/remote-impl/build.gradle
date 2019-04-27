@@ -21,9 +21,12 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(":remote:remote-api")
+    api deps.fresco
+    api deps.frescoOkHttpPipeline
     api deps.kotlinStdLib
     api deps.gson
     api deps.dagger
+    api deps.okHttp
     api deps.okHttpLoggingInterceptor
 
     testImplementation project(":testing:testing-jvm")

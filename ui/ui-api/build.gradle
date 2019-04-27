@@ -29,6 +29,7 @@ dependencies {
     api deps.design
     api deps.dagger
     api deps.daggerAndroid
+    api deps.fresco
     api deps.androidAnnotation
     api deps.design
     api deps.recyclerView

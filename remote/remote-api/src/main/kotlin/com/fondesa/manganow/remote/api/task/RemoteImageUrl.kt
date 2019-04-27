@@ -16,23 +16,7 @@
 
 package com.fondesa.manganow.remote.api.task
 
-import com.google.gson.JsonElement
+object RemoteImageUrl {
 
-data class RemoteImageTask(private val imageUrl: String) : RemoteTask {
-
-    override val method = RemoteTask.Method.GET
-
-    override val scheme = "https"
-
-    override val host = "cdn.mangaeden.com"
-
-    override val path = "mangasimg/$imageUrl"
-
-    override val port: Int = 443
-
-    override val headers: Map<String, String> = emptyMap()
-
-    override val queryParams: Map<String, String> = emptyMap()
-
-    override val body: JsonElement? = null
+    fun from(segment: String): String = "https://cdn.mangaeden.com:443/mangasimg/$segment"
 }
