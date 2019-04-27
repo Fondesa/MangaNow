@@ -17,9 +17,10 @@
 package com.fondesa.manganow.latest.di
 
 import android.app.Activity
-import com.fondesa.manganow.latest.impl.LatestActivity
-import com.fondesa.manganow.latest.impl.LatestRecyclerViewAdapter
-import com.fondesa.manganow.latest.impl.LatestRecyclerViewHolderFactory
+import androidx.lifecycle.LifecycleObserver
+import com.fondesa.manganow.latest.impl.*
+import com.fondesa.manganow.latest.impl.qualifiers.PageSize
+import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.fondesa.manganow.ui.api.DefaultNavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.navigation.Navigator
@@ -28,6 +29,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.IntoSet
 
 @Module
 interface LatestModule {
@@ -47,10 +49,40 @@ interface LatestModule {
 
         @Binds
         fun provideActivity(activity: LatestActivity): Activity
+
+        @Binds
+        fun provideOnLatestClickListener(activity: LatestActivity): LatestRecyclerViewAdapter.OnLatestClickListener
+
+        @Binds
+        fun provideView(activity: LatestActivity): LatestContract.View
+
+        @Binds
+        fun providePresenter(presenter: LatestPresenter): LatestContract.Presenter
+
+        @Binds
+        @IntoSet
+        fun providePresenterLifecycleObserver(presenter: LatestPresenter): LifecycleObserver
+
+        @Binds
+        fun provideGetLatestList(getLatestList: GetLatestListImpl): GetLatestList
+
+        @Binds
+        fun provideLatestRemoteStorageConverter(factory: LatestRemoteStorageConverter): RemoteStorageConverter<LatestList>
+
+        @Binds
+        fun provideLatestRemoteStorageFactory(factory: LatestRemoteStorageFactoryImpl): LatestRemoteStorageFactory
+
+        @Binds
+        fun provideLatestDiskStorageFactory(factory: LatestDiskStorageFactoryImpl): LatestDiskStorageFactory
     }
 
     @Module
     object ScreenProvides {
+
+        @JvmStatic
+        @Provides
+        @PageSize
+        fun providePageSize(): Int = 25
 
         @JvmStatic
         @Provides
@@ -62,21 +94,5 @@ interface LatestModule {
             navigator = navigator,
             contentLayout = R.layout.activity_latest
         )
-
-        @JvmStatic
-        @Provides
-        fun provideAdapter(
-            activity: LatestActivity,
-            factory: LatestRecyclerViewHolderFactory
-        ): LatestRecyclerViewAdapter = LatestRecyclerViewAdapter(
-            pageSize = 13 /*TODO*/,
-            holderFactory = factory,
-            clickListener = activity
-        )
-
-        @JvmStatic
-        @Provides
-        fun provideHolderFactory(): LatestRecyclerViewHolderFactory =
-            LatestRecyclerViewHolderFactory()
     }
 }

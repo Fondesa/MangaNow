@@ -14,20 +14,31 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.remote.api.task
+package com.fondesa.manganow.latest.impl
 
-abstract class RemoteBaseTask : RemoteTask {
+import com.fondesa.manganow.ui.api.mvp.BasePresenter
 
-    /**
-     * @return path that will be appended to the root path of the APIs.
-     */
-    protected abstract val apiPath: String
+object LatestContract {
 
-    override val scheme: String = "http"
+    interface View {
 
-    override val host: String = "192.168.1.7"
+        fun showProgressIndicator()
 
-    override val path get() = "api/$apiPath"
+        fun hideProgressIndicator()
 
-    override val port = 8080
+        fun showListContainer()
+
+        fun hideListContainer()
+
+        fun showErrorForCause(cause: ErrorCause)
+
+        fun showLatestManga(latest: LatestList)
+    }
+
+    interface Presenter : BasePresenter {
+
+        fun pageEnded()
+
+        fun latestClicked(latest: Latest)
+    }
 }

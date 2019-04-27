@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl
+package com.fondesa.manganow.latest.impl
 
 import androidx.annotation.StringRes
 import com.fondesa.manganow.remote.api.exception.ConnectSocketException

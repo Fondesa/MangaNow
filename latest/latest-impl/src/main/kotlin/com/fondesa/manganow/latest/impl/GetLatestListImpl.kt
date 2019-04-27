@@ -14,29 +14,26 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.category
+package com.fondesa.manganow.latest.impl
 
 import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
-class GetCategoryListImpl @Inject constructor(
-    private val remoteStorageFactory: CategoryRemoteStorageFactory,
-    private val diskStorageFactory: CategoryDiskStorageFactory
-) : GetCategoryList {
+class GetLatestListImpl @Inject constructor(
+    private val remoteStorageFactory: LatestRemoteStorageFactory,
+    private val diskStorageFactory: LatestDiskStorageFactory
+) : GetLatestList {
 
-    override suspend fun execute(): CategoryList {
-        val diskStorage = diskStorageFactory.provideStorage()
+    override suspend fun execute(page: Int, pageSize: Int): LatestList {
+        val diskStorage = diskStorageFactory.provideStorage(page, pageSize)
         return if (diskStorage.isValid()) {
             diskStorage.get()
         } else {
-            val remoteStorage = remoteStorageFactory.provideStorage()
+            val remoteStorage = remoteStorageFactory.provideStorage(page, pageSize)
             remoteStorage.get().also {
                 diskStorage.put(it)
             }
         }
     }
 }
-
-
-

@@ -18,11 +18,13 @@ package com.fondesa.manganow.latest.impl
 
 import android.view.View
 import android.view.ViewGroup
+import com.fondesa.manganow.latest.impl.qualifiers.PageSize
 import com.fondesa.manganow.ui.api.view.InteractiveRecyclerViewHolder
 import com.fondesa.manganow.ui.api.view.PagingRecyclerViewAdapter
+import javax.inject.Inject
 
-class LatestRecyclerViewAdapter(
-    pageSize: Int,
+class LatestRecyclerViewAdapter @Inject constructor(
+    @PageSize pageSize: Int,
     private val holderFactory: LatestRecyclerViewHolderFactory,
     private val clickListener: OnLatestClickListener
 ) : PagingRecyclerViewAdapter(pageSize) {

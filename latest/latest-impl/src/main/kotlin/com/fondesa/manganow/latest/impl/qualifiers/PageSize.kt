@@ -14,20 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.remote.api.task
+package com.fondesa.manganow.latest.impl.qualifiers
 
-abstract class RemoteBaseTask : RemoteTask {
+import javax.inject.Qualifier
 
-    /**
-     * @return path that will be appended to the root path of the APIs.
-     */
-    protected abstract val apiPath: String
-
-    override val scheme: String = "http"
-
-    override val host: String = "192.168.1.7"
-
-    override val path get() = "api/$apiPath"
-
-    override val port = 8080
-}
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class PageSize
