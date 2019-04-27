@@ -17,16 +17,26 @@
 package com.fondesa.manganow.latest.impl
 
 import android.view.ViewGroup
+import com.fondesa.manganow.time.api.isToday
+import com.fondesa.manganow.time.api.isYesterday
 import com.fondesa.manganow.ui.api.util.inflateChild
 import com.fondesa.manganow.ui.api.view.InteractiveRecyclerViewHolder
 import com.fondesa.manganow.ui.api.view.RecyclerViewInteraction
 import com.fondesa.manganow.ui.api.view.RecyclerViewRowGesture
+import com.fondesa.manganow.ui.api.view.context
 import com.google.auto.factory.AutoFactory
 import kotlinx.android.synthetic.main.row_latest.*
+import java.text.DateFormat
+import java.text.DecimalFormat
+import java.util.*
 
 @AutoFactory
 class LatestRecyclerViewHolder(parent: ViewGroup) :
     InteractiveRecyclerViewHolder(parent.inflateChild(R.layout.row_latest)) {
+
+    private val timeFormat by lazy { DateFormat.getTimeInstance(DateFormat.SHORT) }
+    private val dateFormat by lazy { DateFormat.getDateInstance(DateFormat.SHORT) }
+    private val decimalFormat by lazy { DecimalFormat("#.#") }
 
     override val interactions: Array<RecyclerViewInteraction> =
         arrayOf(RecyclerViewInteraction(itemView, RecyclerViewRowGesture.CLICK))
@@ -35,12 +45,18 @@ class LatestRecyclerViewHolder(parent: ViewGroup) :
         val manga = item.manga
         val chapter = item.chapter
         val chapterDate = chapter.releaseDate
-//        val chapterTextNumber = chapterNumberConverter.convert(chapter.number)
+        val chapterTextNumber = decimalFormat.format(chapter.number)
 
         titleTextView.text = manga.title
-//        subtitleTextView.text =
-//            String.format(context.getString(R.string.label_chapter_number), chapterTextNumber)
-//        dateTextView.text = dateConverter.convert(chapterDate)
+        subtitleTextView.text =
+            String.format(context.getString(R.string.label_chapter_number), chapterTextNumber)
+        dateTextView.text = chapterDate.toReadableDate()
+    }
+
+    private fun Date.toReadableDate(): String = when {
+        isToday -> timeFormat.format(this)
+        isYesterday -> context.getString(R.string.label_yesterday)
+        else -> dateFormat.format(this)
     }
 }
 
