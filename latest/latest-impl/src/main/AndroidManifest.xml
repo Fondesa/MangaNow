@@ -18,6 +18,9 @@
     package="com.fondesa.manganow.latest.impl">
 
     <application>
-        <activity android:name=".LatestActivity"></activity>
+        <activity
+            android:name=".LatestActivity"
+            android:label="@string/section_home"
+            android:launchMode="singleTop" />
     </application>
 </manifest>

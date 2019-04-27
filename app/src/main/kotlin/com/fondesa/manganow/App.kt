@@ -16,6 +16,8 @@
 
 package com.fondesa.manganow
 
+import android.content.Context
+import androidx.multidex.MultiDex
 import com.fondesa.manganow.core.api.AppInitializer
 import com.fondesa.manganow.di.DaggerAppComponent
 import com.fondesa.manganow.log.api.Log
@@ -32,6 +34,11 @@ class App : DaggerApplication() {
 
     @Inject
     lateinit var appInitializers: Set<@JvmSuppressWildcards AppInitializer>
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
 
     override fun onCreate() {
         super.onCreate()

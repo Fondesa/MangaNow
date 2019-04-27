@@ -18,6 +18,8 @@ package com.fondesa.manganow.latest.di
 
 import android.app.Activity
 import com.fondesa.manganow.latest.impl.LatestActivity
+import com.fondesa.manganow.latest.impl.LatestRecyclerViewAdapter
+import com.fondesa.manganow.latest.impl.LatestRecyclerViewHolderFactory
 import com.fondesa.manganow.ui.api.DefaultNavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.navigation.Navigator
@@ -60,5 +62,21 @@ interface LatestModule {
             navigator = navigator,
             contentLayout = R.layout.activity_latest
         )
+
+        @JvmStatic
+        @Provides
+        fun provideAdapter(
+            activity: LatestActivity,
+            factory: LatestRecyclerViewHolderFactory
+        ): LatestRecyclerViewAdapter = LatestRecyclerViewAdapter(
+            pageSize = 13 /*TODO*/,
+            holderFactory = factory,
+            clickListener = activity
+        )
+
+        @JvmStatic
+        @Provides
+        fun provideHolderFactory(): LatestRecyclerViewHolderFactory =
+            LatestRecyclerViewHolderFactory()
     }
 }

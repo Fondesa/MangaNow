@@ -17,14 +17,9 @@
 package com.fondesa.manganow.ui.api.view
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.extensions.LayoutContainer
 
-/**
- * Interface used to specify an element that can define its [RecyclerViewInteraction]s.
- */
-abstract class InteractiveRecyclerViewHolder(itemView: View) : KtExtRecyclerViewHolder(itemView) {
-
-    /**
-     * @return interactions added to the [View]s of the row.
-     */
-    open val interactions: Array<RecyclerViewInteraction> = emptyArray()
-}
+abstract class KtExtRecyclerViewHolder(override val containerView: View) :
+    RecyclerView.ViewHolder(containerView),
+    LayoutContainer

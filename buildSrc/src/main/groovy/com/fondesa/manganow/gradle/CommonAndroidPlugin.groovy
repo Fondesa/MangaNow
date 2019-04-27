@@ -34,6 +34,7 @@ class CommonAndroidPlugin implements Plugin<Project> {
                 defaultConfig {
                     minSdkVersion androidConfig.minSdk
                     targetSdkVersion androidConfig.targetSdk
+                    multiDexEnabled true
 
                     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
                     testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -68,6 +69,10 @@ class CommonAndroidPlugin implements Plugin<Project> {
                     // Arguments needed by DatabaseProcessor.
                     arg("androidProcessing")
                 }
+            }
+
+            dependencies {
+                deps.multiDex
             }
         }
     }

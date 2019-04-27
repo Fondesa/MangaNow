@@ -32,6 +32,9 @@ dependencies {
     api deps.dagger
     api deps.daggerAndroid
     api deps.kotlinStdLib
+    implementation deps.autoFactory
 
     kapt project(':database:database-processor')
+    kapt deps.autoFactory
+    annotationProcessor deps.autoFactory
 }

@@ -20,10 +20,19 @@ import android.os.Bundle
 import com.fondesa.manganow.log.api.Log
 import com.fondesa.manganow.ui.api.BaseActivity
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
+import javax.inject.Inject
 
-class LatestActivity : BaseActivity<NavigationActivityViewDelegate>() {
+class LatestActivity : BaseActivity<NavigationActivityViewDelegate>(),
+    LatestRecyclerViewAdapter.OnLatestClickListener {
+
+    @Inject
+    internal lateinit var adapter: LatestRecyclerViewAdapter
 
     override fun onViewCreated(savedInstanceState: Bundle?) {
         Log.d("LYRA")
+    }
+
+    override fun onLatestClicked(latest: Latest) {
+        TODO("not implemented")
     }
 }
