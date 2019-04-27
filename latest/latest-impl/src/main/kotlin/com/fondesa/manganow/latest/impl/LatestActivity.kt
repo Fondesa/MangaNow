@@ -19,6 +19,7 @@ package com.fondesa.manganow.latest.impl
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.LifecycleObserver
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.fondesa.manganow.latest.impl.qualifiers.PageSize
 import com.fondesa.manganow.ui.api.BaseActivity
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
@@ -53,6 +54,7 @@ class LatestActivity : BaseActivity<NavigationActivityViewDelegate>(),
             presenter.pageEnded()
         }
         recyclerView.addOnScrollListener(paginationListener)
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         // Set the adapter on the RecyclerView.
         recyclerView.adapter = adapter
         // Attach the view to the presenter.

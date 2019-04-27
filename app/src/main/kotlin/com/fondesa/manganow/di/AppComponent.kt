@@ -27,7 +27,7 @@ import com.fondesa.manganow.serialization.di.SerializationModule
 import com.fondesa.manganow.splash.di.SplashModule
 import com.fondesa.manganow.thread.di.ThreadModule
 import com.fondesa.manganow.time.di.TimeModule
-import com.fondesa.manganow.ui.impl.UiModule
+import com.fondesa.manganow.ui.di.UiModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.ui.impl
+package com.fondesa.manganow.ui.di
 
 import com.fondesa.manganow.ui.api.navigation.Navigator
 import com.fondesa.manganow.ui.api.navigation.RouteNavigator
