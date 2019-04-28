@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.thread.api
+package com.fondesa.manganow.mangalist.impl.qualifiers
 
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import javax.inject.Qualifier
 
-inline fun dispatchOnMainExceptionHandler(crossinline handler: (Throwable) -> Unit): CoroutineExceptionHandler =
-    CoroutineExceptionHandler { _, throwable ->
-        GlobalScope.launch(Dispatchers.Main) {
-            handler(throwable)
-        }
-    }
+// TODO Maybe generalize??
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class PageSize

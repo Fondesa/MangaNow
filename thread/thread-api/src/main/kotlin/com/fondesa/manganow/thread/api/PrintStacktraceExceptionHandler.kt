@@ -17,13 +17,8 @@
 package com.fondesa.manganow.thread.api
 
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-inline fun dispatchOnMainExceptionHandler(crossinline handler: (Throwable) -> Unit): CoroutineExceptionHandler =
+fun printStacktraceExceptionHandler(): CoroutineExceptionHandler =
     CoroutineExceptionHandler { _, throwable ->
-        GlobalScope.launch(Dispatchers.Main) {
-            handler(throwable)
-        }
+        throwable.printStackTrace()
     }

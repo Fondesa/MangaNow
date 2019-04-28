@@ -19,8 +19,8 @@ package com.fondesa.manganow.latest.di
 import android.app.Activity
 import androidx.lifecycle.LifecycleObserver
 import com.fondesa.manganow.latest.impl.*
-import com.fondesa.manganow.latest.impl.qualifiers.PageSize
 import com.fondesa.manganow.mangalist.di.MangaListRouteModule
+import com.fondesa.manganow.mangalist.impl.qualifiers.PageSize
 import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.fondesa.manganow.ui.api.DefaultNavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate

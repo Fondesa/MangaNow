@@ -23,7 +23,7 @@ import com.fondesa.manganow.latest.api.LatestRoute
 import com.fondesa.manganow.mangalist.api.sortorder.GetSortOrderList
 import com.fondesa.manganow.navigation.api.Router
 import com.fondesa.manganow.splash.impl.category.GetCategoryList
-import com.fondesa.manganow.thread.api.DispatchOnMainExceptionHandler
+import com.fondesa.manganow.thread.api.dispatchOnMainExceptionHandler
 import com.fondesa.manganow.thread.api.launchWithDelay
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import kotlinx.coroutines.*
@@ -39,7 +39,7 @@ class SplashPresenter @Inject constructor(
 ) : SplashContract.Presenter, CoroutineScope, LifecycleObserver {
 
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Default + DispatchOnMainExceptionHandler { t ->
+        get() = job + Dispatchers.Default + dispatchOnMainExceptionHandler { t ->
             handleOperationsErrors(t)
         }
 

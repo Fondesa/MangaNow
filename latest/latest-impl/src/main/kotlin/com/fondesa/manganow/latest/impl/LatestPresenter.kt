@@ -22,7 +22,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.fondesa.manganow.latest.impl.qualifiers.PageSize
 import com.fondesa.manganow.log.api.Log
 import com.fondesa.manganow.navigation.api.Router
-import com.fondesa.manganow.thread.api.DispatchOnMainExceptionHandler
+import com.fondesa.manganow.thread.api.dispatchOnMainExceptionHandler
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -37,7 +37,7 @@ class LatestPresenter @Inject constructor(
 ) : LatestContract.Presenter, CoroutineScope, LifecycleObserver {
 
     override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Default + DispatchOnMainExceptionHandler { t ->
+        get() = job + Dispatchers.Default + dispatchOnMainExceptionHandler { t ->
             handleOperationsErrors(t)
         }
 

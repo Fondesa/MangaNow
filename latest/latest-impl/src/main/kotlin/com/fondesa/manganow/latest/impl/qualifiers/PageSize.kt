@@ -18,6 +18,8 @@ package com.fondesa.manganow.latest.impl.qualifiers
 
 import javax.inject.Qualifier
 
+// TODO Maybe generalize??
+
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class PageSize

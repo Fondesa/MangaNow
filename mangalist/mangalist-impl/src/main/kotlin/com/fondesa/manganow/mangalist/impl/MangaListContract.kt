@@ -41,16 +41,13 @@ object MangaListContract {
 
         fun showMangaList(mangaList: MangaList)
 
-        fun updatePageSize(pageSize: Int)
-
         fun showSortOrdersView()
+
+        fun hideSortOrdersView()
 
         fun showSortOrders(sortOrders: SortOrderList, defaultSortOrder: SortOrder)
     }
 
-    /**
-     * Specify the presenter methods for the manga list section linked to [View].
-     */
     interface Presenter : BasePresenter {
 
         fun pageEnded()
