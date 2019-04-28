@@ -39,7 +39,6 @@
     <string name="msg_connectivity_not_available">Can\'t connect to the network. Check your internet connection.</string>
     <string name="msg_generic_error">Generic error.</string>
     <string name="msg_no_chapters">No chapters available</string>
-    <string name="msg_no_latest_manga">No manga available</string>
     <string name="msg_network_error">Can\'t connect to the network.</string>
 
     <string name="navigation_drawer_close">Close navigation drawer</string>
