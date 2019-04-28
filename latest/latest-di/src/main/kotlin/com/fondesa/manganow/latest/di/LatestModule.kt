@@ -20,6 +20,7 @@ import android.app.Activity
 import androidx.lifecycle.LifecycleObserver
 import com.fondesa.manganow.latest.impl.*
 import com.fondesa.manganow.latest.impl.qualifiers.PageSize
+import com.fondesa.manganow.mangalist.di.MangaListRouteModule
 import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.fondesa.manganow.ui.api.DefaultNavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
@@ -39,7 +40,8 @@ interface LatestModule {
         modules = [
             ScreenBinds::class,
             ScreenProvides::class,
-            LatestRouteModule::class
+            LatestRouteModule::class,
+            MangaListRouteModule::class
         ]
     )
     fun latestActivity(): LatestActivity

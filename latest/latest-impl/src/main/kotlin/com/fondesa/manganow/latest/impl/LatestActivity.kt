@@ -16,6 +16,8 @@
 
 package com.fondesa.manganow.latest.impl
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.LifecycleObserver
@@ -93,5 +95,10 @@ class LatestActivity : BaseActivity<NavigationActivityViewDelegate>(),
     companion object {
 
         private const val LIST_THRESHOLD = 3
+
+        fun createIntent(context: Context): Intent =
+            Intent(context, LatestActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
     }
 }

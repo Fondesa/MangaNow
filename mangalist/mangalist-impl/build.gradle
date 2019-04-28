@@ -20,12 +20,21 @@ apply plugin: 'common-android'
 dependencies {
     compileOnly deps.javaxInject
 
-    api project(":latest:latest-impl")
-    api project(":mangalist:mangalist-di")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
+    api project(":core:core-api")
+    api project(":domain:domain-chapter")
+    api project(":domain:domain-manga")
+    api project(":storage:storage-api")
+    api project(":serialization:serialization-api")
+    api project(":mangalist:mangalist-api")
+    api project(':thread:thread-api')
+    api project(':time:time-api')
+    api project(":ui:ui-api")
+    api deps.dagger
     api deps.daggerAndroid
+    api deps.kotlinStdLib
+    implementation deps.autoFactory
 
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    kapt project(':database:database-processor')
+    kapt deps.autoFactory
+    annotationProcessor deps.autoFactory
 }

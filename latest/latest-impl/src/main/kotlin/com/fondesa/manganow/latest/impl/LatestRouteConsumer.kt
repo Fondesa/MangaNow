@@ -17,7 +17,6 @@
 package com.fondesa.manganow.latest.impl
 
 import android.app.Activity
-import android.content.Intent
 import com.fondesa.manganow.latest.api.LatestRoute
 import com.fondesa.manganow.navigation.api.TypedRouteConsumer
 import javax.inject.Inject
@@ -26,8 +25,7 @@ class LatestRouteConsumer @Inject constructor(private val activity: Activity) :
     TypedRouteConsumer<LatestRoute>(LatestRoute::class) {
 
     override fun consumeRoute(route: LatestRoute) {
-        val intent = Intent(activity, LatestActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        val intent = LatestActivity.createIntent(activity)
         activity.startActivity(intent)
     }
 }

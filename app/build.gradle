@@ -39,6 +39,7 @@ dependencies {
     implementation project(":database:database-di")
     implementation project(":log:log-di")
     implementation project(":latest:latest-di")
+    implementation project(":mangalist:mangalist-di")
     implementation project(":navigation:navigation-di")
     implementation project(":remote:remote-di")
     implementation project(":time:time-di")

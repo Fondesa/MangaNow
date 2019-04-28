@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.latest.di
+package com.fondesa.manganow.mangalist.di
 
-import com.fondesa.manganow.latest.api.LatestRoute
-import com.fondesa.manganow.latest.impl.LatestRouteConsumer
+import com.fondesa.manganow.mangalist.api.MangaListRoute
+import com.fondesa.manganow.mangalist.impl.MangaListRouteConsumer
 import com.fondesa.manganow.navigation.api.Route
 import com.fondesa.manganow.navigation.api.RouteConsumer
 import com.fondesa.manganow.navigation.di.qualifiers.RouteKey
@@ -28,13 +28,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module(includes = [LatestRouteModule.WithProvides::class])
-interface LatestRouteModule {
+@Module(includes = [MangaListRouteModule.WithProvides::class])
+interface MangaListRouteModule {
 
     @Binds
     @IntoMap
-    @RouteKey(LatestRoute::class)
-    fun provideRouteConsumer(consumer: LatestRouteConsumer): RouteConsumer
+    @RouteKey(MangaListRoute::class)
+    fun provideRouteConsumer(consumer: MangaListRouteConsumer): RouteConsumer
 
     @Module
     object WithProvides {
@@ -42,7 +42,7 @@ interface LatestRouteModule {
         @JvmStatic
         @Provides
         @IntoMap
-        @NavigationSectionKey(NavigationSection.HOME)
-        fun provideRouteForNavigationSection(): Route = LatestRoute
+        @NavigationSectionKey(NavigationSection.LIST)
+        fun provideRouteForNavigationSection(): Route = MangaListRoute
     }
 }

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.mangalist.impl
 
-dependencies {
-    compileOnly deps.javaxInject
+import android.app.Activity
+import com.fondesa.manganow.mangalist.api.MangaListRoute
+import com.fondesa.manganow.navigation.api.TypedRouteConsumer
+import javax.inject.Inject
 
-    api project(":latest:latest-impl")
-    api project(":mangalist:mangalist-di")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
+class MangaListRouteConsumer @Inject constructor(private val activity: Activity) :
+    TypedRouteConsumer<MangaListRoute>(MangaListRoute::class) {
 
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    override fun consumeRoute(route: MangaListRoute) {
+        val intent = MangaListActivity.createIntent(activity)
+        activity.startActivity(intent)
+    }
 }

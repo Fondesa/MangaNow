@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.mangalist.impl
 
-dependencies {
-    compileOnly deps.javaxInject
+import android.content.Context
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 
-    api project(":latest:latest-impl")
-    api project(":mangalist:mangalist-di")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
+class MangaListActivity : AppCompatActivity() {
 
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    companion object {
+
+        fun createIntent(context: Context): Intent = Intent(context, MangaListActivity::class.java)
+    }
 }

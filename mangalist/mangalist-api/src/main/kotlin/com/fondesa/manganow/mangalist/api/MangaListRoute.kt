@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.mangalist.api
 
-dependencies {
-    compileOnly deps.javaxInject
+import com.fondesa.manganow.navigation.api.Route
 
-    api project(":latest:latest-impl")
-    api project(":mangalist:mangalist-di")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
-
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
-}
+object MangaListRoute: Route

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Fondesa
+ * Copyright (c) 2018 Fondesa
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+apply plugin: 'common-jvm'
 
 dependencies {
-    compileOnly deps.javaxInject
-
-    api project(":latest:latest-impl")
-    api project(":mangalist:mangalist-di")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
-
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    compile project(':navigation:navigation-api')
+    compile deps.kotlinStdLib
 }
