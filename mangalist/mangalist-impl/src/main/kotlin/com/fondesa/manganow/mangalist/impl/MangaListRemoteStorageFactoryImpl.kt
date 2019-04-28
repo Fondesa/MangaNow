@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.latest.impl
+package com.fondesa.manganow.mangalist.impl
 
+import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
 import com.fondesa.manganow.remote.api.client.RemoteClient
 import com.fondesa.manganow.remote.api.task.RemoteGetTask
 import com.fondesa.manganow.storage.api.remote.JsonRemoteStorage
@@ -25,17 +26,28 @@ import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
-class LatestRemoteStorageFactoryImpl @Inject constructor(
+class MangaListRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
-    private val mapper: RemoteStorageMapper<@JvmSuppressWildcards LatestList>
-) : LatestRemoteStorageFactory {
+    private val mapper: RemoteStorageMapper<@JvmSuppressWildcards MangaList>
+) : MangaListRemoteStorageFactory {
 
-    override fun provideStorage(page: Int, pageSize: Int): RemoteStorage<LatestList> {
-        val queryParams = mapOf(
+    override fun provideStorage(
+        page: Int,
+        pageSize: Int,
+        sortOrder: SortOrder?,
+        textFilter: String?
+    ): RemoteStorage<MangaList> {
+        val queryParams = mutableMapOf(
             "page" to page.toString(),
             "pageSize" to pageSize.toString()
         )
-        val task = RemoteGetTask(apiPath = "latest", queryParams = queryParams)
+        sortOrder?.let {
+            queryParams["sortOrderId"] = it.id.toString()
+        }
+        textFilter?.let {
+            queryParams["textFilter"] = it
+        }
+        val task = RemoteGetTask(apiPath = "mangalist", queryParams = queryParams)
         return JsonRemoteStorage(client, task, mapper)
     }
 }

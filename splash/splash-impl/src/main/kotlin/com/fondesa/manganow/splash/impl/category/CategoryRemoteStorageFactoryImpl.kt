@@ -27,11 +27,11 @@ import javax.inject.Inject
 @Reusable
 class CategoryRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
-    private val remoteStorageMapper: RemoteStorageMapper<@JvmSuppressWildcards CategoryList>
+    private val mapper: RemoteStorageMapper<@JvmSuppressWildcards CategoryList>
 ) : CategoryRemoteStorageFactory {
 
     override fun provideStorage(): RemoteStorage<CategoryList> {
         val task = RemoteGetTask(apiPath = "categories")
-        return JsonRemoteStorage(client, task, remoteStorageMapper)
+        return JsonRemoteStorage(client, task, mapper)
     }
 }

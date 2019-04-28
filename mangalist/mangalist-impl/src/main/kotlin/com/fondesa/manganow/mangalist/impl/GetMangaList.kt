@@ -17,14 +17,13 @@
 package com.fondesa.manganow.mangalist.impl
 
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
-import com.fondesa.manganow.storage.api.remote.RemoteStorage
 
-interface MangaListRemoteStorageFactory {
+interface GetMangaList {
 
-    fun provideStorage(
+    suspend fun execute(
         page: Int,
         pageSize: Int,
         sortOrder: SortOrder?,
         textFilter: String?
-    ): RemoteStorage<MangaList>
+    ): MangaList
 }

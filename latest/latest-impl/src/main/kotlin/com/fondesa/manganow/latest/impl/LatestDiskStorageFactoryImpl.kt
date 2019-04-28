@@ -27,7 +27,7 @@ class LatestDiskStorageFactoryImpl @Inject constructor(private val client: Datab
     LatestDiskStorageFactory {
 
     override fun provideStorage(page: Int, pageSize: Int): DiskStorage<LatestList> {
-        val cacheKey = "latest|p:$page|pS:$pageSize:"
+        val cacheKey = "latest|p:$page|pS:$pageSize"
         val expirationTimeMs = TimeUnit.MINUTES.toMillis(5)
         return LatestDiskStorage(client, cacheKey, expirationTimeMs)
     }

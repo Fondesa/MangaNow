@@ -28,11 +28,11 @@ import javax.inject.Inject
 @Reusable
 class SortOrderRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
-    private val remoteStorageMapper: RemoteStorageMapper<@JvmSuppressWildcards SortOrderList>
+    private val mapper: RemoteStorageMapper<@JvmSuppressWildcards SortOrderList>
 ) : SortOrderRemoteStorageFactory {
 
     override fun provideStorage(): RemoteStorage<SortOrderList> {
         val task = RemoteGetTask(apiPath = "sortorders")
-        return JsonRemoteStorage(client, task, remoteStorageMapper)
+        return JsonRemoteStorage(client, task, mapper)
     }
 }

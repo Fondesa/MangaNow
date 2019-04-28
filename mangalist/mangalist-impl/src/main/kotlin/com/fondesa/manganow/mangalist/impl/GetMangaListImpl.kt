@@ -17,14 +17,30 @@
 package com.fondesa.manganow.mangalist.impl
 
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
-import com.fondesa.manganow.storage.api.remote.RemoteStorage
+import dagger.Reusable
+import javax.inject.Inject
 
-interface MangaListRemoteStorageFactory {
+@Reusable
+class GetMangaListImpl @Inject constructor(
+    private val remoteStorageFactory: MangaListRemoteStorageFactory,
+    private val diskStorageFactory: MangaListDiskStorageFactory
+) : GetMangaList {
 
-    fun provideStorage(
+    override suspend fun execute(
         page: Int,
         pageSize: Int,
         sortOrder: SortOrder?,
         textFilter: String?
-    ): RemoteStorage<MangaList>
+    ): MangaList {
+        val diskStorage = diskStorageFactory.provideStorage(page, pageSize, sortOrder, textFilter)
+        return if (diskStorage.isValid()) {
+            diskStorage.get()
+        } else {
+            val remoteStorage =
+                remoteStorageFactory.provideStorage(page, pageSize, sortOrder, textFilter)
+            remoteStorage.get().also {
+                diskStorage.put(it)
+            }
+        }
+    }
 }

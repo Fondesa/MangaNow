@@ -16,15 +16,25 @@
 
 package com.fondesa.manganow.mangalist.impl
 
+import com.fondesa.manganow.database.api.client.DatabaseClient
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
-import com.fondesa.manganow.storage.api.remote.RemoteStorage
+import com.fondesa.manganow.storage.api.disk.DiskStorage
+import dagger.Reusable
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-interface MangaListRemoteStorageFactory {
+@Reusable
+class MangaListDiskStorageFactoryImpl @Inject constructor(private val client: DatabaseClient) :
+    MangaListDiskStorageFactory {
 
-    fun provideStorage(
+    override fun provideStorage(
         page: Int,
         pageSize: Int,
         sortOrder: SortOrder?,
         textFilter: String?
-    ): RemoteStorage<MangaList>
+    ): DiskStorage<MangaList> {
+        val cacheKey = "mangalist|p:$page|pS:$pageSize|so:$sortOrder|tf:$textFilter"
+        val expirationTimeMs = TimeUnit.MINUTES.toMillis(5)
+        return MangaListDiskStorage(client, cacheKey, expirationTimeMs)
+    }
 }
