@@ -20,18 +20,18 @@ import com.fondesa.manganow.remote.api.client.RemoteClient
 import com.fondesa.manganow.remote.api.task.RemoteGetTask
 import com.fondesa.manganow.storage.api.remote.JsonRemoteStorage
 import com.fondesa.manganow.storage.api.remote.RemoteStorage
-import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
 class CategoryRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
-    private val remoteStorageConverter: RemoteStorageConverter<@JvmSuppressWildcards CategoryList>
+    private val remoteStorageMapper: RemoteStorageMapper<@JvmSuppressWildcards CategoryList>
 ) : CategoryRemoteStorageFactory {
 
     override fun provideStorage(): RemoteStorage<CategoryList> {
         val task = RemoteGetTask(apiPath = "categories")
-        return JsonRemoteStorage(client, task, remoteStorageConverter)
+        return JsonRemoteStorage(client, task, remoteStorageMapper)
     }
 }

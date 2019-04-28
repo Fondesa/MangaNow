@@ -20,15 +20,15 @@ import com.fondesa.manganow.domain.chapter.Chapter
 import com.fondesa.manganow.domain.manga.Manga
 import com.fondesa.manganow.serialization.api.json.asNullableString
 import com.fondesa.manganow.serialization.api.json.mapJsonObject
-import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.google.gson.JsonElement
 import java.util.*
 import javax.inject.Inject
 
-class LatestRemoteStorageConverter @Inject constructor() :
-    RemoteStorageConverter<@JvmSuppressWildcards LatestList> {
+class LatestRemoteStorageMapper @Inject constructor() :
+    RemoteStorageMapper<@JvmSuppressWildcards LatestList> {
 
-    override fun convert(value: JsonElement): LatestList = value.asJsonArray.mapJsonObject {
+    override fun map(json: JsonElement): LatestList = json.asJsonArray.mapJsonObject {
         val manga = Manga(
             id = it["id"].asLong,
             alias = it["alias"].asString,

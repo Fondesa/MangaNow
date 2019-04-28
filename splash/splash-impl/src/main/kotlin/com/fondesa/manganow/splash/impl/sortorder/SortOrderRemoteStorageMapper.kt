@@ -14,11 +14,23 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.storage.api.remote
+package com.fondesa.manganow.splash.impl.sortorder
 
+import com.fondesa.manganow.serialization.api.json.mapJsonObject
+import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.google.gson.JsonElement
+import dagger.Reusable
+import javax.inject.Inject
 
-interface RemoteStorageConverter<out T> {
+@Reusable
+class SortOrderRemoteStorageMapper @Inject constructor() :
+    RemoteStorageMapper<@JvmSuppressWildcards SortOrderList> {
 
-    fun convert(value: JsonElement): T
+    override fun map(json: JsonElement): SortOrderList = json.asJsonArray.mapJsonObject {
+        SortOrder(
+            id = it["id"].asLong,
+            name = it["name"].asString,
+            priority = it["priority"].asInt
+        )
+    }
 }

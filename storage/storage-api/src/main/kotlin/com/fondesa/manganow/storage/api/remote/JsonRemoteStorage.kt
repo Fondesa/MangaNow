@@ -22,11 +22,11 @@ import com.fondesa.manganow.remote.api.task.RemoteTask
 class JsonRemoteStorage<out T>(
     private val remoteClient: RemoteClient,
     private val remoteTask: RemoteTask,
-    private val converter: RemoteStorageConverter<T>
+    private val mapper: RemoteStorageMapper<T>
 ) : RemoteStorage<T> {
 
     override fun get(): T {
         val json = remoteClient.load(remoteTask)
-        return converter.convert(json)
+        return mapper.map(json)
     }
 }

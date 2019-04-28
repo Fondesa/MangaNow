@@ -25,7 +25,7 @@ import com.fondesa.manganow.splash.impl.SplashContract
 import com.fondesa.manganow.splash.impl.SplashPresenter
 import com.fondesa.manganow.splash.impl.category.*
 import com.fondesa.manganow.splash.impl.sortorder.*
-import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegate
 import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegateImpl
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
@@ -68,7 +68,7 @@ interface SplashModule {
         fun provideGetCategoryList(getCategoryList: GetCategoryListImpl): GetCategoryList
 
         @Binds
-        fun provideCategoryRemoteStorageConverter(factory: CategoryRemoteStorageConverter): RemoteStorageConverter<@JvmSuppressWildcards CategoryList>
+        fun provideCategoryRemoteStorageMapper(factory: CategoryRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards CategoryList>
 
         @Binds
         fun provideCategoryRemoteStorageFactory(factory: CategoryRemoteStorageFactoryImpl): CategoryRemoteStorageFactory
@@ -80,7 +80,7 @@ interface SplashModule {
         fun provideGetSortOrderList(getSortOrderList: GetSortOrderListImpl): GetSortOrderList
 
         @Binds
-        fun provideSortOrderRemoteStorageConverter(factory: SortOrderRemoteStorageConverter): RemoteStorageConverter<@JvmSuppressWildcards SortOrderList>
+        fun provideSortOrderRemoteStorageMapper(factory: SortOrderRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards SortOrderList>
 
         @Binds
         fun provideSortOrderRemoteStorageFactory(factory: SortOrderRemoteStorageFactoryImpl): SortOrderRemoteStorageFactory

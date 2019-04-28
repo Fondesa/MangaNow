@@ -14,23 +14,11 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.category
+package com.fondesa.manganow.storage.api.remote
 
-import com.fondesa.manganow.domain.category.Category
-import com.fondesa.manganow.serialization.api.json.mapJsonObject
-import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
 import com.google.gson.JsonElement
-import dagger.Reusable
-import javax.inject.Inject
 
-@Reusable
-class CategoryRemoteStorageConverter @Inject constructor() :
-    RemoteStorageConverter<@JvmSuppressWildcards CategoryList> {
+interface RemoteStorageMapper<out T> {
 
-    override fun convert(value: JsonElement): CategoryList = value.asJsonArray.mapJsonObject {
-        Category(
-            id = it["id"].asLong,
-            name = it["name"].asString
-        )
-    }
+    fun map(json: JsonElement): T
 }

@@ -20,14 +20,14 @@ import com.fondesa.manganow.remote.api.client.RemoteClient
 import com.fondesa.manganow.remote.api.task.RemoteGetTask
 import com.fondesa.manganow.storage.api.remote.JsonRemoteStorage
 import com.fondesa.manganow.storage.api.remote.RemoteStorage
-import com.fondesa.manganow.storage.api.remote.RemoteStorageConverter
+import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import dagger.Reusable
 import javax.inject.Inject
 
 @Reusable
 class LatestRemoteStorageFactoryImpl @Inject constructor(
     private val client: RemoteClient,
-    private val remoteStorageConverter: RemoteStorageConverter<@JvmSuppressWildcards LatestList>
+    private val remoteStorageMapper: RemoteStorageMapper<@JvmSuppressWildcards LatestList>
 ) : LatestRemoteStorageFactory {
 
     override fun provideStorage(page: Int, pageSize: Int): RemoteStorage<LatestList> {
@@ -36,6 +36,6 @@ class LatestRemoteStorageFactoryImpl @Inject constructor(
             "pageSize" to pageSize.toString()
         )
         val task = RemoteGetTask(apiPath = "latest", queryParams = queryParams)
-        return JsonRemoteStorage(client, task, remoteStorageConverter)
+        return JsonRemoteStorage(client, task, remoteStorageMapper)
     }
 }
