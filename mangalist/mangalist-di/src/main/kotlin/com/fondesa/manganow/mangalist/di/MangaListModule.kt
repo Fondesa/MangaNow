@@ -16,12 +16,24 @@
 
 package com.fondesa.manganow.mangalist.di
 
+import android.app.Activity
+import androidx.lifecycle.LifecycleObserver
+import com.fondesa.manganow.latest.di.LatestRouteModule
 import com.fondesa.manganow.mangalist.api.sortorder.GetSortOrderList
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrderList
+import com.fondesa.manganow.mangalist.impl.*
+import com.fondesa.manganow.mangalist.impl.qualifiers.PageSize
 import com.fondesa.manganow.mangalist.impl.sortorder.*
 import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
+import com.fondesa.manganow.ui.api.DefaultNavigationActivityViewDelegate
+import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
+import com.fondesa.manganow.ui.api.navigation.Navigator
+import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
+import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.IntoSet
 
 @Module
 interface MangaListModule {
@@ -37,4 +49,67 @@ interface MangaListModule {
 
     @Binds
     fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
+
+    @Binds
+    fun provideGetMangaList(getMangaList: GetMangaList): GetMangaList
+
+    @Binds
+    fun provideMangaListRemoteStorageMapper(factory: MangaListRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards MangaList>
+
+    @Binds
+    fun provideMangaListRemoteStorageFactory(factory: MangaListRemoteStorageFactoryImpl): MangaListRemoteStorageFactory
+
+    @Binds
+    fun provideMangaListDiskStorageFactory(factory: MangaListDiskStorageFactoryImpl): MangaListDiskStorageFactory
+
+    @ScreenScope
+    @ContributesAndroidInjector(
+        modules = [
+            ScreenBinds::class,
+            ScreenProvides::class,
+            LatestRouteModule::class,
+            MangaListRouteModule::class
+        ]
+    )
+    fun mangaListActivity(): MangaListActivity
+
+    @Module
+    interface ScreenBinds {
+
+        @Binds
+        fun provideActivity(activity: MangaListActivity): Activity
+
+        @Binds
+        fun provideOnMangaClickListener(activity: MangaListActivity): MangaListRecyclerViewAdapter.OnMangaClickListener
+
+        @Binds
+        fun provideView(activity: MangaListActivity): MangaListContract.View
+
+        @Binds
+        fun providePresenter(presenter: MangaListPresenter): MangaListContract.Presenter
+
+        @Binds
+        @IntoSet
+        fun providePresenterLifecycleObserver(presenter: MangaListPresenter): LifecycleObserver
+    }
+
+    @Module
+    object ScreenProvides {
+
+        @JvmStatic
+        @Provides
+        @PageSize
+        fun providePageSize(): Int = 25
+
+        @JvmStatic
+        @Provides
+        fun provideActivityViewDelegate(
+            activity: MangaListActivity,
+            navigator: Navigator
+        ): NavigationActivityViewDelegate = DefaultNavigationActivityViewDelegate(
+            activity = activity,
+            navigator = navigator,
+            contentLayout = R.layout.activity_manga_list
+        )
+    }
 }

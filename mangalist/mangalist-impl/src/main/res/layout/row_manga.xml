@@ -22,7 +22,7 @@
     android:orientation="horizontal">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/image_view"
+        android:id="@+id/imageView"
         android:layout_width="@dimen/cell_manga_image_size"
         android:layout_height="@dimen/cell_manga_image_size"
         android:layout_marginStart="@dimen/cell_manga_padding_horizontal"
@@ -36,7 +36,7 @@
         app:roundingBorderWidth="2dp" />
 
     <TextView
-        android:id="@+id/title_text_view"
+        android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -50,7 +50,7 @@
         tools:text="Dummy manga title" />
 
     <ImageView
-        android:id="@+id/favourite_btn_view"
+        android:id="@+id/favouriteButton"
         android:layout_width="@dimen/cell_manga_favorite_size"
         android:layout_height="@dimen/cell_manga_favorite_size"
         android:layout_gravity="center_vertical"

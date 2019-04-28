@@ -21,7 +21,7 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(":latest:latest-impl")
-    api project(":mangalist:mangalist-di")
+    implementation project(":mangalist:mangalist-di")
     api project(":navigation:navigation-di")
     api project(":ui:ui-di")
     api deps.daggerAndroid
