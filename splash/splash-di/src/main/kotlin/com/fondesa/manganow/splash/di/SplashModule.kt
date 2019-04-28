@@ -24,7 +24,6 @@ import com.fondesa.manganow.splash.impl.SplashActivity
 import com.fondesa.manganow.splash.impl.SplashContract
 import com.fondesa.manganow.splash.impl.SplashPresenter
 import com.fondesa.manganow.splash.impl.category.*
-import com.fondesa.manganow.splash.impl.sortorder.*
 import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegate
 import com.fondesa.manganow.ui.api.FullScreenActivityViewDelegateImpl
@@ -37,6 +36,18 @@ import dagger.multibindings.IntoSet
 
 @Module
 interface SplashModule {
+
+    @Binds
+    fun provideGetCategoryList(getCategoryList: GetCategoryListImpl): GetCategoryList
+
+    @Binds
+    fun provideCategoryRemoteStorageMapper(factory: CategoryRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards CategoryList>
+
+    @Binds
+    fun provideCategoryRemoteStorageFactory(factory: CategoryRemoteStorageFactoryImpl): CategoryRemoteStorageFactory
+
+    @Binds
+    fun provideCategoryDiskStorageFactory(factory: CategoryDiskStorageFactoryImpl): CategoryDiskStorageFactory
 
     @ScreenScope
     @ContributesAndroidInjector(
@@ -63,30 +74,6 @@ interface SplashModule {
         @Binds
         @IntoSet
         fun providePresenterLifecycleObserver(presenter: SplashPresenter): LifecycleObserver
-
-        @Binds
-        fun provideGetCategoryList(getCategoryList: GetCategoryListImpl): GetCategoryList
-
-        @Binds
-        fun provideCategoryRemoteStorageMapper(factory: CategoryRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards CategoryList>
-
-        @Binds
-        fun provideCategoryRemoteStorageFactory(factory: CategoryRemoteStorageFactoryImpl): CategoryRemoteStorageFactory
-
-        @Binds
-        fun provideCategoryDiskStorageFactory(factory: CategoryDiskStorageFactoryImpl): CategoryDiskStorageFactory
-
-        @Binds
-        fun provideGetSortOrderList(getSortOrderList: GetSortOrderListImpl): GetSortOrderList
-
-        @Binds
-        fun provideSortOrderRemoteStorageMapper(factory: SortOrderRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards SortOrderList>
-
-        @Binds
-        fun provideSortOrderRemoteStorageFactory(factory: SortOrderRemoteStorageFactoryImpl): SortOrderRemoteStorageFactory
-
-        @Binds
-        fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
     }
 
     @Module

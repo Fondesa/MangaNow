@@ -20,9 +20,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.fondesa.manganow.latest.api.LatestRoute
+import com.fondesa.manganow.mangalist.api.sortorder.GetSortOrderList
 import com.fondesa.manganow.navigation.api.Router
 import com.fondesa.manganow.splash.impl.category.GetCategoryList
-import com.fondesa.manganow.splash.impl.sortorder.GetSortOrderList
 import com.fondesa.manganow.thread.api.DispatchOnMainExceptionHandler
 import com.fondesa.manganow.thread.api.launchWithDelay
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope

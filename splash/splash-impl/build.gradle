@@ -21,6 +21,7 @@ dependencies {
     compileOnly deps.javaxInject
 
     api project(":core:core-api")
+    api project(":mangalist:mangalist-api")
     api project(":domain:domain-category")
     api project(":storage:storage-api")
     api project(":latest:latest-api")

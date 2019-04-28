@@ -35,6 +35,18 @@ import dagger.multibindings.IntoSet
 @Module
 interface LatestModule {
 
+    @Binds
+    fun provideGetLatestList(getLatestList: GetLatestListImpl): GetLatestList
+
+    @Binds
+    fun provideLatestRemoteStorageMapper(factory: LatestRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards LatestList>
+
+    @Binds
+    fun provideLatestRemoteStorageFactory(factory: LatestRemoteStorageFactoryImpl): LatestRemoteStorageFactory
+
+    @Binds
+    fun provideLatestDiskStorageFactory(factory: LatestDiskStorageFactoryImpl): LatestDiskStorageFactory
+
     @ScreenScope
     @ContributesAndroidInjector(
         modules = [
@@ -64,18 +76,6 @@ interface LatestModule {
         @Binds
         @IntoSet
         fun providePresenterLifecycleObserver(presenter: LatestPresenter): LifecycleObserver
-
-        @Binds
-        fun provideGetLatestList(getLatestList: GetLatestListImpl): GetLatestList
-
-        @Binds
-        fun provideLatestRemoteStorageMapper(factory: LatestRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards LatestList>
-
-        @Binds
-        fun provideLatestRemoteStorageFactory(factory: LatestRemoteStorageFactoryImpl): LatestRemoteStorageFactory
-
-        @Binds
-        fun provideLatestDiskStorageFactory(factory: LatestDiskStorageFactoryImpl): LatestDiskStorageFactory
     }
 
     @Module

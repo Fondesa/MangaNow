@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.mangalist.api.sortorder
 
-import com.fondesa.manganow.storage.api.remote.RemoteStorage
+/**
+ * Defines the operation which must be executed to obtain the list of the sort orders.
+ */
+interface GetSortOrderList {
 
-interface SortOrderRemoteStorageFactory {
-
-    fun provideStorage(): RemoteStorage<SortOrderList>
+    /**
+     * Gets the list of all the sort order.
+     *
+     * @return a list containing all the possible sort orders used to sort a list of manga.
+     */
+    suspend fun execute(): SortOrderList
 }

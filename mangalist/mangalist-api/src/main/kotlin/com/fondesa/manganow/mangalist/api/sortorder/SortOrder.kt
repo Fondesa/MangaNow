@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.mangalist.api.sortorder
 
-import com.fondesa.manganow.database.annotations.Column
-import com.fondesa.manganow.database.annotations.Table
-import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
-import com.fondesa.manganow.database.api.structure.TextColumnConfig
-
-@Table("sort_order")
-object SortOrderTableConfig {
-
-    @Column("id")
-    val COL_ID = IntegerColumnConfig().primaryKey()
-
-    @Column("name")
-    val COL_NAME = TextColumnConfig().unique()
-
-    @Column("priority")
-    val COL_PRIORITY = IntegerColumnConfig().unique()
-}
+/**
+ * Identifies the possible sort orders of a list of manga.
+ *
+ * @param id the sort order's id.
+ * @param name the sort order's name.
+ * @param priority the priority of the sort order which identifies its importance. An higher
+ * priority means an higher importance.
+ */
+data class SortOrder(
+    val id: Long,
+    val name: String,
+    val priority: Int
+)

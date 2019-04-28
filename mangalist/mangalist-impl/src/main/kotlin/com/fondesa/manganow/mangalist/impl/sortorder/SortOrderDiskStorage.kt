@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.mangalist.impl.sortorder
 
 import com.fondesa.manganow.database.api.client.DatabaseClient
 import com.fondesa.manganow.database.api.client.clause.ConflictType
 import com.fondesa.manganow.database.api.client.statement.Insert
 import com.fondesa.manganow.database.api.client.statement.Select
+import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
+import com.fondesa.manganow.mangalist.api.sortorder.SortOrderList
 import com.fondesa.manganow.storage.api.disk.SQLiteDiskStorage
 
 class SortOrderDiskStorage(

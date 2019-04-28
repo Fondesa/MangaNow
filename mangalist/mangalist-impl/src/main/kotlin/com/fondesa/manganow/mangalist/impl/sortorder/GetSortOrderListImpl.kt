@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.mangalist.impl.sortorder
 
+import com.fondesa.manganow.mangalist.api.sortorder.GetSortOrderList
+import com.fondesa.manganow.mangalist.api.sortorder.SortOrderList
 import dagger.Reusable
 import javax.inject.Inject
 

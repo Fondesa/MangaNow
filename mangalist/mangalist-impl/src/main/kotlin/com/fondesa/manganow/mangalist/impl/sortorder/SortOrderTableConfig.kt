@@ -14,9 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.mangalist.impl.sortorder
 
-/**
- * Identifies a list of [SortOrder] which suppress the wildcards.
- */
-typealias SortOrderList = List<@JvmSuppressWildcards SortOrder>
+import com.fondesa.manganow.database.annotations.Column
+import com.fondesa.manganow.database.annotations.Table
+import com.fondesa.manganow.database.api.structure.IntegerColumnConfig
+import com.fondesa.manganow.database.api.structure.TextColumnConfig
+
+@Table("sort_order")
+object SortOrderTableConfig {
+
+    @Column("id")
+    val COL_ID = IntegerColumnConfig().primaryKey()
+
+    @Column("name")
+    val COL_NAME = TextColumnConfig().unique()
+
+    @Column("priority")
+    val COL_PRIORITY = IntegerColumnConfig().unique()
+}

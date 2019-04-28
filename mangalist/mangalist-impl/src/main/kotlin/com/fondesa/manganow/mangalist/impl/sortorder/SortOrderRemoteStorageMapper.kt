@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.splash.impl.sortorder
+package com.fondesa.manganow.mangalist.impl.sortorder
 
+import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
+import com.fondesa.manganow.mangalist.api.sortorder.SortOrderList
 import com.fondesa.manganow.serialization.api.json.mapJsonObject
 import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.google.gson.JsonElement

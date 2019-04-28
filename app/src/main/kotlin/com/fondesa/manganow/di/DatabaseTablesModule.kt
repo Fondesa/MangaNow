@@ -21,7 +21,7 @@ import com.fondesa.manganow.domain.chapter.ChapterTableModule
 import com.fondesa.manganow.domain.manga.MangaTableModule
 import com.fondesa.manganow.domain.page.PageTableModule
 import com.fondesa.manganow.latest.impl.LatestTableModule
-import com.fondesa.manganow.splash.impl.sortorder.SortOrderTableModule
+import com.fondesa.manganow.mangalist.impl.sortorder.SortOrderTableModule
 import com.fondesa.manganow.storage.api.disk.CacheTableModule
 import dagger.Module
 

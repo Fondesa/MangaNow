@@ -21,6 +21,7 @@ import com.fondesa.manganow.App
 import com.fondesa.manganow.database.di.DatabaseModule
 import com.fondesa.manganow.latest.di.LatestModule
 import com.fondesa.manganow.log.di.LogModule
+import com.fondesa.manganow.mangalist.di.MangaListModule
 import com.fondesa.manganow.navigation.di.NavigationModule
 import com.fondesa.manganow.remote.di.RemoteModule
 import com.fondesa.manganow.serialization.di.SerializationModule
@@ -49,6 +50,7 @@ import javax.inject.Singleton
         DatabaseTablesModule::class,
         UiModule::class,
         SplashModule::class,
+        MangaListModule::class,
         LatestModule::class
     ]
 )
