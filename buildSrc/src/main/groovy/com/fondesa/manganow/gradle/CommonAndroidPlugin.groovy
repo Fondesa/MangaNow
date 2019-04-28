@@ -35,6 +35,7 @@ class CommonAndroidPlugin implements Plugin<Project> {
                     minSdkVersion androidConfig.minSdk
                     targetSdkVersion androidConfig.targetSdk
                     multiDexEnabled true
+                    vectorDrawables.useSupportLibrary = true
 
                     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
                     testInstrumentationRunnerArguments clearPackageData: 'true'

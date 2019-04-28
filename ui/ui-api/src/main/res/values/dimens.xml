@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!--
+<?xml version="1.0" encoding="utf-8" standalone="no"?><!--
   ~ Copyright (c) 2018 Fondesa
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,10 +22,6 @@
     <dimen name="cell_chapter_margin_with_image">48dp</dimen>
     <dimen name="cell_chapter_padding">8dp</dimen>
     <dimen name="cell_chapter_padding_between_text">2dp</dimen>
-    <dimen name="cell_manga_favorite_size">56dp</dimen>
-    <dimen name="cell_manga_image_size">48dp</dimen>
-    <dimen name="cell_manga_padding_horizontal">16dp</dimen>
-    <dimen name="cell_manga_padding_vertical">8dp</dimen>
 
     <dimen name="detail_image_border_width">2dp</dimen>
     <dimen name="detail_image_margin">8dp</dimen>
