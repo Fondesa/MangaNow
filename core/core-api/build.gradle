@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-apply plugin: 'common-jvm'
+apply plugin: 'com.android.library'
+apply plugin: 'common-android'
 
 dependencies {
     implementation deps.kotlinStdLib

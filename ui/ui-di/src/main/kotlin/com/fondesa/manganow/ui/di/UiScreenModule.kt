@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.ui.di
 
-dependencies {
-    compileOnly deps.javaxInject
+import androidx.lifecycle.LifecycleObserver
+import com.fondesa.manganow.ui.api.navigation.Navigator
+import com.fondesa.manganow.ui.api.navigation.RouteNavigator
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoSet
 
-    api project(":mangalist:mangalist-impl")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
+@Module
+interface UiScreenModule {
 
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    @Binds
+    fun provideNavigator(navigator: RouteNavigator): Navigator
+
+    @Binds
+    @IntoSet
+    fun provideNavigatorLifecycleObserver(navigator: RouteNavigator): LifecycleObserver
 }

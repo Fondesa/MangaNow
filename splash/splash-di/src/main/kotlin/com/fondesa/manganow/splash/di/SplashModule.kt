@@ -18,7 +18,6 @@ package com.fondesa.manganow.splash.di
 
 import android.app.Activity
 import androidx.lifecycle.LifecycleObserver
-import com.fondesa.manganow.latest.di.LatestRouteModule
 import com.fondesa.manganow.splash.impl.R
 import com.fondesa.manganow.splash.impl.SplashActivity
 import com.fondesa.manganow.splash.impl.SplashContract
@@ -53,8 +52,7 @@ interface SplashModule {
     @ContributesAndroidInjector(
         modules = [
             ScreenBinds::class,
-            ScreenProvides::class,
-            LatestRouteModule::class
+            ScreenProvides::class
         ]
     )
     fun splashActivity(): SplashActivity

@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.core.api
 
-dependencies {
-    compileOnly deps.javaxInject
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 
-    api project(":mangalist:mangalist-impl")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
-
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
-}
+inline fun <reified T : Activity> intentFor(context: Context): Intent =
+    Intent(context, T::class.java).apply {
+        if (context !is Activity) {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+    }

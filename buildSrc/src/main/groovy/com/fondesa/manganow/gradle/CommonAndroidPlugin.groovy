@@ -49,6 +49,11 @@ class CommonAndroidPlugin implements Plugin<Project> {
                 testOptions {
                     execution 'ANDROIDX_TEST_ORCHESTRATOR'
                     animationsDisabled = true
+                    unitTests.all {
+                        testLogging {
+                            events "passed", "skipped", "failed"
+                        }
+                    }
                 }
 
                 sourceSets.forEach {
@@ -74,6 +79,8 @@ class CommonAndroidPlugin implements Plugin<Project> {
 
             dependencies {
                 deps.multiDex
+
+                androidTestUtil deps.androidTestOrchestrator
             }
         }
     }

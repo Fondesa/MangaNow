@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.fondesa.manganow.core.api.intentFor
 import com.fondesa.manganow.latest.impl.qualifiers.PageSize
 import com.fondesa.manganow.ui.api.BaseActivity
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
@@ -96,9 +97,8 @@ class LatestActivity : BaseActivity<NavigationActivityViewDelegate>(),
 
         private const val LIST_THRESHOLD = 3
 
-        fun createIntent(context: Context): Intent =
-            Intent(context, LatestActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            }
+        fun createIntent(context: Context): Intent = intentFor<LatestActivity>(context).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
     }
 }

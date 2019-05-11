@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.fondesa.manganow.core.api.intentFor
 import com.fondesa.manganow.domain.manga.Manga
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrderList
@@ -115,6 +116,6 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
 
         private const val LIST_THRESHOLD = 3
 
-        fun createIntent(context: Context): Intent = Intent(context, MangaListActivity::class.java)
+        fun createIntent(context: Context): Intent = intentFor<MangaListActivity>(context)
     }
 }

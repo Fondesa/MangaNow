@@ -18,25 +18,37 @@ package com.fondesa.manganow.mangalist.di
 
 import android.app.Activity
 import androidx.lifecycle.LifecycleObserver
-import com.fondesa.manganow.latest.di.LatestRouteModule
+import com.fondesa.manganow.mangalist.api.MangaListRoute
 import com.fondesa.manganow.mangalist.api.sortorder.GetSortOrderList
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrderList
 import com.fondesa.manganow.mangalist.impl.*
 import com.fondesa.manganow.mangalist.impl.qualifiers.PageSize
 import com.fondesa.manganow.mangalist.impl.sortorder.*
+import com.fondesa.manganow.navigation.api.Route
+import com.fondesa.manganow.navigation.api.RouteConsumer
+import com.fondesa.manganow.navigation.di.qualifiers.RouteKey
 import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.fondesa.manganow.ui.api.DefaultNavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
+import com.fondesa.manganow.ui.api.navigation.NavigationSection
 import com.fondesa.manganow.ui.api.navigation.Navigator
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
+import com.fondesa.manganow.ui.di.NavigationSectionKey
+import com.fondesa.manganow.ui.di.UiScreenModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 
-@Module
+@Module(includes = [MangaListModule.WithProvides::class])
 interface MangaListModule {
+
+    @Binds
+    @IntoMap
+    @RouteKey(MangaListRoute::class)
+    fun provideRouteConsumer(consumer: MangaListRouteConsumer): RouteConsumer
 
     @Binds
     fun provideGetSortOrderList(getSortOrderList: GetSortOrderListImpl): GetSortOrderList
@@ -51,7 +63,7 @@ interface MangaListModule {
     fun provideSortOrderDiskStorageFactory(factory: SortOrderDiskStorageFactoryImpl): SortOrderDiskStorageFactory
 
     @Binds
-    fun provideGetMangaList(getMangaList: GetMangaList): GetMangaList
+    fun provideGetMangaList(getMangaList: GetMangaListImpl): GetMangaList
 
     @Binds
     fun provideMangaListRemoteStorageMapper(factory: MangaListRemoteStorageMapper): RemoteStorageMapper<@JvmSuppressWildcards MangaList>
@@ -62,13 +74,22 @@ interface MangaListModule {
     @Binds
     fun provideMangaListDiskStorageFactory(factory: MangaListDiskStorageFactoryImpl): MangaListDiskStorageFactory
 
+    @Module
+    object WithProvides {
+
+        @JvmStatic
+        @Provides
+        @IntoMap
+        @NavigationSectionKey(NavigationSection.LIST)
+        fun provideRouteForNavigationSection(): Route = MangaListRoute
+    }
+
     @ScreenScope
     @ContributesAndroidInjector(
         modules = [
             ScreenBinds::class,
             ScreenProvides::class,
-            LatestRouteModule::class,
-            MangaListRouteModule::class
+            UiScreenModule::class
         ]
     )
     fun mangaListActivity(): MangaListActivity

@@ -24,12 +24,15 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.fondesa.manganow.navigation.api.Route
 import com.fondesa.manganow.navigation.api.Router
 import com.fondesa.manganow.thread.api.launchWithDelay
+import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+// TODO: ActivityRetriever??
+@ScreenScope
 class RouteNavigator @Inject constructor(
     private val activity: Activity,
     private val router: Router,
@@ -42,8 +45,12 @@ class RouteNavigator @Inject constructor(
 
     private val job = Job()
 
+    @IdRes
+    private var screenNavItem: Int = 0
+
     override fun onItemSelected(@IdRes selectedId: Int) {
-        if (itemIdContainer.value == selectedId)
+        screenNavItem = itemIdContainer.value
+        if (screenNavItem == selectedId)
             return
 
         // Start the navigation 250ms after to not overlap the system animation.
@@ -72,6 +79,15 @@ class RouteNavigator @Inject constructor(
 
     @IdRes
     override fun getCurrentItemId() = itemIdContainer.value
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    private fun onStart() {
+        if (screenNavItem != 0) {
+            // Save the screen related id if the user navigated to another screen before.
+            itemIdContainer.value = screenNavItem
+            screenNavItem = 0
+        }
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     private fun detach() {

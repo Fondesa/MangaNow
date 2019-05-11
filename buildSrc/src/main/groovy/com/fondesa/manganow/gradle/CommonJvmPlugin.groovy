@@ -38,6 +38,12 @@ class CommonJvmPlugin implements Plugin<Project> {
             }
 
             sourceSets.main.java.srcDir "$buildDir/generated/source/kaptKotlin/main"
+
+            test {
+                testLogging {
+                    events "passed", "skipped", "failed"
+                }
+            }
         }
     }
 }

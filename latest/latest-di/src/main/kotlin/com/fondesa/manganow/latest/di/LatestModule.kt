@@ -18,22 +18,34 @@ package com.fondesa.manganow.latest.di
 
 import android.app.Activity
 import androidx.lifecycle.LifecycleObserver
+import com.fondesa.manganow.latest.api.LatestRoute
 import com.fondesa.manganow.latest.impl.*
-import com.fondesa.manganow.mangalist.di.MangaListRouteModule
-import com.fondesa.manganow.mangalist.impl.qualifiers.PageSize
+import com.fondesa.manganow.latest.impl.qualifiers.PageSize
+import com.fondesa.manganow.navigation.api.Route
+import com.fondesa.manganow.navigation.api.RouteConsumer
+import com.fondesa.manganow.navigation.di.qualifiers.RouteKey
 import com.fondesa.manganow.storage.api.remote.RemoteStorageMapper
 import com.fondesa.manganow.ui.api.DefaultNavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
+import com.fondesa.manganow.ui.api.navigation.NavigationSection
 import com.fondesa.manganow.ui.api.navigation.Navigator
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
+import com.fondesa.manganow.ui.di.NavigationSectionKey
+import com.fondesa.manganow.ui.di.UiScreenModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 
-@Module
+@Module(includes = [LatestModule.WithProvides::class])
 interface LatestModule {
+
+    @Binds
+    @IntoMap
+    @RouteKey(LatestRoute::class)
+    fun provideRouteConsumer(consumer: LatestRouteConsumer): RouteConsumer
 
     @Binds
     fun provideGetLatestList(getLatestList: GetLatestListImpl): GetLatestList
@@ -47,13 +59,22 @@ interface LatestModule {
     @Binds
     fun provideLatestDiskStorageFactory(factory: LatestDiskStorageFactoryImpl): LatestDiskStorageFactory
 
+    @Module
+    object WithProvides {
+
+        @JvmStatic
+        @Provides
+        @IntoMap
+        @NavigationSectionKey(NavigationSection.HOME)
+        fun provideRouteForNavigationSection(): Route = LatestRoute
+    }
+
     @ScreenScope
     @ContributesAndroidInjector(
         modules = [
             ScreenBinds::class,
             ScreenProvides::class,
-            LatestRouteModule::class,
-            MangaListRouteModule::class
+            UiScreenModule::class
         ]
     )
     fun latestActivity(): LatestActivity

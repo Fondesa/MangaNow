@@ -30,10 +30,11 @@ import com.fondesa.manganow.thread.api.dispatchOnMainExceptionHandler
 import com.fondesa.manganow.thread.api.printStacktraceExceptionHandler
 import com.fondesa.manganow.ui.api.qualifiers.ScreenScope
 import kotlinx.coroutines.*
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 @ScreenScope
-class MangaListPresenter(
+class MangaListPresenter @Inject constructor(
     private val view: MangaListContract.View,
     @PageSize private val pageSize: Int,
     private val getMangaList: GetMangaList,

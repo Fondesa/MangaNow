@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package com.fondesa.manganow.ui.di
+package com.fondesa.manganow.core.di
 
-import com.fondesa.manganow.ui.api.navigation.Navigator
-import com.fondesa.manganow.ui.api.navigation.RouteNavigator
+import com.fondesa.manganow.core.api.ActivityRetriever
+import com.fondesa.manganow.core.api.AppInitializer
+import com.fondesa.manganow.core.impl.ActivityRetrieverImpl
 import dagger.Binds
 import dagger.Module
+import dagger.multibindings.IntoSet
 
 @Module
-interface UiModule {
+interface CoreModule {
 
     @Binds
-    fun provideNavigator(navigator: RouteNavigator): Navigator
+    @IntoSet
+    fun provideActivityRetrieverInitializer(retriever: ActivityRetrieverImpl): AppInitializer
+
+    @Binds
+    fun provideActivityRetriever(retriever: ActivityRetrieverImpl): ActivityRetriever
 }

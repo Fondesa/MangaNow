@@ -18,6 +18,7 @@ package com.fondesa.manganow.di
 
 import android.app.Application
 import com.fondesa.manganow.App
+import com.fondesa.manganow.core.di.CoreModule
 import com.fondesa.manganow.database.di.DatabaseModule
 import com.fondesa.manganow.latest.di.LatestModule
 import com.fondesa.manganow.log.di.LogModule
@@ -28,7 +29,6 @@ import com.fondesa.manganow.serialization.di.SerializationModule
 import com.fondesa.manganow.splash.di.SplashModule
 import com.fondesa.manganow.thread.di.ThreadModule
 import com.fondesa.manganow.time.di.TimeModule
-import com.fondesa.manganow.ui.di.UiModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -41,6 +41,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         ThreadModule::class,
+        CoreModule::class,
         SerializationModule::class,
         NavigationModule::class,
         TimeModule::class,
@@ -48,7 +49,6 @@ import javax.inject.Singleton
         RemoteModule::class,
         DatabaseModule::class,
         DatabaseTablesModule::class,
-        UiModule::class,
         SplashModule::class,
         MangaListModule::class,
         LatestModule::class

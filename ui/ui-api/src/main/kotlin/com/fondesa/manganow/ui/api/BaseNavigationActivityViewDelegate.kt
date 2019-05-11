@@ -59,6 +59,9 @@ abstract class BaseNavigationActivityViewDelegate(
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
 
+    @IdRes
+    private var screenNavItem: Int = 0
+
     private val drawerToggle: ActionBarDrawerToggle by lazy {
         ActionBarDrawerToggle(
             activity,
@@ -85,7 +88,7 @@ abstract class BaseNavigationActivityViewDelegate(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Attach the navigator adding the OnItemSelectedListener on the NavigationView.
-        navigator.attach(navigationView)
+        attachNavigator()
 
         // Get the AppBarLayout that will be added to the CoordinatorLayout.
         _appBarLayout = createAppBarLayout()
@@ -123,23 +126,25 @@ abstract class BaseNavigationActivityViewDelegate(
     private fun onDestroy() {
         navigationView.setNavigationItemSelectedListener(null)
         drawerLayout.removeDrawerListener(drawerToggle)
-
     }
 
-    private fun Navigator.attach(view: NavigationView) {
-        // Attach the Navigator.
-        @IdRes val currentId = getCurrentItemId()
-        // Restore the current selected id.
-        view.menu?.findItem(currentId)?.isChecked = true
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    private fun onStart() {
+        // Check the screen related id if the user navigated to another screen before..
+        navigationView.setCheckedItem(screenNavItem)
+    }
 
-        view.setNavigationItemSelectedListener { item ->
-            onItemSelected(item.itemId)
+    private fun attachNavigator() {
+        screenNavItem = navigator.getCurrentItemId()
+        // Restore the current selected id.
+        navigationView.setCheckedItem(screenNavItem)
+
+        // Attach the Navigator.
+        navigationView.setNavigationItemSelectedListener { item ->
+            navigator.onItemSelected(item.itemId)
             // Close drawer after click.
             drawerLayout.closeDrawer(GravityCompat.START)
             true
-        }
-        (this as? LifecycleObserver)?.let {
-            activity.lifecycle.addObserver(it)
         }
     }
 }

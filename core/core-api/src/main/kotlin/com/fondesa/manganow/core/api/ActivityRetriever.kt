@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'common-android'
+package com.fondesa.manganow.core.api
 
-dependencies {
-    compileOnly deps.javaxInject
+import android.app.Activity
 
-    api project(":mangalist:mangalist-impl")
-    api project(":navigation:navigation-di")
-    api project(":ui:ui-di")
-    api deps.daggerAndroid
+interface ActivityRetriever {
 
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    fun retrieveCurrent(): Activity?
 }

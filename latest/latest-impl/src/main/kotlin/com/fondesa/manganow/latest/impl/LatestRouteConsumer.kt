@@ -16,16 +16,20 @@
 
 package com.fondesa.manganow.latest.impl
 
-import android.app.Activity
+import android.content.Context
+import com.fondesa.manganow.core.api.ActivityRetriever
 import com.fondesa.manganow.latest.api.LatestRoute
 import com.fondesa.manganow.navigation.api.TypedRouteConsumer
 import javax.inject.Inject
 
-class LatestRouteConsumer @Inject constructor(private val activity: Activity) :
-    TypedRouteConsumer<LatestRoute>(LatestRoute::class) {
+class LatestRouteConsumer @Inject constructor(
+    private val context: Context,
+    private val activityRetriever: ActivityRetriever
+) : TypedRouteConsumer<LatestRoute>(LatestRoute::class) {
 
     override fun consumeRoute(route: LatestRoute) {
-        val intent = LatestActivity.createIntent(activity)
-        activity.startActivity(intent)
+        val context = activityRetriever.retrieveCurrent() ?: context
+        val intent = LatestActivity.createIntent(context)
+        context.startActivity(intent)
     }
 }

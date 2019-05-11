@@ -17,11 +17,12 @@
 def androidConstraintLayout = '1.1.3'
 def androidPlugin = '3.4.0'
 def androidSupport = '1.0.0'
+def androidTestOrchestrator = '1.1.1'
 def androidTestRunner = '1.1.0'
 def autoFactory = '1.0-beta6'
 def autoService = '1.0-rc5'
 def autoValue = '1.5.3'
-def coroutines = '1.1.1'
+def coroutines = '1.2.1'
 def dagger = '2.22.1'
 def espresso = '3.1.1'
 def fresco = '1.13.0'
@@ -29,14 +30,15 @@ def glide = '4.9.0'
 def gson = '2.8.5'
 def javaxInject = '1'
 def jUnit = '4.12'
-def kotlin = '1.3.21'
+def kotlin = '1.3.31'
 // TODO: UPDATE
 def kotlinPoet = '0.7.0'
 def leakCanary = '1.6.3'
 def mockitoInLine = '2.27.0'
 def mockitoKotlin = '2.1.0'
 def multiDex = '2.0.0'
-def okHttp = '3.14.1'
+// The latest which supports Android < 5.0.
+def okHttp = '3.12.2'
 def recyclerViewDivider = '2.0.1'
 def timber = '4.7.1'
 
@@ -47,6 +49,7 @@ ext.deps = [
         androidConstraintLayout : "androidx.constraintlayout:constraintlayout:$androidConstraintLayout",
         recyclerView            : "androidx.recyclerview:recyclerview:$androidSupport",
         design                  : "com.google.android.material:material:$androidSupport",
+        androidTestOrchestrator : "androidx.test:orchestrator:$androidTestOrchestrator",
         androidTestRunner       : "androidx.test:runner:$androidTestRunner",
         androidPlugin           : "com.android.tools.build:gradle:$androidPlugin",
         autoFactory             : "com.google.auto.factory:auto-factory:$autoFactory",

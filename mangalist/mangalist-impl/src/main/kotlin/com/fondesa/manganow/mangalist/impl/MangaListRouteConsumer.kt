@@ -16,16 +16,20 @@
 
 package com.fondesa.manganow.mangalist.impl
 
-import android.app.Activity
+import android.content.Context
+import com.fondesa.manganow.core.api.ActivityRetriever
 import com.fondesa.manganow.mangalist.api.MangaListRoute
 import com.fondesa.manganow.navigation.api.TypedRouteConsumer
 import javax.inject.Inject
 
-class MangaListRouteConsumer @Inject constructor(private val activity: Activity) :
-    TypedRouteConsumer<MangaListRoute>(MangaListRoute::class) {
+class MangaListRouteConsumer @Inject constructor(
+    private val context: Context,
+    private val activityRetriever: ActivityRetriever
+) : TypedRouteConsumer<MangaListRoute>(MangaListRoute::class) {
 
     override fun consumeRoute(route: MangaListRoute) {
-        val intent = MangaListActivity.createIntent(activity)
-        activity.startActivity(intent)
+        val context = activityRetriever.retrieveCurrent() ?: context
+        val intent = MangaListActivity.createIntent(context)
+        context.startActivity(intent)
     }
 }
