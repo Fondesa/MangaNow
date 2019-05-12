@@ -86,6 +86,12 @@ interface LatestModule {
         fun provideActivity(activity: LatestActivity): Activity
 
         @Binds
+        fun provideLatestAdapter(adapter: LatestRecyclerViewAdapterImpl): LatestRecyclerViewAdapter
+
+        @Binds
+        fun provideLatestHolderFactory(factory: LatestRecyclerViewHolderImplFactory): LatestRecyclerViewHolderFactory
+
+        @Binds
         fun provideOnLatestClickListener(activity: LatestActivity): LatestRecyclerViewAdapter.OnLatestClickListener
 
         @Binds

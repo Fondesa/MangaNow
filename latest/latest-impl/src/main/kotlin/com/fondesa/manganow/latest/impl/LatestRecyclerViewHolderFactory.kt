@@ -16,12 +16,9 @@
 
 package com.fondesa.manganow.latest.impl
 
-import android.view.View
-import com.fondesa.manganow.ui.api.view.InteractiveRecyclerViewHolder
+import android.view.ViewGroup
 
-abstract class LatestRecyclerViewHolder(itemView: View) :
-    InteractiveRecyclerViewHolder(itemView) {
+interface LatestRecyclerViewHolderFactory {
 
-    abstract fun bind(item: Latest)
+    fun create(parent: ViewGroup): LatestRecyclerViewHolder
 }
-
