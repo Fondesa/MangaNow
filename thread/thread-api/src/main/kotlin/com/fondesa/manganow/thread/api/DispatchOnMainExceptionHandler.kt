@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 
 inline fun dispatchOnMainExceptionHandler(crossinline handler: (Throwable) -> Unit): CoroutineExceptionHandler =
     CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
         GlobalScope.launch(Dispatchers.Main) {
             handler(throwable)
         }

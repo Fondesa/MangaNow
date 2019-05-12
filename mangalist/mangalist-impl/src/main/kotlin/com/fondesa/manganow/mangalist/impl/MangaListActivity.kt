@@ -30,9 +30,11 @@ import com.fondesa.manganow.mangalist.impl.qualifiers.PageSize
 import com.fondesa.manganow.ui.api.BaseActivity
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.util.addObservers
+import com.fondesa.manganow.ui.api.view.AutoSubmitQueryTextListener
 import com.fondesa.manganow.ui.api.view.RecyclerViewScrollEndedListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_manga_list.*
+import kotlinx.android.synthetic.main.partial_search_app_bar.*
 import javax.inject.Inject
 
 class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
@@ -63,8 +65,19 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         // Set the adapter on the RecyclerView.
         recyclerView.adapter = adapter
+
+        val queryTextListener = AutoSubmitQueryTextListener {
+            presenter.textSearched(it)
+        }
+        searchView.setOnQueryTextListener(queryTextListener)
+        lifecycle.addObserver(queryTextListener)
         // Attach the view to the presenter.
         presenter.attach()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        searchView.handleResult(requestCode, resultCode, data)
     }
 
     override fun showProgressIndicator() {
@@ -97,6 +110,7 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
     }
 
     override fun showMangaList(mangaList: MangaList) {
+        adapter.updateList(mangaList)
     }
 
     override fun showSortOrdersView() {

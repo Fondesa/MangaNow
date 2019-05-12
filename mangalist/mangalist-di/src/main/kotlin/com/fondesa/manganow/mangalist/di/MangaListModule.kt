@@ -130,7 +130,8 @@ interface MangaListModule {
         ): NavigationActivityViewDelegate = DefaultNavigationActivityViewDelegate(
             activity = activity,
             navigator = navigator,
-            contentLayout = R.layout.activity_manga_list
+            contentLayout = R.layout.activity_manga_list,
+            appBarLayoutRes = R.layout.partial_search_app_bar
         )
     }
 }

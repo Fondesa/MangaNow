@@ -111,7 +111,8 @@ class MangaListDiskStorage(
             .conflictType(ConflictType.IGNORE)
             .columns(
                 MangaTable.COL_IMAGE_URL,
-                MangaTable.COL_TITLE
+                MangaTable.COL_TITLE,
+                MangaTable.COL_HITS
             )
             .where(MangaTable.COL_ID.equalTo(mangaId))
             .build()
