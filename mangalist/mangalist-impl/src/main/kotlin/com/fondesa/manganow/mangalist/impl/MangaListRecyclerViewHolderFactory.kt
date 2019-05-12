@@ -16,15 +16,9 @@
 
 package com.fondesa.manganow.mangalist.impl
 
-import com.fondesa.manganow.domain.manga.Manga
-import com.fondesa.manganow.ui.api.view.PagingRecyclerViewAdapter
+import android.view.ViewGroup
 
-abstract class MangaListRecyclerViewAdapter(pageSize: Int) : PagingRecyclerViewAdapter(pageSize) {
+interface MangaListRecyclerViewHolderFactory {
 
-    abstract fun updateList(items: MangaList)
-
-    interface OnMangaClickListener {
-
-        fun onMangaClicked(manga: Manga)
-    }
+    fun create(parent: ViewGroup): MangaListRecyclerViewHolder
 }

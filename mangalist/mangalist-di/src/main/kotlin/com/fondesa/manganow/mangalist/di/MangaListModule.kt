@@ -102,6 +102,12 @@ interface MangaListModule {
         fun provideActivity(activity: MangaListActivity): Activity
 
         @Binds
+        fun provideMangaListAdapter(adapter: MangaListRecyclerViewAdapterImpl): MangaListRecyclerViewAdapter
+
+        @Binds
+        fun provideMangaListHolderFactory(factory: MangaListRecyclerViewHolderImplFactory): MangaListRecyclerViewHolderFactory
+
+        @Binds
         fun provideOnMangaClickListener(activity: MangaListActivity): MangaListRecyclerViewAdapter.OnMangaClickListener
 
         @Binds
@@ -145,7 +151,7 @@ interface MangaListModule {
 
         @JvmStatic
         @Provides
-        fun provideSortOrderSpinnerAdapter(
+        fun provideSortOrderAdapter(
             activity: MangaListActivity,
             @Named(SortOrderSpinnerViewHolderFactory.MAIN) mainHolderFactory: SortOrderSpinnerViewHolderFactory,
             @Named(SortOrderSpinnerViewHolderFactory.DROPDOWN) dropDownHolderFactory: SortOrderSpinnerViewHolderFactory

@@ -16,29 +16,13 @@
 
 package com.fondesa.manganow.mangalist.impl
 
-import android.view.ViewGroup
+import android.view.View
 import com.fondesa.manganow.domain.manga.Manga
-import com.fondesa.manganow.remote.api.task.RemoteImageUrl
-import com.fondesa.manganow.ui.api.util.inflateChild
 import com.fondesa.manganow.ui.api.view.InteractiveRecyclerViewHolder
-import com.fondesa.manganow.ui.api.view.RecyclerViewInteraction
-import com.fondesa.manganow.ui.api.view.RecyclerViewRowGesture
-import com.google.auto.factory.AutoFactory
-import kotlinx.android.synthetic.main.row_manga.*
 
-@AutoFactory
-class MangaListRecyclerViewHolder(parent: ViewGroup) :
-    InteractiveRecyclerViewHolder(parent.inflateChild(R.layout.row_manga)) {
+abstract class MangaListRecyclerViewHolder(itemView: View) :
+    InteractiveRecyclerViewHolder(itemView) {
 
-    override val interactions: Array<RecyclerViewInteraction> =
-        arrayOf(RecyclerViewInteraction(itemView, RecyclerViewRowGesture.CLICK))
-
-    fun bind(item: Manga) {
-        titleTextView.text = item.title
-        val imageUrl = item.imageUrl?.let {
-            RemoteImageUrl.from(it)
-        }
-        imageView.setImageURI(imageUrl)
-    }
+    abstract fun bind(item: Manga)
 }
 
