@@ -27,6 +27,7 @@ import com.fondesa.manganow.domain.manga.Manga
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrder
 import com.fondesa.manganow.mangalist.api.sortorder.SortOrderList
 import com.fondesa.manganow.mangalist.impl.qualifiers.PageSize
+import com.fondesa.manganow.mangalist.impl.sortorder.SortOrderSpinnerAdapter
 import com.fondesa.manganow.ui.api.BaseActivity
 import com.fondesa.manganow.ui.api.NavigationActivityViewDelegate
 import com.fondesa.manganow.ui.api.util.addObservers
@@ -48,7 +49,10 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
     internal lateinit var lifecycleObservers: Set<@JvmSuppressWildcards LifecycleObserver>
 
     @Inject
-    internal lateinit var adapter: MangaListRecyclerViewAdapter
+    internal lateinit var mangaListAdapter: MangaListRecyclerViewAdapter
+
+    @Inject
+    internal lateinit var sortOrderAdapter: SortOrderSpinnerAdapter
 
     @JvmField
     @field:[Inject PageSize]
@@ -63,8 +67,8 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
         }
         recyclerView.addOnScrollListener(paginationListener)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        // Set the adapter on the RecyclerView.
-        recyclerView.adapter = adapter
+        // Set the mangaListAdapter on the RecyclerView.
+        recyclerView.adapter = mangaListAdapter
 
         val queryTextListener = AutoSubmitQueryTextListener {
             presenter.textSearched(it)
@@ -110,7 +114,7 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
     }
 
     override fun showMangaList(mangaList: MangaList) {
-        adapter.updateList(mangaList)
+        mangaListAdapter.updateList(mangaList)
     }
 
     override fun showSortOrdersView() {

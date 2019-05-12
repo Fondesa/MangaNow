@@ -41,6 +41,7 @@ import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
+import javax.inject.Named
 
 @Module(includes = [MangaListModule.WithProvides::class])
 interface MangaListModule {
@@ -112,6 +113,14 @@ interface MangaListModule {
         @Binds
         @IntoSet
         fun providePresenterLifecycleObserver(presenter: MangaListPresenter): LifecycleObserver
+
+        @Binds
+        @Named(SortOrderSpinnerViewHolderFactory.MAIN)
+        fun provideMainSortOrderHolderFactory(factory: MainSortOrderSpinnerViewHolderFactory): SortOrderSpinnerViewHolderFactory
+
+        @Binds
+        @Named(SortOrderSpinnerViewHolderFactory.DROPDOWN)
+        fun provideDropDownSortOrderHolderFactory(factory: DropDownSortOrderSpinnerViewHolderFactory): SortOrderSpinnerViewHolderFactory
     }
 
     @Module
@@ -132,6 +141,18 @@ interface MangaListModule {
             navigator = navigator,
             contentLayout = R.layout.activity_manga_list,
             appBarLayoutRes = R.layout.partial_search_app_bar
+        )
+
+        @JvmStatic
+        @Provides
+        fun provideSortOrderSpinnerAdapter(
+            activity: MangaListActivity,
+            @Named(SortOrderSpinnerViewHolderFactory.MAIN) mainHolderFactory: SortOrderSpinnerViewHolderFactory,
+            @Named(SortOrderSpinnerViewHolderFactory.DROPDOWN) dropDownHolderFactory: SortOrderSpinnerViewHolderFactory
+        ): SortOrderSpinnerAdapter = SortOrderSpinnerAdapterImpl(
+            context = activity,
+            mainHolderFactory = mainHolderFactory,
+            dropDownHolderFactory = dropDownHolderFactory
         )
     }
 }
