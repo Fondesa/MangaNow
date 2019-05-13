@@ -17,6 +17,7 @@
 package com.fondesa.manganow.ui.api
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
 import dagger.android.AndroidInjection
@@ -34,6 +35,9 @@ abstract class BaseActivity<V : ActivityViewDelegate> : AppCompatActivity() {
     lateinit var viewManager: V
         internal set
 
+    private val dispatchedMenuActions = mutableListOf<Menu.() -> Unit>()
+    private var menu: Menu? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -50,12 +54,27 @@ abstract class BaseActivity<V : ActivityViewDelegate> : AppCompatActivity() {
         onViewCreated(savedInstanceState)
     }
 
+    final override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        this.menu = menu
+        dispatchedMenuActions.forEach { it(menu) }
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onBackPressed() {
         // Try to handle the back press with the view manager.
         val handled = (viewManager as? OnBackPressDelegate)?.onBackPress() ?: false
         if (!handled) {
             // If the back press wasn't handled, invoke the super handling.
             super.onBackPressed()
+        }
+    }
+
+    protected fun dispatchAfterMenuCreation(action: Menu.() -> Unit) {
+        val menu = menu
+        if (menu == null) {
+            dispatchedMenuActions.add(action)
+        } else {
+            action(menu)
         }
     }
 

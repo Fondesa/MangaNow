@@ -19,7 +19,11 @@ package com.fondesa.manganow.mangalist.impl
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.Spinner
 import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.fondesa.manganow.core.api.intentFor
@@ -40,7 +44,8 @@ import javax.inject.Inject
 
 class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
     MangaListContract.View,
-    MangaListRecyclerViewAdapter.OnMangaClickListener {
+    MangaListRecyclerViewAdapter.OnMangaClickListener,
+    AdapterView.OnItemSelectedListener {
 
     @Inject
     internal lateinit var presenter: MangaListContract.Presenter
@@ -57,6 +62,13 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
     @JvmField
     @field:[Inject PageSize]
     internal var pageSize: Int = 0
+
+    private val Menu.sortOrderMenuItem: MenuItem
+        get() = findItem(R.id.action_change_sort_order)
+
+    private val Menu.sortOrderSpinner: Spinner
+        get() = sortOrderMenuItem.actionView as Spinner
+
 
     override fun onViewCreated(savedInstanceState: Bundle?) {
         // Add all the lifecycle observers
@@ -75,6 +87,12 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
         }
         searchView.setOnQueryTextListener(queryTextListener)
         lifecycle.addObserver(queryTextListener)
+
+        dispatchAfterMenuCreation {
+            menuInflater.inflate(R.menu.menu_manga_list, this)
+            sortOrderSpinner.adapter = sortOrderAdapter
+            sortOrderSpinner.onItemSelectedListener = this@MangaListActivity
+        }
         // Attach the view to the presenter.
         presenter.attach()
     }
@@ -117,18 +135,36 @@ class MangaListActivity : BaseActivity<NavigationActivityViewDelegate>(),
         mangaListAdapter.updateList(mangaList)
     }
 
-    override fun showSortOrdersView() {
+    override fun showSortOrdersView() = dispatchAfterMenuCreation {
+        sortOrderMenuItem.isVisible = true
     }
 
-    override fun hideSortOrdersView() {
+    override fun hideSortOrdersView() = dispatchAfterMenuCreation {
+        sortOrderMenuItem.isVisible = false
     }
 
     override fun showSortOrders(sortOrders: SortOrderList, defaultSortOrder: SortOrder) {
+        sortOrderAdapter.updateList(sortOrders)
+        dispatchAfterMenuCreation {
+            val defaultIndex = sortOrders.indexOf(defaultSortOrder)
+            if (defaultIndex == -1) {
+                throw IllegalArgumentException("The sort order ${defaultSortOrder.name} can't be found in the sort order list.")
+            }
+            sortOrderSpinner.setSelection(defaultIndex)
+        }
     }
 
     override fun onMangaClicked(manga: Manga) {
         presenter.mangaClicked(manga)
     }
+
+    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+        val sortOrder = sortOrderAdapter.getItem(position)
+            ?: throw IllegalStateException("Can't find an item for the position $position.")
+        presenter.sortOrderSelected(sortOrder)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>) = Unit
 
     companion object {
 

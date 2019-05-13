@@ -16,6 +16,5 @@
   -->
 
 <resources>
-    <string name="msg_no_manga_available">No manga available</string>
-    <string name="action_change_sort_order">Change filter</string>
+    <item name="spinner_adapter_holder_tag" type="id" />
 </resources>
